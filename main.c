@@ -35,7 +35,7 @@ struct entity
 	int TorqX
 	}
 
-void onstep_player()
+void onstep_player ()
 	{
 	player.VeloX = (player.VeloX + axis_buffer_x0) / (Ff * player.m)
 	player.VeloY = (player.VeloY + axis_buffer_y0) / (Ff * player.m)
@@ -65,7 +65,7 @@ struct cameratype camera
 	double fov
 	}
 
-void onstep_camera()
+void onstep_camera ()
 	{
 	camera.azimuth = camera.azimuth + axis_buffer_x2
 	//azimuth around the current z'' axis, not the global z axis
@@ -74,15 +74,15 @@ void onstep_camera()
 	camera.fov = camera.zoom + axis_buffer_y3
 	}
 
-void onstep_buffers()
-	//need to choose input library
+void onstep_buffers ()
+	{} //need to choose input library
 
-void onstep_render()
-	//need to choose 3d library
+void onstep_render ()
+	{} //need to choose 3d library
 	//need to choose graphics library
 	//swap buffers
 
-void onstep_master()
+void onstep_master ()
 	{
 	onstep_player()
 	//implement ai entitys
