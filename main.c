@@ -1,18 +1,24 @@
-//pseudocode
-//engine needs input, graphics, and render library(s)
+//missing semicolons throughout
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "GL/gl.h"
+#include "GL/glu.h"
+#include "GL/glx.h"
+#include "AL/al.h"
+#include "AL/alut.h"
+#include "X11/Xlib.h"
+#include "X11/X.h"
+#include "X11/core.h"
+#include "X11/Xaw/AllWidgets.h"
 
 float g = 9.8
 char Ff = 2
-//for a crude, primative physics engine. full physics may be added later.
-
 long long sealevel = 0
 double north = 0
-/*sealevel and north are for orienting the x,y,z internal map
-to a cylindrical coordinate system of bearing,altitude that is shown to the user.
-each map file can change these.*/
 
 struct entity
 	{
@@ -22,10 +28,9 @@ struct entity
 	double yaw
 	double pitch
 	double roll
-	unsigned int length //z
-	unsigned int width //y
-	unsigned int depth //x
-	//grows from center in x and y, from ground in z
+	unsigned int length
+	unsigned int width
+	unsigned int depth
 	unsigned char m
 	int VeloX
 	int VeloY
@@ -48,7 +53,6 @@ void onstep_player ()
 	player.y = player.y + player.VeloY
 	player.z = player.z + player.VeloZ
 	player.yaw = player.yaw + player.TorqZ
-	//yaw around the current orientation, not around the global z axis
 	player.pitch = player.pitch + player.TorqY
 	player.roll = player.roll + player.TorqX
 	}
@@ -58,7 +62,6 @@ struct cameratype camera
 	int x
 	int y
 	unsigned int z
-	//camera origin is player {x,y,z} + camera {x,y,z}. need to implement.
 	double azimuth
 	double elevation
 	double range
@@ -68,19 +71,16 @@ struct cameratype camera
 void onstep_camera ()
 	{
 	camera.azimuth = camera.azimuth + axis_buffer_x2
-	//azimuth around the current z'' axis, not the global z axis
 	camera.elevation = camera.elevation + axis_buffer_y2
 	camera.range = camera.range + axis_buffer_x3
 	camera.fov = camera.zoom + axis_buffer_y3
 	}
 
 void onstep_buffers ()
-	{} //need to choose input library
+	{}
 
 void onstep_render ()
-	{} //need to choose 3d library
-	//need to choose graphics library
-	//swap buffers
+	{}
 
 void onstep_master ()
 	{
