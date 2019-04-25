@@ -1,22 +1,54 @@
-//missing semicolons throughout
+/**************************************
+*
+* Working Title: I wanna Fly
+*
+* An open world/flight simulation
+* program with a winged humanoid
+* player character, written on
+* OpenGL/Mesa and Athena (Xt,Xaw)
+*
+**************************************/
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <math.h>
+#include <time.h>
+#include <regex.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
 #include "GL/gl.h"
 #include "GL/glu.h"
 #include "GL/glx.h"
-#include "AL/al.h"
-#include "AL/alut.h"
-#include "X11/Xlib.h"
-#include "X11/X.h"
-#include "X11/core.h"
-#include "X11/Xaw/AllWidgets.h"
+
+//Sound is a bit much for right now...
+//#include "AL/al.h"
+//#include "AL/alut.h"
+
+#include "X11/Intrinsic.h"
+#include "X11/StringDefs.h"
+#include "X11/CoreP.h"
+#include "X11/Xatom.h"
+#include "X11/Xaw/Form.h"
+#include "X11/Xaw/Box.h"
+#include "X11/Xaw/Label.h"
+#include "X11/Xaw/Command.h"
+#include "X11/Xaw/Toggle.h"
+#include "X11/Xaw/Scrollbar.h"
+
+#include "./joystick.c"
+#include "./xwindow.c"
+#include "./glxwindow.c"
 
 float g = 9.8
 char Ff = 2
+
+clock_t prevframe = clock()
+int msec
+int timer = 100
+bool pause FALSE
+
 long long sealevel = 0
 double north = 0
 
@@ -92,7 +124,20 @@ void onstep_master ()
 	onstep_render()
 	}
 
-void emrbrake (runaway entity)
+//$$$ MAIN $$$
+
+void main () {
+	clock_t diff
+		while !pause {
+			diff = clock() - prevframe
+			msec = diff * 1000 / CLOCKS_PER_SEC
+			if (msec > timer) {
+				prevframe = clock
+				onstep_master()
+				}
+			}
+
+void emrbrake (entity runaway)
 	{
 	runaway.VeloX = 0
 	runaway.VeloY = 0
@@ -100,7 +145,7 @@ void emrbrake (runaway entity)
 	printf("Do you know how fast you were going?\n")
 	}
 
-void gimbllock (stuck entity)
+void gimbllock (entity stuck)
 	{
 	stuck.TorqX = 0
 	stuck.TorqY = 0
@@ -111,7 +156,7 @@ void gimbllock (stuck entity)
 	printf("Send me a fouth gimbal for christmas!\n")
 	}
 
-void resetcamera (wonky camera)
+void resetcamera (cameratype wonkey)
 	{
 	wonky.azimuth = 0
 	wonky.elevation = 0
