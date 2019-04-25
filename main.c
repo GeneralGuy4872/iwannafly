@@ -124,9 +124,8 @@ void onstep_master ()
 	onstep_render()
 	}
 
-//$$$ MAIN $$$
-
-void main () {
+/*****MAIN*****/
+main () {
 	clock_t diff
 		while !pause {
 			diff = clock() - prevframe
@@ -137,7 +136,8 @@ void main () {
 				}
 			}
 
-void emrbrake (entity runaway)
+void emrbrake (runaway)
+entity runaway
 	{
 	runaway.VeloX = 0
 	runaway.VeloY = 0
@@ -145,22 +145,23 @@ void emrbrake (entity runaway)
 	printf("Do you know how fast you were going?\n")
 	}
 
-void gimbllock (entity stuck)
+void gimbllock (stalled)
+entity stalled
 	{
-	stuck.TorqX = 0
-	stuck.TorqY = 0
-	stuck.TorqZ = 0
-	stuck.pitch = 0
-	stuck.roll = 0
-	stuck.yaw = 0
+	stalled.TorqX = 0
+	stalled.TorqY = 0
+	stalled.TorqZ = 0
+	stalled.pitch = 0
+	stalled.roll = 0
+	stalled.yaw = 0
 	printf("Send me a fouth gimbal for christmas!\n")
 	}
 
-void resetcamera (cameratype wonkey)
+void resetcamera ()
 	{
-	wonky.azimuth = 0
-	wonky.elevation = 0
-	wonky.range = 0
-	wonky.fov = 55 * (M_PI / 180)
+	camera.azimuth = 0
+	camera.elevation = 0
+	camera.range = 0
+	camera.fov = 55 * (M_PI / 180)
 	printf("Lakitu! Cut that out!\n")
 	}
