@@ -148,7 +148,7 @@ Camera Elevation : a from XY in AZ
 Camera Polar : ϕ from Z in AZ
 Camera Range : r from {0,0,eyes}
 Camera FOV : f
-Camera Direction : -r
+Camera Direction : -P
 
 modelpos = offset for model origen
 eyes = offset for camera origen
