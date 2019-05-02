@@ -106,7 +106,7 @@ draconic:
 8 fingers, 30 lines, 3 or 4 each
 2 ankels, 14 lines, 7 each
 2 wrists, 8 lines, 4 each
-9 tailfeathers, 9 lines
+1 tail, 10 lines
 
 insectoid:
 +6 shoulders, 6 lines
@@ -153,4 +153,4 @@ Camera Direction : -r
 modelpos = offset for model origen
 eyes = offset for camera origen
 
-glLoadMatrix {
+use glLoadMatrix for stuff
