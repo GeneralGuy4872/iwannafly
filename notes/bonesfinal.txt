@@ -1,0 +1,156 @@
+variables:
+
+x = previous JOINT's axis X
+y = previous JOINT's axis Y
+z = previous JOINT's axis Z
+
+X = rotation about x or the axis it implys
+Y = rotation about y or the axis it implys
+Z = rotation about z or the axis it implys
+
+φ = roll angle
+
+ℓ = length
+r = radius
+
+parameters:
+
+->  = changes
+... = may be ommitted if 0
+
+index is a direction in the form:
+±axis ± angle
+Z rotates in xy
+Y rotates in xz
+X rotates in yz
+
+lim_ are unsigned angles
+angle is a (usually signed explicitly) quantity in rads, degs, gonds, or turns
+
+
+bone,line:
+   ℓ (length)
+-> φ (index, lim+, lim-, angle)
+...X (index, angle)
+...Y (index, angle)
+...Z (index, angle)
+-> X (index, lim+, lim-, angle)
+-> Y (index, lim+, lim-, angle)
+-> Z (index, lim+, lim-, angle)
+
+bone,sphere:
+   r (radius)
+-> X (index, lim+, lim-, angle)
+-> Y (index, lim+, lim-, angle)
+-> Z (index, lim+, lim-, angle)
+
+bone,bicone:
+   r (radius)
+   ℓ (length)
+...X (index, angle)
+...Y (index, angle)
+...Z (index, angle)
+-> X (index, lim+, lim-, angle)
+-> Y (index, lim+, lim-, angle)
+-> Z (index, lim+, lim-, angle)
+
+common:
+1 neck, 5 lines
+1 back, 10 lines
+2 shoulders, 2 lines
+2 arms, 4 lines, 2 each
+1 pelvis, 2 lines, ROOT
+1 skull, 1 sphere
+
+---
+
+human:
+2 legs, 4 lines, 2 each
+10 toes, 38 lines, 3 or 4 each
+10 fingers, 38 lines, 3 or 4 each
+2 ankels, 14 lines, 7 each
+2 wrists, 8 lines, 4 each
+
+avid:
++2 shoulders, 2 lines
+2 legs, 6 lines, 3 each
+2 wings, 6 lines, 3 each
+18 primaries, 18 lines
+8 toes, 16 lines, 2 each
+8 fingers, 30 lines, 3 or 4 each
+2 ankels, 14 lines, 7 each
+2 wrists, 8 lines, 4 each
+9 tailfeathers, 9 lines
+
+felid:
+2 legs, 6 lines, 3 each
+10 toes, 20 lines, 2 each
+10 fingers, 38 lines, 3 or 4 each
+2 ankels, 14 lines, 7 each
+2 wrists, 8 lines, 4 each
+1 tail, 10 lines
+
+merfolk:
+10 fingers, 38 lines, 3 or 4 each
+2 wrists, 8 lines, 4 each
+2 fins, 2 lines, 1 each
+1 tail, 10 lines
+9 tailrays, 9 lines
+
+draconic:
++2 shoulders, 2 lines
+2 legs, 6 lines, 3 each
+2 wings, 4 lines, 2 each
+8 batfingers, 32 lines, 4 each
+8 toes, 16 lines, 2 each
+8 fingers, 30 lines, 3 or 4 each
+2 ankels, 14 lines, 7 each
+2 wrists, 8 lines, 4 each
+9 tailfeathers, 9 lines
+
+insectoid:
++6 shoulders, 6 lines
++2 arms, 4 lines, 2 each
+2 legs, 4 lines, 2 each
+4 wings, 4 lines, 1 each
+6 toes, 22 lines, 3 or 4 each
+6 fingers, 22 lines, 3 or 4 each
+2 ankels, 14 lines, 7 each
+2 wrists, 8 lines, 4 each
+1 stinger, 1 bicone
+2 antenna, 6 lines, 3 each
+
+---
+
+Axis (Left-handed):
+
+North : +x
+South : -x
+East : +y
+West : -y
+Skyward : +z
+Deeper : -z
+
+Forward : +X
+Backward : -X
+Left : -Y
+Right : +Y
+Up : +Z
+Down : -Z
+
+Yaw : ψ
+Pitch : θ
+Roll : φ
+Convention : ψ,θ,φ
+
+Camera Azimuth : A from +X in XY
+Camera Elevation : a from XY in AZ
+Camera Polar : ϕ from Z in AZ
+Camera Range : r from {0,0,eyes}
+Camera FOV : f
+Camera Direction : -r
+
+modelpos = offset for model origen
+eyes = offset for camera origen
+
+glLoadMatrix {
