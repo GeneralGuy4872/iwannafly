@@ -1,0 +1,57 @@
+shape vertex map:
+
+l = length
+r = radius/2
+w = width/2
+h = height
+c = cos(pi/4)*r
+cc = cos(c)*r
+
+  line
+    0,0,0
+    0,0,1
+  sphere
+     ±r,  0,  0
+      0, ±r,  0
+      0,  0, ±r
+     ±c, ±c,  0
+      0, ±c, ±c
+     ±c,  0, ±c
+    ±cc,±cc,±cc
+  cylinder
+    ±r, 0,0
+     0,±r,0
+    ±c,±c,0
+    ±r, 0,l
+     0,±r,l
+    ±c,±c,l
+  cone
+    ±r, 0,0
+     0,±r,0
+    ±c,±c,0
+     0, 0,l
+  inverted cone
+     0, 0,0
+    ±r, 0,l
+     0,±r,l
+    ±c,±c,l
+  bicone
+     0, 0, 0
+    ±r, 0,l/2
+     0,±r,l/2
+    ±c,±c,l/2
+     0, 0, l
+  cuboid
+    ±w,±h,0
+    ±w,±h,l
+  pyramid
+    ±w,±h,0
+     0, 0,l
+  inverted pyramid
+     0, 0,0
+    ±w,±h,l
+  octohedron
+     0, 0,0
+    ±w, 0,0
+     0,±h,0
+     0, 0,l
