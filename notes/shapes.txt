@@ -10,7 +10,7 @@ cc = cos(c)*r
   line
     0,0,0
     0,0,1
-  sphere
+  sphere (deltoidal icositetrahedron)
      ±r,  0,  0
       0, ±r,  0
       0,  0, ±r
@@ -18,24 +18,24 @@ cc = cos(c)*r
       0, ±c, ±c
      ±c,  0, ±c
     ±cc,±cc,±cc
-  cylinder
+  cylinder (octagonal prism)
     ±r, 0,0
      0,±r,0
     ±c,±c,0
     ±r, 0,l
      0,±r,l
     ±c,±c,l
-  cone
+  cone (octagonal pyrimid)
     ±r, 0,0
      0,±r,0
     ±c,±c,0
      0, 0,l
-  inverted cone
+  inverted cone (inverted octagonal pyrimid)
      0, 0,0
     ±r, 0,l
      0,±r,l
     ±c,±c,l
-  bicone
+  bicone (double octagonal pyrimid)
      0, 0, 0
     ±r, 0,l/2
      0,±r,l/2
@@ -44,10 +44,10 @@ cc = cos(c)*r
   cuboid
     ±w,±h,0
     ±w,±h,l
-  pyramid
+  pyramid (square pyrimid)
     ±w,±h,0
      0, 0,l
-  inverted pyramid
+  inverted pyramid (inverted square pyrimid)
      0, 0,0
     ±w,±h,l
   octohedron
