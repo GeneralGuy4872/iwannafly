@@ -30,7 +30,7 @@ n 0 0 0
 
 spine: z y' x''
 shoulder: z x' y''
-elbow: A t
+elbow: A a φ
 wrist: A a
 hip: y x' z''
 knee: y
