@@ -50,3 +50,5 @@ carpometacarpus
 alula
 
 tarsometatarsus
+
+♠,♡,♢,♣ = foo,bar,quux,garply for math
