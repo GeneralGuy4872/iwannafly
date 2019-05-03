@@ -2,9 +2,9 @@ shape vertex map:
 
 0 = orign (beginning of vector)
 l = length (end of vector)
-r = radius/2
+r = radius
 w = width/2
-h = height
+h = height/2
 s = (√2)/2
 
   line
