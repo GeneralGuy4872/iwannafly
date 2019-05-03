@@ -1,0 +1,52 @@
+X rotation
+1  0     0   0
+0 cosX -sinX 0
+0 sinX  cosX 0
+0  0     0   0
+
+Y rotation
+ cosY 0 sinY 0
+  0   1  0   0
+-sinY 0 cosY 0
+  0   0  0   1
+
+Z rotation
+cosZ -sinZ 0 0
+sinZ  cosZ 0 0
+ 0     0   1 0
+ 0     0   0 1
+
+Translation
+1 0 0 x
+0 1 0 y
+0 0 1 z
+0 0 0 1
+
+Scaling
+n 0 0 0
+0 n 0 0
+0 0 n 0
+0 0 0 1
+
+spine: z y' x''
+shoulder: z x' y''
+elbow: A t
+wrist: A a
+hip: y x' z''
+knee: y
+ankle: z y'
+
+dig_phal_(1-5)
+mid_phal_(2-5)
+prox_phal_(1-5)
+metacarpal_(1-5)
+
+dist_phal_(I-V)
+mid_phal_(II-V)
+prox_phal_(I-V)
+metatarsal_(I-V)
+
+carpometacarpus
+alula
+
+tarsometatarsus
