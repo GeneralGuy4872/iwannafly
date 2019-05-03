@@ -1,13 +1,13 @@
 shape vertex map:
 
 0 = orign (beginning of vector)
-l = length (end of vector)
+ℓ = length (end of vector)
 r = radius
 w = width/2
 h = height/2
 s = (√2)/2
 
-±n,±m = {+n,+m},{-n,+m},{+n,-m},{-n,-m}
+±♠,±♡ = {+♠,+♡},{-♠,+♡},{+♠,-♡},{-♠,-♡}
 
 no ± on row = 1 vertex defined
 1 ± in row = 2 vertecies defined
@@ -16,7 +16,7 @@ no ± on row = 1 vertex defined
 
   line
     0,0,0
-    0,0,1
+    0,0,ℓ
   sphere (deltoidal icositetrahedron)
       ±r,   0,   0
        0,  ±r,   0
@@ -29,36 +29,36 @@ no ± on row = 1 vertex defined
     ±r, 0,0
      0,±r,0
     ±s,±s,0
-    ±r, 0,l
-     0,±r,l
-    ±s,±s,l
+    ±r, 0,ℓ
+     0,±r,ℓ
+    ±s,±s,ℓ
   cone (octagonal pyrimid)
     ±r, 0,0
      0,±r,0
     ±s,±s,0
-     0, 0,l
+     0, 0,ℓ
   inverted cone (inverted octagonal pyrimid)
      0, 0,0
-    ±r, 0,l
-     0,±r,l
-    ±s,±s,l
+    ±r, 0,ℓ
+     0,±r,ℓ
+    ±s,±s,ℓ
   bicone (double octagonal pyrimid)
      0, 0, 0
-    ±r, 0,l/2
-     0,±r,l/2
-    ±s,±s,l/2
-     0, 0, l
+    ±r, 0,ℓ/2
+     0,±r,ℓ/2
+    ±s,±s,ℓ/2
+     0, 0, ℓ
   cuboid
     ±w,±h,0
-    ±w,±h,l
+    ±w,±h,ℓ
   pyramid (square pyrimid)
     ±w,±h,0
-     0, 0,l
+     0, 0,ℓ
   inverted pyramid (inverted square pyrimid)
      0, 0,0
-    ±w,±h,l
+    ±w,±h,ℓ
   octohedron
      0, 0,0
     ±w, 0,0
      0,±h,0
-     0, 0,l
+     0, 0,ℓ
