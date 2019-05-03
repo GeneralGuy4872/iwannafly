@@ -38,8 +38,12 @@
 #include "X11/Xaw/Scrollbar.h"
 
 #include "./joystick.c"
+
 #include "./xwindow.c"
 #include "./glxwindow.c"
+#include "./textout.c"
+
+#include "./init.c"
 
 float g = 9.8
 char Ff = 2
