@@ -20,9 +20,9 @@ parameters:
 
 index is a direction in the form:
 ±axis ± angle
-Z rotates in xy
-Y rotates in xz
-X rotates in yz
+Z rotates in x∧y
+Y rotates in x∧z
+X rotates in y∧z
 
 lim_ are unsigned angles
 angle is a (usually signed explicitly) quantity in rads, degs, gonds, or turns
@@ -143,8 +143,8 @@ Pitch : θ
 Roll : φ
 Convention : ψ,θ,φ
 
-Camera Azimuth : A from +X in XY
-Camera Elevation : a from XY in AZ
+Camera Azimuth : A from +X in X∧Y
+Camera Elevation : a from X∧Y in A∧Z
 Camera Polar : ϕ from Z in AZ
 Camera Range : r from {0,0,eyes}
 Camera FOV : f
