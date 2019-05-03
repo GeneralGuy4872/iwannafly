@@ -10,13 +10,13 @@ s = (√2)/2
     0,0,0
     0,0,1
   sphere (deltoidal icositetrahedron)
-     ±r,  0,  0
-      0, ±r,  0
-      0,  0, ±r
-     ±s, ±s,  0
-      0, ±s, ±s
-     ±s,  0, ±s
-    ±.5,±.5,±.5
+      ±r,   0,   0
+       0,  ±r,   0
+       0,   0,  ±r
+     ±rs, ±rs,   0
+       0, ±rs, ±rs
+     ±rs,   0, ±rs
+    ±r/2,±r/2,±r/2
   cylinder (octagonal prism)
     ±r, 0,0
      0,±r,0
