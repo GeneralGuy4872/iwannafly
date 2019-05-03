@@ -2,7 +2,7 @@ X rotation
 1  0     0   0
 0 cosX -sinX 0
 0 sinX  cosX 0
-0  0     0   0
+0  0     0   1
 
 Y rotation
  cosY 0 sinY 0
