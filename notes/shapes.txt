@@ -7,6 +7,8 @@ w = width/2
 h = height/2
 s = (√2)/2
 
+±n,±m = {+n,+m},{-n,+m},{+n,-m},{-n,-m}
+
   line
     0,0,0
     0,0,1
