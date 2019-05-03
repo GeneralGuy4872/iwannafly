@@ -12,6 +12,8 @@ Z = rotation about z or the axis it implys
 
 ℓ = length
 r = radius
+w = width
+h = height
 
 parameters:
 
@@ -38,6 +40,15 @@ bone,line:
 -> Y (index, lim+, lim-, angle)
 -> Z (index, lim+, lim-, angle)
 
+bone,offset:
+   ℓ (length)
+...X (index, angle)
+...Y (index, angle)
+...Z (index, angle)
+-> X (index, lim+, lim-, angle)
+-> Y (index, lim+, lim-, angle)
+-> Z (index, lim+, lim-, angle)
+
 bone,sphere:
    r (radius)
 -> X (index, lim+, lim-, angle)
@@ -47,6 +58,19 @@ bone,sphere:
 bone,bicone:
    r (radius)
    ℓ (length)
+...X (index, angle)
+...Y (index, angle)
+...Z (index, angle)
+-> X (index, lim+, lim-, angle)
+-> Y (index, lim+, lim-, angle)
+-> Z (index, lim+, lim-, angle)
+
+
+bone,pyramid:
+   ℓ (length)
+   h (height)
+   w (width)
+-> φ (index, lim+, lim-, angle)
 ...X (index, angle)
 ...Y (index, angle)
 ...Z (index, angle)
@@ -89,6 +113,7 @@ felid:
 2 ankels, 14 lines, 7 each
 2 wrists, 8 lines, 4 each
 1 tail, 10 lines
+2 ears, 2 pyramids + 2 offsets
 
 merfolk:
 10 fingers, 38 lines, 3 or 4 each
