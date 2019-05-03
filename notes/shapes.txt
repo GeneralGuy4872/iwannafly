@@ -9,6 +9,11 @@ s = (√2)/2
 
 ±n,±m = {+n,+m},{-n,+m},{+n,-m},{-n,-m}
 
+no ± on row = 1 vertex defined
+1 ± in row = 2 vertecies defined
+2 ± in row = 4 verticies defined
+3 ± in row = 8 verticies defined
+
   line
     0,0,0
     0,0,1
