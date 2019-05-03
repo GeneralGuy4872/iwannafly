@@ -2,6 +2,8 @@
 
 #include "./xwindow.h"
 
+//see repo X11-Xt-Xaw-test
+
 xaw_inputwindow_main
 
 void quit(void)
