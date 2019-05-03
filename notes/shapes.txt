@@ -4,8 +4,7 @@ l = length
 r = radius/2
 w = width/2
 h = height
-c = cos(pi/4)*r
-cc = cos(c)*r
+s = (√2)/2
 
   line
     0,0,0
@@ -14,32 +13,32 @@ cc = cos(c)*r
      ±r,  0,  0
       0, ±r,  0
       0,  0, ±r
-     ±c, ±c,  0
-      0, ±c, ±c
-     ±c,  0, ±c
-    ±cc,±cc,±cc
+     ±s, ±s,  0
+      0, ±s, ±s
+     ±s,  0, ±s
+    ±.5,±.5,±.5
   cylinder (octagonal prism)
     ±r, 0,0
      0,±r,0
-    ±c,±c,0
+    ±s,±s,0
     ±r, 0,l
      0,±r,l
-    ±c,±c,l
+    ±s,±s,l
   cone (octagonal pyrimid)
     ±r, 0,0
      0,±r,0
-    ±c,±c,0
+    ±s,±s,0
      0, 0,l
   inverted cone (inverted octagonal pyrimid)
      0, 0,0
     ±r, 0,l
      0,±r,l
-    ±c,±c,l
+    ±s,±s,l
   bicone (double octagonal pyrimid)
      0, 0, 0
     ±r, 0,l/2
      0,±r,l/2
-    ±c,±c,l/2
+    ±s,±s,l/2
      0, 0, l
   cuboid
     ±w,±h,0
