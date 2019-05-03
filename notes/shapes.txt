@@ -1,6 +1,7 @@
 shape vertex map:
 
-l = length
+0 = orign (beginning of vector)
+l = length (end of vector)
 r = radius/2
 w = width/2
 h = height
