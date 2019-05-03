@@ -97,6 +97,7 @@ avid:
 2 legs, 6 lines, 3 each
 2 wings, 6 lines, 3 each
 18 primaries, 18 lines
+2 alula, 2 lines
 8 toes, 16 lines, 2 each
 8 fingers, 30 lines, 3 or 4 each
 2 ankels, 14 lines, 7 each
