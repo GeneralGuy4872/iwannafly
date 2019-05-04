@@ -125,7 +125,7 @@ color grey
 
 
 avid:
-color green
+color cyan
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -146,7 +146,7 @@ color green
 
 
 feline:
-color orange
+color magenta
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -212,6 +212,10 @@ color yellow
 
 1 stinger, 1 bicone : 1(b)
 2 antenna, 6 lines : 2(3)
+
+
+terrain
+color: green
 
 ---
 
