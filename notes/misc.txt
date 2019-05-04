@@ -60,3 +60,6 @@ possible internal bone names?:
 [LR]_tarsometatarsus
 
 ♠,♡,♢,♣ = foo,bar,quux,garply for math
+
+fps ≈ vsync
+step/sec ≤ 20hz
