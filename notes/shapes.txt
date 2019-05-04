@@ -1,10 +1,13 @@
 shape vertex map:
+the geometric notation is definately wrong, but I can read it, and that's what counts.
 
 0 := orign (beginning of vector)
 ℓ := length (end of vector)
 r := radius
+h := height
+w := width
 V := (√2)/2
-W := (√3)/2
+G := √(1^2 - .5^2)
 
 {x,y,z} := Vertex
 foo→bar := Vector, Traced
@@ -25,9 +28,9 @@ expands to
 -♢,-♣,+♫
 
   line
-    0,0,0 := O
+    0,0,0 := Ω
     0,0,ℓ := P
-    O→P
+    Ω→P
   octohedron
     {?r, 0, 0} := X
     { 0,?r, 0} := Y
@@ -35,18 +38,18 @@ expands to
     {0,0,0}⇢X+
     △(X?,Y?,Z?)
   tetrahedron
-    { 0, 0,  r } := Z
-    { 0,?W,-r/2} := Y
-    {-ℓ, 0,  0 } := X
-    {0,0,0}⇢X+
-    △(Z,+Y,-Y)
-    △(Z, X,±Y)
+    { 0,   0,  0} := Ω
+    { 0,?.5w,-hG} := Y
+    {-ℓ,   0,  0} := X
+    Ω→{ℓ,0,0}
+    △(Ω,+Y,-Y)
+    △(Ω, X,±Y)
     △(X,+Y,-Y)
   triangle
-    { 0, 0,  r } := Z
-    { 0,?W,-r/2} := Y
+    { 0,   0,  0} := Ω
+    { 0,?.5w,-hG} := Y
     {0,0,0}⇢{1,0,0}
-    △(X,+Y,-Y)
+    △(Ω,+Y,-Y)
   sphere (32-hedron of some flavor?)
     { ?r,  0,  0} := X
     {  0, ?r,  0} := Y
@@ -64,53 +67,53 @@ expands to
     △(A±± ,B ±?,C± ?)
     △(A±∓ ,B ∓?,C± ?)
   bicone (double octagonal pyrimid)
-    { 0, 0, 0 } := O
+    { 0, 0, 0 } := Ω
     {?r, 0,ℓ/2} := X
     { 0,?r,ℓ/2} := Y
     {?s,?s,ℓ/2} := M
     { 0, 0, ℓ } := P
-    O→P
-    △(O,X± ,M±?)
-    △(O,Y ±,M?±)
+    Ω→P
+    △(Ω,X± ,M±?)
+    △(Ω,Y ±,M?±)
     △(P,X± ,M±?)
     △(P,Y ±,M?±)
   pyramid
-    {  0,  0,0} := O
+    {  0,  0,0} := Ω
     {  0,  0,ℓ} := P
     {?rV,?rV,0} := B
-    O→P
+    Ω→P
     △( P ,B±±,B±∓)
     △(B±±,B+-,B-+)
   inverted pyramid
-    {  0,  0,0} := O
+    {  0,  0,0} := Ω
     {  0,  0,ℓ} := P
     {?rV,?rV,ℓ} := B
-    O→P
-    △( O ,B±±,B±∓)
+    Ω→P
+    △( Ω ,B±±,B±∓)
     △(B±±,B+-,B-+)
   inverted rotated pyramid
-    {  0,  0,0} := O
+    {  0,  0,0} := Ω
     {  0,  0,ℓ} := P
     {?rV,  0,ℓ} := X
     {  0,?rV,ℓ} := Y
-    O→P
-    △( O,X±,Y±)
+    Ω→P
+    △( Ω,X±,Y±)
     △(X±,Y+,Y-)
   inverted half (rotated) pyramid
-    {  0,  0,0} := O
+    {  0,  0,0} := Ω
     {  0,  0,ℓ} := P
     {-rV,  0,ℓ} := X
     {  0,?rV,ℓ} := Y
-    O→P
-    △(O, X,Y±)
-    △(O,Y+,Y-)
+    Ω→P
+    △(Ω, X,Y±)
+    △(Ω,Y+,Y-)
     △(X,Y+,Y-)
   half (rotated) pyramid
-    {  0,  0,0} := O
+    {  0,  0,0} := Ω
     {-rV,  0,0} := X
     {  0,?rV,0} := Y
     {  0,  0,ℓ} := P
-    O→P
+    Ω→P
     △(P, X,Y±)
     △(P,Y+,Y-)
     △(X,Y+,Y-)
