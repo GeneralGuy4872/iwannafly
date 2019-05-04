@@ -110,6 +110,7 @@ common:
 ---
 
 human:
+color grey
 
 1 pelvis, 1 triangle : 1(t)
 
@@ -124,6 +125,7 @@ human:
 
 
 avid:
+color green
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -144,6 +146,7 @@ avid:
 
 
 feline:
+color orange
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -160,6 +163,7 @@ feline:
 
 
 merfolk:
+color blue
 
 1 pelvis, 1 octohedron : 1(o)
 
@@ -172,6 +176,7 @@ merfolk:
 5 tailfinrays, 5 lines : 5(1)
 
 draconic:
+color red
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -190,6 +195,7 @@ draconic:
 2 horns, 2 pyramids : 2(p)
 
 insectoid:
+color yellow
 
 1 pelvis, 1 octohedron : 1(o)
 
