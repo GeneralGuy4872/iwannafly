@@ -195,7 +195,7 @@ draconic:
 8 fingers, 30 lines : 2(4(3))
 
 1 tail, 10 lines : 1(10)
-
+2 horns, 2 horns : 2(p)
 
 insectoid:
 
