@@ -14,9 +14,12 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
-#include <regex.h>
+//#include <regex.h> : external awk script should work instead
+
 #include <sys/stat.h>
 #include <fcntl.h>
+//#include <signal.h> : crash debugger might need this??
+//#include <errno.h> : crash debugger might need this??
 
 #include "GL/gl.h"
 #include "GL/glu.h"
