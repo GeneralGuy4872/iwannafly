@@ -70,6 +70,13 @@ expands to
     △(O,Y ±,M?±)
     △(P,X± ,M±?)
     △(P,Y ±,M?±)
+  pyramid
+    {  0,  0,0} := O
+    {  0,  0,ℓ} := P
+    {?rV,?rV,0} := B
+    O→P
+    △( P ,B±±,B±∓)
+    △(B±±,B+-,B-+)
   inverted pyramid
     {  0,  0,0} := O
     {  0,  0,ℓ} := P
