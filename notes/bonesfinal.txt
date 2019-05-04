@@ -218,6 +218,7 @@ color RG0
 
 landscape:
 water 00B
+underwater 00b
 foliage 0g0
 flower R0B
 stone rgb
