@@ -39,6 +39,8 @@
 #include "X11/Xaw/Command.h"
 #include "X11/Xaw/Toggle.h"
 #include "X11/Xaw/Scrollbar.h"
+//originally wanted these for extra input, but fixed that
+//still might use them for pause menu
 
 #include "./joystick.c"
 
