@@ -15,7 +15,7 @@ Libraries:
 
 - X11 Common Library
 - X Toolkit
-- Athena Widgets
+- X Athena Widgets
 
 System:
 
