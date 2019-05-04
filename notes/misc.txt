@@ -28,27 +28,35 @@ n 0 0 0
 0 0 n 0
 0 0 0 1
 
+joint rotation order:
 spine: z y' x''
 shoulder: z x' y''
-elbow: A a φ
-wrist: A a
+elbow: A α φ
+wrist: A α
 hip: y x' z''
 knee: y
 ankle: z y'
+feather: A α φ
+fin: A α
+meta(tarsel|carpel): A α
+finger/toe:
+  1st joint: A α
+  others: α
 
-dig_phal_(1-5)
-mid_phal_(2-5)
-prox_phal_(1-5)
-metacarpal_(1-5)
+possible internal bone names?:
+[LR]_dig_phal_[0123456789]+
+[LR]_mid_phal_[0123456789]+
+[LR]_prox_phal_[0123456789]+
+[LR]_metacarpal_[0123456789]+
 
-dist_phal_(I-V)
-mid_phal_(II-V)
-prox_phal_(I-V)
-metatarsal_(I-V)
+[LR]_dist_phal_[IVX]+
+[LR]_mid_phal_[IVX]+
+[LR]_prox_phal_[IVX]+
+[LR]_metatarsal_[IVX]+
 
-carpometacarpus
-alula
+[LR]_carpometacarpus
+[LR]_alula_[12]
 
-tarsometatarsus
+[LR]_tarsometatarsus
 
 ♠,♡,♢,♣ = foo,bar,quux,garply for math
