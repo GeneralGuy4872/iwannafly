@@ -133,7 +133,7 @@ avid:
 18 primaries : 18(1)
 
 2 legs, 6 lines : 2(3)
-2 ankles, 2 invhalfpyramids : 2(-h)
+2 ankles, 2 invhalfpyramids : 2(h')
 8 toes, 16 lines : 8(2)
 
 2 wrists, 4 lines : 2(2)
@@ -197,11 +197,11 @@ insectoid:
 4 wings, 4 lines : 2(2(1))
 
 +2 arms, 4 lines : n + 2(2)
-2 wrists, 2 invpyramids : 2(p)
+2 wrists, 2 invpyramids : 2(p')
 8 fingers, 24 lines : 2(4(3))
 
 2 legs, 4 lines : 2(2)
-2 ankels, 2 invisopyramids : 2(p)
+2 ankels, 2 invisopyramids : 2(p'')
 8 toes, 24 lines : 2(4(3))
 
 1 stinger, 1 bicone : 1(b)
