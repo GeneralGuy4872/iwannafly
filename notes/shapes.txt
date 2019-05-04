@@ -4,11 +4,13 @@ shape vertex map:
 ℓ := length (end of vector)
 r := radius
 V := (√2)/2
+W := (√3)/2
 
 {x,y,z} := Vertex
 foo→bar := Vector
 △(♠,♡,♫) := Triangle
 
+shapes with no explicit vector are indexed to +x
 
 ?♠,?♡
 expands to
@@ -26,6 +28,22 @@ expands to
     0,0,0 := O
     0,0,ℓ := P
     O→P
+  octohedron
+    {?r, 0, 0} := X
+    { 0,?r, 0} := Y
+    { 0, 0,?r} := Z
+    △(X?,Y?,Z?)
+  tetrahedron
+    { 0, 0,  r } := Z
+    { 0,?W,-r/2} := Y
+    {-ℓ, 0,  0 } := X
+    △(Z,+Y,-Y)
+    △(Z, X,±Y)
+    △(X,+Y,-Y)
+  triangle
+    { 0, 0,  r } := Z
+    { 0,?W,-r/2} := Y
+    △(X,+Y,-Y)
   sphere (32-hedron of some flavor?)
     { ?r,  0,  0} := X
     {  0, ?r,  0} := Y
@@ -55,15 +73,15 @@ expands to
   inverted pyramid
     {  0,  0,0} := O
     {  0,  0,ℓ} := P
-    {±rV,±rV,ℓ} := B
+    {?rV,?rV,ℓ} := B
     O→P
     △( O ,B±±,B±∓)
     △(B±±,B+-,B-+)
   inverted rotated pyramid
     {  0,  0,0} := O
     {  0,  0,ℓ} := P
-    {±rV,  0,ℓ} := X
-    {  0,±rV,ℓ} := Y
+    {?rV,  0,ℓ} := X
+    {  0,?rV,ℓ} := Y
     O→P
     △( O,X±,Y±)
     △(X±,Y+,Y-)
@@ -71,17 +89,17 @@ expands to
     {  0,  0,0} := O
     {  0,  0,ℓ} := P
     {-rV,  0,ℓ} := X
-    {  0,±rV,ℓ} := Y
+    {  0,?rV,ℓ} := Y
     O→P
-    △( O, X,Y±)
-    △( O,Y+,Y-)
-    △( X,Y+,Y-)
+    △(O, X,Y±)
+    △(O,Y+,Y-)
+    △(X,Y+,Y-)
   half (rotated) pyramid
     {  0,  0,0} := O
     {-rV,  0,0} := X
-    {  0,±rV,0} := Y
+    {  0,?rV,0} := Y
     {  0,  0,ℓ} := P
     O→P
-    △( P, X,Y±)
-    △( P,Y+,Y-)
-    △( X,Y+,Y-)
+    △(P, X,Y±)
+    △(P,Y+,Y-)
+    △(X,Y+,Y-)
