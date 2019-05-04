@@ -232,8 +232,8 @@ Convention : ψ,θ,φ
 
 Camera Azimuth : A from +X in X∧Y
 Camera Elevation : a from X∧Y in A∧Z
-Camera Polar : ϕ from Z in AZ
-Camera Range : r from {0,0,eyes}
+Camera Polar : ϕ from Z in A∧Z
+Camera Range : r from skull
 Camera FOV : f
 Camera Direction : -P
 
