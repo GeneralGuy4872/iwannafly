@@ -20,12 +20,14 @@ Libraries:
 
 System:
 
-- Unix-like Operating System
-- A 3d graphics card
-- Some RAM
-
+- Display
 - Keyboard
 - Mouse
+- A 3d graphics card
+- Some RAM
 - Xbox 360 controller (or equivilant device)
 
+- Unix-like Operating System
+- Xorg display server or compatible api
+- Terminal Emulator
 - C compiler
