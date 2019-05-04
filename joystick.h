@@ -1,1 +1,2 @@
-/bin/bash: ./joy_input.c: No such file or directory
+//ioctl interface for input via \dev\js0
+//you arrived here from main
