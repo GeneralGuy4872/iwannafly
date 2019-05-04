@@ -48,7 +48,7 @@ expands to
   triangle
     { 0,   0,  0} := Ω
     { 0,?.5w,-hG} := Y
-    {0,0,0}⇢{1,0,0}
+    Ω⇢{1,0,0}
     △(Ω,+Y,-Y)
   sphere (32-hedron of some flavor?)
     { ?r,  0,  0} := X
