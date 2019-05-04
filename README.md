@@ -7,25 +7,25 @@ Requirements
 
 Libraries:
 
-C Standard Libraries
-POSIX Regex library
-ioctl joystick interface
+- C Standard Libraries
+- POSIX Regex library
+- ioctl joystick interface
 
-OpenGL
-GLX
+- OpenGL
+- GLX
 
-X11 Common Library
-X Toolkit
-Athena Widgets
+- X11 Common Library
+- X Toolkit
+- Athena Widgets
 
 System:
 
-Unix-like Operating System
-A 3d graphics card
-Some RAM
+- Unix-like Operating System
+- A 3d graphics card
+- Some RAM
 
-Keyboard
-Mouse
-Xbox 360 controller (or equivilant device)
+- Keyboard
+- Mouse
+- Xbox 360 controller (or equivilant device)
 
-C compiler
+- C compiler
