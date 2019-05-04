@@ -79,7 +79,8 @@ bone,octohedron:
 
 bone,tetrahedron:
    ℓ
-   r
+   h
+   w
 -> φ (index, lim+, lim-, angle)
 ...X (index, angle)
 ...Y (index, angle)
@@ -89,7 +90,8 @@ bone,tetrahedron:
 -> Z (index, lim+, lim-, angle)
 
 bone,triangle:
-   r
+   h
+   w
 -> φ (index, lim+, lim-, angle)
 ...X (index, angle)
 ...Y (index, angle)
