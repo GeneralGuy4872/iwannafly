@@ -1,63 +1,87 @@
 shape vertex map:
 
-0 = orign (beginning of vector)
-ℓ = length (end of vector)
-r = radius
-w = width/2
-h = height/2
-s = (√2)/2
+0 := orign (beginning of vector)
+ℓ := length (end of vector)
+r := radius
+V := (√2)/2
 
-±♠,±♡
+{x,y,z} := Vertex
+foo→bar := Vector
+△(♠,♡,♫) := Triangle
+
+
+?♠,?♡
 expands to
 +♠,+♡
 -♠,+♡
 +♠,-♡
 -♠,-♡
 
+±♢,±♣,∓♫
+expands to
++♢,+♣,-♫
+-♢,-♣,+♫
+
   line
-    0,0,0
-    0,0,ℓ
+    0,0,0 := O
+    0,0,ℓ := P
+    O→P
   sphere (32-hedron of some flavor?)
-      ±r,   0,   0
-       0,  ±r,   0
-       0,   0,  ±r
-     ±rs, ±rs,   0
-       0, ±rs, ±rs
-     ±rs,   0, ±rs
-  cylinder (octagonal prism)
-    ±r, 0,0
-     0,±r,0
-    ±s,±s,0
-    ±r, 0,ℓ
-     0,±r,ℓ
-    ±s,±s,ℓ
-  cone (octagonal pyrimid)
-    ±r, 0,0
-     0,±r,0
-    ±s,±s,0
-     0, 0,ℓ
-  inverted cone (inverted octagonal pyrimid)
-     0, 0,0
-    ±r, 0,ℓ
-     0,±r,ℓ
-    ±s,±s,ℓ
+    { ?r,  0,  0} := X
+    {  0, ?r,  0} := Y
+    {  0,  0, ?r} := Z
+    {?rV,?rV,  0} := A
+    {  0,?rV,?rV} := B
+    {?rV,  0,?rV} := C
+    △(X±  ,A±± ,B ±?)
+    △(X±  ,A±∓ ,B ∓?)
+    △(Y ± ,B ±±,C± ?)
+    △(Y ± ,B ±∓,C∓ ?)
+    △(Z  ±,C± ±,A±? )
+    △(Z  ±,C± ∓,A∓? )
+    △(A±± ,B ±?,C± ?)
+    △(A±∓ ,B ∓?,C± ?)
   bicone (double octagonal pyrimid)
-     0, 0, 0
-    ±r, 0,ℓ/2
-     0,±r,ℓ/2
-    ±s,±s,ℓ/2
-     0, 0, ℓ
-  cuboid
-    ±w,±h,0
-    ±w,±h,ℓ
-  pyramid (square pyrimid)
-    ±w,±h,0
-     0, 0,ℓ
-  inverted pyramid (inverted square pyrimid)
-     0, 0,0
-    ±w,±h,ℓ
-  octohedron
-     0, 0,0
-    ±w, 0,0
-     0,±h,0
-     0, 0,ℓ
+    { 0, 0, 0 } := O
+    {?r, 0,ℓ/2} := X
+    { 0,?r,ℓ/2} := Y
+    {?s,?s,ℓ/2} := M
+    { 0, 0, ℓ } := P
+    O→P
+    △(O,X± ,M±?)
+    △(O,Y ±,M?±)
+    △(P,X± ,M±?)
+    △(P,Y ±,M?±)
+  inverted pyramid
+    {  0,  0,0} := O
+    {  0,  0,ℓ} := P
+    {±rV,±rV,ℓ} := B
+    O→P
+    △( O ,B±±,B±∓)
+    △(B±±,B+-,B-+)
+  inverted rotated pyramid
+    {  0,  0,0} := O
+    {  0,  0,ℓ} := P
+    {±rV,  0,ℓ} := X
+    {  0,±rV,ℓ} := Y
+    O→P
+    △( O,X±,Y±)
+    △(X±,Y+,Y-)
+  inverted half (rotated) pyramid
+    {  0,  0,0} := O
+    {  0,  0,ℓ} := P
+    {-rV,  0,ℓ} := X
+    {  0,±rV,ℓ} := Y
+    O→P
+    △( O, X,Y±)
+    △( O,Y+,Y-)
+    △( X,Y+,Y-)
+  half (rotated) pyramid
+    {  0,  0,0} := O
+    {-rV,  0,0} := X
+    {  0,±rV,0} := Y
+    {  0,  0,ℓ} := P
+    O→P
+    △( P, X,Y±)
+    △( P,Y+,Y-)
+    △( X,Y+,Y-)
