@@ -7,10 +7,10 @@ V := (√2)/2
 W := (√3)/2
 
 {x,y,z} := Vertex
-foo→bar := Vector
+foo→bar := Vector, Traced
+quux⇢xyzzy := Vector, Untraced
 △(♠,♡,♫) := Triangle
 
-shapes with no explicit vector are indexed to +x
 
 ?♠,?♡
 expands to
@@ -32,17 +32,20 @@ expands to
     {?r, 0, 0} := X
     { 0,?r, 0} := Y
     { 0, 0,?r} := Z
+    {0,0,0}⇢X+
     △(X?,Y?,Z?)
   tetrahedron
     { 0, 0,  r } := Z
     { 0,?W,-r/2} := Y
     {-ℓ, 0,  0 } := X
+    {0,0,0}⇢X+
     △(Z,+Y,-Y)
     △(Z, X,±Y)
     △(X,+Y,-Y)
   triangle
     { 0, 0,  r } := Z
     { 0,?W,-r/2} := Y
+    {0,0,0}⇢{1,0,0}
     △(X,+Y,-Y)
   sphere (32-hedron of some flavor?)
     { ?r,  0,  0} := X
@@ -51,6 +54,7 @@ expands to
     {?rV,?rV,  0} := A
     {  0,?rV,?rV} := B
     {?rV,  0,?rV} := C
+    {0,0,0}⇢X+
     △(X±  ,A±± ,B ±?)
     △(X±  ,A±∓ ,B ∓?)
     △(Y ± ,B ±±,C± ?)
