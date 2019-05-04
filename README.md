@@ -8,7 +8,6 @@ Requirements
 Libraries:
 
 - C Standard Libraries
-- POSIX Regex library
 - ioctl joystick interface
 
 - OpenGL
@@ -30,4 +29,7 @@ System:
 - Unix-like Operating System
 - Xorg display server or compatible api
 - Terminal Emulator
+- POSIX shell
+- make
 - C compiler
+- Awk
