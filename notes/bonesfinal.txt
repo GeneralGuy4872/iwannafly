@@ -110,7 +110,7 @@ common:
 ---
 
 human:
-color lightgrey
+color RGB
 
 1 pelvis, 1 triangle : 1(t)
 
@@ -125,7 +125,7 @@ color lightgrey
 
 
 avid:
-color lime
+color 0G0
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -146,7 +146,7 @@ color lime
 
 
 feline:
-color orange
+color Rg0
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -163,7 +163,7 @@ color orange
 
 
 merfolk:
-color cyan
+color 0GB
 
 1 pelvis, 1 octohedron : 1(o)
 
@@ -177,7 +177,7 @@ color cyan
 
 
 draconic:
-color red
+color R00
 
 1 pelvis, 1 tetrahedron : 1(t)
 
@@ -197,7 +197,7 @@ color red
 
 
 insectoid:
-color yellow
+color RG0
 
 1 pelvis, 1 octohedron : 1(o)
 
@@ -217,7 +217,12 @@ color yellow
 
 
 landscape:
-colors blue green darkgrey brown crimson
+water 00B
+foliage 0g0
+flower R0B
+stone rgb
+dirt rg0
+lava r00
 
 ---
 
