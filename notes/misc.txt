@@ -61,5 +61,4 @@ possible internal bone names?:
 
 ♠,♡,♢,♣ = foo,bar,quux,garply for math
 
-fps ≈ vsync
-step/sec ≤ 20hz
+fps = step/sec ≤ 20hz
