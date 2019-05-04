@@ -7,24 +7,23 @@ w = width/2
 h = height/2
 s = (√2)/2
 
-±♠,±♡ = {+♠,+♡},{-♠,+♡},{+♠,-♡},{-♠,-♡}
-
-no ± on row = 1 vertex defined
-1 ± in row = 2 vertecies defined
-2 ± in row = 4 verticies defined
-3 ± in row = 8 verticies defined
+±♠,±♡
+expands to
++♠,+♡
+-♠,+♡
++♠,-♡
+-♠,-♡
 
   line
     0,0,0
     0,0,ℓ
-  sphere (deltoidal icositetrahedron)
+  sphere (32-hedron of some flavor?)
       ±r,   0,   0
        0,  ±r,   0
        0,   0,  ±r
      ±rs, ±rs,   0
        0, ±rs, ±rs
      ±rs,   0, ±rs
-    ±r/2,±r/2,±r/2
   cylinder (octagonal prism)
     ±r, 0,0
      0,±r,0
