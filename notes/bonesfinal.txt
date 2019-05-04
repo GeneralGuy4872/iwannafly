@@ -1,15 +1,5 @@
 variables:
 
-x = previous JOINT's axis X
-y = previous JOINT's axis Y
-z = previous JOINT's axis Z
-
-X = rotation about x or the axis it implys
-Y = rotation about y or the axis it implys
-Z = rotation about z or the axis it implys
-
-φ = roll angle
-
 ℓ = length
 r = radius
 w = width
@@ -17,89 +7,48 @@ h = height
 
 parameters:
 
-->  = changes
-... = may be ommitted if 0
-
-index is a direction in the form:
-±axis ± angle
-Z rotates in x∧y
-Y rotates in x∧z
-X rotates in y∧z
-
-lim_ are unsigned angles
-angle is a (usually signed explicitly) quantity in rads, degs, gonds, or turns
-
+bones are moved useing the operation:
+<parent's current matrix> * ref * new
 
 bone,line:
-   ℓ
--> φ (index, lim+, lim-, angle)
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   ℓ  int
+  ref matrix
+  new matrix
+  
 bone,sphere:
-   r
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   r  int
+  ref matrix
+  new matrix
 bone,bicone:
-   r
-   ℓ
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   ℓ  int
+   r  int
+  ref matrix
+  new matrix
+  
 bone,<foo>pyramid:
-   ℓ
-   r
--> φ (index, lim+, lim-, angle)
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   ℓ  int
+   r  int
+  ref matrix
+  new matrix
+  
 bone,octohedron:
-   r
--> φ (index, lim+, lim-, angle)
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   r  int
+  ref matrix
+  new matrix
+  
 bone,tetrahedron:
-   ℓ
-   h
-   w
--> φ (index, lim+, lim-, angle)
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   ℓ  int
+   h  int
+   w  int
+  ref matrix
+  new matrix
+  
 bone,triangle:
-   h
-   w
--> φ (index, lim+, lim-, angle)
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
+   h  int
+   w  int
+  ref matrix
+  new matrix
+  
 common:
 1 neck, 5 lines : 1(5)
 1 back, 10 lines : 1(10)
