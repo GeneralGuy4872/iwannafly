@@ -137,7 +137,7 @@ avid:
 
 +2 shoulders, 2 lines : n + 2(1)
 2 wings, 6 lines : 2(3)
-2 alula, 2 lines : 2(1)
+2 alula, 4 lines : 2(2)
 18 primaries : 18(1)
 
 2 legs, 6 lines : 2(3)
