@@ -40,16 +40,6 @@ bone,line:
 -> Y (index, lim+, lim-, angle)
 -> Z (index, lim+, lim-, angle)
 
-bone,perpindicular:
-   r
--> φ (index, lim+, lim-, angle)
-...X (index, angle)
-...Y (index, angle)
-...Z (index, angle)
--> X (index, lim+, lim-, angle)
--> Y (index, lim+, lim-, angle)
--> Z (index, lim+, lim-, angle)
-
 bone,sphere:
    r
 -> X (index, lim+, lim-, angle)
