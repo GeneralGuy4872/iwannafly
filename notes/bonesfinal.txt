@@ -31,7 +31,7 @@ angle is a (usually signed explicitly) quantity in rads, degs, gonds, or turns
 
 
 bone,line:
-   ℓ (length)
+   ℓ
 -> φ (index, lim+, lim-, angle)
 ...X (index, angle)
 ...Y (index, angle)
@@ -40,21 +40,25 @@ bone,line:
 -> Y (index, lim+, lim-, angle)
 -> Z (index, lim+, lim-, angle)
 
-bone,offset:
-   ℓ (length)
+bone,perpindicular:
+   r
+-> φ (index, lim+, lim-, angle)
 ...X (index, angle)
 ...Y (index, angle)
 ...Z (index, angle)
+-> X (index, lim+, lim-, angle)
+-> Y (index, lim+, lim-, angle)
+-> Z (index, lim+, lim-, angle)
 
 bone,sphere:
-   r (radius)
+   r
 -> X (index, lim+, lim-, angle)
 -> Y (index, lim+, lim-, angle)
 -> Z (index, lim+, lim-, angle)
 
 bone,bicone:
-   r (radius)
-   ℓ (length)
+   r
+   ℓ
 ...X (index, angle)
 ...Y (index, angle)
 ...Z (index, angle)
@@ -62,11 +66,9 @@ bone,bicone:
 -> Y (index, lim+, lim-, angle)
 -> Z (index, lim+, lim-, angle)
 
-
-bone,pyramid:
-   ℓ (length)
-   h (height)
-   w (width)
+bone,<foo>pyramid:
+   ℓ
+   r
 -> φ (index, lim+, lim-, angle)
 ...X (index, angle)
 ...Y (index, angle)
@@ -76,72 +78,100 @@ bone,pyramid:
 -> Z (index, lim+, lim-, angle)
 
 common:
-1 neck, 5 lines
-1 back, 10 lines
-2 shoulders, 2 lines
-2 arms, 4 lines, 2 each
-1 pelvis, 2 lines, ROOT
-1 skull, 1 sphere
+1 neck, 5 lines : 1(5)
+1 back, 10 lines : 1(10)
+2 shoulders, 2 lines : 2(1)
+2 arms, 4 lines : 2(2)
+1 pelvis, 2 lines : 1(2)
+1 skull, 1 sphere : 1(s)
 
 ---
 
 human:
-2 legs, 4 lines, 2 each
-10 toes, 38 lines, 3 or 4 each
-10 fingers, 38 lines, 3 or 4 each
-2 ankels, 14 lines, 7 each
-2 wrists, 8 lines, 4 each
+
+2 legs, 4 lines : 2(2)
+2 ankles, 8 lines : 2(4)
+10 metatarsels, 10 lines : 2(5(1))
+10 toes, 28 lines : 2(1(2)+4(3))
+
+2 wrists, 6 lines : 2(3)
+10 fingers, 30 lines : 2(5(3))
+8 metacarples, 8 lines : 2(4(1))
+
 
 avid:
-+2 shoulders, 2 lines
-2 legs, 6 lines, 3 each
-2 wings, 6 lines, 3 each
-18 primaries, 18 lines
-2 alula, 2 lines
-8 toes, 16 lines, 2 each
-8 fingers, 30 lines, 3 or 4 each
-2 ankels, 14 lines, 7 each
-2 wrists, 8 lines, 4 each
-9 tailfeathers, 9 lines
 
-felid:
-2 legs, 6 lines, 3 each
-10 toes, 20 lines, 2 each
-10 fingers, 38 lines, 3 or 4 each
-2 ankels, 14 lines, 7 each
-2 wrists, 8 lines, 4 each
-1 tail, 10 lines
-2 ears, 2 pyramids + 2 offsets
++2 shoulders, 2 lines : n + 2(1)
+2 wings, 6 lines : 2(3)
+2 alula, 2 lines : 2(1)
+18 primaries : 18(1)
+
+2 legs, 6 lines : 2(3)
+2 ankles, 2 invhalfpyramids : 2(-h)
+8 toes, 16 lines : 8(2)
+
+2 wrists, 4 lines : 2(2)
+6 metacarples, 6 lines : 2(3(1))
+8 fingers, 30 lines : 2(4(3))
+
+9 tailfeathers, 9 lines : 9(1)
+
+
+feline:
+
+2 legs, 6 lines : 2(3)
+2 ankles, 6 lines : 2(3)
+8 toes, 16 lines : 2(4(2))
+
+2 wrists, 6 lines : 2(3)
+8 metacarples, 8 lines : 2(4(1))
+10 fingers, 20 lines : 2(5(2))
+
+1 tail, 10 lines : 1(10)
+2 ears, 2 halfpyramids : 2(h)
+
 
 merfolk:
-10 fingers, 38 lines, 3 or 4 each
-2 wrists, 8 lines, 4 each
-2 fins, 2 lines, 1 each
-1 tail, 10 lines
-9 tailrays, 9 lines
+
+2 wrists, 6 lines : 2(3)
+10 fingers, 30 lines : 2(5(3))
+8 metacarples, 8 lines : 2(4(1))
+
+2 sidefins, 2 lines : 2(1)
+1 tail, 10 lines : 1(10)
+5 tailfinrays, 5 lines : 5(1)
 
 draconic:
-+2 shoulders, 2 lines
-2 legs, 6 lines, 3 each
-2 wings, 4 lines, 2 each
-8 batfingers, 32 lines, 4 each
-8 toes, 16 lines, 2 each
-8 fingers, 30 lines, 3 or 4 each
-2 ankels, 14 lines, 7 each
-2 wrists, 8 lines, 4 each
-1 tail, 10 lines
+
++2 shoulders, 2 lines : n + 2(1)
+2 wings, 4 lines : 2(2)
+10 batfingers, 36 lines : 2(1(2)+4(4))
+
+2 legs, 6 lines : 2(3)
+8 toes, 22 lines : 2(2+3(3))
+
+2 wrists, 4 lines : 2(2)
+6 metacarples, 6 lines : 2(3(1))
+8 fingers, 30 lines : 2(4(3))
+
+1 tail, 10 lines : 1(10)
+
 
 insectoid:
-+6 shoulders, 6 lines
-+2 arms, 4 lines, 2 each
-2 legs, 4 lines, 2 each
-4 wings, 4 lines, 1 each
-6 toes, 22 lines, 3 or 4 each
-6 fingers, 22 lines, 3 or 4 each
-2 ankels, 14 lines, 7 each
-2 wrists, 8 lines, 4 each
-1 stinger, 1 bicone
-2 antenna, 6 lines, 3 each
+
++6 shoulders, 6 lines : n + 2(3(1))
+4 wings, 4 lines : 2(2(1))
+
++2 arms, 4 lines : n + 2(2)
+2 wrists, 2 invpyramids : 2(p)
+8 fingers, 24 lines : 2(4(3))
+
+2 legs, 4 lines : 2(2)
+2 ankels, 2 invisopyramids : 2(p)
+8 toes, 24 lines : 2(4(3))
+
+1 stinger, 1 bicone : 1(b)
+2 antenna, 6 lines : 2(3)
 
 ---
 
