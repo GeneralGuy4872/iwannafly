@@ -56,48 +56,47 @@ bool pause FALSE
 long long sealevel = 0
 double north = 0
 
+struct xyzdouble
+	{
+	x
+	y
+	z
+	}
+
 struct entity
 	{
-	long long x
-	long long y
-	long long z
-	double yaw
-	double pitch
-	double roll
+	xyzdouble loc
 	unsigned int length
 	unsigned int width
 	unsigned int depth
 	unsigned char m
-	int VeloX
-	int VeloY
-	int VeloZ
-	int TorqZ
-	int TorqY
-	int TorqX
+	xyzdouble Velo
+	xyzdouble Torq
 	}
 
 void onstep_player ()
 	{
-	player.VeloX = (player.VeloX + axis_buffer_x0) / (Ff * player.m)
-	player.VeloY = (player.VeloY + axis_buffer_y0) / (Ff * player.m)
-	player.VeloZ = (player.VeloZ + axis_buffer_lt + axis_buffer_rt) - (g * player.m)
-	player.TorqX = ((player.TorqX + axis_buffer_lt) - axis_buffer_rt) / (Ff * player.m)
-	player.TorqZ = (player.TorqZ + axis_buffer_x1) / (Ff * player.m)
-	player.TorqY = (player.TorqY + axis_buffer_y1) / (Ff * player.m)
+	player.VeloX = (player.Velo.x + axis_buffer_x0) / (Ff * player.m)
+	player.VeloY = (player.Velo.y + axis_buffer_y0) / (Ff * player.m)
+	player.VeloZ = (player.Velo.z + axis_buffer_lt + axis_buffer_rt) - (g * player.m)
+	player.TorqX = ((player.Torq.x + axis_buffer_lt) - axis_buffer_rt) / (Ff * player.m)
+	player.TorqZ = (player.Torq.z + axis_buffer_x1) / (Ff * player.m)
+	player.TorqY = (player.Torq.y + axis_buffer_y1) / (Ff * player.m)
 	
-	player.x = player.x + player.VeloX
-	player.y = player.y + player.VeloY
-	player.z = player.z + player.VeloZ
-	player.yaw = player.yaw + player.TorqZ
-	player.pitch = player.pitch + player.TorqY
-	player.roll = player.roll + player.TorqX
+	player.x = player.loc.x + player.Velo.x
+	player.y = player.loc.y + player.Velo.y
+	player.z = player.loc.z + player.Velo.z
+	
+	/*waiting on linear algabra book
+	glTranslated(player.Velo.x,player.Velo.y,player.Velo.z)
+	glRotated(player.Torq.z,0,0,1)
+	glRotated(player.Torq.y,0,1,0)
+	glRotated(player.Torq.x,1,0,0)*/
 	}
 
 struct cameratype camera
 	{
-	int x
-	int y
-	unsigned int z
+	xyzdouble loc
 	double azimuth
 	double elevation
 	double range
@@ -110,6 +109,8 @@ void onstep_camera ()
 	camera.elevation = camera.elevation + axis_buffer_y2
 	camera.range = camera.range + axis_buffer_x3
 	camera.fov = camera.zoom + axis_buffer_y3
+	
+	//waiting on linear algabra book
 	}
 
 void onstep_buffers ()
@@ -128,7 +129,7 @@ void onstep_master ()
 	onstep_render()
 	}
 
-/*****MAIN*****/
+/*>>>MAIN<<<*/
 main () {
 	clock_t diff
 		while !pause {
@@ -140,32 +141,6 @@ main () {
 				}
 			}
 
-void emrbrake (runaway)
-entity runaway
-	{
-	runaway.VeloX = 0
-	runaway.VeloY = 0
-	runaway.VeloZ = 0
-	printf("Do you know how fast you were going?\n")
-	}
+//reimpliment gimbal lock fixers
 
-void gimbllock (stalled)
-entity stalled
-	{
-	stalled.TorqX = 0
-	stalled.TorqY = 0
-	stalled.TorqZ = 0
-	stalled.pitch = 0
-	stalled.roll = 0
-	stalled.yaw = 0
-	printf("Send me a fouth gimbal for christmas!\n")
-	}
-
-void resetcamera ()
-	{
-	camera.azimuth = 0
-	camera.elevation = 0
-	camera.range = 0
-	camera.fov = 55 * (M_PI / 180)
-	printf("Lakitu! Cut that out!\n")
-	}
+//impliment a location checker
