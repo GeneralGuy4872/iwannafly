@@ -13,7 +13,8 @@ struct bone
   mat4 curr
   vec3 dim
   bool line
-  poly *polys[]
+  vec3 *verts[]
+  poly *faces[]
   int n_polys
   }
 
