@@ -1,3 +1,4 @@
+
 struct line
   {
   vec3 O
@@ -23,5 +24,11 @@ struct bone
   int n_lines
   int n_polys
   }
-  
+
+struct skeleton
+  {
+  bone *bones[]
+  int n_bones
+  }
+
   //opengl stuff
