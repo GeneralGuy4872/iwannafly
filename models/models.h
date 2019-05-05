@@ -15,13 +15,13 @@ struct bone
   mat4 curr,
   bool line,
   poly *faces[],
-  int n_polys,
+  unsigned char n_polys,
   }
 
 struct skeleton
   {
   bone *root
-  int n_bones
+  unsigned char n_bones
   }
 
   //opengl stuff
