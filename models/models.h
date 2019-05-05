@@ -10,7 +10,6 @@ struct bone
   bone *up,
   bone *prev,
   bone *next,
-  vec3 off,
   mat4 base,
   mat4 curr,
   float len
