@@ -11,7 +11,7 @@ struct bone
   vec3 *off
   mat4 base
   mat4 curr
-  vec3 len //z = length, x = radius or width, y = height or null
+  vec3 dim
   bool line
   poly *polys[]
   int n_polys
