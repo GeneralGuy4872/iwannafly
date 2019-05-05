@@ -7,15 +7,13 @@ struct poly
 
 struct bone
   {
-  bone *prev
-  vec3 *off
-  mat4 base
-  mat4 curr
-  vec3 dim
-  bool line
-  vec3 *verts[]
-  poly *faces[]
-  int n_polys
+  bone *prev,
+  vec3 *off,
+  mat4 base,
+  mat4 curr,
+  bool line,
+  poly *faces[],
+  int n_polys,
   }
 
 struct skeleton
