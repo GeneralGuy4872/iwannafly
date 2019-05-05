@@ -12,7 +12,6 @@ struct bone
   bone *next,
   mat4 base,
   mat4 curr,
-  float len
   bool line,
   poly *faces[],
   unsigned char n_polys,
