@@ -45,9 +45,15 @@ expands to
     △(Ω,+Y,-Y)
     △(Ω, X,±Y)
     △(X,+Y,-Y)
-  triangle
-    { 0,   0,  0} := Ω
-    { 0,?.5w,-hG} := Y
+  inverted triangle
+    { 0,   0, 0} := Ω
+    { 0,?.5w,-h} := Y
+    Ω⇢{1,0,0}
+    △(Ω,+Y,-Y)
+  right triangle
+    {0,0,0} := Ω
+    {0,0,h} := Z
+    {ℓ,0,0} := Z
     Ω⇢{1,0,0}
     △(Ω,+Y,-Y)
   sphere (32-hedron of some flavor?)
