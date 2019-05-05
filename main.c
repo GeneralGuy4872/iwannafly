@@ -71,8 +71,7 @@ struct entity
 	unsigned char m
 	vec3 Velo
 	vec3 Torq
-	bone *skeleton[]
-	int n_bones
+	skeleton dembones
 	}
 
 void onstep_player ()
