@@ -1,4 +1,7 @@
-spine(prev,root,len)
+gratio = 1+root(5)/2
+invphi = 2/1+root(5)
+
+spine(prev,root,len,nmax)
   bone *prev
   bone *root
   float len
@@ -14,7 +17,7 @@ spine(prev,root,len)
     }
   }
 
-phalange(prev,root,len,nmax)
+phalanges(prev,root,len,nmax)
   bone *prev
   bone *root
   float len
@@ -25,8 +28,9 @@ phalange(prev,root,len,nmax)
   prev->next = *phal[0]
   while (n > nmax)
     {
-    phalg[n] = (root,prev,NULL,(0,0,len),(/*waiting on book*/),(/*waiting on book*/),(len / root(n+1),TRUE,NULL,0)
+    phalg[n] = (root,prev,NULL,(0,0,len),(/*waiting on book*/),(/*waiting on book*/),,TRUE,NULL,0)
     prev = *phalng[n]
+    len = len*invphi
     n++
     }
   }
