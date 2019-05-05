@@ -2,7 +2,7 @@
 //X⇗ Y→ Z↑ for now, will probably change
 //unroll the arrays so that each vec3 is on a seperate row while editing, but put them back where you found them when done
 
-hr2 = (float) root(2) / 2 //Half Root 2
+float hr2 = root(2) / 2; //Half Root 2
 
 #define bone_octo(R) {( (R,0,0) , (0,R,0) , (0,0,R) ),( (R,0,0) , (0,R,0) , (0,0,-R) ),( (R,0,0) , (0,-R,0) , (0,0,R) ),( (R,0,0) , (0,-R,0) , (0,0,-R) ),( (-R,0,0) , (0,R,0) , (0,0,R) ),( (-R,0,0) , (0,R,0) , (0,0,-R) ),( (-R,0,0) , (0,-R,0) , (0,0,R) ),( (-R,0,0) , (0,-R,0) , (0,0,-R) )}
 #define bone_tetra(H,W,D) {( (0,0,0) , (0,.5 * W,-H) , (0,.5 * -W,-H) ),( (0,0,0) , (0,.5 * W,-H) , (-D,0,0) ),( (0,0,0) , (0,.5 * -W,-H) , (-D,0,0) ),( (-D,0,0) , (0,.5 * W,-H) , (0,.5 * -W,-H) )}
