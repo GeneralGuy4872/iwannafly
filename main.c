@@ -62,9 +62,35 @@ bool pause FALSE
 float sealevel = 0
 float north = 0
 
+enum axisconv
+	{
+	x = 1,
+	y = 2,
+	z = 3,
+	xy = 12,
+	xz = 13,
+	yx = 21,
+	yz = 23,
+	zx = 31,
+	zy = 32,
+	xyx = 121,
+	xyz = 123,
+	xzx = 131,
+	xzy = 132,
+	yxy = 212,
+	yxz = 213,
+	yzx = 231,
+	yzy = 232,
+	zxy = 312,
+	zxz = 313,
+	zyx = 321,
+	zyz = 323
+	}
+
 struct entity
 	{
 	vec3 loc
+	axisconv order
 	unsigned int length
 	unsigned int width
 	unsigned int depth
@@ -87,11 +113,6 @@ void onstep_player ()
 	player.y = player.loc.y + player.Velo.y
 	player.z = player.loc.z + player.Velo.z
 	
-	/*waiting on linear algabra book
-	glTranslatef(player.Velo.x,player.Velo.y,player.Velo.z)
-	glRotatef(player.Torq.z,0,0,1)
-	glRotatef(player.Torq.y,0,1,0)
-	glRotatef(player.Torq.x,1,0,0)*/
 	}
 
 struct cameratype camera
