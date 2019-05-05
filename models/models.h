@@ -1,26 +1,23 @@
 struct line
   {
-  xyzdouble O
-  xyzdouble P
+  vec3 O
+  vec3 P
   }
 
 struct poly
   {
-  xyzdouble A
-  xyzdouble B
-  xyzdouble C
+  vec3 A
+  vec3 B
+  vec3 C
   }
 
 struct bone
   {
   bone *prev
-  xyzdouble *off
+  vec3 *off
   mat4 base
   mat4 curr
-  float len
-  float rad
-  float w
-  float h
+  vec3 len //z = length, x = radius or width, y = height or null
   line *lines[]
   poly *polys[]
   int n_lines
