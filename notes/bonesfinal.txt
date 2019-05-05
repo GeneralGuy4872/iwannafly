@@ -19,6 +19,7 @@ bone,sphere:
    r  int
   ref matrix
   new matrix
+  
 bone,bicone:
    ℓ  int
    r  int
@@ -43,7 +44,7 @@ bone,tetrahedron:
   ref matrix
   new matrix
   
-bone,triangle:
+bone,<foo>triangle:
    h  int
    w  int
   ref matrix
@@ -52,7 +53,7 @@ bone,triangle:
 common:
 1 neck, 5 lines : 1(5)
 1 back, 10 lines : 1(10)
-2 shoulders, 2 lines : 2(1)
+2 shoulders, 2 rt_triangles : 2(1)
 2 arms, 4 lines : 2(2)
 1 skull, 1 sphere : 1(s)
 
@@ -61,7 +62,7 @@ common:
 human:
 color RGB
 
-1 pelvis, 1 triangle : 1(t)
+1 pelvis, 1 inv_triangle : 1(t)
 
 2 legs, 4 lines : 2(2)
 2 ankles, 8 lines : 2(4)
@@ -150,7 +151,7 @@ color RG0
 
 1 pelvis, 1 octohedron : 1(o)
 
-+6 shoulders, 6 lines : n + 2(3(1))
++6 shoulders, 2 rt_triangles + 4 lines : n + 2(1(t)+2(1))
 4 wings, 4 lines : 2(2(1))
 
 +2 arms, 4 lines : n + 2(2)
