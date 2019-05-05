@@ -3,6 +3,6 @@
 
 joyerr()
   {
-  printf(">>>ERROR!<<<\n~MEDITATION~\n\n/dev/js0: Not a typewriter\n");
+  printf(">>>ERROR!<<<\n~MEDITATION~\n\n/dev/js0: Not a typewriter\nexiting...\n");
   abort();
   }
