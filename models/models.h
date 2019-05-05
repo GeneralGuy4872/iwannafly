@@ -1,10 +1,3 @@
-
-struct line
-  {
-  vec3 O
-  vec3 P
-  }
-
 struct poly
   {
   vec3 A
@@ -19,9 +12,8 @@ struct bone
   mat4 base
   mat4 curr
   vec3 len //z = length, x = radius or width, y = height or null
-  line *lines[]
+  bool line
   poly *polys[]
-  int n_lines
   int n_polys
   }
 
