@@ -59,25 +59,18 @@ int msec
 int timer = 100
 bool pause FALSE
 
-long long sealevel = 0
-double north = 0
-
-struct xyzdouble
-	{
-	x
-	y
-	z
-	}
+float sealevel = 0
+float north = 0
 
 struct entity
 	{
-	xyzdouble loc
+	vec3 loc
 	unsigned int length
 	unsigned int width
 	unsigned int depth
 	unsigned char m
-	xyzdouble Velo
-	xyzdouble Torq
+	vec3 Velo
+	vec3 Torq
 	bone *skeleton[]
 	int n_bones
 	}
@@ -96,29 +89,26 @@ void onstep_player ()
 	player.z = player.loc.z + player.Velo.z
 	
 	/*waiting on linear algabra book
-	glTranslated(player.Velo.x,player.Velo.y,player.Velo.z)
-	glRotated(player.Torq.z,0,0,1)
-	glRotated(player.Torq.y,0,1,0)
-	glRotated(player.Torq.x,1,0,0)*/
+	glTranslatef(player.Velo.x,player.Velo.y,player.Velo.z)
+	glRotatef(player.Torq.z,0,0,1)
+	glRotatef(player.Torq.y,0,1,0)
+	glRotatef(player.Torq.x,1,0,0)*/
 	}
 
 struct cameratype camera
 	{
-	xyzdouble loc
-	double azimuth
-	double elevation
-	double range
-	double fov
+	vec2 coord
+	float r
+	float fov
 	}
 
 void onstep_camera ()
 	{
-	camera.azimuth = camera.azimuth + axis_buffer_x2
-	camera.elevation = camera.elevation + axis_buffer_y2
+	//waiting on linear algabra book
+	camera.coord.x = camera.coord.x + axis_buffer_x3
+	camera.coord.y = camera.coord.y + axis_buffer_y3
 	camera.range = camera.range + axis_buffer_x3
 	camera.fov = camera.zoom + axis_buffer_y3
-	
-	//waiting on linear algabra book
 	}
 
 void onstep_buffers ()
