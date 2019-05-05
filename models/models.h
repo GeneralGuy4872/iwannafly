@@ -13,6 +13,7 @@ struct bone
   vec3 off,
   mat4 base,
   mat4 curr,
+  float len
   bool line,
   poly *faces[],
   unsigned char n_polys,
