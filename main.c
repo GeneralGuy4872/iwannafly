@@ -77,6 +77,8 @@ struct entity
 	unsigned char m
 	xyzdouble Velo
 	xyzdouble Torq
+	bone *skeleton[]
+	int n_bones
 	}
 
 void onstep_player ()
