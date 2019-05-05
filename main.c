@@ -87,6 +87,10 @@ void onstep_player ()
 	player.y = player.loc.y + player.Velo.y
 	player.z = player.loc.z + player.Velo.z
 	
+	glTranslatef(player.Velo.x,player.Velo.y,player.Velo.z)
+	glRotatef(player.Torq.z,0,0,1)
+	glRotatef(player.Torq.y,0,1,0)
+	glRotatef(player.Torq.x,1,0,0)
 	}
 
 struct cameratype camera
