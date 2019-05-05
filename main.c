@@ -49,6 +49,7 @@
 #include "./textout.c"
 
 #include "./init.c"
+#include "./models/all.c"
 
 float g = 9.8
 char Ff = 2
