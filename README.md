@@ -38,7 +38,7 @@ PLANNED PLATFORMS
 =================
 
 - Debian i686
-- KNOPPIX x86
+- GNUStep i686
 - NetBSD i386
 - Arch 32 i686
 
