@@ -4,7 +4,7 @@ struct broadcolor
   vec3 hyper
   }
 
-struct poly
+struct polygon
   {
   vec3 A
   vec3 B
@@ -21,7 +21,7 @@ struct bone
   mat4 base,
   mat4 curr,
   bool line,
-  poly *faces[],
+  polygon *faces[],
   unsigned char n_polys,
   }
 
@@ -29,6 +29,7 @@ struct skeleton
   {
   bone *root
   unsigned char n_bones
+  broadcolor pigment
   }
 
   //opengl stuff
