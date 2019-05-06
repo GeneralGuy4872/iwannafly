@@ -8,10 +8,10 @@ spine(prev,root,len,nmax)
   {
   unsigned char n = 0
   bone verta[10]
-  prev->next = *vert[0]
-  while (n > 10)
+  while (n < nmax)
     {
-    verta[n] = (root,prev,NULL,(0,0,len),(0,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1),(1,0,0,0,0,1,0,0,0,0,1,0,0,0,len,1),len,TRUE,NULL,0)
+    verta[n] = (root,prev,NULL,(1,1,1),(0,0,len),(0,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1),(1,0,0,0,0,1,0,0,0,0,1,0,0,0,len,1),len,TRUE,NULL,0)
+    prev->next = *verta[n]
     prev = *verta[n]
     n++
     }
@@ -26,10 +26,10 @@ phalanges(prev,root,len,nmax,base)
   {
   unsigned char n = 0
   bone phalng[nmax]
-  prev->next = *phal[0]
-  while (n > nmax)
+  while (n < nmax)
     {
-    phalg[n] = (root,prev,NULL,(len,0,0),(0,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),len,TRUE,NULL,0)
+    phalg[n] = (root,prev,NULL,(0,1,n==0),(len,0,0),(0,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),len,TRUE,NULL,0)
+    prev->next = *phalg[n]
     prev = *phalng[n]
     len = len*invphi
     n++
@@ -45,10 +45,10 @@ arm(prev,root,len,nmax,base)
   {
   unsigned char n = 0
   bone limb[nmax]
-  prev->next = *phal[0]
-  while (n > nmax)
+  while (n < nmax)
     {
-    limb[n] = (root,prev,NULL,(len,0,0),(0,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),len,TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(1,n==0,1),(len,0,0),(0,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,1,0,0,1),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),len,TRUE,NULL,0)
+    prev->next = *limb[n]
     prev = *limb[n]
     len = len*hr2
     n++
