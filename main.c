@@ -23,7 +23,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glx.h>
-//#include <alsa/asoundlib.h>
+#include <fluidsynth.h>
 
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
