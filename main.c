@@ -74,6 +74,12 @@ struct entity
 	skeleton dembones
 	}
 
+struct light
+	{
+	vec3 loc
+	broadcolor emission
+	}
+
 void onstep_player ()
 	{
 	player.VeloX = (player.Velo.x + axis_buffer_x0) / (Ff * player.m)
