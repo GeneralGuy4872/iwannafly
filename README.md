@@ -13,7 +13,7 @@ Libraries:
 - OpenGL
 - GLX
 
-- ALSA asound
+- Fluidsynth
 
 - X11 Common Library
 - X Toolkit
