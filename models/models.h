@@ -16,7 +16,7 @@ struct bone
   bone *up,
   bone *prev,
   bone *next,
-  vec3 free,
+  vec3 freedom,
   vec3 len, //x=l,d y=r,w z=h
   vec3 off,
   mat4 base,
