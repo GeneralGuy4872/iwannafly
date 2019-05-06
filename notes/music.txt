@@ -1,0 +1,17 @@
+MIDI:
+CH0: square wave
+CH1: rhodes piano
+CH2: orchastra hit
+CH3: synthstrings
+CH4: synthbrass
+CH5: drawbar organ
+CH6: crystal
+CH7: tubular bells
+CH8: overdriven gutair
+CH9: timpani
+CH10: drumkit
+CH11: choir
+CH12: ocarina
+CH13: violin
+CH14: miramba
+CH15: trumpet
