@@ -101,18 +101,3 @@ avewing(prev,root,len,Q,s)
     s = s * -1
     }
   }
-
-widetail(prev,root,len)
-  bone *prev
-  bone *root
-  float len
-  unsigned char nmax
-  signed char side
-  {
-  bone vein[5]
-  vein[0] = (root,prev,NULL,(1,1,0),(len,0,0),(0,0,0),(-1,1,1),(0,M_PI/4,0),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
-  vein[1] = (root,prev,NULL,(1,1,0),(len*root(5),0,0),(0,0,0),(-1,1,1),(0,M_PI/4,M_PI/8),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
-  vein[0] = (root,prev,NULL,(1,1,0),(len*root(5),0,0),(0,0,0),(-1,-1,1),(0,M_PI/4,-M_PI/8),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
-  vein[0] = (root,prev,NULL,(1,1,0),(len*root(2),0,0),(0,0,0),(-1,1,1),(0,M_PI/4,M_PI/4),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
-  vein[0] = (root,prev,NULL,(1,1,0),(len*root(2),0,0),(0,0,0),(-1,-1,1),(0,M_PI/4,-M_PI/4),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
-  }
