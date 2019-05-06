@@ -38,6 +38,13 @@
 //originally wanted these for extra input, but fixed that
 //still might use them for pause menu
 
+#define FWD 1
+#define RT 1
+#define UP 1
+#define BKWD -1
+#define LFT -1
+#define DN -1
+
 #include "./joystick.c"
 
 #include "./xwindow.c"
