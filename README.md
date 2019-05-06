@@ -33,3 +33,12 @@ System:
 - make
 - C compiler
 - Awk
+
+PLANNED PLATFORMS
+=================
+
+- Debian i686
+- KNOPPIX x86
+- NetBSD i386
+
+Will add other systems if I get better hardware, Arch being paramount amoungst them
