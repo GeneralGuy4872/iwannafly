@@ -13,6 +13,8 @@ Libraries:
 - OpenGL
 - GLX
 
+- ALSA asound
+
 - X11 Common Library
 - X Toolkit
 - X Athena Widgets
