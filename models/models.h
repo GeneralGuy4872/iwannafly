@@ -19,7 +19,8 @@ struct bone
   vec3 freedom,
   vec3 len, //x=l,d y=r,w z=h
   vec3 off,
-  mat4 base,
+  vec3 base,
+  vec3 scale,
   mat4 curr,
   bool line,
   polygon *faces[],
