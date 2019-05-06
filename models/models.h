@@ -1,3 +1,9 @@
+struct broadcolor
+  {
+  vec3 color
+  vec3 hyper
+  }
+
 struct poly
   {
   vec3 A
