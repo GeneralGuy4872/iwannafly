@@ -20,20 +20,21 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "GL/gl.h"
-#include "GL/glu.h"
-#include "GL/glx.h"
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glx.h>
+//#include <alsa/asoundlib.h>
 
-#include "X11/Intrinsic.h"
-#include "X11/StringDefs.h"
-#include "X11/CoreP.h"
-#include "X11/Xatom.h"
-#include "X11/Xaw/Form.h"
-#include "X11/Xaw/Box.h"
-#include "X11/Xaw/Label.h"
-#include "X11/Xaw/Command.h"
-#include "X11/Xaw/Toggle.h"
-#include "X11/Xaw/Scrollbar.h"
+#include <X11/Intrinsic.h>
+#include <X11/StringDefs.h>
+#include <X11/CoreP.h>
+#include <X11/Xatom.h>
+#include <X11/Xaw/Form.h>
+#include <X11/Xaw/Box.h>
+#include <X11/Xaw/Label.h>
+#include <X11/Xaw/Command.h>
+#include <X11/Xaw/Toggle.h>
+#include <X11/Xaw/Scrollbar.h>
 //originally wanted these for extra input, but fixed that
 //still might use them for pause menu
 
