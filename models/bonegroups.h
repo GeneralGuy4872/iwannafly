@@ -17,24 +17,44 @@ spine(prev,root,len,nmax)
     }
   }
 
-phalanges(prev,root,len,nmax,thumb)
+handphalanges(prev,root,nmax,thumb)
   bone *prev
   bone *root
-  float len
   unsigned char nmax
   bool thumb
   {
+  float len = root.len.x
   unsigned char n = 0
   bone phalng[nmax]
   while (n < nmax)
     {
+    len = len/gratio
     phalng[n] = (root,prev,NULL,(0,1,n==0),(len,0,0),(0,0,0),((thumb*M_PI)/2,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
     prev->next = *phalng[n]
     prev = *phalng[n]
-    len = len/gratio
     n++
     }
   }
+
+footphalanges(prev,root,nmax,thumb)
+  bone *prev
+  bone *root
+  unsigned char nmax
+  bool thumb
+  {
+  float len = root.len.x
+  unsigned char n = 0
+  bone phalng[nmax]
+  while (n < nmax)
+    {
+    len = len/sratio
+    phalng[n] = (root,prev,NULL,(0,1,n==0),(len,0,0),(0,0,0),((thumb*M_PI)/2,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
+    prev->next = *phalng[n]
+    prev = *phalng[n]
+    n++
+    }
+  }
+
 
 limb2(prev,root,len,arm,Q,s)
   bone *prev
