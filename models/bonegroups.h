@@ -1,7 +1,5 @@
 float gratio = (1+root(5))/2
-float invphi = 2/(1+root(5))
 float sratio = 1+root(2)
-float tovsil = 2/(1+root(2))
 
 spine(prev,root,len,nmax)
   bone *prev
@@ -33,7 +31,7 @@ phalanges(prev,root,len,nmax,thumb)
     phalng[n] = (root,prev,NULL,(0,1,n==0),(len,0,0),(0,0,0),((thumb*M_PI)/2,0,0),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
     prev->next = *phalng[n]
     prev = *phalng[n]
-    len = len*invphi
+    len = len/gratio
     n++
     }
   }
@@ -75,7 +73,7 @@ digiti(prev,root,len,Q,s)
     limb[n] = (root,prev,NULL,(n==0,n==0,1),(len,0,0),(0,0,0),(0,Q*s*(.5^n==0),0),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
-    len = len*tovsil
+    len = len/gratio
     n++
     s = s * -1
     }
@@ -96,7 +94,7 @@ avewing(prev,root,len,Q,s)
     limb[n] = (root,prev,NULL,(0,n==0,1),(len,0,0),(0,0,0),(0,Q*(n!=0),0),(1,0,0,0,0,1,0,0,0,0,1,0,len,0,0,1),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
-    len = len*gratio
+    len = len*sratio
     n++
     s = s * -1
     }
