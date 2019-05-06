@@ -16,6 +16,8 @@
 #include <time.h>
 //#include <regex.h> : external awk script should work instead
 
+#include <sys/ioctl.h>
+#include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 //#include <signal.h> : crash debugger might need this??
