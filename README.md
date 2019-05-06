@@ -40,5 +40,6 @@ PLANNED PLATFORMS
 - Debian i686
 - KNOPPIX x86
 - NetBSD i386
+- D Small Linux
 
 Will add other systems if I get better hardware, Arch being paramount amoungst them
