@@ -2,7 +2,7 @@
 *.h = linguist-language=C
 *.awk = linguist-language=Awk
 make = linguist-language=makefile
-*.ini = linguist-language=dosini
+*.ini = linguist-language=INI
 *.man.* = linguist-documentation=true
 *.html = linguist-documentation=true
 *.txt = linguist-documentation=true
