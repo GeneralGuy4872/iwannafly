@@ -14,7 +14,7 @@ spine(prev,root,len,nmax)
   bone verta[10]
   while (n < nmax)
     {
-    verta[n] = (root,prev,NULL,(1,1,1),(0,0,len),(0,0,0),matgen_master(0,0,0,1,1,1),matgen_translate(0,0,len),TRUE,NULL,0)
+    verta[n] = (root,prev,NULL,(1,1,1),(0,0,len),(0,0,0),matgen_identity,matgen_translate(0,0,len),TRUE,NULL,0)
     prev->next = *verta[n]
     prev = *verta[n]
     n++
