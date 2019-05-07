@@ -18,8 +18,8 @@ struct bone
   bone *next,
   vec3 freedom,
   vec3 len, //x=l,d y=r,w z=h
-  vec3 orig,
-  vec3 rot,
+  vec3 trans,
+  mat4 base,
   mat4 curr,
   bool line,
   polygon *faces[],
