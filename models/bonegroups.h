@@ -5,16 +5,17 @@
 float gratio = (1+root(5))/2
 float sratio = 1+root(2)
 
-bone *spine(prev,root,len,nmax)
+bone *spine(prev,root,nmax,len)
   bone *prev
   bone *root
+  unsigned char nmax
   float len
   {
   unsigned char n = 0
   bone verta[10]
   while (n < nmax)
     {
-    verta[n] = (root,prev,NULL,(1,1,1),(0,0,len),(0,0,0),matgen_identity,matgen_translate(0,0,len),TRUE,NULL,0)
+    verta[n] = (root,prev,NULL,(0,0,len),(0,0,0),matgen_identity,matgen_translate(0,0,len),TRUE,NULL,0)
     prev->next = *verta[n]
     prev = *verta[n]
     n++
@@ -35,7 +36,7 @@ bone *handphalanges(prev,root,nmax,rot)
   while (n < nmax)
     {
     len = len/gratio
-    phalng[n] = (root,prev,NULL,(0,1,n==0),(len,0,0),(0,0,0),matgen_master(rot.x,rot.y,rot.z,1,1,1),matgen_translate(len,0,0),TRUE,NULL,0)
+    phalng[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_master(rot.x,rot.y,rot.z,dir,1,dir),matgen_translate(len,0,0),TRUE,NULL,0)
     prev->next = *phalng[n]
     prev = *phalng[n]
     n++
@@ -43,11 +44,12 @@ bone *handphalanges(prev,root,nmax,rot)
   return *phalng[nmax-1]
   }
 
-bone *footphalanges(prev,root,nmax,rot)
+bone *footphalanges(prev,root,nmax,rot,dir)
   bone *prev
   bone *root
   unsigned char nmax
   vec3 rot
+  signed char dir
   {
   float len = root.len.x
   unsigned char n = 0
@@ -55,7 +57,7 @@ bone *footphalanges(prev,root,nmax,rot)
   while (n < nmax)
     {
     len = len/sratio
-    phalng[n] = (root,prev,NULL,(0,1,n==0),(len,0,0),(0,0,0),matgen_master(rot.x,rot.y,rot.z,1,-1,1),matgen_translate(len,0,0),TRUE,NULL,0)
+    phalng[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_master(rot.x,rot.y,rot.z,dir,1,dir),matgen_translate(len,0,0),TRUE,NULL,0)
     prev->next = *phalng[n]
     prev = *phalng[n]
     n++
@@ -63,17 +65,17 @@ bone *footphalanges(prev,root,nmax,rot)
   return *phalng[nmax-1]
   }
 
-bone *limb2(prev,root,len,is_arm)
+bone *arm(prev,root,len,dir)
   bone *prev
   bone *root
   float len
-  bool is_arm
+  signed char dir
   {
   unsigned char n = 0
   bone limb[2]
   while (n < 2)
     {
-    limb[n] = (root,prev,NULL,(is_arm||n==0,n==0,1),(len,0,0),(0,0,0),matgen_master(rot.x,rot.y,rot.z,1,1,1),matgen_translate(len,0,0),TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_master(0,0,(M_PI/2)*dir*(n==0),dir,1,dir),matgen_translate(len,0,0),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len/gratio
@@ -82,19 +84,40 @@ bone *limb2(prev,root,len,is_arm)
   return limb[1]
   }
 
-bone *digiti(prev,root,len,Q,dir)
+bone *leg(prev,root,len,Q,dir)
   bone *prev
   bone *root
   float len
   float Q
-  vec3 dir
+  signed char dir
+  {
+  unsigned char n = 0
+  signed char s = 1
+  bone limb[2]
+  while (n < 2)
+    {
+    limb[n] = (root,prev,NULL,(0,0,len),(0,0,0),matgen_master(M_PI+Q,0,0,dir*s,1,dir),matgen_translate(0,0,len),TRUE,NULL,0)
+    prev->next = *limb[n]
+    prev = *limb[n]
+    len = len/gratio
+    n++
+    s = s * -1
+    }
+  return limb[1]
+  }
+
+bone *digiti(prev,root,len,dir)
+  bone *prev
+  bone *root
+  float len
+  signed char dir
   {
   unsigned char n = 0
   signed char s = 1
   bone limb[nmax]
   while (n < 3)
     {
-    limb[n] = (root,prev,NULL,(n==0,n==0,1),(len,0,0),(0,0,0),matgen_master(0,Q*(.5^n==0)),0,dir.x,dir.y*s,dir.z),matgen_translate(len,0,0),TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_master(0,M_PI,0,dir,s,dir),matgen_translate(len,0,0),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len/gratio
@@ -104,20 +127,19 @@ bone *digiti(prev,root,len,Q,dir)
   return *limb[2]
   }
 
-bone *avewing(prev,root,len,Q,rot,dir)
+bone *avewing(prev,root,len,rot,dir)
   bone *prev
   bone *root
   float len
-  float Q
   vec3 rot
-  vec3 dir
+  signed char dir
   {
   unsigned char n = 0
   signed char s = 1
   bone limb[3]
   while (n < 3)
     {
-    limb[n] = (root,prev,NULL,(0,n==0,1),(len,0,0),(0,0,0),matgen_master(rot.x*n==0,rot.y*n==0+Q*(n!=0),rot.z*n==0,dir.x,dir.y*s,dir.z),matgen_translate(len,0,0),TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_master(rot.x*(n==0),rot.y*(n==0),rot.z*(n==0),dir*s,dir,1),matgen_translate(len,0,0),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len*sratio
