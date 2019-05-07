@@ -21,7 +21,7 @@ struct bone
   vec3 trans,
   mat4 base,
   mat4 curr,
-  bool line,
+  bool drawline,
   polygon *faces[],
   unsigned char n_polys,
   }
