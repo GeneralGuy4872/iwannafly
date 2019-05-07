@@ -1,3 +1,7 @@
+#include "./models.h"
+#include "./shapes.h"
+#include "./matrixgen.h"
+
 float gratio = (1+root(5))/2
 float sratio = 1+root(2)
 
