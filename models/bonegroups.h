@@ -5,10 +5,10 @@
 #define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
 
-void doublelink(next)
-  bone *next
+void doublelink(xyzzy)
+  bone *xyzzy
   {
-  next->prev->next = *next
+  xyzzy->prev->next = *xyzzy
   }
 
 bone *spine(prev,root,nmax,len)
