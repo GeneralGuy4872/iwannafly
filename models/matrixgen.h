@@ -13,3 +13,4 @@
 #define matgen_scale (X,Y,Z) (X,0,0,0, 0,Y,0,0, 0,0,Z,0, 0,0,0,1)
 #define matgen_translate (X,Y,Z) (1,0,0,0, 0,1,0,0, 0,0,1,0, X,Y,Z,1)
 #define matgen_identity (1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)
+#define matgen_freedom (M,V) (M[0] ^ X,M[1] ^ Y,M[2] ^ Z,0, M[4] ^ X,M[5] ^ Y,M[6] ^ Z,0, M[8] ^ X,M[9] ^ Y,M[10] ^ Z,0, M[12],M[13],M[14],1)
