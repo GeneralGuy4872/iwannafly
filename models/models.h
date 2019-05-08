@@ -5,6 +5,13 @@ struct bytevec
   signed char z
   }
 
+struct boolvec
+  {
+  bool x
+  bool y
+  bool z
+  }
+
 struct broadcolor
   {
   vec3 color
@@ -25,6 +32,7 @@ struct bone
   bone *next,
   vec3 len, //x=l,d y=r,w z=h
   vec3 trans,
+  boolvec freedom,
   mat4 base,
   mat4 curr,
   bool drawline,
