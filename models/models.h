@@ -47,4 +47,16 @@ struct skeleton
   broadcolor pigment
   }
 
-  //opengl stuff
+  /*a skeleton is a doubly-linked list of bone elements, traversed with struct fields .prev and .next,
+  *that is also organized into a root-directed tree, traversed in one direction only by field .up.
+  *the root of the tree and the head of the list are the same element.
+  *the renderer will traverse the skeleton LINKED LIST, FORWARD, and propogate rotations along the TREE, OUTWARDS,
+  *each time it is called with an animation queue.
+  *an element pointed to by .up should occur in the list before the element referenceing it,
+  *or rotations will not propogate proporly. (this could be a desired effect in some unforseen circumstance??)*/
+
+  /*an animation queue is an array of pointers to matrixes, one for each bone in the asscociated skeleton.
+  *an animation sequence is a circular singly linked list of animation queues
+  *and a pointer that circles through it. an animation pointer points to the pointer of the active animation sequence.*/
+  
+//opengl stuff
