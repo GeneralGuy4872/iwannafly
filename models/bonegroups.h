@@ -56,7 +56,7 @@ bone *thumbphalanges(prev,root,nmax,rot)
   unsigned char nmax
   vec3 rot
   {
-  float len = root.len.x
+  float len = root.len.x / M_PI
   unsigned char n = 0
   bone phalng[nmax]
   while (n < nmax)
