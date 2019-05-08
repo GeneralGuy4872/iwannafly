@@ -122,7 +122,7 @@ bone *leg(prev,root,len,Q,dir,off)
   bone limb[2]
   while (n < 2)
     {
-    limb[n] = (root,prev,NULL,(0,0,len),(off.x,off.y,off.z),(n==0,TRUE,n==0),matgen_master_deg(180+Q,0,0,dir.x,dir.y,dir.z),matgen_translate(0,0,len),TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(0,0,len),(off.x,off.y,off.z),(n==0,TRUE,n==0),matgen_master_deg(Q,0,0,dir.x,dir.y,dir.z),matgen_translate(0,0,-len),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len/G_RATIO
@@ -146,7 +146,7 @@ bone *digiti(prev,root,len,Q,dir,off)
   bone limb[3]
   while (n < 3)
     {
-    limb[n] = (root,prev,NULL,(len,0,0),(off.x,off.y,off.z),(n==0,TRUE,n==0),matgen_master_deg(180+Q,180,0,dir.x,dir.y,dir.z),matgen_translate(len,0,0),TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(0,0,len),(off.x,off.y,off.z),(n==0,TRUE,n==0),matgen_master_deg(Q,0,0,dir.x,dir.y,dir.z),matgen_translate(0,0,-len),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len/G_RATIO
