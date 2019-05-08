@@ -5,6 +5,12 @@
 #define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
 
+void hookback(next)
+  bone *next
+  {
+  next->prev->next = *next
+  }
+
 bone *spine(prev,root,nmax,len)
   bone *prev
   bone *root
