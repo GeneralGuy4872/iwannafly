@@ -74,12 +74,13 @@ bone *arm(prev,root,len)
   bone *prev
   bone *root
   float len
+  signed char dir
   {
   unsigned char n = 0
   bone limb[2]
   while (n < 2)
     {
-    limb[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_identity,matgen_translate(len,0,0),TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(len,0,0),(0,0,0),matgen_x_deg(90*n,1,1,1),matgen_translate(len,0,0),TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len/G_RATIO
