@@ -15,7 +15,7 @@ struct boolvec
 struct broadcolor
   {
   vec3 color
-  vec3 hyper
+  boolvec hyper
   }
 
 struct polygon
