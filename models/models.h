@@ -31,7 +31,6 @@ struct bone
   bone *prev,
   bone *next,
   vec3 len, //x=l,d y=r,w z=h
-  vec3 trans,
   boolvec freedom,
   mat4 base,
   mat4 curr,
