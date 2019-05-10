@@ -10,6 +10,5 @@
 #define matgen_z_deg (A,X,Y,Z,L,W,H) (X*cos(radians(mod(A,360))),X*sin(radians(mod(A,360))),0,0, Y*-1*sin(radians(mod(A,360))),Y*cos(radians(mod(A,360))),0,0, 0,0,Z,0, L,W,H,1)
 #define matgen_z_rad (A,X,Y,Z,L,W,H) (X*cos(mod(A,M_TAU)),X*sin(mod(A,M_TAU)),0,0, Y*-1*sin(mod(A,M_TAU)),Y*cos(mod(A,M_TAU)),0,0, 0,0,Z,0, L,W,H,1)
 //use the deg macros to minimize rounding errors
-#define matgen_scale (X,Y,Z) (X,0,0,0, 0,Y,0,0, 0,0,Z,0, 0,0,0,1)
-#define matgen_translate (L,W,H) (1,0,0,0, 0,1,0,0, 0,0,1,0, L,W,H,1)
+#define matgen_simple (X,Y,Z,L,W,H) (X,0,0,0, 0,Y,0,0, 0,0,Z,0, L,W,H,1)
 #define matgen_identity (1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1)
