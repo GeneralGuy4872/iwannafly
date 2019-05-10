@@ -30,7 +30,6 @@ struct bone
   bone *up,
   bone *prev,
   bone *next,
-  boolvec freedom,
   mat4 base,
   mat4 curr,
   bool drawline,
