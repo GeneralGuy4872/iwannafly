@@ -28,6 +28,24 @@ bone *spine(prev,root,nmax,len)
     }
   return *verta[nmax-1]
   }
+  
+bone *tail(prev,root,nmax,len)
+  bone *prev
+  bone *root
+  unsigned char nmax
+  float len
+  {
+  unsigned char n = 0
+  bone verta[10]
+  while (n < nmax)
+    {
+    verta[n] = (root,prev,NULL,(-1,0,0),(-len/nmax,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
+    prev->next = *verta[n]
+    prev = *verta[n]
+    n++
+    }
+  return *verta[nmax-1]
+  }
 
 bone *handphalanges(prev,root,nmax,rot)
   bone *prev
@@ -110,18 +128,19 @@ bone *arm(prev,root,len)
   return limb[1]
   }
 
-bone *leg(prev,root,len,Q,dir)
+bone *leg(prev,root,len,Q,dir,side)
   bone *prev
   bone *root
   float len
   float Q
   bytevec dir
+  signed char side
   {
   unsigned char n = 0
   bone limb[2]
   while (n < 2)
     {
-    limb[n] = (root,prev,NULL,((n==0)/2,(n==0)/2,1),(0,0,-1*len),matgen_x_deg(Q,dir.x,dir.y,dir.z),matgen_ident,TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(0,(side*(n==0))/2,1),(0,0,-1*len),matgen_x_deg(Q,dir.x,dir.y,dir.z),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len/G_RATIO
