@@ -1,5 +1,5 @@
 draw_entity(plugh)
-
+entity plugh
 {
 bone *bone = plugh.dembones.foo
 char n = 0
