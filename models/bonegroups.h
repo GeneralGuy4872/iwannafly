@@ -219,4 +219,5 @@ bone *avewing(prev,root,len,rot,s)
   return *limb[2]
   }
 
-*polygon crystal[8] bone_octo(0.1)
+polygon crystal[8] bone_octo(0.1)
+polygon crate[12] bone_cube(1,1,1)
