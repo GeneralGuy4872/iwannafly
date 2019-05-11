@@ -1,4 +1,4 @@
-target memory size: 512 MB engine +1440K level file
+target memory size: 512M engine +1440K level file
 
 The level file is loaded. this contains:
 - an array of polygons for the terrain
