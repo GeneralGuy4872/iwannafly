@@ -54,6 +54,11 @@
 #include "./init.c"
 #include "./models/all.c"
 
+/*all mesurements should folow SI units,
+* with the exception of using both degrees and radians in different places.
+* since real meters and kilograms are used, conclusions can be made about
+* the physical characteristics of any elements of the game, so be careful!*/
+
 float g = 9.8
 char Ff = 2
 
