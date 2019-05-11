@@ -1,0 +1,18 @@
+The level file is loaded. this contains:
+- an array of polygons for the terrain
+- a linked list of scenery objects which contain XYZ coordinates, polygon arrays, hitboxes, and other important data
+- a list of entity positions that are used to generate a full linked list of entitys
+
+on init:
+the terrain is rendered
+the scenery is rendered
+the entitys are rendered
+the camera is rendered
+the player is rendered
+the frame is drawn
+
+on step:
+the entitys are updated
+the camera is updated
+the player is updated
+the frame is drawn
