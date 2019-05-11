@@ -95,12 +95,33 @@ bone *footphalanges(prev,root,nmax,rot)
   unsigned char nmax
   vec3 rot
   {
-  float len = root.len.z * -1
+  float len = (root.len.z * -1) / M_PI_2
   unsigned char n = 0
   bone phalng[nmax]
   while (n < nmax)
     {
     len = len/S_RATIO
+    phalng[n] = (root,prev,NULL,(1,0,-1*(n==0)),(len,0,0),matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,TRUE,NULL,0)
+    prev->next = *phalng[n]
+    prev = *phalng[n]
+    n++
+    rot = (0,0,0)
+    }
+  return *phalng[nmax-1]
+  }
+
+bone *talonphalanges(prev,root,nmax,rot)
+  bone *prev
+  bone *root
+  unsigned char nmax
+  vec3 rot
+  {
+  float len = (root.len.z * -1) / M_PI_2
+  unsigned char n = 0
+  bone phalng[nmax]
+  while (n < nmax)
+    {
+    len = len/G_RATIO
     phalng[n] = (root,prev,NULL,(1,0,-1*(n==0)),(len,0,0),matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,TRUE,NULL,0)
     prev->next = *phalng[n]
     prev = *phalng[n]
