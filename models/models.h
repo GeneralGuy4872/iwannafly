@@ -30,6 +30,8 @@ struct bone
   bone *up,
   bone *prev,
   bone *next,
+  vec3 off,
+  vec3 len,
   mat4 base,
   mat4 curr,
   bool drawline,
@@ -55,7 +57,7 @@ struct skeleton
 struct aniframe
   {
   aniframe *next
-  mat4 *rot
+  mat4 *rot[]
   }
 
   /*an animation queue is an array of pointers to matrixes, one for each bone in the asscociated skeleton.
