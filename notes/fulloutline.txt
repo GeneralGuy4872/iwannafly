@@ -1,3 +1,5 @@
+target memory size: 512 MB
+
 The level file is loaded. this contains:
 - an array of polygons for the terrain
 - a linked list of scenery objects which contain XYZ coordinates, polygon arrays, hitboxes, and other important data
