@@ -39,10 +39,17 @@ struct bone
   unsigned char n_polys,
   }
 
+struct aniframe
+  {
+  aniframe *next
+  mat4 *queue[]
+  }
+
 struct skeleton
   {
   bone *root
   unsigned char n_bones
+  aniframe *aninext 
   broadcolor pigment
   }
 
@@ -54,11 +61,6 @@ struct skeleton
   *an element pointed to by .up should occur in the list before the element referenceing it,
   *or rotations will not propogate proporly. (this could be a desired effect in some unforseen circumstance??)*/
 
-struct aniframe
-  {
-  aniframe *next
-  mat4 *rot[]
-  }
 
   /*an animation queue is an array of pointers to matrixes, one for each bone in the asscociated skeleton.
   *an animation sequence is a circular singly linked list of animation queues
