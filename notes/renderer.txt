@@ -1,10 +1,10 @@
-draw_skeleton(skeleton)
-skeleton *skeleton
+draw_entity(plugh)
+
 {
-bone *bone = skeleton.foo
+bone *bone = plugh.dembones.foo
 char n = 0
 char m = 0 
-while (n < skeleton.n_bones)
+while (n < plugh.dembones.n_bones)
   {
   some_func_push(bone.up.curr)
   some_func_translate(bone.up.len.x * bone.off.x,bone.up.len.y * bone.off.y,bone.up.len.z * bone.off.z)
