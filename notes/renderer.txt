@@ -1,36 +1,36 @@
 draw_skeleton(skeleton)
-{
 skeleton *skeleton
+{
 bone *bone = skeleton.foo
 char n = 0
 char m = 0 
 while (n < skeleton.n_bones)
-{
+  {
   some_func_push(bone.up.curr)
   some_func_translate(bone.up.len.x * bone.off.x,bone.up.len.y * bone.off.y,bone.up.len.z * bone.off.z)
   bone.curr = bone.up.curr * bone.base 
   bone.curr = bone.curr * skeleton.aninext.rot[n]
   if (drawline)
-  {
+    {
     some_func_drawline( (0,0,0),(bone.len.x,bone.len.y,bone.len.z)
-  }
+    }
   else
-  {}
+    {}
   while (m < n_polys)
-  {
+    {
     some_func_triangle(faces[m])
     m++
-  }
+    }
   m = 0
   bone = bone.next
   n++
-}
+  }
 skeleton.ani = skeleton.ani.next
 }
 
 set_animation(skeleton,animation)
-{
 skeleton *skeleton
 aniframe *animation
-skeleton.aninext = animation
-}
+  {
+  skeleton.aninext = animation
+  }
