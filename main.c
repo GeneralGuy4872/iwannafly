@@ -67,55 +67,63 @@ float north = 0
 
 struct entity
 	{
-	vec3 loc
-	unsigned int length
-	unsigned int width
-	unsigned int depth
-	unsigned char m
+	vec3 pos
+	vec3 size
+	vec2 off
 	vec3 Velo
+	vec3 rot
 	vec3 Torq
+	mat4 ori
+	bool airborn
+	unsigned char mass
+	unsigned char drag
 	skeleton dembones
 	}
 
 struct light
 	{
-	vec3 loc
+	vec3 pos
+	vec3 size
 	broadcolor emission
 	}
 
 void onstep_player ()
 	{
-	player.VeloX = (player.Velo.x + axis_buffer_x0) / (Ff * player.m)
-	player.VeloY = (player.Velo.y + axis_buffer_y0) / (Ff * player.m)
-	player.VeloZ = (player.Velo.z + axis_buffer_lt + axis_buffer_rt) - (g * player.m)
-	player.TorqX = ((player.Torq.x + axis_buffer_lt) - axis_buffer_rt) / (Ff * player.m)
-	player.TorqZ = (player.Torq.z + axis_buffer_x1) / (Ff * player.m)
-	player.TorqY = (player.Torq.y + axis_buffer_y1) / (Ff * player.m)
+	player.VeloX = (player.Velo.x + axis_buffer_0.x) / ((Ff * not(airborn) * player.mass) + player.drag)
+	player.VeloY = (player.Velo.y + axis_buffer_0.y) / ((Ff * not(airborn) * player.mass) + player.drag)
+	player.VeloZ = (player.Velo.z + axis_buffer_0.z + axis_buffer_1.z) - (g / drag)
+	player.TorqX = ((player.Torq.x + (axis_buffer_0.z - axis_buffer_1.z)) / (player.mass + player.drag)) * player.airborn
+	player.TorqZ = (player.Torq.z + axis_buffer_1.x) / ((Ff * not(airborn) * player.mass) + player.drag)
+	player.TorqY = (player.Torq.y + axis_buffer_1.y) / ((Ff * not(airborn) * player.mass) + player.drag)
 	
-	player.x = player.loc.x + player.Velo.x
-	player.y = player.loc.y + player.Velo.y
-	player.z = player.loc.z + player.Velo.z
+	player.pos.x = player.pos.x + player.Velo.x
+	player.pos.y = player.pos.y + player.Velo.y
+	player.pos.z = player.pos.z + player.Velo.z
+
+	player.rot.x = modulo(player.rot.x + player.Torq.x,360)
+	player.rot.y = modulo(player.rot.y + player.Torq.y,360)
+	player.rot.z = modulo(player.rot.z + player.Torq.z,360)
+
+	player.ori = matgen_master(player.rot.x,player.rot.y,player.rot.z,1,1,1)
 	
-	glTranslatef(player.Velo.x,player.Velo.y,player.Velo.z)
-	glRotatef(player.Torq.z,0,0,1)
-	glRotatef(player.Torq.y,0,1,0)
-	glRotatef(player.Torq.x,1,0,0)
+	/*
+	some_function_gl_set_origin(player.pos.x,player.pos.y,player.pos.z)
+	some_function_gl_push_matrix(player.ori)
+	*/
 	}
 
 struct cameratype camera
 	{
-	vec2 coord
-	float r
-	float fov
+	entity parent
+	vec4 coord
 	}
 
 void onstep_camera ()
 	{
-	//waiting on linear algabra book
-	camera.coord.x = camera.coord.x + axis_buffer_x3
-	camera.coord.y = camera.coord.y + axis_buffer_y3
-	camera.range = camera.range + axis_buffer_x3
-	camera.fov = camera.zoom + axis_buffer_y3
+	camera.coord.x = modulo(camera.coord.x + axis_buffer_2.x,360)
+	camera.coord.y = modulo(camera.coord.y + axis_buffer_2.y,360)
+	camera.coord.z = camera.coord.z + axis_buffer_2.z
+	camera.coord.w = modulo(camera.fov + axis_buffer_2.w,360)
 	}
 
 void onstep_buffers ()
