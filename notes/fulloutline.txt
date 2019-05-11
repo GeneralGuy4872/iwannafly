@@ -8,13 +8,16 @@ The level file is loaded. this contains:
 on init:
 the terrain is rendered
 the scenery is rendered
+the player is rendered
 the entitys are rendered
 the camera is rendered
-the player is rendered
 the frame is drawn
 
 on step:
+the player is updated
 the entitys are updated
 the camera is updated
-the player is updated
 the frame is drawn
+
+steps are asynchronous, but limited to 30hz
+frames are drawn on next vsync and held (double-buffer) until next frame is ready
