@@ -190,7 +190,7 @@ bone *avewing(prev,root,len,rot,s)
     limb[n] = (root,prev,NULL,(0,0,1),(0,0,len),matgen_master_deg(rot.x,rot.y,rot.z,s,1,1,0,0,0),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
-    len = len*S_RATIO
+    len = len*G_RATIO
     n++
     s = s * -1
     rot = (0,0,0)
