@@ -3,11 +3,11 @@ metacarple 3: ℓ = (ℓ_n-1/π)×1, ψ = 0
 metacarple 4: ℓ = (ℓ_n-1/π)×cos(π/32), ψ = -11.25° | -π/8 | -2ang
 metacarple 5: ℓ = (ℓ_n-1/π)×cos(π/16), ψ = -22.5° | -π/16 | -4ang
 
-metatarsel 1: ℓ = (ℓ_n-1/π)×cos(π/32), ψ = 5.625° | π/32 | 1ang
-metatarsel 2: ℓ = (ℓ_n-1/π)×1, ψ = 0
-metatarsel 3: ℓ = (ℓ_n-1/π)×cos(π/32), ψ = -5.625° | -π/32 | -1ang
-metatarsel 4: ℓ = (ℓ_n-1/π)×cos(π/16), ψ = -11.25° | -π/16 | -2ang
-metatarsel 5: ℓ = (ℓ_n-1/π)×cos(π/8), ψ = -16.875° | -3π/32 | -3ang
+metatarsel 1: ℓ = (ℓ_n-1/(π/2))×cos(π/32), ψ = 5.625° | π/32 | 1ang
+metatarsel 2: ℓ = (ℓ_n-1/(π/2))×1, ψ = 0
+metatarsel 3: ℓ = (ℓ_n-1/(π/2))×cos(π/32), ψ = -5.625° | -π/32 | -1ang
+metatarsel 4: ℓ = (ℓ_n-1/(π/2))×cos(π/16), ψ = -11.25° | -π/16 | -2ang
+metatarsel 5: ℓ = (ℓ_n-1/(π/2))×cos(π/8), ψ = -16.875° | -3π/32 | -3ang
 
 pelvis: w = .346/2, h = .125
 back: ℓ = .66
