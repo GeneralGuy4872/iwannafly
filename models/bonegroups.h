@@ -97,7 +97,7 @@ bone *footphalanges(prev,root,nmax,rot)
   unsigned char nmax
   vec3 rot
   {
-  float len = (root.len.z * -1) / M_PI_2
+  float len = root.len.x
   unsigned char n = 0
   bone phalng[nmax]
   while (n < nmax)
