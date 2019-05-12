@@ -195,22 +195,22 @@ bone *digiti(prev,root,len,Q)
   return *limb[2]
   }
 
-bone *avewing(prev,root,len,rot)
+bone *avewing(prev,root,len,side)
   bone *prev
   bone *root
   float len
-  vec3 rot
+  signed char side
   {
   unsigned char n = 0
   bone limb[3]
   while (n < 3)
     {
-    limb[n] = (root,prev,NULL,(0,0,1),(0,0,len),matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,(0,0,1),(0,0,len),matgen_x_deg(90 * side),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     len = len*G_RATIO
     n++
-    rot = (rot.x * -1,0,0)
+    side = 0
     }
   return *limb[2]
   }
