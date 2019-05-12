@@ -44,7 +44,7 @@ bone *sculpt_avian()
   bone *rtoe3 = talonphalanges(*rtoe2,*rankle,3,(0,0,0),1)
   bone *rtoe4 = talonphalanges(*rtoe3,*rankle,3,(0,0,30),COS_PI_16)
   bone *rtoe1 = talonphalanges(*rtoe4,*rankle,2,(0,0,-180),COS_PI_8)
-  bone *lwing = avewing(*rtoe1,*cervical->prev->prev->prev->prev->prev,.875,LEFT) //.up = vert[(nmax-1)-5]
-  bone *rwing = avewing(*lwing,*cervical->prev->prev->prev->prev->prev,.875,RIGHT)
+  bone *lwing = avewing(*rtoe1,*cervical->prev->prev->prev->prev->prev,.86,LEFT) //.up = vert[(nmax-1)-5]
+  bone *rwing = avewing(*lwing,*cervical->prev->prev->prev->prev->prev,.86,RIGHT)
   return *center
 }
