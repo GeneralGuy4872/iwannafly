@@ -112,13 +112,14 @@ bone *footphalanges(prev,root,nmax,rot)
   return *phalng[nmax-1]
   }
 
-bone *talonphalanges(prev,root,nmax,rot)
+bone *talonphalanges(prev,root,nmax,rot,factor)
   bone *prev
   bone *root
   unsigned char nmax
   vec3 rot
+  double factor
   {
-  float len = (root.len.z * -1) / M_PI_2
+  float len = ((root.len.z * -1) / M_E) * factor
   unsigned char n = 0
   bone phalng[nmax]
   while (n < nmax)
