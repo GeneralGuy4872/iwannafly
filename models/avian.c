@@ -1,7 +1,7 @@
 bone *sculpt_avian()
   {
   polygon pelvis[4] = bone_tetra(.125,.346,.1)
-  *center = (foo->root,NULL,NULL,(0,0,0),(.1,-.125,.346),matgen_ident,matgen_ident,FALSE,*pelvis,4)
+  *center = (foo->root,NULL,NULL,(0,0,0),(-.1,.346,-.125),matgen_ident,matgen_ident,FALSE,*pelvis,4)
   //(*up,*prev,*next,(off.x,off.y,off.z),(len.x,len.y,len.z),base,curr,drawline,*faces,n_polys)
   bone *cervical = spine(*center,*center,.66,16)
   bone *neck = spine(*cervical,*cervical,.125,7)
@@ -46,5 +46,8 @@ bone *sculpt_avian()
   bone *rtoe1 = talonphalanges(*rtoe4,*rankle,2,(0,0,-180),COS_PI_8)
   bone *lwing = avewing(*rtoe1,*cervical->prev->prev->prev->prev->prev,.86,LEFT) //.up = vert[(nmax-1)-5]
   bone *rwing = avewing(*lwing,*cervical->prev->prev->prev->prev->prev,.86,RIGHT)
+  polygon triangle[1] = bone_inv_triangle(.5,.5)
+  bone *tail = (*center,*rwing,NULL,(1,0,0),(0,.5,-.5),matgen_y_deg(45),matgen_ident,FALSE,*triangle,1)
+  doublelink(tail)
   return *center
 }
