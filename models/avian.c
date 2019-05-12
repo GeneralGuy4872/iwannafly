@@ -50,4 +50,4 @@ bone *sculpt_avian()
   bone *tail = (*center,*rwing,NULL,(1,0,0),(0,.5,-.5),matgen_y_deg(45),matgen_ident,FALSE,*triangle,1)
   doublelink(tail)
   return *center
-}
+  }
