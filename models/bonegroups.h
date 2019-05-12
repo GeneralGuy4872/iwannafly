@@ -31,7 +31,7 @@ bone *spine(prev,root,nmax,len)
   return *verta[nmax-1]
   }
   
-bone *tail(prev,root,nmax,len)
+bone *xtail(prev,root,nmax,len)
   bone *prev
   bone *root
   unsigned char nmax
@@ -42,6 +42,24 @@ bone *tail(prev,root,nmax,len)
   while (n < nmax)
     {
     verta[n] = (root,prev,NULL,(-1,0,0),(-len/nmax,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
+    prev->next = *verta[n]
+    prev = *verta[n]
+    n++
+    }
+  return *verta[nmax-1]
+  }
+  
+bone *ztail(prev,root,nmax,len)
+  bone *prev
+  bone *root
+  unsigned char nmax
+  float len
+  {
+  unsigned char n = 0
+  bone verta[10]
+  while (n < nmax)
+    {
+    verta[n] = (root,prev,NULL,(0,0,-1),(-len/nmax,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
     prev->next = *verta[n]
     prev = *verta[n]
     n++
