@@ -184,7 +184,7 @@ bone *digiti(prev,root,len,Q)
   bone limb[3]
   while (n < 3)
     {
-    limb[n] = (root,prev,NULL,((n==0)/2,(n==0)/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,((0,(side*(n==0))/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     n++
