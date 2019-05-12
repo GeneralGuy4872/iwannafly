@@ -196,11 +196,11 @@ bone *digiti(prev,root,len,Q,side)
   bone limb[3]
     {
     prev->next = *limb[0]
-    limb[0] = (root,prev,limb[1],((0,side/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    limb[0] = (root,prev,limb[1],((0,side/2,1),(0,0,-1 * len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     Q = (Q.x * -1,Q.y * 2 * -1)
-    limb[1] = (root,limb[0],limb[2],((0,0,1),(0,0,-1*len*M_SQRT2),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    limb[1] = (root,limb[0],limb[2],((0,0,1),(0,0,-1 * len * G_RATIO),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     Q = (0,Q.y * -1)
-    limb[2] = (root,limb[1],NULL,((0,0,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    limb[2] = (root,limb[1],NULL,((0,0,1),(0,0,-1 * len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     }
   return *limb[2]
   }
@@ -214,11 +214,9 @@ bone *avewing(prev,root,len,side)
   bone limb[3]
     {
     prev->next = *limb[0]
-    limb[0] = (root,prev,limb[1],(0,0,1),(0,0,len),matgen_x_deg(127.5 * side),matgen_ident,TRUE,NULL,0)
-    len = len * G_RATIO
-    limb[1] = (root,limb[0],limb[2],(0,0,1),(0,0,len),matgen_x_deg(105 * side),matgen_ident,TRUE,NULL,0)
-    len = len * G_RATIO
-    limb[2] = (root,limb[1],NULL,(0,0,1),(0,0,len),matgen_x_deg(142.5 * -1 * side),matgen_ident,TRUE,NULL,0)
+    limb[0] = (root,prev,limb[1],(0,0,1),(0,0,len),matgen_x_deg(135 * side),matgen_ident,TRUE,NULL,0)
+    limb[1] = (root,limb[0],limb[2],(0,0,1),(0,0,len * G_RATIO),matgen_x_deg(108 * side),matgen_ident,TRUE,NULL,0)
+    limb[2] = (root,limb[1],NULL,(0,0,1),(0,0,len),matgen_x_deg(150 * -1 * side),matgen_ident,TRUE,NULL,0)
     }
   return *limb[2]
   }
