@@ -182,15 +182,24 @@ bone *digiti(prev,root,len,Q)
   vec2 Q
   {
   unsigned char n = 0
+  double fact = 1
   bone limb[3]
   while (n < 3)
     {
-    limb[n] = (root,prev,NULL,((0,(side*(n==0))/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    limb[n] = (root,prev,NULL,((0,(side*(n==0))/2,1),(0,0,-1*len*fact),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
     n++
     Q = ((Q.x * (n<2) * -1),Q.y * ((n==0) + 1) * -1)
     off = (0,0,0)
+    if (n == 0)
+      {
+      fact = M_SQRT2
+      }
+    else
+      {
+      fact = 1
+      }
     }
   return *limb[2]
   }
@@ -202,15 +211,23 @@ bone *avewing(prev,root,len,side)
   signed char side
   {
   unsigned char n = 0
+  double fact = 1
   bone limb[3]
   while (n < 3)
     {
     limb[n] = (root,prev,NULL,(0,0,1),(0,0,len),matgen_x_deg(90 * side),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
-    len = len*G_RATIO
     n++
     side = 0
+    if (n == 0)
+      {
+      fact = G_RATIO
+      }
+    else
+      {
+      fact = M_SQRT2
+      }
     }
   return *limb[2]
   }
