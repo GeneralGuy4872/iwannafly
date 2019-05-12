@@ -42,7 +42,7 @@ bone *sculpt_merfolk() //mermay 2019, I guess?
   bone *rfinger5 = handphalanges(*rcarple5,*rcarple5,3,(0,0,-22.5))
   bone *tail = ztail(*rfinger5,*center,32,1.32)
   polygon triangle[1] = bone_inv_triangle(.5,.5)
-  bone *tailfin = (*center,*tail,NULL,(1,0,0),(0,.5,-.5),matgen_y_deg(45),matgen_ident,FALSE,*triangle,1)
+  bone *tailfin = (*center,*tail,NULL,(1,0,0),(0,.5,-.5),matgen_ident,matgen_ident,FALSE,*triangle,1)
   doublelink(tailfin)
   return *center
 }
