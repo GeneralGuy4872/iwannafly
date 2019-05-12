@@ -187,10 +187,9 @@ bone *digiti(prev,root,len,Q,dir)
     limb[n] = (root,prev,NULL,((n==0)/2,(n==0)/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0,dir.x,dir.y,dir.z),matgen_ident,TRUE,NULL,0)
     prev->next = *limb[n]
     prev = *limb[n]
-    len = len/G_RATIO
     n++
     Q = ((Q.x * (n<2) * -1),Q.y * ((n==1) + 1))
-    dir = (1,-1,1)
+    dir = (1,dir.y * -1,1)
     off = (0,0,0)
     }
   return *limb[2]
