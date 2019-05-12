@@ -169,7 +169,6 @@ bone *leg(prev,root,len,Q,side)
     len = len/G_RATIO
     n++
     Q = Q * -1
-    dir = (-1,1,1)
     off = (0,0,0)
     }
   return limb[1]
@@ -189,8 +188,7 @@ bone *digiti(prev,root,len,Q)
     prev->next = *limb[n]
     prev = *limb[n]
     n++
-    Q = ((Q.x * (n<2) * -1),Q.y * ((n==1) + 1))
-    dir = (1,dir.y * -1,1)
+    Q = ((Q.x * (n<2) * -1),Q.y * ((n==0) + 1) * -1)
     off = (0,0,0)
     }
   return *limb[2]
@@ -201,7 +199,6 @@ bone *avewing(prev,root,len,rot)
   bone *root
   float len
   vec3 rot
-  bytevec dir
   {
   unsigned char n = 0
   bone limb[3]
