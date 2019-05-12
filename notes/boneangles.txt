@@ -8,3 +8,5 @@ metatarsel 2: ℓ = 1, ψ = 0
 metatarsel 3: ℓ = cos(π/32), ψ = -5.625° | -π/32 | -1ang
 metatarsel 4: ℓ = cos(π/16), ψ = -11.25° | -π/16 | -2ang
 metatarsel 5: ℓ = cos(π/8), ψ = -16.875° | -3π/32 | -3ang
+
+wings: ℓ = .875
