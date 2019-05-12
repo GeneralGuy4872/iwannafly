@@ -131,10 +131,11 @@ bone *talonphalanges(prev,root,nmax,rot)
   return *phalng[nmax-1]
   }
 
-bone *arm(prev,root,len)
+bone *arm(prev,root,len,side)
   bone *prev
   bone *root
   float len
+  signed char side
   {
   unsigned char n = 0
   bone limb[2]
