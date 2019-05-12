@@ -142,6 +142,7 @@ bone *arm(prev,root,len,side)
   {
   bone limb[2]
     {
+    prev->next = *limb[0]
     limb[0] = (root,prev,limb[1],(1,0,0),(len,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
     len = len/G_RATIO
     limb[1] = (root,limb[0],NULL,(1,0,0),(len,0,0),matgen_x_deg(90),matgen_ident,TRUE,NULL,0)
@@ -158,6 +159,7 @@ bone *leg(prev,root,len,Q,side)
   {
   bone limb[2]
     {
+    prev->next = *limb[0]
     limb[0] = (root,prev,limb[1],(0,side/2,1),(0,0,-1*len),matgen_x_deg(Q),matgen_ident,TRUE,NULL,0)
     len = len/G_RATIO
     Q = Q * -1
@@ -175,6 +177,7 @@ bone *digiti(prev,root,len,Q,side)
   {
   bone limb[3]
     {
+    prev->next = *limb[0]
     limb[0] = (root,prev,limb[1],((0,side/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     Q = (Q.x * -1,Q.y * 2 * -1)
     limb[1] = (root,limb[0],limb[2],((0,0,1),(0,0,-1*len*M_SQRT2),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
