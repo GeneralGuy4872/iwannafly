@@ -140,15 +140,11 @@ bone *arm(prev,root,len,side)
   float len
   signed char side
   {
-  unsigned char n = 0
   bone limb[2]
-  while (n < 2)
     {
-    limb[n] = (root,prev,NULL,(1,0,0),(len,0,0),matgen_x_deg(90*n),matgen_ident,TRUE,NULL,0)
-    prev->next = *limb[n]
-    prev = *limb[n]
+    limb[0] = (root,prev,limb[1],(1,0,0),(len,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
     len = len/G_RATIO
-    n++
+    limb[1] = (root,limb[0],NULL,(1,0,0),(len,0,0),matgen_x_deg(90),matgen_ident,TRUE,NULL,0)
     }
   return limb[1]
   }
@@ -160,46 +156,30 @@ bone *leg(prev,root,len,Q,side)
   float Q
   signed char side
   {
-  unsigned char n = 0
   bone limb[2]
-  while (n < 2)
     {
-    limb[n] = (root,prev,NULL,(0,(side*(n==0))/2,1),(0,0,-1*len),matgen_x_deg(Q),matgen_ident,TRUE,NULL,0)
-    prev->next = *limb[n]
-    prev = *limb[n]
+    limb[0] = (root,prev,limb[1],(0,side/2,1),(0,0,-1*len),matgen_x_deg(Q),matgen_ident,TRUE,NULL,0)
     len = len/G_RATIO
-    n++
     Q = Q * -1
-    off = (0,0,0)
+    limb[1] = (root,limb[0],NULL,(0,0,1),(0,0,-1*len),matgen_x_deg(Q),matgen_ident,TRUE,NULL,0)
     }
   return limb[1]
   }
 
-bone *digiti(prev,root,len,Q)
+bone *digiti(prev,root,len,Q,side)
   bone *prev
   bone *root
   float len
   vec2 Q
+  unsigned char side
   {
-  unsigned char n = 0
-  double fact = 1
   bone limb[3]
-  while (n < 3)
     {
-    limb[n] = (root,prev,NULL,((0,(side*(n==0))/2,1),(0,0,-1*len*fact),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
-    prev->next = *limb[n]
-    prev = *limb[n]
-    n++
-    Q = ((Q.x * (n<2) * -1),Q.y * ((n==0) + 1) * -1)
-    off = (0,0,0)
-    if (n == 0)
-      {
-      fact = M_SQRT2
-      }
-    else
-      {
-      fact = 1
-      }
+    limb[0] = (root,prev,limb[1],((0,side/2,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    Q = (Q.x * -1,Q.y * 2 * -1)
+    limb[1] = (root,limb[0],limb[2],((0,0,1),(0,0,-1*len*M_SQRT2),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
+    Q = (0,Q.y * -1)
+    limb[2] = (root,limb[1],NULL,((0,0,1),(0,0,-1*len),matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL,0)
     }
   return *limb[2]
   }
@@ -210,16 +190,14 @@ bone *avewing(prev,root,len,side)
   float len
   signed char side
   {
-  unsigned char n = 0
   bone limb[3]
-  while (n < 3)
     {
-    limb[n] = (root,prev,NULL,(0,0,1),(0,0,len),matgen_x_deg(90 * side),matgen_ident,TRUE,NULL,0)
-    prev->next = *limb[n]
-    prev = *limb[n]
+    prev->next = *limb[0]
+    limb[0] = (root,prev,limb[1],(0,0,1),(0,0,len),matgen_x_deg(127.5 * side),matgen_ident,TRUE,NULL,0)
     len = len * G_RATIO
-    n++
-    side = 0
+    limb[1] = (root,limb[0],limb[2],(0,0,1),(0,0,len),matgen_x_deg(105 * side),matgen_ident,TRUE,NULL,0)
+    len = len * G_RATIO
+    limb[2] = (root,limb[1],NULL,(0,0,1),(0,0,len),matgen_x_deg(142.5 * -1 * side),matgen_ident,TRUE,NULL,0)
     }
   return *limb[2]
   }
