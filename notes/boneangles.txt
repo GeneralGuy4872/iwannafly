@@ -21,4 +21,4 @@ skull: r = .1
 shoulders: ℓ = .396/2
 humerus: ℓ = .3
 femur: ℓ = .48, Q = 15°
-wings: ℓ = .875
+wings: ℓ = .86
