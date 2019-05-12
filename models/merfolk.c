@@ -1,7 +1,7 @@
 bone *sculpt_merfolk() //mermay 2019, I guess?
   {
   polygon pelvis[1] = bone_half_octo(.173,.125)
-  *center = (foo->root,NULL,NULL,(0,0,0),(0,.346,.125),matgen_ident,matgen_ident,FALSE,*pelvis,1)
+  *center = (foo->root,NULL,NULL,(0,0,0),(0,.346,.125),matgen_ident,matgen_ident,FALSE,*pelvis,6)
   //(*up,*prev,*next,(off.x,off.y,off.z),(len.x,len.y,len.z),base,curr,drawline,*faces,n_polys)
   bone *cervical = spine(*center,*center,.66,16)
   bone *neck = spine(*cervical,*cervical,.125,7)
