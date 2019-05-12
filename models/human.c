@@ -1,7 +1,7 @@
 bone *sculpt_human()
   {
-  polygon pelvis[1] = bone_inv_triangle(.125,.173)
-  *center = (foo->root,NULL,NULL,(0,0,0),(0,-.125,.173),matgen_ident,matgen_ident,FALSE,*pelvis,1)
+  polygon pelvis[1] = bone_inv_triangle(.125,.346)
+  *center = (foo->root,NULL,NULL,(0,0,0),(0,-.125,.346),matgen_ident,matgen_ident,FALSE,*pelvis,1)
   //(*up,*prev,*next,(off.x,off.y,off.z),(len.x,len.y,len.z),base,curr,drawline,*faces,n_polys)
   bone *cervical = spine(*center,*center,.66,17)
   bone *neck = spine(*cervical,*cervical,.125,7)
