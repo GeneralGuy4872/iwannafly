@@ -98,12 +98,13 @@ struct light
 #define MIN (A,B) A < B ? A : B
 #define PHYSICS (Ff * player.mass * player.grounded)) / ((player.wdrag * player.wet) + (player.drag * not(player.wet)
 #define GRAVITY (g * not(player.grounded))) / ((player.wdrag * player.bouyent * player.wet) + (player.drag * not(player.wet)
+//unbalanced parentases as written
 
 void onstep_player ()
 	{
 	player.VeloX = MAX(((player.Velo.x + axis_buffer_0.x) - PHYSICS),0)
 	player.VeloY = MAX(((player.Velo.y + axis_buffer_0.y) - PHYSICS),0)
-	player.VeloZ = (player.Velo.z + axis_buffer_0.z + axis_buffer_1.z) - GRAVITY)
+	player.VeloZ = ((player.Velo.z + axis_buffer_0.z + axis_buffer_1.z) - GRAVITY)
 	player.TorqX = ((player.Torq.x + (axis_buffer_1.z - axis_buffer_0.z)) * not(player.grounded)
 	player.TorqZ = modulo(player.Torq.z + axis_buffer_1.x,360)
 	player.TorqY = modulo(player.Torq.y + axis_buffer_1.y,360)
