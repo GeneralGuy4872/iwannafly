@@ -156,7 +156,7 @@ bone *arm(prev,root,len,side)
   bone *prev
   bone *root
   float len
-  signed char side
+  tern side
   {
   bone limb[2]
     {
@@ -173,7 +173,7 @@ bone *leg(prev,root,len,Q,side)
   bone *root
   float len
   float Q
-  signed char side
+  tern side
   {
   bone limb[2]
     {
@@ -191,7 +191,7 @@ bone *digiti(prev,root,len,Q,side)
   bone *root
   float len
   vec2 Q
-  unsigned char side
+  tern side
   {
   bone limb[3]
     {
@@ -209,7 +209,7 @@ bone *avewing(prev,root,len,side)
   bone *prev
   bone *root
   float len
-  signed char side
+  tern side
   {
   bone limb[3]
     {
