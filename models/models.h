@@ -1,17 +1,3 @@
-struct bytevec
-  {
-  signed char x : 2
-  signed char y : 2
-  signed char z : 2
-  signed char w : 2
-  }
-
-struct broadcolor
-  {
-  struct vec3 color
-  struct vec2 hyper
-  }
-
 struct polygon
   {
   struct vec3 A
