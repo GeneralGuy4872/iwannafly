@@ -9,6 +9,8 @@
 *
 **************************************/
 
+//NOTE: I've decided that it's faster to write the code first and worry about syntax later.
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
