@@ -1,15 +1,9 @@
 struct bytevec
   {
-  signed char x
-  signed char y
-  signed char z
-  }
-
-struct boolvec
-  {
-  bool x
-  bool y
-  bool z
+  signed int x : 2
+  signed int y : 2
+  signed int z : 2
+  signed int w : 2
   }
 
 struct broadcolor
