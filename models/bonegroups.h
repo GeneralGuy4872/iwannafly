@@ -2,11 +2,6 @@
 #include "./shapes.h"
 #include "./matrixgen.h"
 
-#define G_RATIO 1.618033988749894848205
-#define S_RATIO 2.414213562373095048802
-#define LEFT -1
-#define RIGHT 1
-
 void doublelink(xyzzy)
   struct bone *xyzzy
   {
