@@ -40,6 +40,9 @@
 //originally wanted these for extra input, but fixed that
 //still might use them for pause menu
 
+#define MAX (A,B) A > B ? A : B
+#define MIN (A,B) A < B ? A : B
+#define SANE (N) N == 0 ? 1 : N
 typedef signed char tern
 
 #include "./joystick.c"
@@ -56,10 +59,7 @@ typedef signed char tern
 * since real meters and kilograms are used, conclusions can be made about
 * the physical characteristics of any elements of the game, so be careful!*/
 
-float g = 9.8
-char Ff = 2
-char Dair = 0
-char Dwater = 2
+float grav = 9.8
 
 clock_t prevframe = clock()
 int msec
@@ -80,10 +80,10 @@ struct entity
 	mat4 ori
 	bool grounded
 	bool wet
-	float drag
-	float wdrag
-	tern bouyent
-	unsigned char mass
+	float Ff
+	float Dair
+	float Dwater
+	tern Bouy
 	skeleton dembones
 	}
 
@@ -94,11 +94,9 @@ struct light
 	broadcolor emission
 	}
 
-#define MAX (A,B) A > B ? A : B
-#define MIN (A,B) A < B ? A : B
-#define PHYSICS (Ff * player.mass * player.grounded)) / ((player.wdrag * player.wet) + (player.drag * not(player.wet)
-#define GRAVITY (g * not(player.grounded))) / ((player.wdrag * player.bouyent * player.wet) + (player.drag * not(player.wet)
-//unbalanced parentases as written
+#define PHYSICS (player.Ff * player.grounded)) / SANE((player.Dwater * player.wet) + (player.Dair * not(player.wet)
+#define GRAVITY (grav * not(player.grounded))) / SANE((player.Dwater * player.Bouy * player.wet) + (player.Dair * not(player.wet)
+//unbalanced parentases intended as written, because order of operations and macro usage expectations
 
 void onstep_player ()
 	{
