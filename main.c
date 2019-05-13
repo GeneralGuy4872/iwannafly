@@ -40,11 +40,7 @@
 //originally wanted these for extra input, but fixed that
 //still might use them for pause menu
 
-typedef signed char tern
-#define MAX (A,B) (A > B ? A : B)
-#define MINMAG (A,B) (((A < B) && (A > 0) && (B > 0)) || ((A > B) && (A < 0) && (B < 0)) ? A : B)
-#define SANE (N) (N == 0 ? 1 : N)
-#define SIGN (N) (N > 0 ? ((tern) 1) : (N < 0 ? ((tern) -1) : (N == 0 ? ((tern) 0) : NAN)))
+#include "./main.h"
 
 #include "./joystick.c"
 
