@@ -28,7 +28,7 @@ struct broadcolor
   }
 
 #define RAD (D) radians(D)
-#define NEG (N) (-1 * N)
+#define zin (N) (-1 * sin(N)) //If I ever have to redo the matgen_<foo> macros again
 #define MAX (A,B) (A > B ? A : B)
 #define MINMAG (A,B) (((A < B) && (A > 0) && (B > 0)) || ((A > B) && (A < 0) && (B < 0)) ? A : B)
 #define SANE (N) (N == 0 ? 1 : N)
