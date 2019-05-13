@@ -40,12 +40,7 @@
 //originally wanted these for extra input, but fixed that
 //still might use them for pause menu
 
-#define FWD 1
-#define RT 1
-#define UP 1
-#define BKWD -1
-#define LFT -1
-#define DN -1
+typedef signed char tern
 
 #include "./joystick.c"
 
@@ -63,6 +58,8 @@
 
 float g = 9.8
 char Ff = 2
+char Dair = 0
+char Dwater = 2
 
 clock_t prevframe = clock()
 int msec
@@ -81,9 +78,12 @@ struct entity
 	vec3 rot
 	vec3 Torq
 	mat4 ori
-	bool airborn
+	bool grounded
+	bool wet
+	float drag
+	float wdrag
+	tern bouyent
 	unsigned char mass
-	unsigned char drag
 	skeleton dembones
 	}
 
@@ -94,14 +94,19 @@ struct light
 	broadcolor emission
 	}
 
+#define MAX (A,B) A > B ? A : B
+#define MIN (A,B) A < B ? A : B
+#define PHYSICS (Ff * player.mass * player.grounded)) / ((player.wdrag * player.wet) + (player.drag * not(player.wet)
+#define GRAVITY (g * not(player.grounded))) / ((player.wdrag * player.bouyent * player.wet) + (player.drag * not(player.wet)
+
 void onstep_player ()
 	{
-	player.VeloX = (player.Velo.x + axis_buffer_0.x) / ((Ff * not(airborn) * player.mass) + player.drag)
-	player.VeloY = (player.Velo.y + axis_buffer_0.y) / ((Ff * not(airborn) * player.mass) + player.drag)
-	player.VeloZ = (player.Velo.z + axis_buffer_0.z + axis_buffer_1.z) - (g / drag)
-	player.TorqX = ((player.Torq.x + (axis_buffer_0.z - axis_buffer_1.z)) / (player.mass + player.drag)) * player.airborn
-	player.TorqZ = (player.Torq.z + axis_buffer_1.x) / ((Ff * not(airborn) * player.mass) + player.drag)
-	player.TorqY = (player.Torq.y + axis_buffer_1.y) / ((Ff * not(airborn) * player.mass) + player.drag)
+	player.VeloX = MAX(((player.Velo.x + axis_buffer_0.x) - PHYSICS),0)
+	player.VeloY = MAX(((player.Velo.y + axis_buffer_0.y) - PHYSICS),0)
+	player.VeloZ = (player.Velo.z + axis_buffer_0.z + axis_buffer_1.z) - GRAVITY)
+	player.TorqX = ((player.Torq.x + (axis_buffer_1.z - axis_buffer_0.z)) * not(player.grounded)
+	player.TorqZ = modulo(player.Torq.z + axis_buffer_1.x,360)
+	player.TorqY = modulo(player.Torq.y + axis_buffer_1.y,360)
 	
 	player.pos.x = player.pos.x + player.Velo.x
 	player.pos.y = player.pos.y + player.Velo.y
