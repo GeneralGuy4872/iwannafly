@@ -40,10 +40,11 @@
 //originally wanted these for extra input, but fixed that
 //still might use them for pause menu
 
-#define MAX (A,B) A > B ? A : B
-#define MIN (A,B) A < B ? A : B
-#define SANE (N) N == 0 ? 1 : N
 typedef signed char tern
+#define MAX (A,B) (A > B ? A : B)
+#define MINMAG (A,B) (((A < B) && (A > 0) && (B > 0)) || ((A > B) && (A < 0) && (B < 0)) ? A : B)
+#define SANE (N) (N == 0 ? 1 : N)
+#define SIGN (N) (N > 0 ? ((tern) 1) : (N < 0 ? ((tern) -1) : (N == 0 ? ((tern) 0) : NAN)))
 
 #include "./joystick.c"
 
@@ -72,18 +73,17 @@ float north = 0
 struct entity
 	{
 	vec3 pos
-	vec3 size
 	vec2 off
+	vec2 hitbox
 	vec3 Velo
 	vec3 rot
 	vec3 Torq
 	mat4 ori
-	bool grounded
 	bool wet
-	float Ff
-	float Dair
-	float Dwater
-	tern Bouy
+	bool ground
+	tern bouyent
+	vec3 Ff //x = Friction, y = Water Drag, z = Air Drag
+	vec4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	skeleton dembones
 	}
 
@@ -93,19 +93,21 @@ struct light
 	vec3 size
 	broadcolor emission
 	}
-
-#define PHYSICS (player.Ff * player.grounded)) / SANE((player.Dwater * player.wet) + (player.Dair * not(player.wet)
-#define GRAVITY (grav * not(player.grounded))) / SANE((player.Dwater * player.Bouy * player.wet) + (player.Dair * not(player.wet)
-//unbalanced parentases intended as written, because order of operations and macro usage expectations
+//HERE BE DRAGONS
+#define SPEED (X) (X.wet ? (X.ground ? X.Spd.y : X.Spd.w) : (X.ground ? X.Spd.x : X.Spd.z))
+#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - MINMAG(X.Ff.x * SIGN(X.Y + (Z * SPEED(X) )),X.Y + (Z * SPEED(X)) ) / SANE((X.Ff.w * X.stat.y) + (X.Ff.y * not(X.stat.y))
+#define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * not(X.ground) * (X.bouyent * X.wet))) * not(X.ground)) / SANE((X.Ff.y * not(X.ground) * X.wet) + (X.Ff.z * not(X.ground) * not(X.wet)
+#define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * not(X.ground) / SANE((X.Ff.y * not(X.ground) * X.wet) + (X.Ff.z * not(X.ground) * not(X.wet)
+//end dragons
 
 void onstep_player ()
 	{
-	player.VeloX = MAX(((player.Velo.x + axis_buffer_0.x) - PHYSICS),0)
-	player.VeloY = MAX(((player.Velo.y + axis_buffer_0.y) - PHYSICS),0)
-	player.VeloZ = ((player.Velo.z + axis_buffer_0.z + axis_buffer_1.z) - GRAVITY)
-	player.TorqX = ((player.Torq.x + (axis_buffer_1.z - axis_buffer_0.z)) * not(player.grounded)
-	player.TorqZ = modulo(player.Torq.z + axis_buffer_1.x,360)
-	player.TorqY = modulo(player.Torq.y + axis_buffer_1.y,360)
+	player.Velo.x = PHYSICS(player,Velo.x,axis_buffer_0.x)
+	player.Velo.y = PHYSICS(player,Velo.y,axis_buffer_0.y)
+	player.Velo.z = GRAVITY(player,Velo.z,(axis_buffer_0.z + axis_buffer_1.z))
+	player.Torq.x = ROLL(player,Torq.x,(axis_buffer_1.z - axis_buffer_0.z))
+	player.Torq.z = PHYSICS(player,Torq.z,axis_buffer_1.x)
+	player.Torq.y = PHYSICS(player,Torq.y,axis_buffer_1.y)
 	
 	player.pos.x = player.pos.x + player.Velo.x
 	player.pos.y = player.pos.y + player.Velo.y
@@ -125,8 +127,9 @@ void onstep_player ()
 
 struct cameratype camera
 	{
-	entity parent
+	entity root
 	vec4 coord
+	//camera origin = root.pos + {0,0,root.off.y}
 	}
 
 void onstep_camera ()
@@ -134,7 +137,7 @@ void onstep_camera ()
 	camera.coord.x = modulo(camera.coord.x + axis_buffer_2.x,360)
 	camera.coord.y = modulo(camera.coord.y + axis_buffer_2.y,360)
 	camera.coord.z = camera.coord.z + axis_buffer_2.z
-	camera.coord.w = modulo(camera.fov + axis_buffer_2.w,360)
+	camera.coord.w = camera.coord.w + axis_buffer_2.w
 	}
 
 void onstep_buffers ()
