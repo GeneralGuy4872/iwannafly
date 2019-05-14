@@ -74,6 +74,14 @@ struct hicolor
   bool a : 1
   }
 
+struct webcolor
+  {
+  unsigned char r : 4
+  unsigned char g : 4
+  unsigned char b : 4
+  unsigned char a : 4
+  }
+
 #define RAD(D) radians(D)
 #define zin(N) (-1 * sin(N))
 #define MAX(A,B) (A > B ? A : B)
