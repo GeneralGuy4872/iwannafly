@@ -66,7 +66,7 @@ struct bone *handphalanges(prev,root,nmax,rot)
   struct bone *prev
   struct bone *root
   unsigned char nmax
-  struct vec3 rot
+  struct vector3 rot
   {
   float len = root->len.x
   unsigned char n = 0
@@ -87,7 +87,7 @@ struct bone *thumbphalanges(prev,root,nmax,rot)
   struct bone *prev
   struct bone *root
   unsigned char nmax
-  struct vec3 rot
+  struct vector3 rot
   {
   float len = root.len.x / M_PI
   unsigned char n = 0
@@ -108,7 +108,7 @@ struct bone *footphalanges(prev,root,nmax,rot)
   struct bone *prev
   struct bone *root
   unsigned char nmax
-  struct vec3 rot
+  struct vector3 rot
   {
   float len = root.len.x
   unsigned char n = 0
@@ -129,7 +129,7 @@ struct bone *talonphalanges(prev,root,nmax,rot,factor)
   struct bone *prev
   struct bone *root
   unsigned char nmax
-  struct vec3 rot
+  struct vector3 rot
   double factor
   {
   float len = ((root.len.z * -1) / M_E) * factor
@@ -185,7 +185,7 @@ struct bone *digiti(prev,root,len,Q,side)
   struct bone *prev
   struct bone *root
   float len
-  struct vec2 Q
+  struct vector2 Q
   tern side
   {
   struct bone limb[3]
@@ -216,5 +216,5 @@ struct bone *avewing(prev,root,len,side)
   return *limb[2]
   }
 
-polygon crystal[8] bone_octo(0.1)
-polygon crate[12] bone_cube(1,1,1)
+polygon crystal[8] bone_octo(0.1) //generic "sphere" object, used for lights and skulls
+polygon crate[12] bone_cube(1,1,1) //every game must have boxes
