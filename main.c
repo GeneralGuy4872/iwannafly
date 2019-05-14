@@ -76,7 +76,7 @@ struct entity
 	float rot[4][4] = matgen_ident
 	struct bytevec stat //x = collision, y = reserved, z = bouyency, w = wet
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	struct vector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	struct intvector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
