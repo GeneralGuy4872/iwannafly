@@ -30,7 +30,7 @@ struct broadcolor
 #define zin (N) (-1 * sin(N))
 #define MAX (A,B) (A > B ? A : B)
 #define MIN (A,B) (A < B ? A : B)
-#define MINMAG (A,B) (((A < B) && (A > 0) && (B > 0)) || ((A > B) && (A < 0) && (B < 0)) ? A : B)
+#define ABSMIN (A,B) ( A != 0 ? (((A < B) && (A > 0) || ((A > B) && (A < 0)) ? A : B) : 0)
 #define SANE (N) (N == 0 ? 1 : N)
 #define SIGN (N) (N > 0 ? ((tern) 1) : (N < 0 ? ((tern) -1) : (N == 0 ? ((tern) 0) : NAN)))
 
