@@ -103,14 +103,14 @@ void onstep_player ()
 	player.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
 	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
-	player.pos.x = MOD(player.pos.x + player.Velo.x,21600) //arcminutes
-	player.pos.y = MOD(player.pos.y + player.Velo.y,10800) //arcminutes
+	player.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
+	player.pos.y = (player.pos.y + player.Velo.y)%10800 //arcminutes
 	//torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length of the poles.
-	player.pos.z = MAX(MIN(player.pos.z + player.Velo.z,-10000),10000) //meters
-	player.rot.x = MOD(player.rot.x + player.Torq.x,360)
-	player.rot.y = MOD(player.rot.y + player.Torq.y,360)
-	player.rot.z = MOD(player.rot.z + player.Torq.z,360)
-	matset_master_deg(player.ori,,,))
+	player.pos.z = MAX(MIN((player.pos.z + player.Velo.z),-10000),10000) //meters
+	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
+	player.rot.y = (player.rot.y + player.Torq.y)%360 //degrees
+	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
+	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z)
 	}
 
 struct cameratype camera
@@ -122,10 +122,10 @@ struct cameratype camera
 
 void onstep_camera ()
 	{
-	camera.coord.x = MOD(camera.coord.x + camera_buffer.x,360)
-	camera.coord.y = MOD(camera.coord.y + camera_buffer.y,360)
-	camera.coord.z = camera.coord.z + camera_buffer.z
-	camera.coord.w = MAX((MIN((camera.coord.w + camera_buffer.w),5),270)
+	camera.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
+	camera.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees
+	camera.coord.z = MAX(MIN((camera.coord.z + camera_buffer.z),-100),100) //meters
+	camera.coord.w = MAX(MIN((camera.coord.w + camera_buffer.w),5),270) //degrees
 	}
 
 void onstep_buffers ()
