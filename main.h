@@ -58,6 +58,14 @@ struct bytevec
   signed char w : 2
   }
 
+struct intvector4
+  {
+  unsigned int x : 8
+  unsigned int y : 8
+  unsigned int z : 8
+  unsigned int w : 8
+  }
+
 #define RAD(D) radians(D)
 #define zin(N) (-1 * sin(N))
 #define MAX(A,B) (A > B ? A : B)
