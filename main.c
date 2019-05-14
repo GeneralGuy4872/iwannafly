@@ -68,31 +68,28 @@ float north = 0
 
 struct entity
 	{
-	vector3 pos
-	vector4 hitbox
-	vector3 Velo
-	vector3 rot
-	vector3 Torq
-	matrix ori
-	bool wet
-	bool ground
-	tern bouyent
-	vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	vector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
-	skeleton dembones
+	struct vector3 pos
+	struct vector4 hitbox
+	struct vector3 Velo
+	struct vector3 Torq
+	float rot[4][4] = matgen_ident
+	struct bytevec stat //x = collision, y = reserved, z = bouyency, w = wet
+	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
+	struct vector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	struct skeleton dembones
 	}
 
 struct light
 	{
-	vector3 pos
-	vector3 size
-	truecolor emission
+	struct vector3 pos
+	struct vector3 size
+	struct truecolor emission
 	}
 //HERE BE DRAGONS
-#define SPEED (X) (X.wet ? (X.ground ? X.Spd.y : X.Spd.w) : (X.ground ? X.Spd.x : X.Spd.z))
-#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ABSMIN(X.Ff.x * SIGN(X.Y + (Z * SPEED(X) )),X.Y + (Z * SPEED(X)) ) / SANE((X.Ff.w * X.stat.y) + (X.Ff.y * !(X.stat.y))
-#define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.ground) * (X.bouyent * X.wet))) * !(X.ground)) / SANE((X.Ff.y * !(X.ground) * X.wet) + (X.Ff.z * !(X.ground) * !(X.wet)
-#define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.ground) / SANE((X.Ff.y * !(X.ground) * X.wet) + (X.Ff.z * !(X.ground) * !(X.wet)
+#define SPEED (X) (X.stat.w ? (X.stat.x ? X.Spd.y : X.Spd.w) : (X.stat.x ? X.Spd.x : X.Spd.z))
+#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ABSMIN(X.Ff.x * X.stat.x * SIGN(X.Y + (Z * SPEED(X) )),X.Y + (Z * SPEED(X)) ) / SANE((X.Ff.w * X.stat.w) + (X.Ff.y * !(X.stat.w))
+#define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.x) * (X.stat.z * X.stat.w))) * !(X.stat.x)) / SANE((X.Ff.y * !(X.stat.x) * X.stat.w) + (X.Ff.z * !(X.stat.x) * !(X.stat.w)
+#define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.x) / SANE((X.Ff.y * !(X.stat.x) * X.stat.w) + (X.Ff.z * !(X.stat.x) * !(X.stat.w)
 //end dragons
 
 void onstep_player ()
@@ -108,11 +105,7 @@ void onstep_player ()
 	player.pos.y = player.pos.y + player.Velo.y
 	player.pos.z = player.pos.z + player.Velo.z
 
-	player.rot.x = modulo(player.rot.x + player.Torq.x,360)
-	player.rot.y = modulo(player.rot.y + player.Torq.y,360)
-	player.rot.z = modulo(player.rot.z + player.Torq.z,360)
-
-	player.ori = matgen_master(player.rot.x,player.rot.y,player.rot.z,1,1,1)
+	matset_master_deg(player.ori,modulo(player.rot.x + player.Torq.x,360),modulo(player.rot.y + player.Torq.y,360),modulo(player.rot.z + player.Torq.z,360))
 	
 	/*
 	some_function_gl_set_origin(player.pos.x,player.pos.y,player.pos.z)
@@ -122,8 +115,8 @@ void onstep_player ()
 
 struct cameratype camera
 	{
-	entity root
-	vector4 coord
+	struct entity root
+	struct vector4 coord
 	//camera origin = root.pos + {0,0,root.off.y}
 	}
 
