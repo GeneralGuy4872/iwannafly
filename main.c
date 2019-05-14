@@ -69,6 +69,7 @@ float north = 0
 struct entity
 	{
 	struct vector3 pos
+	struct vector3 rot
 	struct vector4 hitbox
 	struct vector3 Velo
 	struct vector3 Torq
@@ -77,6 +78,7 @@ struct entity
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	struct vector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
+	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
 
 struct light
@@ -105,8 +107,10 @@ void onstep_player ()
 	player.pos.y = MOD(player.pos.y + player.Velo.y,10800) //arcminutes
 	//torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length of the poles.
 	player.pos.z = MAX(MIN(player.pos.z + player.Velo.z,-10000),10000) //meters
-
-	matset_master_deg(player.ori,modulo(player.rot.x + player.Torq.x,360),modulo(player.rot.y + player.Torq.y,360),modulo(player.rot.z + player.Torq.z,360))
+	player.rot.x = MOD(player.rot.x + player.Torq.x,360)
+	player.rot.y = MOD(player.rot.y + player.Torq.y,360)
+	player.rot.z = MOD(player.rot.z + player.Torq.z,360)
+	matset_master_deg(player.ori,,,))
 	}
 
 struct cameratype camera
