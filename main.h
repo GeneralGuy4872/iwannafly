@@ -42,14 +42,6 @@ struct vector2
   float y
   }
 
-struct truecolor
-  {
-  unsigned char r
-  unsigned char g
-  unsigned char b
-  unsigned char a
-  }
-
 struct bytevec
   {
   signed char x : 2
@@ -64,6 +56,14 @@ struct intvector4
   unsigned int y : 8
   unsigned int z : 8
   unsigned int w : 8
+  }
+
+struct truecolor
+  {
+  unsigned int r : 8
+  unsigned int g : 8
+  unsigned int b : 8
+  unsigned int a : 8
   }
 
 #define RAD(D) radians(D)
