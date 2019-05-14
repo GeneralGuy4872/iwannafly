@@ -11,6 +11,36 @@
 #define RIGHT 1
 
 typedef signed char tern
+typedef float[4][4] matrix
+
+struct vector4
+  {
+  float x
+  float y
+  float z
+  float w
+  }
+
+struct vector3
+  {
+  float x
+  float y
+  float z
+  }
+
+struct vector2
+  {
+  float x
+  float y
+  }
+
+struct truecolor
+  {
+  unsigned char r
+  unsigned char g
+  unsigned char b
+  unsigned char a
+  }
 
 struct bytevec
   {
@@ -18,12 +48,6 @@ struct bytevec
   signed char y : 2
   signed char z : 2
   signed char w : 2
-  }
-
-struct broadcolor
-  {
-  struct vec3 color
-  struct vec2 hyper
   }
 
 #define RAD (D) radians(D)
