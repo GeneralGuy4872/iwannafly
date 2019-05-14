@@ -124,7 +124,7 @@ void onstep_camera ()
 	{
 	camera.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
 	camera.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees
-	camera.coord.z = MAX(MIN((camera.coord.z + camera_buffer.z),-100),100) //meters
+	camera.coord.z = MAX(MIN((camera.coord.z + camera_buffer.z),-90),90) //meters, soccer pitch
 	camera.coord.w = MAX(MIN((camera.coord.w + camera_buffer.w),5),270) //degrees
 	}
 
