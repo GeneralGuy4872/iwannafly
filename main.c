@@ -101,16 +101,12 @@ void onstep_player ()
 	player.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
 	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
-	player.pos.x = player.pos.x + player.Velo.x
-	player.pos.y = player.pos.y + player.Velo.y
-	player.pos.z = player.pos.z + player.Velo.z
+	player.pos.x = MOD(player.pos.x + player.Velo.x,21600) //arcminutes
+	player.pos.y = MOD(player.pos.y + player.Velo.y,10800) //arcminutes
+	//torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length of the poles.
+	player.pos.z = MAX(MIN(player.pos.z + player.Velo.z,-10000),10000) //meters
 
 	matset_master_deg(player.ori,modulo(player.rot.x + player.Torq.x,360),modulo(player.rot.y + player.Torq.y,360),modulo(player.rot.z + player.Torq.z,360))
-	
-	/*
-	some_function_gl_set_origin(player.pos.x,player.pos.y,player.pos.z)
-	some_function_gl_push_matrix(player.ori)
-	*/
 	}
 
 struct cameratype camera
