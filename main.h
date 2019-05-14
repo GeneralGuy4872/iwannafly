@@ -1,5 +1,4 @@
-//need to start moveing macros and typedefs here if neccesary
-
+//need to start moveing macros, structs, and typedefs here
 
 #define COS_PI_8 0.9238795325112867561282
 #define COS_PI_16 0.9807852804032304491262
