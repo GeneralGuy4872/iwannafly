@@ -53,10 +53,10 @@
 
 /*all mesurements should folow SI units,
 * with the exception of using both degrees and radians in different places.
-* since real meters and kilograms are used, conclusions can be made about
-* the physical characteristics of any elements of the game, so be careful!*/
+* since real meters are used, conclusions can be made about the
+* physical characteristics of any elements of the game, so be careful!*/
 
-float grav = 9.8
+float grav = 9.8 //meters per step per step
 
 clock_t prevframe = clock()
 int msec
