@@ -71,6 +71,7 @@ struct hicolor
   unsigned char r : 5
   unsigned char g : 5
   unsigned char b : 5
+  bool a : 1
   }
 
 #define RAD(D) radians(D)
