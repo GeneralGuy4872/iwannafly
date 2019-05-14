@@ -1,12 +1,21 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
+//M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
 #define COS_PI_8 0.9238795325112867561282
 #define COS_PI_16 0.9807852804032304491262
 #define COS_PI_32 0.9951847266721968862448
-#define G_RATIO 1.618033988749894848205
+
+//M_SQRT2 is standard
 #define SQRT_5 2.236067977499789696409
+
+#define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
+
+//standard math library provides e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
+//but not 2 * pi.
 #define M_TAU 6.283185307179586476925
+
+//may need to be reversed globaly
 #define LEFT -1
 #define RIGHT 1
 
