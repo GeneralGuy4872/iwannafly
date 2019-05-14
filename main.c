@@ -98,12 +98,12 @@ struct light
 
 void onstep_player ()
 	{
-	player.Velo.x = PHYSICS(player,Velo.x,axis_buffer_0.x)
-	player.Velo.y = PHYSICS(player,Velo.y,axis_buffer_0.y)
-	player.Velo.z = GRAVITY(player,Velo.z,(axis_buffer_0.z + axis_buffer_1.z))
-	player.Torq.x = ROLL(player,Torq.x,(axis_buffer_1.z - axis_buffer_0.z))
-	player.Torq.z = PHYSICS(player,Torq.z,axis_buffer_1.x)
-	player.Torq.y = PHYSICS(player,Torq.y,axis_buffer_1.y)
+	player.Velo.x = PHYSICS(player,Velo.x,player_buffer.x0)
+	player.Velo.y = PHYSICS(player,Velo.y,player_buffer.y0)
+	player.Velo.z = GRAVITY(player,Velo.z,(player_buffer.rt + player_buffer.lt))
+	player.Torq.x = ROLL(player,Torq.x,(player_buffer.rt - player_buffer.lt))
+	player.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
+	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
 	player.pos.x = player.pos.x + player.Velo.x
 	player.pos.y = player.pos.y + player.Velo.y
@@ -130,10 +130,10 @@ struct cameratype camera
 
 void onstep_camera ()
 	{
-	camera.coord.x = modulo(camera.coord.x + axis_buffer_2.x,360)
-	camera.coord.y = modulo(camera.coord.y + axis_buffer_2.y,360)
-	camera.coord.z = camera.coord.z + axis_buffer_2.z
-	camera.coord.w = camera.coord.w + axis_buffer_2.w
+	camera.coord.x = MOD(camera.coord.x + camera_buffer.x,360)
+	camera.coord.y = MOD(camera.coord.y + camera_buffer.y,360)
+	camera.coord.z = camera.coord.z + camera_buffer.z
+	camera.coord.w = MAX((MIN((camera.coord.w + camera_buffer.w),5),270)
 	}
 
 void onstep_buffers ()
