@@ -68,26 +68,25 @@ float north = 0
 
 struct entity
 	{
-	vec3 pos
-	vec2 off
-	vec2 hitbox
-	vec3 Velo
-	vec3 rot
-	vec3 Torq
-	mat4 ori
+	vector3 pos
+	vector4 hitbox
+	vector3 Velo
+	vector3 rot
+	vector3 Torq
+	matrix ori
 	bool wet
 	bool ground
 	tern bouyent
-	vec3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	vec4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
+	vector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	skeleton dembones
 	}
 
 struct light
 	{
-	vec3 pos
-	vec3 size
-	broadcolor emission
+	vector3 pos
+	vector3 size
+	truecolor emission
 	}
 //HERE BE DRAGONS
 #define SPEED (X) (X.wet ? (X.ground ? X.Spd.y : X.Spd.w) : (X.ground ? X.Spd.x : X.Spd.z))
@@ -124,7 +123,7 @@ void onstep_player ()
 struct cameratype camera
 	{
 	entity root
-	vec4 coord
+	vector4 coord
 	//camera origin = root.pos + {0,0,root.off.y}
 	}
 
