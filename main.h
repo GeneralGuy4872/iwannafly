@@ -66,7 +66,7 @@ struct truecolor
   unsigned int a : 8
   }
 
-struct hicolor
+struct hicolor //I heard this was popular again. what do you mean that's something else?!
   {
   unsigned char r : 5
   unsigned char g : 5
