@@ -91,7 +91,7 @@ struct light
 	}
 //HERE BE DRAGONS
 #define SPEED (X) (X.wet ? (X.ground ? X.Spd.y : X.Spd.w) : (X.ground ? X.Spd.x : X.Spd.z))
-#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - MINMAG(X.Ff.x * SIGN(X.Y + (Z * SPEED(X) )),X.Y + (Z * SPEED(X)) ) / SANE((X.Ff.w * X.stat.y) + (X.Ff.y * !(X.stat.y))
+#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ABSMIN(X.Ff.x * SIGN(X.Y + (Z * SPEED(X) )),X.Y + (Z * SPEED(X)) ) / SANE((X.Ff.w * X.stat.y) + (X.Ff.y * !(X.stat.y))
 #define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.ground) * (X.bouyent * X.wet))) * !(X.ground)) / SANE((X.Ff.y * !(X.ground) * X.wet) + (X.Ff.z * !(X.ground) * !(X.wet)
 #define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.ground) / SANE((X.Ff.y * !(X.ground) * X.wet) + (X.Ff.z * !(X.ground) * !(X.wet)
 //end dragons
