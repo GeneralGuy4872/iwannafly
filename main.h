@@ -11,7 +11,6 @@
 #define RIGHT 1
 
 typedef signed char tern
-typedef float[4][4] matrix
 
 struct vector4
   {
