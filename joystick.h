@@ -1,9 +1,18 @@
 //ioctl interface for input via /dev/js0
 //you arrived here from main
 
-vec3 axis_buffer_0 = (0,0,0)
-vec3 axis_buffer_1 = (0,0,0)
-vec4 axis_buffer_2 = (0,0,0,0)
+struct joybuff
+  {
+  signed short x0
+  signed short y0
+  float x1
+  float y1
+  unsigned short lt
+  unsigned short rt
+  }
+
+struct joybuff player_buffer = {0,0,0,0,0,0}
+struct vec4 camera_buffer = {0,0,0,0}
 
 joyerr()
   {
