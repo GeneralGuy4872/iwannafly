@@ -89,7 +89,7 @@ struct light
 	}
 //HERE BE DRAGONS
 #define SPEED (X) (X.stat.w ? (X.stat.x ? X.Spd.y : X.Spd.w) : (X.stat.x ? X.Spd.x : X.Spd.z))
-#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.x * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * INVSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.w) + (X.Ff.y * !(X.stat.w))
+#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.x * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * FSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.w) + (X.Ff.y * !(X.stat.w))
 #define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.x) * (X.stat.z * X.stat.w))) * !(X.stat.x)) / SANE((X.Ff.y * !(X.stat.x) * X.stat.w) + (X.Ff.z * !(X.stat.x) * !(X.stat.w))
 #define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.x) / SANE((X.Ff.y * !(X.stat.x) * X.stat.w) + (X.Ff.z * !(X.stat.x) * !(X.stat.w))
 //end dragons
