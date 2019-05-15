@@ -105,7 +105,7 @@ void onstep_player ()
 	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
 	player.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
-	player.pos.y = (player.pos.y + player.Velo.y)%10800 //arcminutes
+	player.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
 	//torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length of the poles.
 	player.pos.z = MAX(MIN((player.pos.z + player.Velo.z),-10000),10000) //meters, arbitrary
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
