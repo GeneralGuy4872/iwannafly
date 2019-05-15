@@ -78,9 +78,9 @@ struct hicolor //I heard this was popular again. what do you mean that's somethi
 #define zin(N) (-1 * sin(N))
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
-#define ABSMIN(A,B) ( A != 0 ? (((A < B) && (A > 0) || ((A > B) && (A < 0)) ? A : B) : 0)
 #define SANE(N) (N == 0 ? 1 : N)
-#define SIGN(N) (N > 0 ? ((tern) 1) : (N < 0 ? ((tern) -1) : (N == 0 ? ((tern) 0) : NAN)))
+#define SGN(N) (N > 0 ? ((tern) 1) : (N < 0 ? ((tern) -1) : (N == 0 ? ((tern) 0) : NAN)))
+#difine INVSGN(N) (SGN(N) * -1)
 
 //HERE BE DRAGONS.
 #define matgen_master_deg(X,Y,Z) {{cos(RAD(Z))*cos(RAD(Y)),sin(RAD(Z))*cos(RAD(Y)),cos(RAD(Z))*zin(RAD(Z)),0},{zin(RAD(Z))*cos(RAD(X))+cos(RAD(Z))*sin(RAD(Y))*sin(RAD(X)),cos(RAD(Z))*cos(RAD(X))+sin(RAD(Z))*sin(RAD(Y))*sin(RAD(X)),sin(RAD(Z))*sin(RAD(Y))*cos(RAD(X))+cos(RAD(Y))*sin(RAD(X)),0},{sin(RAD(Z))*sin(RAD(X))+cos(RAD(Z))*sin(RAD(Y))*cos(RAD(X)),cos(RAD(Z))*zin(RAD(X))+sin(RAD(Z))*sin(RAD(Y))*sin(RAD(X)),sin(RAD(Z))*sin(RAD(Y))*zin(RAD(X))+cos(RAD(Y))*cos(RAD(X)),0},{0,0,0,1}}
