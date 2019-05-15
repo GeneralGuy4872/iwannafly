@@ -12,12 +12,15 @@
 #define S_RATIO 2.414213562373095048802
 
 //standard math library provides e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
-//but not 2 * pi.
+//but not 2 * pi. this works out to be exactly twice the value of M_PI, but I don't know how the optimizer works
+//and don't want to multiply every time. same for the above numbers, but the operations are more expensive
 #define M_TAU 6.283185307179586476925
 
-//may need to be reversed globaly
+//may need to be globaly swapped
 #define LEFT -1
 #define RIGHT 1
+#define TOWARDS -1
+#define AWAY 1
 
 typedef signed char tern
 
