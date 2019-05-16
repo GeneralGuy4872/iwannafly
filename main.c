@@ -75,16 +75,23 @@ struct entity
 	{
 	struct vector3 pos
 	struct vector3 rot
-	struct vector4 hitbox
+	struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone z offset
 	struct vector3 Velo
 	struct vector3 Torq
 	float rot[4][4] = matgen_ident
-	struct bytevec stat //x = collision, y = reserved, z = bouyency, w = wet
+	struct statreg stat //bool ground, bool wet, bool paral NOT IMPLEMENTED, bool conf NOT IMPLEMENTED, tern bouy, bool uv, bool infa NOT IMPLEMENTED
+	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = hitbox geometry
+	unsigned char health //NOT IMPLEMENTED
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	struct intvector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	struct bytevector Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
+	/*collid.w sets hitbox proporties; 0=cylinder about z, 1=cylinder about x, -1 = rec prism around z.
+	*hitbox.y is relative to this parameter, being along x at z = 0 if collid.w == 1,
+	*along z at x = hitbox.radius otherwise. hitbox.w is always along z axis
+	*and should be equal to hitbox.x if collid.w == 1*/
+
 
 struct light
 	{
@@ -93,10 +100,10 @@ struct light
 	struct truecolor emission
 	}
 //HERE BE DRAGONS
-#define SPEED (X) (X.stat.w ? (X.stat.x ? X.Spd.y : X.Spd.w) : (X.stat.x ? X.Spd.x : X.Spd.z))
-#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.x * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * FSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.w) + (X.Ff.y * !(X.stat.w))
-#define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.x) * (X.stat.z * X.stat.w))) * !(X.stat.x)) / SANE((X.Ff.y * !(X.stat.x) * X.stat.w) + (X.Ff.z * !(X.stat.x) * !(X.stat.w))
-#define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.x) / SANE((X.Ff.y * !(X.stat.x) * X.stat.w) + (X.Ff.z * !(X.stat.x) * !(X.stat.w))
+#define SPEED (X) (X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z))
+#define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.ground * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * FSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.wet) + (X.Ff.y * !(X.stat.wet))
+#define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.ground) * (X.stat.bouy * X.stat.wet))) * !(X.stat.ground)) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
+#define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.ground) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
 //end dragons
 
 void onstep_player ()
