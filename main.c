@@ -87,7 +87,7 @@ struct entity
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
-	/*collid.w sets hitbox proporties; 0=cylinder about z, 1=cylinder about x, -1 = rec prism around z.
+	/*collid.w sets hitbox proporties; 0=cylinder about z, 1=cylinder about x, -1 = cuboid of dimensions r*h*h.
 	*hitbox.y is relative to this parameter, being along x at z = 0 if collid.w == 1,
 	*along z at x = hitbox.radius otherwise. hitbox.w is always along z axis
 	*and should be equal to hitbox.x if collid.w == 1*/
