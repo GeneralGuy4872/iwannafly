@@ -99,6 +99,10 @@ struct hicolor //I heard this was popular again. what do you mean that's somethi
 #difine FSGN(N) (SGN(N) * -1) //flipped sign
 
 //HERE BE DRAGONS.
+
+/*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
+* have not found a clear definition on what layer of the matrix needs to be column major for opengl
+* since I have to rewrite glm, may have dug too deep.*/
 #define matgen_raw(A,B,C,D,E,F,G,H,I,X,Y,Z) {{A,D,G,0},{B,E,H,0},{C,F,I,0},{X,Y,Z,1}}
 //generate a column-major matrix declaration from a row-major list
 #define matset_raw(N,A,B,C,D,E,F,G,H,I,X,Y,Z) {  N[0][0] = A; N[0][1] = D; N[0][2] = G; N[0][3] = 0; N[1][0] = B; N[1][1] = E; N[1][2] = H; N[1][3] = 0; N[2][0] = C; N[2][1] = F; N[2][2] = I; N[2][3] = 0; N[3][0] = X; N[3][1] = Y; N[3][2] = Z; N[3][3] = 0;  }
