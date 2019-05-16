@@ -16,6 +16,8 @@
 //and don't want to multiply every time. same for the above numbers, but the operations are more expensive
 #define M_TAU 6.283185307179586476925
 
+#define FPS 30
+
 //may need to be globaly swapped
 #define LEFT -1
 #define RIGHT 1
