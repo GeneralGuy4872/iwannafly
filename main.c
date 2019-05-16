@@ -57,7 +57,7 @@
 * since real meters are used, conclusions can be made about the
 * physical characteristics of any elements of the game, so be careful!*/
 
-float grav = 9.8 / 30 //meters per second / frames per second
+float grav = 9.8 / FPS //meters per second / frames per second
 
 clock_t prevframe = clock()
 int msec
