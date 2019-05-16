@@ -45,7 +45,7 @@ struct vector2
   float y
   }
 
-struct bytevec
+struct microvector
   {
   signed char x : 2
   signed char y : 2
@@ -53,7 +53,7 @@ struct bytevec
   signed char w : 2
   }
 
-struct intvector4
+struct bytevector
   {
   unsigned int x : 8
   unsigned int y : 8
