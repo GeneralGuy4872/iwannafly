@@ -58,6 +58,7 @@
 * physical characteristics of any elements of the game, so be careful!*/
 
 float grav = 9.8 / FPS //meters / second / microfortnight
+//microfortnights are the defacto standard of mesure for 1 second +/- loop speed
 
 clock_t prevframe = clock()
 int msec
