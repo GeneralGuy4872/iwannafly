@@ -96,9 +96,9 @@ struct hicolor //I heard this was popular again. what do you mean that's somethi
 #define MIN(A,B) (A < B ? A : B)
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? (tern) -1 : TRUE))
-#difine FSGN(N) (SGN(N) * -1) //flipped sign
+#define FSGN(N) (SGN(N) * -1) //flipped sign
 
-//HERE BE DRAGONS.
+//HERE BE DRAGONS. use an editor with regular expresions here.
 
 /*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
 * have not found a clear definition on what layer of the matrix needs to be column major for opengl
