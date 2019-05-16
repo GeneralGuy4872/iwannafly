@@ -63,6 +63,17 @@ struct bytevector
   unsigned int w : 8
   }
 
+struct statreg
+  {
+  bool ground : 1
+  bool wet : 1
+  bool paral : 1
+  bool conf : 1
+  tern bouy : 2
+  bool uv : 1
+  bool infa : 1
+  }
+
 struct truecolor
   {
   unsigned int r : 8
