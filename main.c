@@ -52,13 +52,16 @@
 #include "./init.c"
 #include "./models/all.c"
 
-/*all mesurements should folow SI units,
-* with the exception of using both degrees and radians in different places.
-* since real meters are used, conclusions can be made about the
-* physical characteristics of any elements of the game, so be careful!*/
+/*all exact mesurements should folow SI units or SI acceptable units (i.e. degrees),
+* since real mesurements are used, conclusions can be made about the
+* physical characteristics of any elements of the game, so be careful!
+* this does not apply to the friction factors and may or may not apply to the speed factors
+* of the basic physics implementation; inprecise mesures of time based on accumulated loops
+* approximately equal to one second with a margin of error based on CPU speed and strain
+* use "microfortnights" as in VMS for the PDP-11, to distinguish them from exact values.
+*/
 
 float grav = 9.8 / FPS //meters / second / microfortnight
-//microfortnights are the defacto standard of mesure for 1 second +/- loop speed
 
 clock_t prevframe = clock()
 int msec
