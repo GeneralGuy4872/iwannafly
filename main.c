@@ -24,9 +24,9 @@
 #include <fcntl.h>
 
 #include <GL/gl.h>
-#include <GL/glu.h>
+//#include <GL/glu.h> what does this do even?
 #include <GL/glx.h>
-#include <fluidsynth.h>
+//#include <fluidsynth.h>
 
 #include <X11/Intrinsic.h>
 #include <X11/StringDefs.h>
