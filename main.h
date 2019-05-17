@@ -81,14 +81,23 @@ struct truecolor
   unsigned int a : 8
   }
 
-struct hicolor //I heard this was popular again. what do you mean that's something else?!
+struct heightpixel
   {
-  unsigned char r : 5
-  unsigned char g : 5
-  unsigned char b : 5
-  bool a : 1
+  signed char top : 6
+  signed char bot : 6
+  tern fill : 2
+  bool show1 : 1
+  bool show2 : 1
   }
 
+struct map
+  {
+  struct heightpixel *land
+  struct heightpixel *water
+  struct heightpixel *lava
+  struct vector3 start
+  }
+  
 #define RAD(N) ((N%360)*(M_PI/180))
 #define zin(N) (-1 * sin(N))
 #define MAX(A,B) (A > B ? A : B)
