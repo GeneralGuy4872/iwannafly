@@ -1,5 +1,7 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
+
+//I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
 #define COS_PI_8 0.9238795325112867561282
 #define COS_PI_16 0.9807852804032304491262
@@ -12,8 +14,8 @@
 #define S_RATIO 2.414213562373095048802
 
 //standard math library provides e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
-//but not 2 * pi. this works out to be exactly twice the value of M_PI, but I don't know how the optimizer works
-//and don't want to multiply every time. same for the above numbers, but the operations are more expensive
+//but not 2 * pi. this value works out to be exactly twice the value of M_PI, which I find strange.
+//either the calculator I used had the same approximation for pi, or I need more decimal places (and so too the standard library)
 #define M_TAU 6.283185307179586476925
 
 #define FPS 30
