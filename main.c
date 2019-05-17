@@ -122,7 +122,13 @@ void onstep_player ()
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = (player.rot.y + player.Torq.y)%360 //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
-	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z)
+	if (player.collid.w == 1)
+	{
+	matset_zeuler_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,1,1)
+	}
+	else
+	{
+	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,1,1)
 	}
 
 struct cameratype camera
