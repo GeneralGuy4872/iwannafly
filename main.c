@@ -68,9 +68,6 @@ int msec
 int timer = 100
 bool pause FALSE
 
-float sealevel = 0
-float north = 0
-
 struct entity
 	{
 	struct vector3 pos
