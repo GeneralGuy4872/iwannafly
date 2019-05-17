@@ -107,39 +107,85 @@ struct hicolor //I heard this was popular again. what do you mean that's somethi
 * since I have to rewrite glm, may have dug too deep.*/
 #define matgen_raw(A,B,C,D,E,F,G,H,I,X,Y,Z) {{A,D,G,0},{B,E,H,0},{C,F,I,0},{X,Y,Z,1}}
 //generate a column-major matrix declaration from a row-major list
-#define matset_raw(N,A,B,C,D,E,F,G,H,I,X,Y,Z) {  N[0][0] = A; N[0][1] = D; N[0][2] = G; N[0][3] = 0; N[1][0] = B; N[1][1] = E; N[1][2] = H; N[1][3] = 0; N[2][0] = C; N[2][1] = F; N[2][2] = I; N[2][3] = 0; N[3][0] = X; N[3][1] = Y; N[3][2] = Z; N[3][3] = 0;  }
+#define matset_raw(M,A,B,C,D,E,F,G,H,I,X,Y,Z) {  M[0][0] = A; M[0][1] = D; M[0][2] = G; M[0][3] = 0; M[1][0] = B; M[1][1] = E; M[1][2] = H; M[1][3] = 0; M[2][0] = C; M[2][1] = F; M[2][2] = I; M[2][3] = 0; M[3][0] = X; M[3][1] = Y; M[3][2] = Z; M[3][3] = 0;  }
 //iterate a colomn-major matrix redefinition from a row-major list
 
 #define matgen_ident matgen_raw(1,0,0,0,1,0,0,0,1,0,0,0)
 #define matgen_translate(L,W,H) matgen_raw(1,0,0,0,1,0,0,0,1,L,W,H)
-#define matgen_reflect(X,Y,Z) matgen_raw(X,0,0,0,Y,0,0,0,Z,0,0,0)
-#define matgen_transform(X,Y,Z,L,W,H) matgen_raw(X,0,0,0,Y,0,0,0,Z,L,W,H)
-#define matset_ident(N) matset_raw(N,1,0,0,0,1,0,0,0,1,0,0,0)
-#define matgen_translate(N,L,W,H) matset_raw(N,1,0,0,0,1,0,0,0,1,L,W,H)
-#define matgen_reflect(N,X,Y,Z) matset_raw(N,X,0,0,0,Y,0,0,0,Z,0,0,0)
-#define matgen_transform(N,X,Y,Z,L,W,H) matset_raw(N,X,0,0,0,Y,0,0,0,Z,L,W,H)
+#define matgen_reflect(B,C,D) matgen_raw(B,0,0,0,C,0,0,0,D,0,0,0)
+#define matgen_transform(B,C,D,L,W,H) matgen_raw(B,0,0,0,C,0,0,0,D,L,W,H)
+#define matset_ident(M) matset_raw(M,1,0,0,0,1,0,0,0,1,0,0,0)
+#define matset_translate(M,L,W,H) matset_raw(M,1,0,0,0,1,0,0,0,1,L,W,H)
+#define matset_reflect(M,B,C,D) matset_raw(M,B,0,0,0,C,0,0,0,D,0,0,0)
+#define matset_transform(M,B,C,D,L,W,H) matset_raw(M,B,0,0,0,C,0,0,0,D,L,W,H)
 
-#define matgen_master_rad(A,P,R,X,Y,Z) matgen_raw(cos(A)*cos(P),(zin(A)*Z*cos(R))+(cos(A)*sin(P)*Y*sin(R)*X),(zin(A)*Z*zin(R)*X)+(cos(A)*sin(P)*Y*cos(R)),sin(A)*Z*cos(P),(cos(A)*cos(R))+(sin(A)*Z*sin(P)*Y*sin(R)*X),(cos(A)*zin(R)*X)+(sin(A)*Z*sin(P)*Y*cos(R)),zin(P)*Y,sin(R)*X*cos(P),cos(P)*cos(R))
-#define matset_master_rad(N,A,P,R,X,Y,Z) matset_raw(N,cos(A)*cos(P),(zin(A)*Z*cos(R))+(cos(A)*sin(P)*Y*sin(R)*X),(zin(A)*Z*zin(R)*X)+(cos(A)*sin(P)*Y*cos(R)),sin(A)*Z*cos(P),(cos(A)*cos(R))+(sin(A)*Z*sin(P)*Y*sin(R)*X),(cos(A)*zin(R)*X)+(sin(A)*Z*sin(P)*Y*cos(R)),zin(P)*Y,sin(R)*X*cos(P),cos(P)*cos(R))
-#define matgen_master_deg(A,P,R,X,Y,Z) matgen_master_rad(RAD(A),RAD(P),RAD(R),X,Y,Z)
-#define matset_master_deg(N,A,P,R,X,Y,Z) matset_master_rad(N,RAD(A),RAD(P),RAD(R),X,Y,Z)
+#define matgen_super_rad(A,E,R,X,Y,Z,B,C,D) matgen_raw(cos(A)*cos(E)*B,(zin(A)*Z*cos(R))+(cos(A)*sin(E)*Y*sin(R)*X),(zin(A)*Z*zin(R)*X)+(cos(A)*sin(E)*Y*cos(R)),sin(A)*Z*cos(E),((cos(A)*cos(R))+(sin(A)*Z*sin(E)*Y*sin(R)*X))*C,(cos(A)*zin(R)*X)+(sin(A)*Z*sin(E)*Y*cos(R)),zin(E)*Y,sin(R)*X*cos(E),cos(E)*cos(R)*D,0,0,0)
+#define matset_super_rad(M,A,E,R,X,Y,Z,B,C,D) matset_raw(M,cos(A)*cos(E)*B,(zin(A)*Z*cos(R))+(cos(A)*sin(E)*Y*sin(R)*X),(zin(A)*Z*zin(R)*X)+(cos(A)*sin(E)*Y*cos(R)),sin(A)*Z*cos(E),((cos(A)*cos(R))+(sin(A)*Z*sin(E)*Y*sin(R)*X))*C,(cos(A)*zin(R)*X)+(sin(A)*Z*sin(E)*Y*cos(R)),zin(E)*Y,sin(R)*X*cos(E),cos(E)*cos(R)*D,0,0,0)
+#define matgen_super_deg(A,E,R,X,Y,Z,B,C,D) matgen_super_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matset_super_deg(M,A,E,R,X,Y,Z,B,C,D) matset_super_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+
+#define matgen_master_rad(A,E,R,X,Y,Z) matgen_raw(cos(A)*cos(E),(zin(A)*Z*cos(R))+(cos(A)*sin(E)*Y*sin(R)*X),(zin(A)*Z*zin(R)*X)+(cos(A)*sin(E)*Y*cos(R)),sin(A)*Z*cos(E),(cos(A)*cos(R))+(sin(A)*Z*sin(E)*Y*sin(R)*X),(cos(A)*zin(R)*X)+(sin(A)*Z*sin(E)*Y*cos(R)),zin(E)*Y,sin(R)*X*cos(E),cos(E)*cos(R),0,0,0)
+#define matset_master_rad(M,A,E,R,X,Y,Z) matset_raw(M,cos(A)*cos(E),(zin(A)*Z*cos(R))+(cos(A)*sin(E)*Y*sin(R)*X),(zin(A)*Z*zin(R)*X)+(cos(A)*sin(E)*Y*cos(R)),sin(A)*Z*cos(E),(cos(A)*cos(R))+(sin(A)*Z*sin(E)*Y*sin(R)*X),(cos(A)*zin(R)*X)+(sin(A)*Z*sin(E)*Y*cos(R)),zin(E)*Y,sin(R)*X*cos(E),cos(E)*cos(R),0,0,0)
+#define matgen_master_deg(A,E,R,X,Y,Z) matgen_master_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
+#define matset_master_deg(M,A,E,R,X,Y,Z) matset_master_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
+
+#define matgen_ultraeuler_rad(R,E,A,X,Y,Z,B,C,D) matgen_raw(cos(E)*B,sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,((cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z))*C,(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),((sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)))*D,0,0,0)
+#define matset_ultraeuler_rad(M,R,E,A,X,Y,Z,B,C,D) matset_raw(M,cos(E)*B,sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,((cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z))*C,(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),((sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)))*D,0,0,0)
+#define matgen_ultraeuler_deg(R,E,A,X,Y,Z,B,C,D) matgen_ultraeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matset_ultraeuler_deg(M,R,E,A,X,Y,Z,B,C,D) matset_ultraeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+
+#define matgen_xeuler_rad(R,E,A,X,Y,Z) matgen_raw(cos(E),sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,(cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z),(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),(sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)),0,0,0)
+#define matset_xeuler_rad(M,R,E,A,X,Y,Z) matset_raw(M,cos(E),sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,(cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z),(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),(sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)),0,0,0)
+#define matgen_xeuler_deg(R,E,A,X,Y,Z) matgen_xeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
+#define matset_xeuler_deg(M,R,E,A,X,Y,Z) matset_xeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
 
 #define matgen_sphere_rad(A,E,L,Z,Y) matgen_raw(cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E))
-#define matset_sphere_rad(N,A,E,L,Z,Y) matset_raw(N,cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E))
+#define matset_sphere_rad(M,A,E,L,Z,Y) matset_raw(M,cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E))
 #define matgen_sphere_deg(A,E,L,Z,Y) matgen_sphere_rad(RAD(A),RAD(E),L,Z,Y)
-#define matset_sphere_deg(N,A,E,L,Z,Y) matset_sphere_rad(N,RAD(A),RAD(E),L,Z,Y)
+#define matset_sphere_deg(M,A,E,L,Z,Y) matset_sphere_rad(M,RAD(A),RAD(E),L,Z,Y)
 
 #define matgen_x_rad(R,X) matgen_raw(1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),0,0,0)
-#define matset_x_rad(N,R,X) matset_raw(N,1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),0,0,0)
+#define matset_x_rad(M,R,X) matset_raw(M,1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),0,0,0)
 #define matgen_x_deg(R,X) matgen_x_rad(RAD(R),X)
-#define matset_x_deg(N,R,X) matset_x_rad(N,RAD(R),X)
+#define matset_x_deg(M,R,X) matset_x_rad(M,RAD(R),X)
 
-#define matgen_y_rad(P,Y) matgen_raw(cos(P),0,sin(P)*Y,0,1,0,zin(P)*Y,0,cos(P),0,0,0)
-#define matset_y_rad(N,P,Y) matset_raw(N,cos(P),0,sin(P)*Y,0,1,0,zin(P)*Y,0,cos(P),0,0,0)
-#define matgen_y_deg(P,Y) matgen_y_rad(RAD(P),Y)
-#define matset_y_deg(N,P,Y) matset_y_rad(N,RAD(P),Y)
+#define matgen_y_rad(E,Y) matgen_raw(cos(E),0,sin(E)*Y,0,1,0,zin(E)*Y,0,cos(E),0,0,0)
+#define matset_y_rad(M,E,Y) matset_raw(M,cos(E),0,sin(E)*Y,0,1,0,zin(E)*Y,0,cos(E),0,0,0)
+#define matgen_y_deg(E,Y) matgen_y_rad(RAD(E),Y)
+#define matset_y_deg(M,E,Y) matset_y_rad(M,RAD(E),Y)
 
 #define matgen_z_rad(A,Z) matgen_raw(cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,0)
-#define matset_z_rad(N,A,Z) matset_raw(N,cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,0)
+#define matset_z_rad(M,A,Z) matset_raw(M,cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,0)
 #define matgen_z_deg(A,Z) matgen_z_rad(RAD(A),Z)
-#define matset_z_deg(N,A,Z) matset_z_rad(N,RAD(A),Z)
+#define matset_z_deg(M,A,Z) matset_z_rad(M,RAD(A),Z)
+
+#define matgen_xref_rad(R,X,B,C,D) matgen_raw(B,0,0,0,cos(R)*C,zin(R)*X,0,sin(R)*X,cos(R)*D,0,0,0)
+#define matset_xref_rad(M,R,X,B,C,D) matset_raw(M,B,0,0,0,cos(R)*C,zin(R)*X,0,sin(R)*X,cos(R)*D,0,0,0)
+#define matgen_xref_deg(R,X,B,C,D) matgen_xref_rad(RAD(R),X,B,C,D)
+#define matset_xref_deg(M,R,X,B,C,D) matset_xref_rad(M,RAD(R),X,B,C,D)
+
+#define matgen_yref_rad(E,Y,B,C,D) matgen_raw(cos(E)*B,0,sin(E)*Y,0,C,0,zin(E)*Y,0,cos(E)*D,0,0,0)
+#define matset_yref_rad(M,E,Y,B,C,D) matset_raw(M,cos(E)*B,0,sin(E)*Y,0,C,0,zin(E)*Y,0,cos(E)*D,0,0,0)
+#define matgen_yref_deg(E,Y,B,C,D) matgen_yref_rad(RAD(E),Y,B,C,D)
+#define matset_yref_deg(M,E,Y,B,C,D) matset_yref_rad(M,RAD(E),Y,B,C,D)
+
+#define matgen_zref_rad(A,Z,B,C,D) matgen_raw(cos(A)*B,zin(A)*Z,0,sin(A)*Z,cos(A)*C,0,0,0,D,0,0,0)
+#define matset_zref_rad(M,A,Z,B,C,D) matset_raw(M,cos(A)*B,zin(A)*Z,0,sin(A)*Z,cos(A)*C,0,0,0,D,0,0,0)
+#define matgen_zref_deg(A,Z,B,C,D) matgen_zref_rad(RAD(A),Z,B,C,D)
+#define matset_zref_deg(M,A,Z,B,C,D) matset_zref_rad(M,RAD(A),Z,B,C,D)
+
+#define matgen_xp_rad(R,X,L) matgen_raw(1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),L,0,0)
+#define matset_xp_rad(M,R,X,L) matset_raw(M,1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),L,0,0)
+#define matgen_xp_deg(R,X,L) matgen_xp_rad(RAD(R),X,L)
+#define matset_xp_deg(M,R,X,L) matset_xp_rad(M,RAD(R),X,L)
+
+#define matgen_yp_rad(E,Y,W) matgen_raw(cos(E),0,sin(E)*Y,0,1,0,zin(E)*Y,0,cos(E),0,W,0)
+#define matset_yp_rad(M,E,Y,W) matset_raw(M,cos(E),0,sin(E)*Y,0,1,0,zin(E)*Y,0,cos(E),0,W,0)
+#define matgen_yp_deg(E,Y,W) matgen_yp_rad(RAD(E),Y,W)
+#define matset_yp_deg(M,E,Y,W) matset_yp_rad(M,RAD(E),Y,W)
+
+#define matgen_zp_rad(A,Z,H) matgen_raw(cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,H)
+#define matset_zp_rad(M,A,Z,H) matset_raw(M,cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,H)
+#define matgen_zp_deg(A,Z,H) matgen_zp_rad(RAD(A),Z,H)
+#define matset_zp_deg(M,A,Z,H) matset_zp_rad(M,RAD(A),Z,H)
+
