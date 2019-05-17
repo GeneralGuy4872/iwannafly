@@ -79,8 +79,8 @@ struct entity
 	struct vector3 Velo
 	struct vector3 Torq
 	float rot[4][4] = matgen_ident
-	struct statreg stat //bool ground, bool wet, bool paral NOT IMPLEMENTED, bool conf NOT IMPLEMENTED, tern bouy, bool uv, bool infa NOT IMPLEMENTED
-	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = hitbox geometry
+	struct statreg stat //bool ground, bool wet, bool moves, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
+	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = invert y
 	unsigned char health //NOT IMPLEMENTED
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	struct bytevector Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
@@ -100,7 +100,7 @@ struct light
 	struct truecolor emission
 	}
 //HERE BE DRAGONS
-#define SPEED (X) (X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z))
+#define SPEED (X) (stat.moves ? ((X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z))) : 0)
 #define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.ground * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * FSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.wet) + (X.Ff.y * !(X.stat.wet))
 #define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.ground) * (X.stat.bouy * X.stat.wet))) * !(X.stat.ground)) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
 #define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.ground) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
