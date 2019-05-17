@@ -126,17 +126,15 @@ struct hicolor //I heard this was popular again. what do you mean that's somethi
 #define matgen_master_deg(A,E,R,X,Y,Z) matgen_master_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
 #define matset_master_deg(M,A,E,R,X,Y,Z) matset_master_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
 
-/*wrong convention, fix in morning
-#define matgen_ultraeuler_rad(R,E,A,X,Y,Z,B,C,D) matgen_raw(cos(E)*B,sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,((cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z))*C,(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),((sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)))*D,0,0,0)
-#define matset_ultraeuler_rad(M,R,E,A,X,Y,Z,B,C,D) matset_raw(M,cos(E)*B,sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,((cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z))*C,(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),((sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)))*D,0,0,0)
-#define matgen_ultraeuler_deg(R,E,A,X,Y,Z,B,C,D) matgen_ultraeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
-#define matset_ultraeuler_deg(M,R,E,A,X,Y,Z,B,C,D) matset_ultraeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matgen_ultraeuler_rad(A,E,R,X,Y,Z,B,C,D) matgen_raw(((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X))*B,(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),((sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)))*C,sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E)*D,0,0,0)
+#define matset_ultraeuler_rad(M,A,E,R,X,Y,Z,B,C,D) matset_raw(M,((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X))*B,(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),((sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)))*C,sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E)*D,0,0,0)
+#define matgen_ultraeuler_deg(A,E,R,X,Y,Z,B,C,D) matgen_ultraeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matset_ultraeuler_deg(M,A,E,R,X,Y,Z,B,C,D) matset_ultraeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
 
-#define matgen_xeuler_rad(R,E,A,X,Y,Z) matgen_raw(cos(E),sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,(cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z),(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),(sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)),0,0,0)
-#define matset_xeuler_rad(M,R,E,A,X,Y,Z) matset_raw(M,cos(E),sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,(cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z),(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),(sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)),0,0,0)
-#define matgen_xeuler_deg(R,E,A,X,Y,Z) matgen_xeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
-#define matset_xeuler_deg(M,R,E,A,X,Y,Z) matset_xeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
-*/
+#define matgen_zeuler_rad(A,E,R,X,Y,Z) matgen_raw((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X),(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),(sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)),sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E),0,0,0)
+#define matset_zeuler_rad(M,A,E,R,X,Y,Z) matset_raw(M,(cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X),(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),(sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)),sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E),0,0,0)
+#define matgen_zeuler_deg(A,E,R,X,Y,Z) matgen_xeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
+#define matset_zeuler_deg(M,A,E,R,X,Y,Z) matset_xeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
 
 #define matgen_sphere_rad(A,E,L,Z,Y) matgen_raw(cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E))
 #define matset_sphere_rad(M,A,E,L,Z,Y) matset_raw(M,cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E))
