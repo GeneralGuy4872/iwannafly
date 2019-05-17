@@ -79,8 +79,8 @@ struct entity
 	struct vector3 Velo
 	struct vector3 Torq
 	float rot[4][4] = matgen_ident
-	struct statreg stat //bool ground, bool wet, bool moves, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
-	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = invert y
+	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
+	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = flip dir
 	unsigned char health //NOT IMPLEMENTED
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	struct bytevector Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
@@ -100,7 +100,8 @@ struct light
 	struct truecolor emission
 	}
 //HERE BE DRAGONS
-#define SPEED (X) (stat.moves ? ((X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z))) : 0)
+#define SPEED (X) ((X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z)) * X.collid.w)
+#define INVPIT(X) (SANE(FSGN(X.stat.yinv)))
 #define PHYSICS (X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.ground * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * FSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.wet) + (X.Ff.y * !(X.stat.wet))
 #define GRAVITY (X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.ground) * (X.stat.bouy * X.stat.wet))) * !(X.stat.ground)) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
 #define ROLL (X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.ground) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
@@ -122,13 +123,13 @@ void onstep_player ()
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = (player.rot.y + player.Torq.y)%360 //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
-	if (player.collid.w == 1)
+	if (player.stat.horiz)
 	{
-	matset_zeuler_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,1,1)
+	matset_zeuler_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,INVPIT(player),1)
 	}
 	else
 	{
-	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,1,1)
+	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,INVPIT(player),1)
 	}
 
 struct cameratype camera
