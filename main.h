@@ -13,18 +13,15 @@
 #define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
 
-//standard math library provides e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
-//but not 2 * pi. this value works out to be exactly twice the value of M_PI, which I find strange.
-//either the calculator I used had the same approximation for pi, or I need more decimal places (and so too the standard library)
-#define M_TAU 6.283185307179586476925
+//standard math library must provide: e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
+//but not 2 * pi
+#define TAU 6.283185307179586476925
 
 #define FPS 30
 
 //may need to be globaly swapped
 #define LEFT -1
 #define RIGHT 1
-#define TOWARDS -1
-#define AWAY 1
 
 typedef signed char tern
 
