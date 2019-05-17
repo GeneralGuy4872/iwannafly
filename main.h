@@ -66,7 +66,7 @@ struct statreg
   {
   bool ground : 1
   bool wet : 1
-  bool moves : 1
+  bool yinv : 1
   bool horiz : 1
   tern bouy : 2
   bool uv : 1
@@ -111,6 +111,7 @@ struct hicolor //I heard this was popular again. what do you mean that's somethi
 #define matgen_translate(L,W,H) matgen_raw(1,0,0,0,1,0,0,0,1,L,W,H)
 #define matgen_reflect(B,C,D) matgen_raw(B,0,0,0,C,0,0,0,D,0,0,0)
 #define matgen_transform(B,C,D,L,W,H) matgen_raw(B,0,0,0,C,0,0,0,D,L,W,H)
+
 #define matset_ident(M) matset_raw(M,1,0,0,0,1,0,0,0,1,0,0,0)
 #define matset_translate(M,L,W,H) matset_raw(M,1,0,0,0,1,0,0,0,1,L,W,H)
 #define matset_reflect(M,B,C,D) matset_raw(M,B,0,0,0,C,0,0,0,D,0,0,0)
