@@ -113,15 +113,10 @@ void onstep_player ()
 	player.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
 	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
-	player.pos.x = (player.pos.x + player.Velo.x)%21600 //degrees
-	player.pos.y = (player.pos.y + player.Velo.y)%21600 //degrees
+	player.pos.x = (player.pos.x + player.Velo.x)%360 //degrees
+	player.pos.y = (player.pos.y + player.Velo.y)%360 //degrees
 	//torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length of the poles.
-	player.pos.z = MAX(MIN((player.pos.z + player.Velo.z),-32767),32767) //meters, hightmap
-	/*heightmap: bitdepth: 8g8b, size: 360x360,
-	* polygons: all triangles are from +x,+y to -x,-y for now
-	* each pixel is a vertex in the mesh, with x and y multiplyed by 60
-	* and the z values squared. the mesh contains both the surface and the watertable
-	*/
+	player.pos.z = MAX(MIN((player.pos.z + player.Velo.z),-127),127) //meters, 8bit heightmap
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = (player.rot.y + player.Torq.y)%360 //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
