@@ -54,12 +54,18 @@ struct microvector
   signed char w : 2
   }
 
-struct bytevector
+struct bytevector4
   {
   unsigned int x : 8
   unsigned int y : 8
   unsigned int z : 8
   unsigned int w : 8
+  }
+
+struct bytevector2
+  {
+  unsigned int x : 8
+  unsigned int y : 8
   }
 
 struct statreg
@@ -81,21 +87,11 @@ struct truecolor
   unsigned int a : 8
   }
 
-struct heightpixel
+struct torusmap
   {
-  signed char top : 6
-  signed char bot : 6
-  tern fill : 2
-  bool show1 : 1
-  bool show2 : 1
-  }
-
-struct map
-  {
-  struct heightpixel *land
-  struct heightpixel *water
-  struct heightpixel *lava
-  struct vector3 start
+  signed char height[360][360]
+  signed char sealevel
+  struct bytevector2 start
   }
   
 #define RAD(N) ((N%360)*(M_PI/180))
