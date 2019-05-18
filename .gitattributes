@@ -7,3 +7,4 @@ make = linguist-language=makefile
 *.html = linguist-documentation=true
 *.txt = linguist-documentation=true
 *.md = linguist-documentation=true
+*.zmap -text
