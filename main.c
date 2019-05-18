@@ -116,7 +116,7 @@ void onstep_player ()
 	player.pos.x = (player.pos.x + player.Velo.x)%360 //degrees
 	player.pos.y = (player.pos.y + player.Velo.y)%360 //degrees
 	//torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length of the poles.
-	player.pos.z = MAX(MIN((player.pos.z + player.Velo.z),-127),127) //meters, 8bit heightmap
+	player.pos.z = MAX(MIN((player.pos.z + player.Velo.z),-127),255) //meters, 8bit heightmap
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = (player.rot.y + player.Torq.y)%360 //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
