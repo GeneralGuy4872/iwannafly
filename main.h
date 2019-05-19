@@ -79,6 +79,12 @@ struct statreg
   bool infa : 1
   }
 
+struct halfbytes
+  {
+  unsigned char high : 4
+  unsigned char low : 4
+  }
+
 struct truecolor
   {
   unsigned int r : 8
