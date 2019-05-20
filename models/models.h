@@ -1,21 +1,14 @@
-struct polygon
-  {
-  struct vec3 A
-  struct vec3 B
-  struct vec3 C
-  }
-
 struct bone
   {
   struct bone *up,
   struct bone *prev,
   struct bone *next,
-  struct vec3 off,
-  struct vec3 len,
-  struct mat4 base,
-  struct mat4 curr,
+  struct vector3 off,
+  struct vector3 len,
+  struct matrix base,
+  struct matrix curr,
   bool drawline,
-  polygon *faces[],
+  struct polygon *faces[],
   unsigned char n_polys,
   }
 
@@ -23,7 +16,7 @@ struct aniframe
   {
   struct aniframe *prev
   struct aniframe *next
-  struct mat4 *aniqueue[]
+  struct matrix *aniqueue[]
   }
 
 struct skeleton
@@ -31,7 +24,18 @@ struct skeleton
   struct bone *root
   struct aniframe *aninext 
   unsigned char n_bones
-  struct broadcolor pigment
+  struct truecolor pigment
+  }
+
+struct thing
+  {
+  struct mat4 base,
+  struct mat4 current,
+  struct polygon *faces,
+  unsigned char n_polys,
+  struct aniframe *aninext,
+  struct truecolor color,
+  struct bytevector2 hypercolor
   }
   
 //opengl stuff
