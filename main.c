@@ -77,10 +77,9 @@ struct entity
 	struct vector3 Torq
 	float rot[4][4] = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
-	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = flip dir
-	unsigned char health //NOT IMPLEMENTED
+	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	struct bytevector Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
