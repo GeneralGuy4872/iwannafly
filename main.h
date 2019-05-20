@@ -1,5 +1,7 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
+#define SPINLOAD printf(" \b|\b"); printf(" \b/\b"); printf(" \b-\b"); printf(" \b\\\b"); 
+#define DOTLOAD printf("\b\b\b   "); printf("\b\b\b.  "); printf("\b\b\b.. "); printf("\b\b\b..."); printf("\b\b\b.  "); printf("\b\b\b . "); printf("\b\b\b  ."); printf("\b\b\b . "); printf("\b\b\b.  "); printf("\b\b\b   "); printf("\b\b\b...");
 
 //I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
@@ -17,13 +19,15 @@
 //but not 2 * pi
 #define TAU 6.283185307179586476925
 
-#define FPS 30
+#define FPS 30 //frames per second
+#define MSPF 33 //milliseconds per frame, truncated
 
 //may need to be globaly swapped
 #define LEFT -1
 #define RIGHT 1
 
 typedef signed char tern
+typedef float matrix[4][4]
 
 struct vector4
   {
@@ -38,6 +42,13 @@ struct vector3
   float x
   float y
   float z
+  }
+
+struct polygon
+  {
+  struct vector3 a
+  struct vector3 b
+  struct vector3 c
   }
 
 struct vector2
@@ -109,10 +120,11 @@ struct torusmap
   struct bytevector2 start
   }
   
-#define RAD(N) ((N%360)*(M_PI/180))
-#define zin(N) (-1 * sin(N))
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
+#define CLAMP(N,A,B) MIN(MAX(N,A),B)
+#define RAD(N) ((N%360)*(M_PI/180))
+#define zin(N) (-1 * sin(N))
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? (tern) -1 : TRUE))
 #define FSGN(N) (SGN(N) * -1) //flipped sign
