@@ -21,3 +21,14 @@ struct moubuff
 
 struct joybuff player_buffer = {0,0,0,0,0,0}
 struct moubuff camera_buffer = {0,0,0,0}
+
+/*
+
+get js0
+pack js0 into joybuf
+get mouse xy
+pack mouse xy into moubuff.x/y
+on mouse scroll or page up/down, add/subtract from moubuff.z if within -90 <= z <= 90
+on left/right click, add/subtract from moubuff.w if doesn't overflow
+
+*/
