@@ -1,6 +1,5 @@
 
 clock_t prevframe = clock()
-framecount = 0
 bool ready = FALSE
 bool nextframe = FALSE
 bool pause = FALSE
