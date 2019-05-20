@@ -11,11 +11,13 @@ struct joybuff
   unsigned short rt
   }
 
-struct joybuff player_buffer = {0,0,0,0,0,0}
-struct vec4 camera_buffer = {0,0,0,0}
-
-joyerr()
+struct moubuff
   {
-  printf(">>>ERROR!<<<\n~MEDITATION~\n\n/dev/js0: Not a typewriter\nexiting...\n");
-  abort();
+  float x
+  float y
+  signed char z
+  unsigned char w
   }
+
+struct joybuff player_buffer = {0,0,0,0,0,0}
+struct moubuff camera_buffer = {0,0,0,0}
