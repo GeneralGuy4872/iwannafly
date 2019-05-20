@@ -8,7 +8,7 @@
 * the entire world map is stored in ram, as a pointer array would be larger than the
 * actual char array. (entire map is 127KiB, what's the point of splitting it?)*/
 
-polygon ground[7][7][2]
+struct polygon ground[7][7][2]
 
 create_land()
   {
