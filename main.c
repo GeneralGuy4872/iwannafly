@@ -43,14 +43,11 @@
 
 #include "./main.h"
 #include "./timing.c"
-
 #include "./joystick.c"
 
 #include "./xwindow.c"
 #include "./glxwindow.c"
 #include "./textout.c"
-
-#include "./init.c"
 #include "./models/all.c"
 
 /*all exact mesurements should folow SI units or SI acceptable units (i.e. degrees),
@@ -153,6 +150,9 @@ onstep_paused ()
 	ready = TRUE
 	}
 
+#include "./models/mapgen.h"
+#include "./init.c"
+
 /*>>>MAIN<<<*/
 main ()
 	{
@@ -197,7 +197,3 @@ main ()
 	printf("\n")
 	exit(0)
 	}
-
-//reimpliment gimbal lock fixers
-
-//impliment a location checker
