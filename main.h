@@ -128,6 +128,8 @@ struct torusmap
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? (tern) -1 : TRUE))
 #define FSGN(N) (SGN(N) * -1) //flipped sign
+#define MYFLOOR(N) ((unsigned short) (N%360))
+#define MYCEIL(N) ((unsigned short) (N%360) + 1)
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
