@@ -156,6 +156,7 @@ onstep_paused ()
 /*>>>MAIN<<<*/
 main ()
 	{
+	init__setup()
 	while run
 		{
 		if nextframe
@@ -190,9 +191,9 @@ main ()
 			{}
 		}
 	printf("runlevel lowered, exiting...")
-	printf("DOTLOAD")
-	printf("DOTLOAD")
-	printf("DOTLOAD")
+	DOTLOAD
+	DOTLOAD
+	DOTLOAD
 	printf("\n")
 	exit(0)
 	}
