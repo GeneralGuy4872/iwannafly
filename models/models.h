@@ -30,7 +30,7 @@ struct skeleton
 struct thing
   {
   struct mat4 base,
-  struct mat4 current,
+  struct mat4 curr,
   struct polygon *faces,
   unsigned char n_polys,
   struct aniframe *aninext,
@@ -45,10 +45,18 @@ animateskel(subject)
   struct bone **current = subject.root
   while (n < subject.n_bones)
     {
-    current.curr = subject.aninext.aniqueue[n]
+    matpush(current.curr,subject.aninext.aniqueue[n])
     n++
     current = current.next
     }
   subject.aninext = subject.aninext.next
   }
+
+animatething(subject)
+  struct thing subject
+  {
+  matpush(subject.curr,aninext,aniqueue[0])
+  aninext = aninext.next
+  }
+  
 //opengl stuff
