@@ -266,6 +266,45 @@ matrix3 mainh__matmult_3(fir,sec)
         }
       xcoord++
       }
+    xcoord = 0
+    while (xcoord < 3)
+      {
+      result[xcoord][3] = (fir[xcoord][0] * sec[0][3]) + (fir[xcoord][1] * sec[1][3]) + (fir[xcoord][2] * sec[2][3]) + (fir[xcoord][3])
+      xcoord++
+      }
+    result[3][0] = 0
+    result[3][1] = 0
+    result[3][2] = 0
+    result[3][3] = 1
     return result
     }
 
+matrix3 mainh__matmult_34(fir,sec)
+  matrix3 fir
+  matrix4 sec
+    {
+    unsigned char xcoord = 0
+    unsigned char ycoord
+    matrix3 result
+    while (xcoord < 3)
+      {
+      ycoord = 0
+      while (ycoord < 3)
+        {
+        result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord])
+        ycoord++
+        }
+      xcoord++
+      }
+    xcoord = 0
+    while (xcoord < 3)
+      {
+      result[xcoord][3] = (fir[xcoord][0] * sec[0][3]) + (fir[xcoord][1] * sec[1][3]) + (fir[xcoord][2] * sec[2][3])
+      xcoord++
+      }
+    result[3][0] = 0
+    result[3][1] = 0
+    result[3][2] = 0
+    result[3][3] = 1
+    return result
+    }
