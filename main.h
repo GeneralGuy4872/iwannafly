@@ -27,8 +27,7 @@
 #define RIGHT 1
 
 typedef signed char tern
-typedef float matrix4[4][4]
-typedef float matrix3[3][3]
+typedef float matrix[4][4]
 
 struct vector4
   {
@@ -141,9 +140,7 @@ struct torusmap
 //generate a column-major matrix declaration from a row-major list
 #define matset_raw(M,A,B,C,D,E,F,G,H,I,X,Y,Z) {  M[0][0] = A; M[0][1] = D; M[0][2] = G; M[0][3] = 0; M[1][0] = B; M[1][1] = E; M[1][2] = H; M[1][3] = 0; M[2][0] = C; M[2][1] = F; M[2][2] = I; M[2][3] = 0; M[3][0] = X; M[3][1] = Y; M[3][2] = Z; M[3][3] = 0;  }
 //iterate a colomn-major matrix redefinition from a row-major list
-
 #define matpush(M,N) {  M[0][0] = N[0][0]; M[0][1] = N[0][1]; M[0][2] = N[0][2]; M[0][3] = N[0][3]; M[1][0] = N[1][0]; M[1][1] = N[1][1]; M[1][2] = N[1][2]; M[1][3] = N[1][3]; M[2][0] = N[2][0]; M[2][1] = N[2][1]; M[2][2] = N[2][2]; M[2][3] = N[2][3]; M[3][0] = N[3][0]; M[3][1] = N[3][1]; M[3][2] = N[3][2]; M[3][3] = N[3][3];  }
-#define matpush_mini(M,N) {  M[0][0] = N[0][0]; M[0][1] = N[0][1]; M[0][2] = N[0][2]; M[0][3] = 0; M[1][0] = N[1][0]; M[1][1] = N[1][1]; M[1][2] = N[1][2]; M[1][3] = 0; M[2][0] = N[2][0]; M[2][1] = N[2][1]; M[2][2] = N[2][2]; M[2][3] = 0; M[3][0] = 0; M[3][1] = 0; M[3][2] = 0; M[3][3] = 1; 
 
 #define matgen_ident matgen_raw(1,0,0,0,1,0,0,0,1,0,0,0)
 #define matgen_translate(L,W,H) matgen_raw(1,0,0,0,1,0,0,0,1,L,W,H)
@@ -227,15 +224,14 @@ struct torusmap
 
 #define mat4vec4(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z,(M[0][3] + M[1][3] + M[2][3] + M[3][3]) * V.w}
 #define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
-#define mat3vec3(M,V) {(M[0][0] + M[1][0] + M[2][0]) * V.x,(M[0][1] + M[1][1] + M[2][1]) * V.y,(M[0][2] + M[1][2] + M[2][2]) * V.z}
 
-matrix4 mainh__matmult_4(fir,sec)
-  matrix4 fir
-  matrix4 sec
+matrix mainh__matmult_4(fir,sec)
+  matrix fir
+  matrix sec
     {
     unsigned char xcoord = 0
     unsigned char ycoord
-    matrix4 result
+    matrix result
     while (xcoord < 4)
       {
       ycoord = 0
@@ -246,65 +242,5 @@ matrix4 mainh__matmult_4(fir,sec)
         }
       xcoord++
       }
-    return result
-    }
-
-matrix3 mainh__matmult_3(fir,sec)
-  matrix3 fir
-  matrix3 sec
-    {
-    unsigned char xcoord = 0
-    unsigned char ycoord
-    matrix3 result
-    while (xcoord < 3)
-      {
-      ycoord = 0
-      while (ycoord < 3)
-        {
-        result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord])
-        ycoord++
-        }
-      xcoord++
-      }
-    xcoord = 0
-    while (xcoord < 3)
-      {
-      result[xcoord][3] = (fir[xcoord][0] * sec[0][3]) + (fir[xcoord][1] * sec[1][3]) + (fir[xcoord][2] * sec[2][3]) + (fir[xcoord][3])
-      xcoord++
-      }
-    result[3][0] = 0
-    result[3][1] = 0
-    result[3][2] = 0
-    result[3][3] = 1
-    return result
-    }
-
-matrix3 mainh__matmult_34(fir,sec)
-  matrix3 fir
-  matrix4 sec
-    {
-    unsigned char xcoord = 0
-    unsigned char ycoord
-    matrix3 result
-    while (xcoord < 3)
-      {
-      ycoord = 0
-      while (ycoord < 3)
-        {
-        result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord])
-        ycoord++
-        }
-      xcoord++
-      }
-    xcoord = 0
-    while (xcoord < 3)
-      {
-      result[xcoord][3] = (fir[xcoord][0] * sec[0][3]) + (fir[xcoord][1] * sec[1][3]) + (fir[xcoord][2] * sec[2][3])
-      xcoord++
-      }
-    result[3][0] = 0
-    result[3][1] = 0
-    result[3][2] = 0
-    result[3][3] = 1
     return result
     }
