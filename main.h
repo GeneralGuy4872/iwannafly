@@ -1,7 +1,7 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
 #define SPINLOAD printf(" \b|\b"); printf(" \b/\b"); printf(" \b-\b"); printf(" \b\\\b"); 
-#define DOTLOAD printf("\b\b\b   "); printf("\b\b\b.  "); printf("\b\b\b.. "); printf("\b\b\b..."); printf("\b\b\b.  "); printf("\b\b\b . "); printf("\b\b\b  ."); printf("\b\b\b . "); printf("\b\b\b.  "); printf("\b\b\b   "); printf("\b\b\b...");
+#define DOTLOAD printf("\b\b\b   "); printf("\b\b\b.  "); printf("\b\b\b.. "); printf("\b\b\b..."); printf("\b\b\b .."); printf("\b\b\b  ."); printf("\b\b\b . "); printf("\b\b\b.  "); printf("\b\b\b . "); printf("\b\b\b  ."); printf("\b\b\b .:"); printf("\b\b\b...");
 
 //I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
