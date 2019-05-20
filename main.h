@@ -79,10 +79,19 @@ struct statreg
   bool infa : 1
   }
 
+struct viewform
+  {
+  bool vis : 1 //0 = normal vision, 1 = falsecolor overlay
+  bool dist : 1 //0 = metric, 1 = imperial
+  tern speed : 2 //0 = m/s, 1 = kph, -1 = mph, -2 = ft/s
+  tern base : 2 //0 = base ten, 1 = hexadecimal, -1 = octal, -2 = binary
+  tern deg : 2 //0 = degrees, 1 = radians, -1 = turns, -2 = gradians
+  }
+
 struct halfbytes
   {
-  unsigned char high : 4
-  unsigned char low : 4
+  unsigned char h : 4
+  unsigned char l : 4
   }
 
 struct truecolor
