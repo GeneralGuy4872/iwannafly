@@ -183,7 +183,17 @@ main ()
 					}
 				else
 					{
-					onstep_master()
+					if (stepcount < FPS)
+						{
+						onstep_master()
+						stepcount++
+						}
+					else
+						{
+						refresh_land(PLAYER)
+						onstep_master()
+						stepcount = 0
+						}
 					}
 				}
 			}
