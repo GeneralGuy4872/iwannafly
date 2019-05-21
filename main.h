@@ -100,8 +100,7 @@ struct halfbytes
 
 struct shape
   {
-  struct truecolor fill;
-  struct truecolor line;
+  struct truecolor color;
   struct vector3 *poly[];
   signed char *mode[];
   struct halfbytes iter;
@@ -246,3 +245,5 @@ matrix mainh__matmult_4(fir,sec)
       }
     return result
     }
+
+#define HARD_ERROR_MACRO(E) fprintf(stderr,"Fell at E and couldn't get up\n\nX_X rip\n"); abort();
