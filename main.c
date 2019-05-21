@@ -64,8 +64,7 @@ float grav = 9.8 / FPS //meters / second / microfortnight
 struct entity
 	{
 	struct vector3 pos
-	struct vector3 rot
-	struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone z offset
+	struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone offset
 	struct vector3 Velo
 	struct vector3 Torq
 	matrix rot = matgen_ident
@@ -76,10 +75,8 @@ struct entity
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
-	/*collid.w sets hitbox proporties; 0=cylinder about z, 1=cylinder about x, -1 = cuboid of dimensions r*h*h.
-	*hitbox.y is relative to this parameter, being along x at z = 0 if collid.w == 1,
-	*along z at x = hitbox.radius otherwise. hitbox.w is always along z axis
-	*and should be equal to hitbox.x if collid.w == 1*/
+	//hitbox.y and hitbox.w bot describe points along the cylinder's h axis.
+	//stat.horiz determins if the hitbox cylinder is about the z or x axis.
 
 //HERE BE DRAGONS
 #define SPEED(X) ((X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z)) * X.collid.w)
