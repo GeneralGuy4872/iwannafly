@@ -9,30 +9,34 @@
 * the entire world map is stored in ram, as a pointer array would be larger than the
 * actual char array. (entire map is 127KiB, what's the point of splitting it?)*/
 
-struct vector3 ground[150]
+struct vector3 v_ground[7][7][4]
+struct signed char i_ground[7][7][4]
+struct shape = {{0x00,0x77,0x00},*v_ground,*i_ground,196,196}
 
 create_land(map)
   struct torusmap map
   {
   unsigned char n = 0
   unsigned char m
-  signed short xcoord = -4
-  signed short xmax = 5
+  signed short xcoord = -3
+  signed short xmax = 4
   signed short ycoord
-  signed short ymax = 5
+  signed short ymax = 4
   while (xcoord < xmax)
     {
     m = 0
-    ycoord = -4
+    ycoord = -3
     while (ycoord < ymax)
       {
       //line xy xy1;x1y;x1y1
+      //mode 2 -1 -2 -3
       m++
       ycoord++
       }
     n++
     xcoord++
-    }}
+    }
+  }
 
 refresh_land(player)
   struct entity player
