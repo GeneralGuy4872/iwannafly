@@ -7,9 +7,7 @@ struct bone
   struct vector3 len,
   struct matrix base,
   struct matrix curr,
-  bool drawline,
-  struct polygon *faces[],
-  unsigned char n_polys
+  struct shape,
   }
 
 struct aniframe
@@ -31,9 +29,7 @@ struct thing
   {
   struct mat4 base,
   struct mat4 curr,
-  struct polygon *faces,
-  unsigned char n_polys,
-  struct aniframe *aninext,
+  struct thing,
   struct truecolor color,
   struct bytevector2 hypercolor
   }
