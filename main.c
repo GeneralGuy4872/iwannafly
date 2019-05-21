@@ -63,6 +63,8 @@ float grav = 9.8 / FPS //meters / second / microfortnight
 
 struct entity
 	{
+	struct entity *prev
+	struct entity *next
 	struct vector3 pos
 	struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone offset
 	struct vector3 Velo
@@ -130,6 +132,16 @@ onstep_camera (camera)
 	camera.coord.w = CLAMP((camera.coord.w + camera_buffer.w),5,225) //degrees
 
 	matset_sphere_deg(camera,camera.coord.x,camera.coord.y,camera.coord.z,1,1)
+	}
+
+struct world
+	{
+	struct torusmap *map
+	struct entity *ent
+	struct entity *ent_tail
+	struct thing *scen
+	struct thing *scen_tail
+	struct cameratype *cam
 	}
 
 onstep_master ()
