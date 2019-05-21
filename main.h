@@ -86,9 +86,8 @@ struct statreg
 struct viewform
   {
   bool vis : 1 //0 = normal vision, 1 = falsecolor overlay
-  bool dist : 1 //0 = metric, 1 = imperial
-  tern speed : 2 //0 = m/s, 1 = kph, -1 = mph, -2 = ft/s
-  tern base : 2 //0 = base ten, 1 = hexadecimal, -1 = octal, -2 = binary
+  tern dist : 2 //0 = metric, 1 = imperial, -1 = us survey, -2 = nautical miles
+  unsigned char speed : 3 //0 = m/s, 1 = kph, 2 = ft/s, 3 = mi/min, 4 = mph, 5 = leg/min, 6 = nm/h, 7 = fur/ftn
   tern deg : 2 //0 = degrees, 1 = radians, -1 = turns, -2 = gradians
   }
 
