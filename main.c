@@ -72,6 +72,7 @@ struct entity
 	matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
 	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
+	unsigned char health
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
@@ -123,6 +124,7 @@ struct cameratype
 	matrix rot = matgen_ident
 	struct viewform local
 	tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
+	unsigned short points
 	}
 
 onstep_camera (camera)
