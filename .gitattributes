@@ -2,6 +2,7 @@ core.autocrlf=false
 *.c = linguist-language=C
 *.h = linguist-language=C
 *.awk = linguist-language=Awk
+*.sh = linguist-language=Shell
 make = linguist-language=makefile
 *.ini = linguist-language=INI
 *.man.* = linguist-documentation=true
