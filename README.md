@@ -45,3 +45,4 @@ PLANNED PLATFORMS
 - Arch 32 i686
 
 Will add other systems if I get better hardware, Arch 64 being paramount amoungst them
+Right now my dev systems consist of a Netburst Celeron, a K7, and a C2D that thinks it's a P6
