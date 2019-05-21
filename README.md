@@ -13,8 +13,6 @@ Libraries:
 - OpenGL
 - GLX
 
-- Fluidsynth
-
 - X11 Common Library
 - X Toolkit
 - X Athena Widgets
