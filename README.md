@@ -40,7 +40,7 @@ PLANNED PLATFORMS
 =================
 
 - Debian i686
-- GNUStep i686
+- GNUStep i686 (Debian with sysVinit)
 - NetBSD i386
 - Arch 32 i686
 
