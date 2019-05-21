@@ -121,6 +121,8 @@ struct cameratype
 	struct entity *root
 	struct vector4 coord
 	matrix rot = matgen_ident
+	struct viewform local
+	tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
 	}
 
 onstep_camera (camera)
