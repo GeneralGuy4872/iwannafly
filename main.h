@@ -52,10 +52,10 @@ struct vector2
 
 struct microvector
   {
-  signed char x : 2
-  signed char y : 2
-  signed char z : 2
-  signed char w : 2
+  tern x : 2
+  tern y : 2
+  tern z : 2
+  tern w : 2
   }
 
 struct bytevector4
