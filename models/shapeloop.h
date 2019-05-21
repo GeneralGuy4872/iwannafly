@@ -79,8 +79,7 @@ struct shape subject
       }
       else
       {
-      fprintf(stderr,"I don't know how to draw that.\n")
-      HARD_ERROR_MACRO("shapeloop","invalid vector machine mode value. continued execution will most likely cause an access violation (segfault) due to mismatched array sentry values. If you do not understand any of this, file an urgent-level bug report immidiately.")
+      HARD_ERROR_MACRO("shapeloop","invalid vector machine mode value. continued execution will most likely cause an access violation (segfault) due to errant sentrys. If you are a dev, check your arrays. Otherwise, file an urgent-level bug report immidiately.")
       }
     }
   }
