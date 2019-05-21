@@ -44,15 +44,6 @@ struct vector3
   float z
   }
 
-struct shape
-  {
-  struct truecolor fill;
-  struct truecolor line;
-  struct vector3 *poly[];
-  signed char *mode[];
-  unsigned char iter;
-  }
-
 struct vector2
   {
   float x
@@ -105,6 +96,15 @@ struct halfbytes
   {
   unsigned char h : 4
   unsigned char l : 4
+  }
+
+struct shape
+  {
+  struct truecolor fill;
+  struct truecolor line;
+  struct vector3 *poly[];
+  signed char *mode[];
+  struct halfbytes iter;
   }
 
 struct truecolor
