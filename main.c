@@ -18,10 +18,13 @@
 #include <math.h>
 #include <time.h>
 
+#include <unistd.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+//#include <signal.h>
+//#include <errno.h>
 
 #include <GL/gl.h>
 //#include <GL/glu.h> what does this do even?
