@@ -47,6 +47,7 @@ struct shape subject
         glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
         glvertex3f(subject.poly[vnum+1].x,subject.poly[vnum+1].y,subject.poly[vnum+1].z)
         glvertex3f(subject.poly[vnum+2].x,subject.poly[vnum+2].y,subject.poly[vnum+2].z)
+        glCullFace(GL_BACK)
       glEnd()
       inum++
       vnum = vnum + 3
@@ -58,6 +59,7 @@ struct shape subject
         glvertex3f(subject.poly[vnum+1].x,subject.poly[vnum+1].y,subject.poly[vnum+1].z)
         glvertex3f(subject.poly[vnum+2].x,subject.poly[vnum+2].y,subject.poly[vnum+2].z)
         glvertex3f(subject.poly[vnum+3].x,subject.poly[vnum+3].y,subject.poly[vnum+3].z)
+        glCullFace(GL_BACK)
       glEnd()
       inum++
       vnum = vnum + 4
@@ -70,6 +72,7 @@ struct shape subject
         glvertex3f(subject.poly[vnum+2].x,subject.poly[vnum+2].y,subject.poly[vnum+2].z)
         glvertex3f(subject.poly[vnum+3].x,subject.poly[vnum+3].y,subject.poly[vnum+3].z)
         glvertex3f(subject.poly[vnum+4].x,subject.poly[vnum+4].y,subject.poly[vnum+4].z)
+        glCullFace(GL_BACK)
       glEnd()
       inum++
       vnum = vnum + 5
