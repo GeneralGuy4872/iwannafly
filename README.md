@@ -34,7 +34,6 @@ System:
 - POSIX shell
 - make
 - C compiler
-- Awk
 
 PLANNED PLATFORMS
 =================
