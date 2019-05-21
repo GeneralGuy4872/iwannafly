@@ -44,11 +44,13 @@ struct vector3
   float z
   }
 
-struct polygon
+struct shape
   {
-  struct vector3 a
-  struct vector3 b
-  struct vector3 c
+  struct truecolor fill;
+  struct truecolor line;
+  struct vector3 *poly[];
+  signed char *mode[];
+  unsigned char iter;
   }
 
 struct vector2
