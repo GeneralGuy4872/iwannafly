@@ -46,4 +46,4 @@ PLANNED PLATFORMS
 
 Will add other systems if I get better hardware, Arch 64 being paramount amoungst them
 
-Right now my dev systems consist of a Netburst Celeron, a K7, and an early C2D that only runs P6 kernels
+Right now my dev systems consist of a Netburst Celeron, a K7, a PPC G5, and an early C2D that only runs P6 kernels
