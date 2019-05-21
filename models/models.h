@@ -27,6 +27,8 @@ struct skeleton
 
 struct thing
   {
+  struct thing *prev,
+  struct thing *next,
   struct mat4 base,
   struct mat4 curr,
   struct thing,
