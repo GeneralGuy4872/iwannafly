@@ -1,5 +1,7 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
+//these will eventualy be dependent on wait times, once I figure out how to fork without causing wabbits
+//there will be forked processes for the main loop, text interaction, ioctl, x window, and glx graphics.
 #define SPINLOAD sleep(100); printf(" \b|\b"); sleep(100); printf(" \b/\b"); sleep(100); printf(" \b-\b"); sleep(100); printf(" \b\\\b"); 
 #define DOTLOAD sleep(100); printf("\b\b\b   "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b.. "); sleep(100); printf("\b\b\b..."); sleep(100); printf("\b\b\b .."); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b .:"); sleep(100); printf("\b\b\b...");
 
@@ -22,11 +24,26 @@
 #define FPS 30 //frames per second
 #define MSPF 33 //milliseconds per frame, truncated
 
-//may need to be globaly swapped
-#define LEFT -1
-#define RIGHT 1
-
 typedef signed char tern
+
+#ifdef __bool_true_false_are_defined
+#ifndef TRUE
+#define TRUE true
+#endif /*TRUE*/
+#ifndef FALSE
+#define FALSE false
+#endif /*FALSE*/
+#else /*__bool_true_false*/
+#define TRUE (bool) 1
+#define FALSE (bool) 0
+#endif /*__bool_true_false*/
+
+#define TRISTATE (tern) -1
+#define QUANTUM (tern) -2
+
+#define LEFT TRISTATE
+#define RIGHT TRUE
+
 typedef float matrix[4][4]
 
 struct vector4
@@ -127,7 +144,7 @@ struct torusmap
 #define RAD(N) ((N%360)*(M_PI/180))
 #define zin(N) (-1 * sin(N))
 #define SANE(N) (N == 0 ? TRUE : N)
-#define SGN(N) (N == 0 ? FALSE : (N < 0 ? (tern) -1 : TRUE))
+#define SGN(N) (N == 0 ? FALSE : (N < 0 ? TRISTATE : TRUE))
 #define FSGN(N) (SGN(N) * -1) //flipped sign
 #define MYFLOOR(N) ((unsigned short) N)
 #define MYCEIL(N) ((unsigned short) N + 1)
