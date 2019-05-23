@@ -48,7 +48,7 @@ Right now my dev systems consist of a Netburst Celeron, a K7 with no ethernet (h
 OTHER NOTES
 -----------
 
-At time of writing, while the project has not been test-compiled, several of the stranger practices in use have been tested in small programs, particularly the structures and macro functions. All things regarding OpenGL, however, particularly if the formats used to store vectors (struct {float x; float y; float z}) and matrixes (float[4][4]) are correct, are awaiting the first build to determine sink-or-swim.
+At time of writing, while the project has not been test-compiled, several of the stranger practices in use have been tested in small programs, particularly the structures and macro functions. All things regarding OpenGL, however, particularly if the formats used to store vectors (struct {float x; float y; float z}) and matrixes (float[4][4]) are correct, are awaiting the first build to determine sink-or-swim, as are the use of const and volatile.
 
 The heavy use of macro functions througout the project's code base stems from two seperate cases that necessitate their use. Firstly, macro functions are a good way to implement a subroutine or procedure (Fortran and Pascal use them extensively). Secondly, macro functions can accept, and in specific cases return, multiple types, where as functions proper can only accept and return as they are defined (think C++ overloading but better). if you see a goto anywhere, blame Snobol (where all program control is done with branch tables rather than loops) and assume that it will be going away soon.
 
