@@ -64,7 +64,7 @@
 
 float grav = 9.8 / FPS //meters / second / microfortnight
 
-volatile struct entity
+struct entity
 	{
 	struct entity *prev
 	struct entity *next
@@ -120,7 +120,7 @@ onstep_player (player)
 	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,INVPIT(player),1)
 	}}
 
-volatile struct cameratype
+struct cameratype
 	{
 	struct entity *root
 	struct vector4 coord
@@ -141,7 +141,7 @@ onstep_camera (camera)
 	matset_sphere_deg(camera,camera.coord.x,camera.coord.y,camera.coord.z,1,1)
 	}
 
-volatile struct world
+struct world
 	{
 	struct torusmap *map
 	struct entity *ent
