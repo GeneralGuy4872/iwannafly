@@ -216,5 +216,5 @@ struct bone *avewing(prev,root,len,side)
   return *limb[2]
   }
 
-polygon crystal[8] bone_octo(0.1) //generic "sphere" object, used for lights and skulls
-polygon crate[12] bone_cube(1,1,1) //every game must have boxes
+const struct vector3 crystal[13] = v_wire_octo(0.1)
+const struct vector3 crate[17] = v_wire_crate(1,1,1)
