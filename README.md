@@ -23,7 +23,7 @@ System:
 - Keyboard
 - Mouse
 - A 3d graphics card
-- Some RAM
+- Lots of RAM
 - Xbox 360 controller (or equivilant device)
 
 - Unix-like Operating System
