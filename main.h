@@ -91,21 +91,21 @@ struct bytevector2
 
 struct statreg
   {
-  bool ground : 1
-  bool wet : 1
-  bool yinv : 1
-  bool horiz : 1
-  tern bouy : 2
-  bool uv : 1
-  bool infa : 1
+  volatile bool ground : 1
+  volatile bool wet : 1
+  volatile bool yinv : 1
+  const bool horiz : 1
+  const tern bouy : 2
+  const bool uv : 1
+  const bool infa : 1
   }
 
 struct viewform
   {
-  bool vis : 1 //0 = normal vision, 1 = falsecolor overlay
-  tern dist : 2 //0 = metric, 1 = imperial, -1 = us survey, -2 = nautical miles
-  unsigned char speed : 3 //0 = m/s, 1 = kph, 2 = ft/s, 3 = mi/min, 4 = mph, 5 = leg/min, 6 = nm/h, 7 = fur/ftn
-  tern deg : 2 //0 = degrees, 1 = radians, -1 = turns, -2 = gradians
+  volatile bool vis : 1 //0 = normal vision, 1 = falsecolor overlay
+  volatile tern dist : 2 //0 = metric, 1 = imperial, -1 = us survey, -2 = nautical miles
+  volatile unsigned char speed : 3 //0 = m/s, 1 = kph, 2 = ft/s, 3 = mi/min, 4 = mph, 5 = knots, 6 = fathm/min, 7 = fur/ftn
+  volatile tern deg : 2 //0 = degrees, 1 = radians, -1 = turns, -2 = gradians
   }
 
 struct halfbytes
