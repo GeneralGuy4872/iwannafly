@@ -62,22 +62,22 @@
 * use "microfortnights" as in VMS for the PDP-11, to distinguish them from exact values.
 */
 
-float grav = 9.8 / FPS //meters / second / microfortnight
+const float grav = 9.8 / FPS //meters / second / microfortnight
 
 struct entity
 	{
-	struct entity *prev
-	struct entity *next
-	struct vector3 pos
-	struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone offset
-	struct vector3 Velo
-	struct vector3 Torq
-	matrix rot = matgen_ident
+	struct entity *volatile prev
+	struct entity *volatile next
+	volatile struct vector3 pos
+	const struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone offset
+	volatile struct vector3 Velo
+	volatile struct vector3 Torq
+	volatile matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
-	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
-	unsigned char health
-	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	volatile struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
+	volatile unsigned char health
+	const struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
+	const struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
@@ -122,12 +122,12 @@ onstep_player (player)
 
 struct cameratype
 	{
-	struct entity *root
-	struct vector4 coord
-	matrix rot = matgen_ident
+	struct entity *volatile root
+	volatile struct vector4 coord
+	volatile matrix rot = matgen_ident
 	struct viewform local
-	tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
-	unsigned short points
+	volatile tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
+	volatile unsigned short points
 	}
 
 onstep_camera (camera)
@@ -144,10 +144,10 @@ onstep_camera (camera)
 struct world
 	{
 	struct torusmap *map
-	struct entity *ent
-	struct entity *ent_tail
-	struct thing *scen
-	struct thing *scen_tail
+	struct entity *volatile ent
+	struct entity *volatile ent_tail
+	struct thing *volatile scen
+	struct thing *volatile scen_tail
 	struct cameratype *cam
 	}
 
