@@ -34,7 +34,7 @@ System:
 - C compiler
 
 PLANNED PLATFORMS
-=================
+-----------------
 
 - Debian i686
 - GNUStep i686 (Debian with sysVinit)
@@ -46,7 +46,7 @@ Will add other systems if I get better hardware, Arch 64 being paramount amoungs
 Right now my dev systems consist of a Netburst Celeron, a K7 with no ethernet (has rj45 and rs232 instead), and an early C2D laptop that only runs P6 kernels; all of which date from between the late 90s and mid 2000s with full compliment of parallel-PCI expansion bus, IDE drives, and "legacy" ports on the towers. (the k7 actually has an EISA slot for the graphics card!)
 
 OTHER NOTES
-===========
+-----------
 
 At time of writing, while the project has not been test-compiled, several of the stranger practices in use have been tested in small programs, particularly the structures and macro functions. All things regarding OpenGL, however, particularly if the formats used to store vectors (struct {float x; float y; float z}) and matrixes (float[4][4]) are correct, are awaiting the first build to determine sink-or-swim.
 
