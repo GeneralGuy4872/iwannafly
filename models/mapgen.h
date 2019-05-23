@@ -9,9 +9,9 @@
 * the entire world map is stored in ram, as a pointer array would be larger than the
 * actual char array. (entire map is 127KiB, what's the point of splitting it?)*/
 
-struct vector3 v_ground[7][7][4]
-struct signed char i_ground[7][7][4]
-struct shape = {{0x00,0x77,0x00},*v_ground,*i_ground,196,196}
+volatile struct vector3 v_ground[7][7][4]
+const struct signed char i_ground[7][7][4]
+struct shape the_ground = {{0x00,0x77,0x00},*v_ground,*i_ground,196,196}
 
 create_land(map)
   struct torusmap map
