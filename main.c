@@ -112,13 +112,16 @@ onstep_player (player)
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
 
 	if (player.stat.horiz)
-	{
-	matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,INVPIT(player),1)
-	}
+		{
+		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,INVPIT(player),1)
+		}
 	else
-	{
-	matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,INVPIT(player),1)
-	}}
+		{
+		matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,INVPIT(player),1)
+		}
+	
+	xwind__update_vals(player)
+	}
 
 struct cameratype
 	{
