@@ -3,10 +3,10 @@ struct bone
   struct bone *up,
   struct bone *prev,
   struct bone *next,
-  struct vector3 off,
-  struct vector3 len,
-  struct matrix base,
-  struct matrix curr,
+  const struct vector3 off,
+  const struct vector3 len,
+  const struct matrix base,
+  volatile struct matrix curr,
   struct shape,
   }
 
@@ -20,18 +20,18 @@ struct aniframe
 struct skeleton
   {
   struct bone *root,
-  struct aniframe *aninext,
-  unsigned char n_bones,
+  struct aniframe *volatile aninext,
+  const unsigned char n_bones,
   struct truecolor pigment
   }
 
 struct thing
   {
-  struct thing *prev,
-  struct thing *next,
-  struct mat4 base,
-  struct mat4 curr,
-  struct thing,
+  struct thing *volatile prev,
+  struct thing *volatile next,
+  const struct mat4 base,
+  volatile struct mat4 curr,
+  struct shape geom,
   struct truecolor color,
   struct bytevector2 hypercolor
   }
