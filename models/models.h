@@ -7,7 +7,7 @@ struct bone
   const struct vector3 len,
   const struct matrix base,
   volatile struct matrix curr,
-  struct shape,
+  struct shape geom,
   }
 
 struct aniframe
