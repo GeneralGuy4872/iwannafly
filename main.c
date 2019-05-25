@@ -171,7 +171,7 @@ main ()
 				{
 				if ready
 					{
-					glx__drawframe()
+					glx__DrawLoop(WORLD)
 					nextframe = FALSE
 					ready = FALSE
 					}
@@ -183,7 +183,7 @@ main ()
 				{
 				if ready
 					{
-					glx__drawframe()
+					glx__DrawLoop(WORLD)
 					nextframe = FALSE
 					ready = FALSE
 					}
