@@ -9,6 +9,7 @@
 *
 **************************************/
 
+#define MACRO_VERS 000000.000.01
 //NOTE: I've decided that it's faster to write first and worry about syntax later.
 //the resulting psudocode is largely C-based with elements borrowed from C++, GLSL, and Mathmatic Notation
 
