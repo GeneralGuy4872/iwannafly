@@ -31,6 +31,7 @@
 //#include <GL/glu.h> what does this do even?
 
 #include "./main.h"
+#include "./init.c"
 #include "./timing.c"
 #include "./joystick.c"
 
@@ -53,16 +54,16 @@ const float grav = 9.8 / FPS //meters / second / microfortnight
 
 struct entity
 	{
-	struct entity *volatile prev
-	struct entity *volatile next
-	volatile struct vector3 pos
+	struct entity *prev
+	struct entity *next
+	struct vector3 pos
 	const struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone offset
-	volatile struct vector3 Velo
-	volatile struct vector3 Torq
-	volatile matrix rot = matgen_ident
+	struct vector3 Velo
+	struct vector3 Torq
+	matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
-	volatile struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
-	volatile unsigned char health
+	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
+	unsigned char health
 	const struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	const struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
@@ -112,12 +113,12 @@ onstep_player (player)
 
 struct cameratype
 	{
-	struct entity *volatile root
-	volatile struct vector4 coord
-	volatile matrix rot = matgen_ident
+	struct entity *root
+	struct vector4 coord
+	matrix rot = matgen_ident
 	struct viewform local
-	volatile tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
-	volatile unsigned short points
+	tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
+	unsigned short points
 	}
 
 onstep_camera (camera)
@@ -134,10 +135,10 @@ onstep_camera (camera)
 struct world
 	{
 	struct torusmap *map
-	struct entity *volatile ent
-	struct entity *volatile ent_tail
-	struct thing *volatile scen
-	struct thing *volatile scen_tail
+	struct entity *ent
+	struct entity *ent_tail
+	struct thing *scen
+	struct thing *scen_tail
 	struct cameratype *cam
 	}
 
@@ -157,7 +158,6 @@ onstep_paused ()
 	}
 
 #include "./models/mapgen.h"
-#include "./init.c"
 
 /*>>>MAIN<<<*/
 main ()
