@@ -8,9 +8,6 @@
 
 #include "./glxwindow.h"
 
-GLXContext mainwindow = glXCreateNewContext(XOpenDisplay(NULL),);
-XStoreName(dpy, win, "Iwannafly PREALPHA MACRO_VERS Compiled on __DATE__");
-
 glx__SetCamera(camera)
   struct cameratype camera
   {    
