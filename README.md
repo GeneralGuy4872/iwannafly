@@ -1,6 +1,6 @@
 Iwannafly
 =========
-*open world game and game engine written in C useing minimal propagating dependancies*
+*open world game and game engine written in C useing minimal propagating dependencies*
 
 Requirements
 ------------
