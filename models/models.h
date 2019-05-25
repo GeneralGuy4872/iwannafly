@@ -20,6 +20,7 @@ struct aniframe
 struct skeleton
   {
   struct bone *root,
+  struct bone *head,
   struct aniframe *volatile aninext,
   const unsigned char n_bones,
   struct truecolor pigment
