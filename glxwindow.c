@@ -13,7 +13,7 @@ glx__SetCamera(camera)
   {    
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(camera.coord.w,1,.25,90);
+  gluPerspective(camera.coord.w,1,.25,100);
   }
 
 glx__DrawLoop(plugh)
