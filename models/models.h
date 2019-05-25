@@ -6,7 +6,7 @@ struct bone
   const struct vector3 off,
   const struct vector3 len,
   const struct matrix base,
-  volatile struct matrix curr,
+  struct matrix curr,
   struct shape geom,
   }
 
@@ -21,17 +21,17 @@ struct skeleton
   {
   struct bone *root,
   struct bone *head,
-  struct aniframe *volatile aninext,
+  struct aniframe *aninext,
   const unsigned char n_bones,
   struct truecolor pigment
   }
 
 struct thing
   {
-  struct thing *volatile prev,
-  struct thing *volatile next,
+  struct thing *prev,
+  struct thing *next,
   const struct mat4 base,
-  volatile struct mat4 curr,
+  struct mat4 curr,
   struct shape geom,
   struct truecolor color,
   struct bytevector2 hypercolor
