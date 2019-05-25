@@ -28,21 +28,6 @@
 
 #include <GL/gl.h>
 //#include <GL/glu.h> what does this do even?
-#include <GL/glx.h>
-//#include <fluidsynth.h>
-
-#include <X11/Intrinsic.h>
-#include <X11/StringDefs.h>
-#include <X11/CoreP.h>
-#include <X11/Xatom.h>
-#include <X11/Xaw/Form.h>
-#include <X11/Xaw/Box.h>
-#include <X11/Xaw/Label.h>
-#include <X11/Xaw/Command.h>
-#include <X11/Xaw/Toggle.h>
-#include <X11/Xaw/Scrollbar.h>
-//originally wanted these for extra input, but fixed that
-//still might use them for pause menu
 
 #include "./main.h"
 #include "./timing.c"
@@ -51,6 +36,7 @@
 #include "./xwindow.c"
 #include "./glxwindow.c"
 #include "./textout.c"
+
 #include "./models/all.c"
 
 /*all exact mesurements should folow SI units or SI acceptable units (i.e. degrees),
