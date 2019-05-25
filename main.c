@@ -57,12 +57,12 @@ struct entity
 	struct entity *prev
 	struct entity *next
 	struct vector3 pos
-	const struct vector4 hitbox //x = radius, y = eye height offset, z = height, w = base bone offset
+	const struct vector3 hitbox //x = radius, y = height, z = bone offset
 	struct vector3 Velo
 	struct vector3 Torq
 	matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
-	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = paral/conf
+	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = bone offset from
 	unsigned char health
 	const struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	const struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
