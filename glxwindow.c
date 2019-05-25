@@ -19,7 +19,6 @@ glx__SetCamera(camera)
 glx__DrawLoop(plugh)
   struct world plugh
   {
-  glClearColor(255,255,255,255);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
   SetCamera(plugh.cam)
