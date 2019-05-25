@@ -22,4 +22,5 @@ glx__startup()
   glXMakeCurrent(monitor,WinAtt,glxc);
   glEnable(GL_CULL_FACE);
   glEnable(GL_DEPTH_TEST);
+  XStoreName(dpy, win, "Iwannafly PREALPHA MACRO_VERS Compiled on __DATE__");
   }
