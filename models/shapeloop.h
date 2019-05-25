@@ -4,7 +4,7 @@ struct shape subject
   unsigned char inum = 0
   unsigned char vnum = 0
   glColor4b(subject.color.r,subject.color.g,subject.color.b,subject.color.a)
-  while ((inum < subject.iter.h) && (vnum < subject.iter.l))
+  while ((inum < subject.n_poly) && (vnum < subject.n_vert))
     {
     if (subject.mode[inum] < 0)
       {
