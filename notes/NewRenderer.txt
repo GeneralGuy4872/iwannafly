@@ -1,0 +1,3 @@
+vector3 vertexlist[]
+bytevector2 edgelist[]
+unsigned char n_lines
