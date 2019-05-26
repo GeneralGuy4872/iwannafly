@@ -1,3 +1,21 @@
 vector3 vertexlist[]
-bytevector2 edgelist[]
-unsigned char n_lines
+unsigned char edgelist[]
+unsigned char n_iter
+
+record structure:
+
+mode:
+0 = GL_LINE_LOOP
+1 = GL_POINTS
+2 = GL_LINEs
+3 = GL_TRIANGLES
+4 = GL_QUADS
+5 = GL_POLY
+6 = GL_LINE_STRIP
+7 = GL_TRIANGLE_FAN
+
+number:
+n = number of vertexes
+
+vertex:
+n = reference number of vertex in vertexlist
