@@ -117,10 +117,9 @@ struct halfbytes
 struct shape
   {
   struct truecolor color;
-  struct vector3 *poly[];
-  signed char *mode[];
-  unsigned char n_poly;
-  unsigned char n_vert
+  struct vector3 *vertlist[];
+  unsigned char *bytecode[];
+  unsigned char inum
   }
 
 struct truecolor
