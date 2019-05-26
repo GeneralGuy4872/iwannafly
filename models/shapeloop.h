@@ -1,81 +1,95 @@
 shapeloop(subject)
 struct shape subject
   {
-  unsigned char inum = 0
-  unsigned char vnum = 0
   unsigned char n = 0
+  unsigned char mode = 0
+  unsigned char iter = 0
   glColor4b(subject.color.r,subject.color.g,subject.color.b,subject.color.a)
-  while ((inum < subject.n_poly) && (vnum < subject.n_vert))
+  while (n < subject.inum)
     {
-    if (subject.mode[inum] < 0)
+    if !(mode)
       {
-      glBegin(GL_LINES)
-        glVertex3f(subject.poly[vnum + subject.mode[inum]].x,subject.poly[vnum + subject.mode[inum]].y,subject.poly[vnum + subject.mode[inum]].z)
-        glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
-      glEnd()
-      vnum++
-      inum++
+      mode = subject.bytecode[n]
+      n++
+      iter = subject.bytecode[n]
+      n++
       }
-    else if (subject.mode[inum] == 0)
-      {
-      glBegin(GL_LINES)
-        glVertex3f(subject.poly[0].x,subject.poly[0].y,subject.poly[0].z)
-        glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
-      glEnd()
-      vnum++
-      inum++
-      }
-    else if (subject.mode[inum] == 1)
+    else if (mode == 1)
       {
       glBegin(GL_POINTS)
-        glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          }
       glEnd()
-      vnum++
-      inum++
+      mode = 0
       }
-      else if (subject.mode[inum] == 2)
+    else if (mode == 2)
       {
       glBegin(GL_LINES)
-        glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
-        glvertex3f(subject.poly[vnum+1].x,subject.poly[vnum+1].y,subject.poly[vnum+1].z)
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          }
       glEnd()
-      vnum = vnum + inum
-      inum++
+      mode = 0
       }
-      else if (subject.mode[inum] == 3)
+    else if (mode == 3)
       {
       glBegin(GL_TRIANGLES)
-        glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
-        glvertex3f(subject.poly[vnum+1].x,subject.poly[vnum+1].y,subject.poly[vnum+1].z)
-        glvertex3f(subject.poly[vnum+2].x,subject.poly[vnum+2].y,subject.poly[vnum+2].z)
-        glCullFace(GL_BACK)
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          }
+      glCullFace(GL_BACK)
       glEnd()
-      vnum = vnum + inum
-      inum++
+      mode = 0
       }
-      else if (subject.mode[inum] == 4)
+    else if (mode == 4)
       {
       glBegin(GL_QUADS)
-        glvertex3f(subject.poly[vnum].x,subject.poly[vnum].y,subject.poly[vnum].z)
-        glvertex3f(subject.poly[vnum+1].x,subject.poly[vnum+1].y,subject.poly[vnum+1].z)
-        glvertex3f(subject.poly[vnum+2].x,subject.poly[vnum+2].y,subject.poly[vnum+2].z)
-        glvertex3f(subject.poly[vnum+3].x,subject.poly[vnum+3].y,subject.poly[vnum+3].z)
-        glCullFace(GL_BACK)
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)          n++
+          }
+      glCullFace(GL_BACK)
       glEnd()
-      vnum = vnum + inum
-      inum++
+      mode = 0
       }
-      else if (subject.mode[inum] > 4)
+    else if (mode == 5)
       {
       glBegin(GL_POLYGON)
-        while (n < inum)
-        {
-        glvertex3f(subject.poly[vnum+n].x,subject.poly[vnum+n].y,subject.poly[vnum+n].z)
-        }
-        n = 0
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          }
       glEnd()
-      vnum = vnum + inum
-      inum++
+      mode = 0
       }
-    }
-  }
+    else if (mode == 6)
+      {
+      glBegin(GL_LINE_LOOP)
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          }
+      mode = 0
+      glEnd()
+      }
+    else if (mode == 7)
+      {
+      glBegin(GL_GL_TRIANGLE_FAN)
+        while iter
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          }
+      glCullFace(GL_BACK)
+      glEnd()
+      mode = 0
+      }
