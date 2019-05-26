@@ -149,6 +149,8 @@ struct torusmap
 #define MYFLOOR(N) ((unsigned short) N)
 #define MYCEIL(N) ((unsigned short) N + 1)
 
+#define BASEBONEPOS(M) (M.collid.w == 0 ? ((M.pos.z * 2) + M.hitbox.y) / 2 : (M.collid.w < 0 ? ((M.pos.z + M.hitbox.y) + M.hitbox.z) : (M.pos.z + M.hitbox.z)))
+
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
 /*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
