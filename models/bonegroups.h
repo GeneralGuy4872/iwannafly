@@ -216,5 +216,10 @@ struct bone *avewing(prev,root,len,side)
   return *limb[2]
   }
 
-const struct vector3 crystal[13] = v_wire_octo(0.1)
-const struct vector3 crate[17] = v_wire_crate(1,1,1)
+const struct vector3 crystal_vecs[num_v_wire_octo] = v_wire_octo(0.1)
+const struct char instructions_wire_octo[num_p_wire_octo] = m_wire_octo
+const struct vector3 crate_vecs[num_v_wire_crate] = v_wire_crate(1,1,1)
+const struct char instructions_wire_crate[num_p_wire_crate] = m_wire_crate
+const struct vector3 origin_vecs[num_v_wire_origin] = v_wire_origin(1,1,1)
+const struct char instructions_wire_origin[num_p_wire_origin] = m_wire_origin
+const struct char instructions_line[num_p_line] = m_line
