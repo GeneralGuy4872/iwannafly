@@ -7,11 +7,11 @@
 #define v_bicone(L,R) {{0,0,R},{0,0,0},{0,R,0},{L,0,0},{0,-R,0},{0,0,-R}}
 #define wire_octo {8,12, 0,1,2,5,3,2,0,3,4,5,1,4}
 #define num_wire_octo 14
-#define poly_octo {7,5, 0,1,2,3,4, 7,5, 5,1,2,3,4}
+#define poly_octo {7,6, 0,1,2,3,4,1, 7,6, 5,1,2,3,4,1}
 #define num_poly_octo 14
 #define wire_bicone {8,12, 0,1,2,5,3,2,0,3,4,5,1,4}
 #define num_wire_bicone 14
-#define poly_bicone {7,5, 0,1,2,3,4, 7,5, 5,1,2,3,4}
+#define poly_bicone {7,6, 0,1,2,3,4,1, 7,6, 5,1,2,3,4,1}
 #define num_poly_bicone 14
 
 #define v_cube(X,Y,Z) {{X/2,Y/2,Z},{X/2,-Y/2,Z},{-X/2,-Y/2,Z},{-X/2,Y/2,Z},{X/2,Y/2,0},{X/2,-Y/2,0},{-X/2,-Y/2,0},{-X/2,Y/2,0}}
@@ -24,11 +24,17 @@
 #define v_inv_pyra(R,H) {{0,0,-H},{R,0,0},{0,R,0},{-R,0,0},{0,-R,0}}
 #define wire_pyra {9,3, 1,2,3,4, 8,4, 1,2,3,4}
 #define num_wire_pyra 12
-#define poly_pyra {4,4, 1,2,3,4, 7,5, 0,1,2,3,4}
+#define poly_pyra {4,4, 1,2,3,4, 7,6, 0,1,2,3,4,1}
 #define num_poly_pyra 13
 
 #define v_tetra(H,W,L) {{0,0,0},{0,W/2,-H},{0,-W/2,-H},{-L,0,0}}
 #define wire_tetra {9,3, 1,2,3, 8,3, 1,2,3}
 #define num_wire_tetra 10
-#define poly_tetra {3,3, 1,2,3, 7,4, 0,1,2,3}
+#define poly_tetra {3,3, 1,2,3, 7,5, 0,1,2,3,1}
 #define num_poly_tetra 11
+
+#define v_scatter(L,R,N) {{0,0,0},{L * N,0,0},{L * N * cos(R),N * sin(R),N * sin(R)},{L * N * cos(R),N * zin(R),N * sin(R)},{L * N * cos(R),N * zin(R),N * zin(R)},{L * N * cos(R),N * sin(R),N * zin(R)}}
+#define hit_scatter {7,6, 1,2,3,4,5,2}
+#define num_hit_scatter 8
+#define trail_scatter {9,5, 1,2,3,4,5}
+#define num_trail_scatter 7
