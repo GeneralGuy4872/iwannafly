@@ -12,6 +12,9 @@ glx__SetCamera(camera)
   struct cameratype camera
   {    
   glMatrixMode(GL_PROJECTION);
+  glLoadMatrix(camera.root.head.curr);
+  glMultMatrix(camera.coord)
+  glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(camera.coord.w,1,.25,100);
   }
@@ -21,16 +24,18 @@ glx__DrawLoop(plugh)
   {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   
-  SetCamera(plugh.cam)
-  
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
   glMatrixMode(GL_MODELVIEW);
   struct entity *nextent = plugh->ent
   while (*nextent->next != NULL)
   {
-  glLoadMatrix(plugh.rot);
+  glLoadMatrix(nextent.rot);
   unsigned char n = 0
   struct bone *nextbone = plugh.dembones.root
     {
+    glLoadIdentity()
+    gltranslate(plugh.pos.x,plugh.pos.y,BASEBONEPOS(plugh))
     glLoadMatrixf(plugh.rot)
     glMultMatrixf(nextbone.base)
     glGetfloatv(GL_MODELVIEW_MATRIX,nextbone.curr)
@@ -48,4 +53,5 @@ glx__DrawLoop(plugh)
     *nextbone = nextbone->next
     n++
     }
+  glx__SetCamera(plugh.camera)
   }
