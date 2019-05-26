@@ -17,10 +17,11 @@ struct shape subject
     else if (mode == 1)
       {
       glBegin(GL_POINTS)
-        while iter
+        while (iter && (n < subject.inum))
           {
           glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
           n++
+          iter--
           }
       glEnd()
       mode = 0
@@ -28,10 +29,11 @@ struct shape subject
     else if (mode == 2)
       {
       glBegin(GL_LINES)
-        while iter
+        while (iter && (n < subject.inum))
           {
           glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
           n++
+          iter--
           }
       glEnd()
       mode = 0
@@ -39,10 +41,11 @@ struct shape subject
     else if (mode == 3)
       {
       glBegin(GL_TRIANGLES)
-        while iter
+        while (iter && (n < subject.inum))
           {
           glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
           n++
+          iter0
           }
       glCullFace(GL_BACK)
       glEnd()
@@ -51,9 +54,11 @@ struct shape subject
     else if (mode == 4)
       {
       glBegin(GL_QUADS)
-        while iter
+        while (iter && (n < subject.inum))
           {
-          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)          n++
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          iter--
           }
       glCullFace(GL_BACK)
       glEnd()
@@ -62,34 +67,72 @@ struct shape subject
     else if (mode == 5)
       {
       glBegin(GL_POLYGON)
-        while iter
+        while (iter && (n < subject.inum))
           {
           glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
           n++
+          iter--
           }
       glEnd()
       mode = 0
       }
     else if (mode == 6)
       {
-      glBegin(GL_LINE_LOOP)
-        while iter
+      glBegin(GL_TRIANGLE_FAN)
+        while (iter && (n < subject.inum))
           {
           glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
           n++
+          iter--
+          }
+      glCullFace(GL_BACK)
+      glEnd()
+      mode = 0
+      }
+    else if (mode == 7)
+      {
+      glBegin(GL_LINE_STRIP)
+        while (iter && n < 
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          iter--
+          }
+      glEnd()
+      mode = 0
+      }
+    else if (mode == 8)
+      {
+      glBegin(GL_LINE_LOOP)
+        while (iter && (n < subject.inum))
+          {
+          glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+          n++
+          iter--
           }
       mode = 0
       glEnd()
       }
-    else if (mode == 7)
+    else if (mode == 9)
       {
-      glBegin(GL_GL_TRIANGLE_FAN)
-        while iter
+      glBegin(GL_LINES)
+        while (iter && n < 
           {
+          glvertex3f(subject.vertlist[0].x,subject.vertlist[0].y,subject.vertlist[0].z)
           glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
           n++
+          iter--
           }
-      glCullFace(GL_BACK)
+      glEnd()
+      mode = 0
+      }
+    else
+      {
+        while (iter && (n < subject.inum))
+          {
+          n++
+          iter--
+          }
       glEnd()
       mode = 0
       }
