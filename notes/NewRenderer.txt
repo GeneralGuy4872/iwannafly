@@ -1,17 +1,17 @@
-vector3 vertexlist[]
-unsigned char edgelist[]
-unsigned char n_iter
+vector3 vertlist[]
+unsigned char instruct[]
+unsigned char inum
 
 record structure:
 
 mode:
-0 = GL_LINE_LOOP
+0 = error
 1 = GL_POINTS
 2 = GL_LINEs
 3 = GL_TRIANGLES
 4 = GL_QUADS
 5 = GL_POLY
-6 = GL_LINE_STRIP
+6 = GL_LINE_LOOP
 7 = GL_TRIANGLE_FAN
 
 number:
