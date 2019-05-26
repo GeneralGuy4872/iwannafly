@@ -11,11 +11,15 @@ mode:
 3 = GL_TRIANGLES
 4 = GL_QUADS
 5 = GL_POLY
-6 = GL_LINE_LOOP
+6 = GL_LINE_STRIP
 7 = GL_TRIANGLE_FAN
+8 = GL_LINE_LOOP
+9 = GL_LINES from 0
 
 number:
 n = number of vertexes
 
 vertex:
 n = reference number of vertex in vertexlist
+
+goto mode
