@@ -1,3 +1,4 @@
+DEFFERRED
 MIDI:
 CH0: square wave
 CH1: rhodes piano
