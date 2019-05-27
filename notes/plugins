@@ -5,11 +5,11 @@
 Far Future plugin interface:
 
 plugin program parses:
-.tsv|.csv          : (array of) vectors/matrixes
-.bin|.hex|.dat|.raw: array of bytes
-.txt|<none>        : string literal
-.ini               : struct, non-recursive
-.sgml|.xml|.json   : struct, recursive
+.tsv                : array of float
+.bin|.hex|.dat|.raw : array of bytes
+.txt|<none>         : string literal
+.ini                : struct, non-recursive
+.sgml|.xml|.json    : struct, recursive
 to C code (useing Awk or Snobol, probably)
 .h = backing code
 .c = main code
