@@ -9,4 +9,5 @@ make = linguist-language=makefile
 *.html = linguist-documentation=true
 *.txt = linguist-documentation=true
 *.md = linguist-documentation=true
+notes/* = linguist-documentation=true
 *.zmap -merge -text
