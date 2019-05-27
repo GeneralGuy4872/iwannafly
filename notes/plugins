@@ -1,0 +1,16 @@
+.save : save file
+.ini : settings file
+.log : output log
+
+Far Future plugin interface:
+
+plugin program parses:
+.tsv|.csv          : (array of) vectors/matrixes
+.bin|.hex|.dat|.raw: array of bytes
+.txt|<none>        : string literal
+.sgml|.xml|.json   : doubly-linked list
+to C code (useing Awk or Snobol, probably)
+.h = backing code
+.c = main code
+and compiles a diff patch
+.diff = patch
