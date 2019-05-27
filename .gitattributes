@@ -11,5 +11,5 @@ make = linguist-language=makefile
 *.txt = linguist-documentation=true
 *.md = linguist-documentation=true
 notes/* = linguist-documentation=true
-*.hex -merge -text linguist-vendored=false
+*.hex = -merge -text linguist-vendored=false
 *.bin = -merge -text linguist-vendored=false
