@@ -1,3 +1,5 @@
+DEPRICATED
+
 metacarple 2: ℓ = (ℓ_n-1/π)×cos(π/32), ψ = 11.25° | π/8
 metacarple 3: ℓ = (ℓ_n-1/π)×1, ψ = 0
 metacarple 4: ℓ = (ℓ_n-1/π)×cos(π/32), ψ = -11.25° | -π/8
