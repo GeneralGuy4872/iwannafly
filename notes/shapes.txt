@@ -1,3 +1,4 @@
+PARTIALLY DEPRICATED
 shape vertex map:
 the geometric notation is definately wrong, but I can read it, and that's what counts.
 
