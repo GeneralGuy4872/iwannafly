@@ -5,9 +5,11 @@ core.autocrlf=false
 *.sh = linguist-language=Shell
 make = linguist-language=makefile
 *.ini = linguist-language=INI
+*.tsv = linguist-language=tsv linguist-vendored=false
 *.man.* = linguist-documentation=true
 *.html = linguist-documentation=true
 *.txt = linguist-documentation=true
 *.md = linguist-documentation=true
 notes/* = linguist-documentation=true
-*.zmap -merge -text
+*.hex -merge -text linguist-vendored=false
+*.bin = -merge -text linguist-vendored=false
