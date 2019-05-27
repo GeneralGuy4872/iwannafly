@@ -1,3 +1,4 @@
+PARTIALLY DEPRICATED
 X rotation
 1  0     0   0
 0 cosX -sinX 0
