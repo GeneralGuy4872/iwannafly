@@ -147,8 +147,8 @@ struct truecolor
 
 struct torusmap
   {
-  signed char dots[360][360]
-  signed char sealevel
+  unsigned char dots[360][360]
+  unsigned char sealevel
   struct bytevector2 start
   }
   
