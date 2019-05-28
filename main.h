@@ -159,7 +159,7 @@ struct torusmap
 #define zin(N) (-1 * sin(N))
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? TRISTATE : TRUE))
-#define FSGN(N) (SGN(N) * -1) //flipped sign
+#define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
 
 #define BASEBONEPOS(M) (M.collid.w == 0 ? ((M.pos.z * 2) + M.hitbox.y) / 2 : (M.collid.w < 0 ? ((M.pos.z + M.hitbox.y) + M.hitbox.z) : (M.pos.z + M.hitbox.z)))
 
