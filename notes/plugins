@@ -1,12 +1,12 @@
-.save : save file
 .ini : settings file
 .log : output log
+.save : save file
 
 Far Future plugin interface:
 
 plugin program parses:
-.tsv                : array of float
-.bin|.hex|.dat|.raw : array of bytes
+.tsv|.csv           : float, array of float, vector, array of vector, matrix
+.bin|.hex|.dat|.raw : binary file
 .txt|<none>         : string literal
 .ini                : struct, non-recursive
 .sgml|.xml|.json    : struct, recursive
