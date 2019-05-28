@@ -25,6 +25,7 @@
 #define MSPF 33 //milliseconds per frame, truncated
 
 typedef signed char tern
+typedef unsigned char quard
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
@@ -75,6 +76,14 @@ struct microvector
   tern w : 2
   }
 
+struct minivector
+  {
+  quard x : 2
+  quard y : 2
+  quard z : 2
+  quard w : 2
+  }
+
 struct bytevector4
   {
   unsigned int x : 8
@@ -89,6 +98,20 @@ struct bytevector2
   unsigned int y : 8
   }
 
+struct charvector4
+  {
+  signed char x : 8
+  signed char y : 8
+  signed char z : 8
+  signed char w : 8
+  }
+
+struct bytevector2
+  {
+  signed char x : 8
+  signed char y : 8
+  }
+
 struct statreg
   {
   bool ground : 1
@@ -98,14 +121,6 @@ struct statreg
   tern bouy : 2
   bool uv : 1
   bool infa : 1
-  }
-
-struct viewform
-  {
-  bool vis : 1 //0 = normal vision, 1 = falsecolor overlay
-  tern dist : 2 //0 = metric, 1 = imperial, -1 = us survey, -2 = nautical miles
-  unsigned char speed : 3 //0 = m/s, 1 = kph, 2 = ft/s, 3 = mi/min, 4 = mph, 5 = knots, 6 = fathm/min, 7 = fur/ftn
-  tern deg : 2 //0 = degrees, 1 = radians, -1 = turns, -2 = gradians
   }
 
 struct halfbytes
