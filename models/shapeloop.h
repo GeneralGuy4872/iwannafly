@@ -142,15 +142,15 @@ struct shape subject
   {
   unsigned char n = 0
   glColor4b(subject.color.r,subject.color.g,subject.color.b,subject.color.a)
-  while (n < subject.inum)
+  while (n < 63)
     {
     glBegin(GL_TRIANGLE_FAN)
       while (iter && n < subject.inum))
         {
-        glvertex3f(subject.vertlist[0][subject.bytecode[n]].x,subject.vertlist[0][subject.bytecode[n]].y,subject.vertlist[0][subject.bytecode[n]].z)
-        glvertex3f(subject.vertlist[1][subject.bytecode[n]].x,subject.vertlist[1][subject.bytecode[n]].y,subject.vertlist[1][subject.bytecode[n]].z)
-        glvertex3f(subject.vertlist[1][subject.bytecode[n+1]].x,subject.vertlist[1][subject.bytecode[n+1]].y,subject.vertlist[1][subject.bytecode[n+1]].z)
-        glvertex3f(subject.vertlist[0][subject.bytecode[n+1]].x,subject.vertlist[0][subject.bytecode[n+1]].y,subject.vertlist[0][subject.bytecode[n+1]].z)
+        glvertex3f(subject.vertlist[0][(subject.bytecode[n])%360].x,subject.vertlist[0][(subject.bytecode[n])%360].y,subject.vertlist[0][(subject.bytecode[n])%360].z)
+        glvertex3f(subject.vertlist[1][(subject.bytecode[n])%360].x,subject.vertlist[1][(subject.bytecode[n])%360].y,subject.vertlist[1][(subject.bytecode[n])%360].z)
+        glvertex3f(subject.vertlist[1][(subject.bytecode[n+1])%360].x,subject.vertlist[1][(subject.bytecode[n+1])%360].y,subject.vertlist[1][(subject.bytecode[n+1])%360].z)
+        glvertex3f(subject.vertlist[0][(subject.bytecode[n+1])%360].x,subject.vertlist[0][(subject.bytecode[n+1])%360].y,subject.vertlist[0][(subject.bytecode[n+1])%360].z)
         n++
         }
     glEnd()
