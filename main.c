@@ -117,8 +117,9 @@ struct cameratype
 	struct entity *root
 	struct vector4 coord
 	matrix rot = matgen_ident
-	quard base //0 = dec, 1 = bin, 2 = oct, 3 = hex
+	struct minivec format //0 = dec, 1 = bin, 2 = oct, 3 = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon
 	unsigned short points
+	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
 
 onstep_camera (camera)
@@ -127,8 +128,7 @@ onstep_camera (camera)
 	camera.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
 	camera.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees; no roll axis, so not clamped to 180
 	camera.coord.z = CLAMP((camera.coord.z + camera_buffer.z),-90,90) //meters, soccer pitch
-	camera.coord.w = CLAMP((camera.coord.w + camera_buffer.w),5,225) //degrees
-
+	camera.coord.w = CLAMP((camera.coord.w + camera_buffer.w),5,270) //degrees
 	matset_sphere_deg(camera,camera.coord.x,camera.coord.y,camera.coord.z,1,1)
 	}
 
