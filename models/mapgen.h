@@ -8,8 +8,8 @@
 * the entire world map is stored in ram, as a pointer array would be larger than the
 * actual char array. (entire map is 127KiB, what's the point of splitting it?)*/
 
-volatile struct vector3 v_ground[7][7][4]
-const struct signed char i_ground[7][7][4]
+struct vector3 v_ground[5][5]
+const unsigned char i_ground[4*4*4] =
 struct shape the_ground = {{0x00,0x77,0x00},*v_ground,*i_ground,196,196}
 
 create_land(map)
@@ -17,24 +17,23 @@ create_land(map)
   {
   unsigned char n = 0
   unsigned char m
-  signed short xcoord = -3
-  signed short xmax = 4
-  signed short ycoord
-  signed short ymax = 4
+  unsigned short xcoord = -2
+  unsigned short xmax = 3
+  unsigned short ycoord
+  unsigned short ymax = 3
   while (xcoord < xmax)
     {
     m = 0
-    ycoord = -3
+    ycoord = -2
     while (ycoord < ymax)
       {
-      //line xy xy1;x1y;x1y1
-      //mode 2 -1 -2 -3
       m++
       ycoord++
       }
     n++
     xcoord++
     }
+  
   }
 
 refresh_land(player)
@@ -42,17 +41,16 @@ refresh_land(player)
   {
   unsigned char n = 0
   unsigned char m
-  signed short xcoord = MYFLOOR(player.pos.x) - 4
-  signed short xmax = MYCEIL(player.pos.x) + 4
-  signed short ycoord
-  signed short ymax = MYCEIL(player.pos.y) + 4
+  unsigned short xcoord = player.pos.x - 2
+  unsigned short xmax = player.pos.x + 3
+  unsigned short ycoord
+  unsigned short ymax = player.pos.y + 3
   while (xcoord < xmax)
     {
     m = 0
-    ycoord = MYFLOOR(player.pos.x) - 4
+    ycoord = MYFLOOR(player.pos.x) - 2
     while (ycoord < ymax)
       {
-      //line xy xy1;x1y;x1y1
       m++
       ycoord++
       }
