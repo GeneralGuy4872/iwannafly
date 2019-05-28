@@ -90,11 +90,12 @@ onstep_player (player)
 	player.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
 	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
-	player.pos.x = (player.pos.x + player.Velo.x)%360 //degrees
-	player.pos.y = (player.pos.y + player.Velo.y)%360 //degrees
+	player.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
+	player.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
 	/*torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length
-	* of the poles because their y axis is clamped. torri are modded instead of clamped*/
-	player.pos.z = CLAMP((player.pos.z + player.Velo.z),-128,1024) //meters, heightmap minimum;arbitrary ceiling
+	* of the poles because their y axis is clamped. torri are modded instead of clamped.
+	* this torus has a circumfrence of exactly 21600 meters and a ratio of 1:1*/
+	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,20000) //meters, zero;arbitrary ceiling
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
@@ -116,8 +117,7 @@ struct cameratype
 	struct entity *root
 	struct vector4 coord
 	matrix rot = matgen_ident
-	struct viewform local
-	tern base //0 = dec, 1 = oct, -1 = hex, -2 = bin; due to printf format limitations, does not apply to floats
+	quard base //0 = dec, 1 = bin, 2 = oct, 3 = hex
 	unsigned short points
 	}
 
