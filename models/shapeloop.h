@@ -141,8 +141,6 @@ groundloop(subject)
 struct shape subject
   {
   unsigned char n = 0
-  unsigned char mode = 0
-  unsigned char iter = 0
   glColor4b(subject.color.r,subject.color.g,subject.color.b,subject.color.a)
   while (n < subject.inum)
     {
@@ -150,8 +148,10 @@ struct shape subject
       while (iter && n < subject.inum))
         {
         glvertex3f(subject.vertlist[0][subject.bytecode[n]].x,subject.vertlist[0][subject.bytecode[n]].y,subject.vertlist[0][subject.bytecode[n]].z)
+        glvertex3f(subject.vertlist[1][subject.bytecode[n]].x,subject.vertlist[1][subject.bytecode[n]].y,subject.vertlist[1][subject.bytecode[n]].z)
+        glvertex3f(subject.vertlist[1][subject.bytecode[n+1]].x,subject.vertlist[1][subject.bytecode[n+1]].y,subject.vertlist[1][subject.bytecode[n+1]].z)
+        glvertex3f(subject.vertlist[0][subject.bytecode[n+1]].x,subject.vertlist[0][subject.bytecode[n+1]].y,subject.vertlist[0][subject.bytecode[n+1]].z)
         n++
-        iter--
         }
     glEnd()
     mode = 0
