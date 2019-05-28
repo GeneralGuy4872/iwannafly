@@ -149,7 +149,7 @@ struct shape subject
     glBegin(GL_TRIANGLE_FAN)
       while (iter && n < subject.inum))
         {
-        glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+        glvertex3f(subject.vertlist[0][subject.bytecode[n]].x,subject.vertlist[0][subject.bytecode[n]].y,subject.vertlist[0][subject.bytecode[n]].z)
         n++
         iter--
         }
