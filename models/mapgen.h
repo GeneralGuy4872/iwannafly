@@ -1,5 +1,5 @@
 #define HMCOORD(M) M[xcoord%360][ycoord%360]
-#define HMVERT(M) {xcoord%360,ycoord%360,HMCOORD(M)}
+#define HMVERT(M) {(xcoord%360) * 60,(ycoord%360) * 60,HMCOORD(M) * 5}
 
 /*terrain generation should load smaller heightmaps that measure 60"*60"*256m (arcminutes,arcminutes,meters)
 * exactly 9 of these are loaded at all times based on player position on the torus.
