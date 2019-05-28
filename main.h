@@ -279,4 +279,6 @@ matrix mainh__matmult_4(fir,sec)
     return result
     }
 
+#define printdeg(N,O) div_t temp; bytevector4 degrees; div(N * 3600,60) = temp; temp.rem = O.x; div(tmp.quot,60) = temp; temp.rem = O.y; div(tmp.quot,360) = temp; temp.rem = O.z; temp.quot = O.w; printf("%i*%i'%i\"%i",O.w,O.z,O.y,O.x)
+
 #define HARD_ERROR_MACRO(E,A) fprintf(stderr,"Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",E,A); abort();
