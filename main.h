@@ -26,6 +26,7 @@
 
 typedef signed char tern
 typedef unsigned char quard
+typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
@@ -255,7 +256,7 @@ struct torusmap
 #define matset_zp_deg(M,A,Z,H) matset_zp_rad(M,RAD(A),Z,H)
 
 #define matgen_perspect(X,Y,N,F) {{cot(X),0,0,0},{0,cot(Y),0,0},{0,0,(N+F)/(N-F),-1},{0,0,(2*N*F)/(N-F),0}}
-#define matset_perspect(X,Y,N,F) {  M[0][0] = cot(X); M[0][1] = 0; M[0][2] = 0; M[0][3] = 0; M[1][0] = 0; M[1][1] = cot(Y); M[1][2] = 0; M[1][3] = 0; M[2][0] = 0; M[2][1] = 0; M[2][2] = (N+F)/(N-F); M[2][3] = -1; M[3][0] = 0; M[3][1] = 0; M[3][2] = (2*N*F)/(N-F); M[3][3] = 0;  }
+#define matset_perspect(M,X,Y,N,F) {  M[0][0] = cot(X); M[0][1] = 0; M[0][2] = 0; M[0][3] = 0; M[1][0] = 0; M[1][1] = cot(Y); M[1][2] = 0; M[1][3] = 0; M[2][0] = 0; M[2][1] = 0; M[2][2] = (N+F)/(N-F); M[2][3] = -1; M[3][0] = 0; M[3][1] = 0; M[3][2] = (2*N*F)/(N-F); M[3][3] = 0;  }
 
 #define mat4vec4(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z,(M[0][3] + M[1][3] + M[2][3] + M[3][3]) * V.w}
 #define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
@@ -280,6 +281,6 @@ matrix mainh__matmult_4(fir,sec)
     return result
     }
 
-#define printdeg(N,O) div_t temp; bytevector4 degrees; div(N * 3600,60) = temp; temp.rem = O.x; div(tmp.quot,60) = temp; temp.rem = O.y; div(tmp.quot,360) = temp; temp.rem = O.z; temp.quot = O.w; printf("%i*%i'%i\"%i",O.w,O.z,O.y,O.x)
+#define printdeg(N,O) div_t temp; bytevector4 degrees; div(N * 3600,60) = temp; temp.rem = O.x; div(tmp.quot,60) = temp; temp.rem = O.y; div(tmp.quot,360) = temp; temp.rem = O.z; temp.quot = O.w; sprintf("%i*%i'%i\"%i",O.w,O.z,O.y,O.x)
 
 #define HARD_ERROR_MACRO(E,A) fprintf(stderr,"Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",E,A); abort();
