@@ -69,6 +69,31 @@ struct vector2
   float y
   }
 
+
+struct timedvector4
+  {
+  float x
+  float y
+  float z
+  float w
+  unsigned char t
+  }
+
+struct timedvector3
+  {
+  float x
+  float y
+  float z
+  unsigned char t
+  }
+
+struct timedvector2
+  {
+  float x
+  float y
+  unsigned char t
+  }
+
 struct microvector
   {
   tern x : 2
@@ -107,7 +132,7 @@ struct charvector4
   signed char w : 8
   }
 
-struct bytevector2
+struct charvector2
   {
   signed char x : 8
   signed char y : 8
