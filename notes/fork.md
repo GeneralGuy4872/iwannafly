@@ -1,0 +1,11 @@
+            *fork*
+        _____/\_____
+       /            \
+   *fork*              fork
+    /\              __/\__
+*init*  timing       /      \
+               fork        *fork*
+                /\          /\
+             *xaw*  fork   glx  *physics*
+                   /\
+                TBA  *stdio*
