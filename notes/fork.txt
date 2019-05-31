@@ -1,12 +1,13 @@
-             init
-            >fork<
-         _____/\_____
-        /            \
-   >fork<             fork
-     /\               __/\__
->init< timing        /      \
-                 fork       >fork<
-                  /\          /\
-              >xaw< fork   glx >physics<
-                     /\ 
-                  ... >stdio<
+        init
+       >fork<
+         /\ 
+    >init< fork
+        ____/\____
+       /          \           
+   fork           >fork<
+    /\              /\
+>xaw< stdio >physics< glx---{pause}
+
+      fork
+       /\
+>parent< child---{thread}
