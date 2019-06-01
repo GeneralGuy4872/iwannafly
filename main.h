@@ -17,10 +17,10 @@
 #define SPINLOAD sleep(100); printf(" \b|\b"); sleep(100); printf(" \b/\b"); sleep(100); printf(" \b-\b"); sleep(100); printf(" \b\\\b"); 
 #define DOTLOAD sleep(100); printf("\b\b\b   "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b.. "); sleep(100); printf("\b\b\b..."); sleep(100); printf("\b\b\b .."); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b .:"); sleep(100); printf("\b\b\b...");
 
-#define __MYVERS__ 00.00.01
-#define REV_NOFORK 000.000
-#define VITALSTAT(Z) "Iwannafly __MYVERS__;Z Compiled on __DATE__"
-#define VITALSTAT_FULL(N,Z) " ~~ Iwannafly ~~\n  version: __MYVERS__\n\n - N -\n  revision: Z\n\nCompiled on __DATE__"
+#define __MYVERS__ "00.00.01"
+#define REV_NOFORK "000.000"
+#define VITALSTAT(Z) "Iwannafly "__MYVERS__";"Z" Compiled on "__DATE__
+#define VITALSTAT_FULL(N,Z) " ~~ Iwannafly ~~\n  version: "__MYVERS__"\n\n - "N" -\n  revision: "Z"\n\nCompiled on "__DATE__"\n"
 
 //I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
