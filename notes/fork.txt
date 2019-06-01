@@ -7,10 +7,10 @@
     |  timer                /      \           
 >init<:(shutdown)       fork       >fork<
                          /\          /\
-                     fork >HUD< >fork< glx:(pause)
-                      /\          /\
-                >stdio< | >physics< fork
-                   to_be_added       /\
+                    stdio >HUD< >fork< glx:(pause)
+                                  /\
+                          >physics< fork
+                                     /\
                                >ioctl< npc_ai
       fork
        /\
