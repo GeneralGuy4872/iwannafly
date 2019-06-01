@@ -173,6 +173,8 @@ main ()
 	init__setup()
 	printf(VITALSTAT_FULL(Without forks,REV_NOFORK))
 	while run
+	//bleh, need to make this a snobol-style goto branch table. It will be easier to maintain that way.
+	//whoever made the decision that nested loops were better should be dropped in a nested corn maze
 		{
 		if nextframe
 			{
