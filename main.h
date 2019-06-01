@@ -168,6 +168,14 @@ struct statreg
   bool infa : 1
   }
 
+struct viewform
+  {
+  quard base : 2
+  quard deg : 2
+  tern rate : 2
+  bool infra : 1
+  bool uv : 1
+
 struct halfbytes
   {
   unsigned char h : 4
@@ -201,6 +209,11 @@ struct torusmap
 #define MIN(A,B) (A < B ? A : B)
 #define CLAMP(N,A,B) MIN(MAX(N,A),B)
 #define RAD(N) ((N%360)*(M_PI/180))
+#define DEG(N) (N*(180/M_PI))
+#define R_GON(N) (N*(200/M_PI))
+#define D_GON(N) ((N%360)*(10/9))
+#define G_RAD(N) ((N%400)*(M_PI/200))
+#define G_DEG(N) ((N%400)*(9/10))
 #define zin(N) (-1 * sin(N))
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? TRISTATE : TRUE))
@@ -325,7 +338,7 @@ matrix mainh__matmult_4(fir,sec)
     return result
     }
 
-bytevector4 frad_to_bvdeg(input)
+bytevector4 radf_to_degbv(input)
   float input;
   {
   bytevector4 output;
@@ -338,6 +351,10 @@ bytevector4 frad_to_bvdeg(input)
   div_tmp.quot = output.w;
   return output
   }
-#define printdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
+#define sprintdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
+#define fprintdef(N,O) fprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
+#define printdeg(O) printf("%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
+#define sprintpoints(C,O) (C.base > 2 ? (C.base == 0 ? sprintf("%05d",C.points) : sprintf("o%06o",C.points)) : (C.base == 2 ? sprintf("%%%016b",C.points) : sprintf("$%02h",C.points)))
+#define DEG(R) 
 
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",F,E,A);/*fakeinit__shutdown();*/ abort();
