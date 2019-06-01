@@ -65,6 +65,8 @@ typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
 #define LEFT TRISTATE
 #define RIGHT TRUE
 
+continue() {}
+
 typedef float matrix[4][4]
 
 struct vector4
@@ -172,7 +174,8 @@ struct viewform
   {
   quard base : 2
   quard deg : 2
-  tern rate : 2
+  bool dist : 1
+  bool time : 1
   bool infra : 1
   bool uv : 1
 
