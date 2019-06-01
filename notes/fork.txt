@@ -14,5 +14,5 @@
 
 use POSIX shm instead of mmap, store entire world in tmp file
 use of runlevel variables in init used to manage clearing of shm variables
-catch SIGINT,SIGTERM and begin shutdown sequence
+catch SIGINT,SIGTERM,SIGHUP and begin shutdown sequence
 savefile could be derived from tmp file
