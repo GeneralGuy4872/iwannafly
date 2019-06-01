@@ -6,10 +6,10 @@
 * #define SHMUNLOCK(V) sume_func(V)
 * #define SHMEX(V,F) SHMLOCK(V); F; SHMUNLOCK(V);
 *
-* #define MMAKE(M,L,N) M = sizeof(L) mmem [N]
-* #define MMLOCK(V) some_func(*V)
-* #define MMUNLOCK(V) sume_func(*V)
-* #define MMEX(V,F) MMLOCK(*V); F; MMUNLOCK(*V);
+* #define MMAKE(M,L,N) *M = sizeof(L) mmem [N]
+* #define MMLOCK(V) some_func(V)
+* #define MMUNLOCK(V) sume_func(V)
+* #define MMEX(V,F) MMLOCK(V); F; MMUNLOCK(V);
 */
 
 //these will eventualy be dependent on wait times, once I figure out how to fork without causing wabbits
