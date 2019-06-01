@@ -1,18 +1,27 @@
-        init
-       >fork<
-         /\ 
-    >init< fork
-        ____/\____
-       /          \           
-   fork           >fork<
-    /\              /\
->xaw< stdio >physics< glx---pause
-
+                 boot
+                >fork<
+         _________/\_________
+        /                    \ 
+   >fork<                     fork
+     /\                      __/\__
+    |  timer                /      \           
+>init<:(shutdown)       fork       >fork<
+                         /\          /\
+                     fork >HUD< >fork< glx:(pause)
+                      /\          /\
+                >stdio< | >physics< fork
+                   to_be_added       /\
+                               >ioctl< npc_ai
       fork
        /\
->parent< child---{thread}
+>parent< child:(branch)
 
-use POSIX shm instead of mmap, store entire world in tmp file
+since the program is complicated and has disparate parts, an operating system analogy is helpful for describeing it
+when the program is started, a "boot" routine is run; part of the program is closed, a "shutdown" routine is run to ensure all memory is freed
+the "shutdown" routine is controlled by a "runlevel" variable controlled in the "init" fork
+use shm_open for large structs, store entire world in tmp file
+use mmap for small stuff, such as bools and char arrays
 use of runlevel variables in init used to manage clearing of shm variables
-catch SIGINT,SIGTERM,SIGHUP and begin shutdown sequence
+catch SIGINT,SIGTERM,SIGHUP and begin shutdown sequence. (if SIGKILL is recieved, program exits WITH GARBAGE/SIDE EFFECTS because of shm_)
 savefile could be derived from tmp file
+certain parts may be implimented as threads instead of forks or branches; I need a larger test program to iron out my use case, but initial results are not promising...
