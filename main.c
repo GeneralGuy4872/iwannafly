@@ -123,7 +123,7 @@ struct cameratype
 	struct entity *root
 	struct vector4 coord
 	matrix rot = matgen_ident
-	struct minivec format //0 = dec, 1 = bin, 2 = oct, 3 = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon
+	struct viewform format //0 = dec, 1 = bin, 2 = oct, 3 = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon : 0 = m/s, 1 = kph, -1 = kn, -2 = mnmi/min (fathom/minute) : infra : uv
 	unsigned short points
 	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
