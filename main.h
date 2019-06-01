@@ -36,7 +36,7 @@
 
 //standard math library must provide: e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
 //but not 2 * pi
-#define TAU 6.283185307179586476925
+#define MY_TAU 6.283185307179586476925
 
 #define FPS 30 //frames per second
 #define MSPF 33 //milliseconds per frame, truncated
