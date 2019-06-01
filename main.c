@@ -9,7 +9,6 @@
 *
 **************************************/
 
-#define MACRO_VERS 000.000.00.01
 //NOTE: I've decided that it's faster to write first and worry about syntax later.
 //the resulting psudocode is largely C-based with elements borrowed from C++, GLSL, and Mathmatic Notation
 
@@ -172,6 +171,7 @@ onstep_paused ()
 main ()
 	{
 	init__setup()
+	printf(VITALSTAT_FULL(Without forks,REV_NOFORK))
 	while run
 		{
 		if nextframe
