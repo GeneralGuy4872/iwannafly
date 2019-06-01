@@ -17,6 +17,12 @@
 #define SPINLOAD sleep(100); printf(" \b|\b"); sleep(100); printf(" \b/\b"); sleep(100); printf(" \b-\b"); sleep(100); printf(" \b\\\b"); 
 #define DOTLOAD sleep(100); printf("\b\b\b   "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b.. "); sleep(100); printf("\b\b\b..."); sleep(100); printf("\b\b\b .."); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b .:"); sleep(100); printf("\b\b\b...");
 
+#define MACRO_VERS_MAJ 000
+#define MACRO_VERS_MIN 000
+#define MACRO_VERS_REV 001
+#define MACRO_VERS_PAT_NF 000
+#define MACRO_VERS_HOT_NF 000
+
 //I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
 #define COS_PI_8 0.9238795325112867561282
@@ -35,6 +41,8 @@
 
 #define FPS 30 //frames per second
 #define MSPF 33 //milliseconds per frame, truncated
+
+div_t div_tmp;
 
 typedef signed char tern
 typedef unsigned char quard
@@ -318,6 +326,19 @@ matrix mainh__matmult_4(fir,sec)
     return result
     }
 
-#define printdeg(N,O) div_t temp; bytevector4 degrees; div(N * 3600,60) = temp; temp.rem = O.x; div(tmp.quot,60) = temp; temp.rem = O.y; div(tmp.quot,360) = temp; temp.rem = O.z; temp.quot = O.w; sprintf("%i*%i'%i\"%i",O.w,O.z,O.y,O.x)
+bytevector4 frad_to_bvdeg(input)
+  float input;
+  {
+  bytevector4 output;
+  div(input * 3600,60) = div_tmp;
+  div_tmp.rem = output.x;
+  div(div_tmp.quot,60) = div_tmp;
+  div_tmp.rem = output.y;
+  div(div_tmp.quot,360) = div_tmp;
+  div_tmp.rem = output.z;
+  div_tmp.quot = output.w;
+  return output
+  }
+#define printdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
 
-#define HARD_ERROR_MACRO(E,A) fprintf(stderr,"Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",E,A); abort();
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",F,E,A);/*fakeinit__shutdown();*/ abort();
