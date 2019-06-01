@@ -1,5 +1,17 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
+/*figure out iff && when time comes
+*
+* #define SHMLOCK(V) some_func(V)
+* #define SHMUNLOCK(V) sume_func(V)
+* #define SHMEX(V,F) SHMLOCK(V); F; SHMUNLOCK(V);
+*
+* #define MMAKE(M,L,N) M = sizeof(L) mmem [N]
+* #define MMLOCK(V) some_func(V)
+* #define MMUNLOCK(V) sume_func(V)
+* #define MMEX(V,F) SHMLOCK(V); F; SHMUNLOCK(V);
+*/
+
 //these will eventualy be dependent on wait times, once I figure out how to fork without causing wabbits
 //there will be forked processes for the main loop, text interaction, ioctl, x window, and glx graphics.
 #define SPINLOAD sleep(100); printf(" \b|\b"); sleep(100); printf(" \b/\b"); sleep(100); printf(" \b-\b"); sleep(100); printf(" \b\\\b"); 
