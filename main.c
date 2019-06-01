@@ -172,31 +172,22 @@ main ()
 	{
 	init__setup()
 	printf(VITALSTAT_FULL(Without forks,REV_NOFORK))
+	//still see no reason that this couldn't be just as well with a goto-jump table...
 	while run
-	//bleh, need to make this a snobol-style goto branch table. It will be easier to maintain that way.
-	//whoever made the decision that nested loops were better should be dropped in a nested corn maze
 		{
 		if nextframe
 			{
-			if pause
+			if ready
 				{
-				if ready
-					{
-					glx__DrawLoop(WORLD)
-					nextframe = FALSE
-					ready = FALSE
-					}
-				else
-					{
-					onstep_paused()
-					}
+				glx__DrawLoop(WORLD)
+				nextframe = FALSE
+				ready = FALSE
+				}
 			else
 				{
-				if ready
+				if paused
 					{
-					glx__DrawLoop(WORLD)
-					nextframe = FALSE
-					ready = FALSE
+					onstep_paused()
 					}
 				else
 					{
@@ -218,8 +209,6 @@ main ()
 			{}
 		}
 	printf("runlevel lowered, exiting...")
-	DOTLOAD
-	DOTLOAD
 	DOTLOAD
 	printf("\n")
 	exit(0)
