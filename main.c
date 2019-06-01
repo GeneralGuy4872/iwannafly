@@ -18,17 +18,22 @@
 #include <stdbool.h>
 #include <math.h>
 #include <time.h>
+//#include <string.h>
 
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
+//#include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 //#include <signal.h>
+//#include <err.h>
 //#include <errno.h>
 
 #include <GL/gl.h>
-//#include <GL/glu.h> what does this do even?
+#include <GL/glu.h> //know what this does now
+
+//HORIZONTAL_RULE
 
 #include "./main.h"
 #include "./init.c"
@@ -40,6 +45,8 @@
 #include "./textout.c"
 
 #include "./models/all.c"
+
+//---<HR>---
 
 /*all exact mesurements should folow SI units or SI acceptable units (i.e. degrees),
 * since real mesurements are used, conclusions can be made about the
@@ -142,6 +149,8 @@ struct world
 	struct cameratype *cam
 	}
 
+//---<HR>---
+
 onstep_master ()
 	{
 	onstep_player(PLAYER)
@@ -159,7 +168,7 @@ onstep_paused ()
 
 #include "./models/mapgen.h"
 
-/*>>>MAIN<<<*/
+/*MAIN*/
 main ()
 	{
 	init__setup()
