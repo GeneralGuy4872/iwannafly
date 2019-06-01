@@ -17,11 +17,10 @@
 #define SPINLOAD sleep(100); printf(" \b|\b"); sleep(100); printf(" \b/\b"); sleep(100); printf(" \b-\b"); sleep(100); printf(" \b\\\b"); 
 #define DOTLOAD sleep(100); printf("\b\b\b   "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b.. "); sleep(100); printf("\b\b\b..."); sleep(100); printf("\b\b\b .."); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b .:"); sleep(100); printf("\b\b\b...");
 
-#define MACRO_VERS_MAJ 000
-#define MACRO_VERS_MIN 000
-#define MACRO_VERS_REV 001
-#define MACRO_VERS_PAT_NF 000
-#define MACRO_VERS_HOT_NF 000
+#define __MYVERS__ 00.00.01
+#define REV_NOFORK 000.000
+#define VITALSTAT(Z) "Iwannafly __MYVERS__;Z Compiled on __DATE__"
+#define VITALSTAT_FULL(N,Z) "Iwannafly version: __MYVERS__, N revision: Z, Compiled on __DATE__"
 
 //I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
