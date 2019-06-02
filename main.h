@@ -65,7 +65,7 @@ typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
 #define LEFT TRISTATE
 #define RIGHT TRUE
 
-continue() {}
+noop() {}
 
 typedef float matrix[4][4]
 
