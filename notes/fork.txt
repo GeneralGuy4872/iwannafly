@@ -7,11 +7,9 @@
     |  timer                /      \           
 >init<:(shutdown)       fork       >fork<
                          /\          /\
-                    stdio >HUD< >fork< glx:(pause)
+                    stdio >HUD<  fork >main<:(pause)
                                   /\
-                          >physics< fork
-                                     /\
-                               >ioctl< npc_ai
+                            >ioctl< npc_ai
       fork
        /\
 >parent< child:(branch)
