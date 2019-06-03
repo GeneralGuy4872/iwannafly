@@ -42,7 +42,9 @@
 #define MSPF 33 //milliseconds per frame, truncated
 
 div_t div_tmp;
+int register[8];
 
+typedef int (*eventfunc)(int) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
 typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
@@ -54,10 +56,10 @@ typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
 #ifndef FALSE
 #define FALSE false
 #endif /*FALSE*/
-#else /*__bool_true_false*/
-#define TRUE (bool) 1
-#define FALSE (bool) 0
-#endif /*__bool_true_false*/
+#else /*!(__bool_true_false_are_defined)*/
+#define TRUE ((bool) 1)
+#define FALSE ((bool) 0)
+#endif /*__bool_true_false_are_defined*/
 
 #define TRISTATE (tern) -1
 #define QUANTUM (tern) -2
@@ -91,28 +93,25 @@ struct vector2
   }
 
 
-struct timedvector4
+struct ushortvector4
   {
-  float x
-  float y
-  float z
-  float w
-  unsigned char t
+  unsigned short x
+  unsigned short y
+  unsigned short z
+  unsigned short w
   }
 
-struct timedvector3
+struct ushortvector3
   {
-  float x
-  float y
-  float z
-  unsigned char t
+  unsigned short x
+  unsigned short y
+  unsigned short z
   }
 
-struct timedvector2
+struct ushortvector2
   {
-  float x
-  float y
-  unsigned char t
+  unsigned short x
+  unsigned short y
   }
 
 struct microvector
@@ -192,6 +191,16 @@ struct shape
   struct vector3 *vertlist[];
   unsigned char *bytecode[];
   unsigned char inum
+  }
+
+struct event
+  {
+  struct event *prev
+  struct event *next
+  ushortvector3 coords
+  bytevector2 size
+  unsigned long durat
+  eventfunc *ontrigger
   }
 
 struct truecolor
