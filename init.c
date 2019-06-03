@@ -25,7 +25,7 @@ entity player1
 #define PLAYER player1
 cameratype camera1
 #define CAMERA camera1
-world everything = {&MAP,&PLAYER,&PLAYER,NULL,NULL,&CAMERA}
+world everything = {&MAP,&PLAYER,&PLAYER,NULL,NULL,NULL,NULL,&CAMERA}
 #define WORLD everything
 
 init__setup(argv)
