@@ -20,6 +20,7 @@ bool run = 0
 struct settings iniparsed
 char joypath[16]
 char mappath[256]
+char logpath[64]
 torusmap planet1
 entity player1
 cameratype camera1
@@ -59,11 +60,15 @@ init__setup(argv)
         }
       else if !(strcmp("joypath",ini_key))
         {
-        strncpy(joypath,ini_data,16)
+        strncpy(joypath,ini_data,sizeof(joypath) - 1)
         }
       else if !(strcmp("mappath",ini_key))
         {
-        strncpy(mappath,ini_data,256)
+        strncpy(mappath,ini_data,sizeof(mappath) - 1)
+        }
+      else if !(strcmp("logpath",ini_key))
+        {
+        strncpy(logpath,ini_data,sizeof(logpath) - 1)
         }
       }
     ini_data = ini_next
@@ -133,7 +138,10 @@ init__setup(argv)
   FILE heightmap_file = fopen(mappath,"rb")
   fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
   fclose(heightmap_file)
+  free(mappath)
   MAP.sealevel = smallsettings.sealevel
+  
+  FILE logfile = fopen(logpath,"w")
   
   run = 1
   }
