@@ -20,14 +20,13 @@ bool run = 0
 struct settings iniparsed
 char joypath[16]
 char mappath[256]
-torusmap planet
-#define MAP planet
+torusmap planet1
 entity player1
-#define PLAYER player1
 cameratype camera1
-#define CAMERA camera1
-world everything = {&MAP,&PLAYER,&PLAYER,NULL,NULL,NULL,NULL,&CAMERA}
-#define WORLD everything
+world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
+#define MAP WORLD->map
+#define PLAYER WORLD->ent
+#define CAMERA WORLD->cam
 
 init__setup(argv)
   int argc
@@ -128,7 +127,7 @@ init__setup(argv)
     }
   else
     {
-    HARD_ERROR_MACRO("init","formtable","invalid value in species-field of ini file.")
+    HARD_ERROR_MACRO("parseing of conf.ini by "__FILE__,"form conditional tree, out-of-bounds escape branch, @"__LINE__,"invalid value in species-field of ini file.")
     }
 
   FILE heightmap_file = fopen(mappath,"rb")
