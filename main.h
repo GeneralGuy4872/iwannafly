@@ -52,10 +52,10 @@ typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
 #define TRUE true
-#endif /*TRUE*/
+#endif /*!(TRUE)*/
 #ifndef FALSE
 #define FALSE false
-#endif /*FALSE*/
+#endif /*!(FALSE)*/
 #else /*!(__bool_true_false_are_defined)*/
 #define TRUE ((bool) 1)
 #define FALSE ((bool) 0)
