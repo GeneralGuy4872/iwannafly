@@ -18,6 +18,7 @@
 #include <math.h>
 #include <time.h>
 //#include <string.h>
+//#include <regex.h>
 
 #include <unistd.h>
 #include <sys/ioctl.h>
@@ -35,15 +36,14 @@
 //HORIZONTAL_RULE
 
 #include "./main.h"
+#include "./models/all.c"
 #include "./init.c"
 #include "./timing.c"
-#include "./joystick.c"
 
+#include "./joystick.c"
 #include "./xwindow.c"
 #include "./glxwindow.c"
 #include "./textout.c"
-
-#include "./models/all.c"
 
 //---<HR>---
 
@@ -68,7 +68,7 @@ struct entity
 	struct vector3 Velo
 	struct vector3 Torq
 	matrix rot = matgen_ident
-	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infa NOT IMPLEMENTED
+	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infra NOT IMPLEMENTED
 	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = bone offset from
 	unsigned char health
 	const struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
@@ -76,8 +76,6 @@ struct entity
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
-	//hitbox.y and hitbox.w bot describe points along the cylinder's h axis.
-	//stat.horiz determins if the hitbox cylinder is about the z or x axis.
 
 //HERE BE DRAGONS
 #define SPEED(X) ((X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z)) * X.collid.w)
@@ -105,7 +103,7 @@ onstep_player (player)
 	* assuming the original definition of 1 nautical mile = 1 arcminute, it would be = 1 meter
 	* because of this, conversions between those units is moot.
 	*/
-	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,20000) //meters, zero;arbitrary ceiling
+	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,30000) //meters, zero;arbitrary ceiling
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
