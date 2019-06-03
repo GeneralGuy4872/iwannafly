@@ -367,7 +367,10 @@ bytevector4 radf_to_degbv(input)
 #define sprintdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
 #define fprintdef(N,O) fprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
 #define printdeg(N) printf("%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x) //N.w what's this?
-#define sprintpoints(C,O) (C.base == 0 ? sprintf("%05d",C.points) : (C.base > 0 ? sprintf("@%06o",C.points) : sprintf("$%02h",C.points)))
+
+#define sprintpoints(O) (C.base == 0 ? sprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? sprintf(O,"@%06o",CAMERA.points) : sprintf(O,"$%02h",CAMERA.points)))
+#define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o",CAMERA.points) : fprintf(O,"$%02h",CAMERA.points)))
+#define printpoints (C.base == 0 ? printf("%05d",CAMERA.points) : (C.base > 0 ? printf("@%06o",CAMERA.points) : printf("$%02h",CAMERA.points)))
 
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n,F,E,A); abort();
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\n\n\033[94mX_X <HELP! I've fallen and I can't get up!)\033[m\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); abort();
