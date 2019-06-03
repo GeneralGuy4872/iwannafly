@@ -167,7 +167,7 @@ struct statreg
   const bool horiz : 1
   tern bouy : 2
   bool uv : 1
-  bool infa : 1
+  bool infra : 1
   }
 
 struct viewform
@@ -176,8 +176,9 @@ struct viewform
   quard deg : 2
   bool dist : 1
   bool time : 1
-  bool infra : 1
   bool uv : 1
+  bool debug : 1
+  }
 
 struct halfbytes
   {
