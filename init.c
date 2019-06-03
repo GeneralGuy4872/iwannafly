@@ -12,7 +12,8 @@ struct smallsettings
   unsigned char species : 3 // 0 = avian, 1 = human, 2 = merfolk, 3 = insectoid, 4 = feline, 5 = draconic
   bool forcebten : 1 //0 = use base determined by species, 1 = self explanitory
   bool yinv : 1 //0 = computer-style controls, 1 = airplane-style controls
-  unsigned char sealevel : 4
+  char : 0
+  unsigned char sealevel : 8
   }
 
 bool run = 0
@@ -71,29 +72,29 @@ init__setup(argv)
     }
   free(ini_next); free(ini_data); free(ini_key)
     
-  if (settings.species < FORM_MAX)
+  if (smallsettings.species < FORM_MAX)
     {
-    if (settings.species == 0)
+    if (smallsettings.species == 0)
       {
       polymorph_avian(PLAYER)
       }
-    else if (settings.species == 1)
+    else if (smallsettings.species == 1)
       {
       polymorph_human(PLAYER)
       }
-    else if (settings.species == 2)
+    else if (smallsettings.species == 2)
       {
       polymorph_merfolk(PLAYER)
       }
-    else if (settings.species == 3)
+    else if (smallsettings.species == 3)
       {
       polymorph_insectoid(PLAYER)
       }
-    else if (settings.species == 4)
+    else if (smallsettings.species == 4)
       {
       polymorph_felid(PLAYER)
       }
-    else if (settings.species == 5)
+    else if (smallsettings.species == 5)
       {
       polymorph_draconic(PLAYER)
       }
@@ -106,6 +107,7 @@ init__setup(argv)
   FILE heightmap_file = fopen(mappath,"rb")
   fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
   fclose(heightmap_file)
+  MAP.sealevel = smallsettings.sealevel
   
   run = 1
   }
