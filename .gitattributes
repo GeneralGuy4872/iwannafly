@@ -4,8 +4,10 @@ core.autocrlf=false
 *.awk = linguist-language=Awk
 *.sh = linguist-language=Shell
 make = linguist-language=makefile
-*.ini = linguist-language=INI
+*.ini = linguist-language=INI linguist-vendored=false
 *.tsv = linguist-language=tsv linguist-vendored=false
+*.json = linguist-language=json linguist-vendored=false
+*.xml = linguist-language=xml linguist-vendored=false
 *.man.* = linguist-documentation=true
 *.html = linguist-documentation=true
 *.txt = linguist-documentation=true
