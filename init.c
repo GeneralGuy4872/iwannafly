@@ -77,26 +77,53 @@ init__setup(argv)
     if (smallsettings.species == 0)
       {
       polymorph_avian(PLAYER)
+      if smallsettings.forcebten
+        {
+        CAMERA.base = 0
+        }
+      else
+        {
+        CAMERA.base = 1
+        }
       }
     else if (smallsettings.species == 1)
       {
       polymorph_human(PLAYER)
+      CAMERA.base = 0
       }
     else if (smallsettings.species == 2)
       {
       polymorph_merfolk(PLAYER)
+      CAMERA.base = 0
       }
     else if (smallsettings.species == 3)
       {
       polymorph_insectoid(PLAYER)
+      if smallsettings.forcebten
+        {
+        CAMERA.base = 0
+        }
+      else
+        {
+        CAMERA.base = 1
+        }
       }
     else if (smallsettings.species == 4)
       {
       polymorph_felid(PLAYER)
+      CAMERA.base = 0
       }
     else if (smallsettings.species == 5)
       {
       polymorph_draconic(PLAYER)
+      if smallsettings.forcebten
+        {
+        CAMERA.base = 0
+        }
+      else
+        {
+        CAMERA.base = -1
+        }
       }
     }
   else
