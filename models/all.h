@@ -6,7 +6,6 @@
 #include "./draconic.c"
 
 /*
-each species has the following functions:
 
 *skeleton sculpt_foo() provided in each included file
 
