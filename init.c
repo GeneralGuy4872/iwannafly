@@ -5,7 +5,7 @@
 #include "./config.c"
 
 #define BUFFER_MAX 512
-#define FORM_MAX 6
+#define FORM_MAX 4
 
 struct smallsettings
   {
