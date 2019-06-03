@@ -103,7 +103,7 @@ onstep_player (player)
 	* assuming the original definition of 1 nautical mile = 1 arcminute, it would be = 1 meter
 	* because of this, conversions between those units is moot.
 	*/
-	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,30000) //meters, zero;arbitrary ceiling
+	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,2048) //meters, zero;arbitrary ceiling
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
@@ -147,6 +147,8 @@ struct world
 	struct entity *ent_tail
 	struct thing *scen
 	struct thing *scen_tail
+	struct event *evnt
+	struct event *evnt_tail
 	struct cameratype *cam
 	}
 
