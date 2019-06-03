@@ -44,7 +44,7 @@
 div_t div_tmp;
 int register[8];
 
-typedef int (*eventfunc)(int) //you know you're getting serious when you're using function pointers
+typedef int (*eventfunc)(int,int) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
 typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
