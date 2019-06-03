@@ -20,7 +20,7 @@
 #define __MYVERS__ "00.00.01"
 #define REV_NOFORK "000.000"
 #define VITALSTAT(Z) "Iwannafly "__MYVERS__";"Z" Compiled on "__DATE__
-#define VITALSTAT_FULL(N,Z) " ~~ Iwannafly ~~\n  version: "__MYVERS__"\n\n - "N" -\n  revision: "Z"\n\nCompiled on "__DATE__"\n"
+#define VITALSTAT_FULL(N,Z) " \033[1;97m~~ Iwannafly ~~\033[m\n  version: "__MYVERS__"\n\n \033[97m- "N" -\033[m\n  revision: "Z"\n\n\033[3mCompiled on "__DATE__"\033[m\n"
 
 //I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
 //M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
@@ -369,4 +369,5 @@ bytevector4 radf_to_degbv(input)
 #define printdeg(N) printf("%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x) //N.w what's this?
 #define sprintpoints(C,O) (C.base == 0 ? sprintf("%05d",C.points) : (C.base > 0 ? sprintf("o%06o",C.points) : sprintf("$%02h",C.points)))
 
-#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",F,E,A);/*fakeinit__shutdown();*/ abort();
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n,F,E,A); abort();
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\n\n\033[94mX_X <HELP! I've fallen and I can't get up!)\033[m\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); abort();
