@@ -28,7 +28,7 @@ System:
 
 - Unix-like Operating System
 - Xorg display server or compatible api
-- Terminal Emulator
+- ANSI-compatible Terminal Emulator (such as XTerm)
 - POSIX shell
 - make
 - C compiler
