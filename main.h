@@ -366,7 +366,7 @@ bytevector4 radf_to_degbv(input)
   }
 #define sprintdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
 #define fprintdef(N,O) fprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
-#define printdeg(O) printf("%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
+#define printdeg(N) printf("%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x) //N.w what's this?
 #define sprintpoints(C,O) (C.base == 0 ? sprintf("%05d",C.points) : (C.base > 0 ? sprintf("o%06o",C.points) : sprintf("$%02h",C.points)))
 
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Fell at %s and couldn't get up\nadditional info: %s\n\nX_X rip\n",F,E,A);/*fakeinit__shutdown();*/ abort();
