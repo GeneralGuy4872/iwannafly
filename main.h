@@ -46,7 +46,8 @@ div_t div_tmp;
 typedef int (*eventfunc)(int,*char[]) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
-typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2]
+typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2] 
+typedef char pts_str char[8] //number of octal places in USHRT_MAX, rounded up
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
