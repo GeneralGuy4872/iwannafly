@@ -12,6 +12,7 @@ struct smallsettings
   unsigned char species : 3 // 0 = avian, 1 = human, 2 = merfolk, 3 = insectoid, 4 = feline, 5 = draconic
   bool forcebten : 1 //0 = use base determined by species, 1 = self explanitory
   bool yinv : 1 //0 = computer-style controls, 1 = airplane-style controls
+  bool prntlog : 1 //output a log file
   char : 0
   unsigned char sealevel : 8
   }
@@ -21,6 +22,7 @@ struct settings iniparsed
 char joypath[16]
 char mappath[256]
 char logpath[64]
+FILE logfile
 torusmap planet1
 entity player1
 cameratype camera1
@@ -29,12 +31,10 @@ world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
 #define PLAYER WORLD->ent
 #define CAMERA WORLD->cam
 
-init__setup(argv)
-  int argc
-  char **argv
+init__setup()
   {
   FILE ini_file
-  ini_file = fopen("../conf.ini","r")
+  ini_file = fopen("./conf.ini","r")
   char ini_next[BUFFER_MAX]
   char *ini_data
   char *ini_key
@@ -70,70 +70,69 @@ init__setup(argv)
         {
         strncpy(logpath,ini_data,sizeof(logpath) - 1)
         }
+      else
+        {
+        continue
+        }
       }
     ini_data = ini_next
     ini_key = ini_next
     }
   free(ini_next); free(ini_data); free(ini_key)
     
-  if (smallsettings.species < FORM_MAX)
+  switch (smallsettings.species)
     {
-    if (smallsettings.species == 0)
+    case 0 :
       {
       polymorph_avian(PLAYER)
-      if smallsettings.forcebten
-        {
-        CAMERA.base = 0
-        }
-      else
-        {
-        CAMERA.base = 1
-        }
+      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = 1
+      break
       }
-    else if (smallsettings.species == 1)
+    case 1 :
       {
       polymorph_human(PLAYER)
       CAMERA.base = 0
       }
-    else if (smallsettings.species == 2)
+    case 2 :
       {
       polymorph_merfolk(PLAYER)
       CAMERA.base = 0
       }
-    else if (smallsettings.species == 3)
+    case 3 :
       {
       polymorph_insectoid(PLAYER)
-      if smallsettings.forcebten
-        {
-        CAMERA.base = 0
-        }
-      else
-        {
-        CAMERA.base = 1
-        }
-      }
-    else if (smallsettings.species == 4)
+      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = 1
+      }/*
+    case 4 :
       {
       polymorph_felid(PLAYER)
       CAMERA.base = 0
       }
-    else if (smallsettings.species == 5)
+    case 5 :
       {
       polymorph_draconic(PLAYER)
-      if smallsettings.forcebten
-        {
-        CAMERA.base = 0
-        }
-      else
-        {
-        CAMERA.base = -1
-        }
+      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
+      }
+    case 6 :
+      {
+      polymorph_elf(PLAYER)
+      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
+      }
+    case 7 :
+      {
+      polymorph_dwarf(PLAYER)
+      CAMERA.base = 0
+      }*/
+    default :
+      {
+      SOFT_ERROR_MACRO("parseing of conf.ini by "__FILE__,"form switch default escape, at line#"__LINE__,"invalid value in species-field of ini file.")
+      polymorph_avian(PLAYER)
+      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = 1
+      break
       }
     }
-  else
-    {
-    HARD_ERROR_MACRO("parseing of conf.ini by "__FILE__,"form conditional tree, out-of-bounds escape branch, @"__LINE__,"invalid value in species-field of ini file.")
-    }
+  
+  noop() //algol conditional just for variety
 
   FILE heightmap_file = fopen(mappath,"rb")
   fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
@@ -141,7 +140,7 @@ init__setup(argv)
   free(mappath)
   MAP.sealevel = smallsettings.sealevel
   
-  FILE logfile = fopen(logpath,"w")
+  smallsettings.prntlog ? logfile = fopen(logpath,"w") : free(logfile)
   
   run = 1
   }
