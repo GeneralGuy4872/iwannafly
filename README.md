@@ -28,22 +28,22 @@ System:
 
 - Unix-like Operating System
 - Xorg display server or compatible api
-- ANSI-compatible Terminal Emulator (such as XTerm)
+- ANSI-compatible Terminal Emulator (such as <CODE>xterm</CODE>)
 - POSIX shell
-- make
+- <CODE>make</CODE>
 - C compiler
 
 PLANNED PLATFORMS
 -----------------
 
 - Debian i686
-- GNUStep i686 (Debian with sysVinit)
+- GNUStep i686 (Debian with <CODE>sysvinit</CODE>)
 - NetBSD i386
 - Arch 32 i686
 
 Will add other systems if I get better hardware, Arch 64 being paramount amoungst them
 
-Right now my dev systems consist of a Netburst Celeron, a K7 with no ethernet (has rj45 and rs232 instead), and an early C2D laptop that only runs P6 kernels; all of which date from between the late 90s and mid 2000s with full compliment of parallel-PCI expansion bus, IDE drives, and "legacy" ports on the towers. (the k7 actually has an EISA slot for the graphics card!)
+Right now my dev systems consist of a Netburst Celeron, a K7 with no ethernet (has rj45 and rs232 instead), and an early C2D laptop that only runs P6 kernels; all of which date from between the late 90s and mid 2000s with full compliment of parallel-PCI expansion bus, IDE drives, and "legacy" ports on the towers. (the K7 actually has an EISA slot for the graphics card!)
 
 OTHER NOTES
 -----------
