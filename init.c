@@ -131,8 +131,6 @@ init__setup()
       break
       }
     }
-  
-  noop() //algol conditional just for variety
 
   FILE heightmap_file = fopen(mappath,"rb")
   fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
