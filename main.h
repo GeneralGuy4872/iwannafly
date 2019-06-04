@@ -167,6 +167,14 @@ struct charvector2
   signed char y : 8
   }
 
+struct nanofraction
+  {
+  signed int num : 4
+  unsigned int denom : 3
+  char : 0
+  }
+#define FRFL(F) ((float) F.num / F.denom)
+
 struct statreg
   {
   bool ground : 1
