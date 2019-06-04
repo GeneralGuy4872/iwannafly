@@ -70,9 +70,16 @@ typedef char pts_str char[8] //number of octal places in USHRT_MAX, rounded up
 noop() {}
 #define NOP noop()
 #define SWYM sleep(0)
-#define HCF exit(1)
+#define X_HCF_X exit(1)
 
 typedef float matrix[4][4]
+
+bool toggle(setting)
+  bool setting
+  {
+  setting = !setting
+  return setting
+  }
 
 struct vector4
   {
@@ -390,5 +397,5 @@ bytevector4 radf_to_degbv(input)
 #define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o",CAMERA.points) : fprintf(O,"$%02h",CAMERA.points)))
 #define printpoints (C.base == 0 ? printf("%05d",CAMERA.points) : (C.base > 0 ? printf("@%06o",CAMERA.points) : printf("$%02h",CAMERA.points)))
 
-#define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A); printf(\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
-#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); fprintf(stderr,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); HCF;
+#define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf(\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
