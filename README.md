@@ -10,7 +10,7 @@ Libraries:
 - C Standard Libraries
 - ioctl joystick interface
 
-- OpenGL
+- OpenGL / Mesa version with matrix stack
 - GLX
 
 - X11 Common Library
