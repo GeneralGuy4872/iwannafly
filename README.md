@@ -31,7 +31,8 @@ System:
 - ANSI-compatible Terminal Emulator (such as <CODE>xterm</CODE>)
 - POSIX shell
 - <CODE>make</CODE>
-- C compiler
+- C preprocessor with macro forward-calling
+- C compiler with the ability to mix C99, C89, and K&R syntax
 
 PLANNED PLATFORMS
 -----------------
