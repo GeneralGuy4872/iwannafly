@@ -139,15 +139,17 @@ init__setup()
       }
     }
   
-  free(sealevel); free(forcebaseten); free(yinv);
+  free(yinv);
 
   FILE heightmap_file = fopen(mappath,"rb")
   fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
   fclose(heightmap_file)
   free(mappath)
-  MAP.sealevel = smallsettings.sealevel
-  
+  MAP.sealevel = sealevel
+
+  free(sealevel);
+
   dologs ? logfile = fopen(logpath,"w") : free(logfile)
-  
+
   run = 1
   }
