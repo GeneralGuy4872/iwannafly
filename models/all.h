@@ -22,7 +22,6 @@ polymorph_avian(target)
   target.stat.horiz = FALSE
   target.stat.uv = TRUE
   target.stat.infra = FALSE
-  target.health = target.health / 2
   target.Ff = {AVE_FRIC,AVE_DRAG_W,AVE_DRAG_Z}
   target.Spd = {AVE_SPD_X,AVE_SPD_M,AVE_SPD_Z,AVE_SPD_W}
   forcebaseten ? NOP : CAMERA.base = TRISTATE
