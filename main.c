@@ -64,15 +64,15 @@ struct entity
 	struct entity *prev
 	struct entity *next
 	struct vector3 pos
-	const struct vector3 hitbox //x = radius, y = height, z = bone offset
+	struct vector3 hitbox //x = radius, y = height, z = bone offset
 	struct vector3 Velo
 	struct vector3 Torq
 	matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infra NOT IMPLEMENTED
 	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = bone offset from
 	unsigned char health
-	const struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	const struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
+	struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
