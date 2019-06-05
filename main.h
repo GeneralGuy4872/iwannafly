@@ -46,8 +46,9 @@ div_t div_tmp;
 typedef int (*eventfunc)(int,*char[]) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
-typedef char deg_str char[3 + 1 + 2 + 1 + 2 + 1 + 2] 
-typedef char pts_str char[8] //number of octal places in USHRT_MAX, rounded up
+typedef char deg_str[3 + 1 + 2 + 1 + 2 + 1 + 2] 
+typedef char pts_str[8] //number of octal places in USHRT_MAX, rounded up
+typedef char mydate_str[24]
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
@@ -66,6 +67,8 @@ typedef char pts_str char[8] //number of octal places in USHRT_MAX, rounded up
 
 #define LEFT TRISTATE
 #define RIGHT TRUE
+
+char weekdays[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","?ERR"}
 
 noop() {}
 #define NOP noop()
@@ -174,6 +177,37 @@ struct nanofraction
   char : 0
   }
 #define FRFL(F) ((float) F.num / F.denom)
+
+struct my_date_time
+  {
+  unsigned int year : 3
+  unsigned int month : 4
+  unsigned int day : 5
+  unsigned int weekday : 3
+  unsigned int hour : 5
+  unsigned int minute : 6
+  unsigned int second : 6
+  }
+
+tick_tock(counter)
+  struct my_date_time counter
+  {
+  div_tmp = div(counter.second + 1,60) //add, mod, and carry out
+  counter.second = div_tmp.rem
+  div_tmp = div(counter.minute + div_tmp.quot,60) //carry in, mod, carry out
+  counter.minute = div_tmp.rem
+  div_tmp = div(counter.hour + div_tmp.quot,24)
+  counter.hour = div_tmp.rem
+  counter.weekday = (counter.weekday + div_tmp.quot)%7 //carry in and mod, no carry out
+  div_tmp = div(counter.day + div_tmp.quot,30)
+  counter.day = div_tmp.rem
+  div_tmp = div(counter.month + div_tmp.quot,12)
+  counter.month = div_tmp.rem
+  counter.year = (counter.year + div_tmp.quot)%7
+  }    
+#define sprinttimedate(N,O) sprintf(O,"%i:%i:%i %s %i/%i/%i",N.hour,N.minute,N.second,weekdays[N.weekday],N.day,N.month,N.year)
+#define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,weekdays[N.weekday],N.day,N.month,N.year)
+#define printtimedate(N) printf("%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,weekdays[N.weekday],N.day,N.month,N.year)
 
 struct statreg
   {
@@ -398,12 +432,12 @@ bytevector4 radf_to_degbv(input)
   return output
   }
 #define sprintdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
-#define fprintdef(N,O) fprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
-#define printdeg(N) printf("%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
+#define fprintdef(N,O) fprintf(O,"%3i*%2i'%2i\"%2i\n",N.w,N.z,N.y,N.x)
+#define printdeg(N) printf("%3i*%2i'%2i\"%2i\n",N.w,N.z,N.y,N.x)
 
 #define sprintpoints(O) (C.base == 0 ? sprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? sprintf(O,"@%06o",CAMERA.points) : sprintf(O,"$%02h",CAMERA.points)))
-#define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o",CAMERA.points) : fprintf(O,"$%02h",CAMERA.points)))
-#define printpoints (C.base == 0 ? printf("%05d",CAMERA.points) : (C.base > 0 ? printf("@%06o",CAMERA.points) : printf("$%02h",CAMERA.points)))
+#define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d\n",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o\n",CAMERA.points) : fprintf(O,"$%02h\n",CAMERA.points)))
+#define printpoints (C.base == 0 ? printf("%05d\n",CAMERA.points) : (C.base > 0 ? printf("@%06o\n",CAMERA.points) : printf("$%02h\n",CAMERA.points)))
 
 #define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf(\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
