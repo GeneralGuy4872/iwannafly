@@ -1,6 +1,9 @@
+#exclude files generated when compiling
 *.o
 *.out
+#exclude files generated while testing
 *.tmp
 *.save
 *.log
+#exclude sed scripts used to edit code en-masse
 *.sed
