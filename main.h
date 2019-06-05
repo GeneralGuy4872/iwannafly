@@ -172,11 +172,20 @@ struct charvector2
 
 struct nanofraction
   {
-  signed int num : 4
+  tern sign : 1
+  unsigned int num : 3
   unsigned int denom : 3
-  char : 0
+  bool sub : 1
   }
-#define FRFL(F) ((float) F.num / F.denom)
+
+#define FRFL(F) (SANE(F.sign) * ((F.num + F.sub) / (float) (F.denom + F.sub)))
+
+struct nfrvector3
+  {
+  struct nanofraction x
+  struct nanofraction y
+  struct nanofraction z
+  }
 
 struct my_date_time
   {
