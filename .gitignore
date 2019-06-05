@@ -5,5 +5,5 @@
 *.tmp
 *.save
 *.log
-#exclude sed scripts used to edit code en-masse
+#exclude sed scripts used to edit code en-masse. I know regex-fu
 *.sed
