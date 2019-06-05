@@ -175,10 +175,10 @@ struct nanofraction
   tern sign : 1
   unsigned int num : 3
   unsigned int denom : 3
-  bool sub : 1
+  bool nonzero : 1
   }
 
-#define FRFL(F) (SANE(F.sign) * ((F.num + F.sub) / (float) (F.denom + F.sub)))
+#define FRFL(F) (SANE(F.sign) * ((F.num + 1) / (float) (F.denom + 1) * F.nonzero)
 
 struct nfrvector3
   {
