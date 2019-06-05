@@ -3,7 +3,7 @@ struct bone
   struct bone *up,
   struct bone *prev,
   struct bone *next,
-  const struct vector3 off,
+  const struct nfrvector3 off,
   const struct vector3 len,
   const struct matrix base,
   struct matrix curr,
