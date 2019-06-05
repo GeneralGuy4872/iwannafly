@@ -12,11 +12,7 @@
 /excude/*
 /local/*
 /nocommit/*
-todo
-todo.*
-bugs
-bugs.*
-eyesonly
-eyesonly.*
-private
-private.*
+/notes/eyesonly
+/notes/eyesonly.*
+/notes/private
+/notes/private.*
