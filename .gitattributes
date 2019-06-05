@@ -3,12 +3,16 @@ core.autocrlf=false
 *.h = linguist-language=C
 *.awk = linguist-language=Awk
 *.pl = linguist-language=Perl
+*.cl = linguist-language=Lisp
+*.scm = linguist-language=Scheme
+*.sno = linguist-language=SNOBOL4 linguist-vendored=false diff
+*.bas = linguist-language=BASIC linguist-vendored=false diff
 *.sh = linguist-language=Shell
 make = linguist-language=makefile
-*.ini = linguist-language=INI linguist-vendored=false
-*.tsv = linguist-language=tsv linguist-vendored=false
-*.json = linguist-language=json linguist-vendored=false
-*.xml = linguist-language=xml linguist-vendored=false
+*.ini = linguist-language=INI linguist-vendored=false diff
+*.tsv = linguist-language=tsv linguist-vendored=false diff
+*.json = linguist-language=json linguist-vendored=false diff
+*.xml = linguist-language=xml linguist-vendored=false diff
 *.man.* = linguist-documentation=true
 *.html = linguist-documentation=true
 *.txt = linguist-documentation=true
@@ -16,3 +20,5 @@ make = linguist-language=makefile
 notes/* = linguist-documentation=true
 *.hex = binary diff linguist-vendored=false
 *.bin = binary diff linguist-vendored=false
+*.raw = binary diff linguist-vendored=false
+*.dat = binary diff linguist-vendored=false
