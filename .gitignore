@@ -12,7 +12,4 @@
 /excude/*
 /local/*
 /nocommit/*
-/notes/eyesonly
-/notes/eyesonly.*
-/notes/private
-/notes/private.*
+/notes/personal/*
