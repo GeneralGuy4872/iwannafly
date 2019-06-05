@@ -1,15 +1,10 @@
 #exclude files generated when compiling
-*.o
-*.out
+**/*.o
+**/*.out
+**/*.elf
 #exclude files generated while testing
-*.tmp
-*.save
-*.log
+**/*.tmp
+**/*.save
+**/*.log
 #exclude sed scripts used to edit code en-masse. I know regex-fu
-*.sed
-#exlude directories made specifically to exclude files
-/tmp/*
-/excude/*
-/local/*
-/nocommit/*
-/notes/personal/*
+**/*.sed
