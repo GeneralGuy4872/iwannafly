@@ -7,6 +7,8 @@ core.autocrlf=false
 *.scm = linguist-language=Scheme
 *.sno = linguist-language=SNOBOL4 linguist-vendored=false diff
 *.bas = linguist-language=BASIC linguist-vendored=false diff
+*.lua = linguist-language=lua
+*.py = linguist-language=python
 *.sh = linguist-language=Shell
 make = linguist-language=makefile
 *.ini = linguist-language=INI linguist-vendored=false diff
