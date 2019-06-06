@@ -2,13 +2,16 @@
 #define YCOORD(N) (((m + N) % 360) * 60)
 #define ZCOORD (MAP.dots[n][m] * 5)
 
-land_loop()
+refresh_land()
 	{
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	for (n = player.pos.x + VIEWRNGmin,n < (player.pos.x + VIEWRNGlim),n++)
 		{
 		for (m = player.pos.y + VIEWRNGmin,m < VIEWRNG,m++)
 			{
-			v_ground[n][m] = 
 			glBegin(GL_TRIANGLE_FAN)
 				glvertex3f(XCOORD(0),YCOORD(0),ZCOORD)
 				glvertex3f(XCOORD(1),YCOORD(0),ZCOORD)
