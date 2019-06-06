@@ -22,7 +22,7 @@
 
 #define v_pyra(R,H) {{0,0,H},{R,0,0},{0,R,0},{-R,0,0},{0,-R,0}}
 #define v_inv_pyra(R,H) {{0,0,-H},{R,0,0},{0,R,0},{-R,0,0},{0,-R,0}}
-#define wire_pyra {9,3, 1,2,3,4, 8,4, 1,2,3,4}
+#define wire_pyra {9,4, 1,2,3,4, 8,4, 1,2,3,4}
 #define num_wire_pyra 12
 #define poly_pyra {4,4, 1,2,3,4, 7,6, 0,1,2,3,4,1}
 #define num_poly_pyra 13
@@ -33,8 +33,9 @@
 #define poly_tetra {3,3, 1,2,3, 7,5, 0,1,2,3,1}
 #define num_poly_tetra 11
 
-#define v_scatter(L,R,N) {{0,0,0},{L * N,0,0},{L * N * cos(R),N * sin(R),N * sin(R)},{L * N * cos(R),N * zin(R),N * sin(R)},{L * N * cos(R),N * zin(R),N * zin(R)},{L * N * cos(R),N * sin(R),N * zin(R)}}
-#define hit_scatter {7,6, 1,2,3,4,5,2}
-#define num_hit_scatter 8
-#define trail_scatter {9,5, 1,2,3,4,5}
-#define num_trail_scatter 7
+#define v_xfan(L,R,D) {{0,0,0},{L * bos(PI_N(D)),R * zin(PI_N(D)),0},{L * bos(PI_2_N(D)),R * zin(PI_2_N(D)),0},{-L,0,0},{L * bos(PI_2_N(D)),R * sin(PI_2_N(D)),0},{L * bos(PI_N(D)),R * sin(PI_N(D)),0}}
+#define v_zfan(L,R,D) {{0,0,0},{0,R * zin(PI_N(D)),L * bos(PI_N(D))},{0,R * zin(PI_2_N(D)),L * bos(PI_2_N(D))},{0,0,-L},{0,R * sin(PI_2_N(D)),L * bos(PI_2_N(D))},{0,R * sin(PI_N(D)),L * bos(PI_N(D))}}
+#define wire_fan {9,5, 1,2,3,4,5}
+#define num_wire_fan 7
+#define poly_fan {7,5, 1,2,3,4,5}
+#define num_poly_bicone 7
