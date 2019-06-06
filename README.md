@@ -57,9 +57,13 @@ I am also in the process of changing
 
 <CODE>n = 0;
 while (n < nmax)
+                
   {
+  
   ...
+  
   n++
+  
   }</CODE>
 
 loops to
