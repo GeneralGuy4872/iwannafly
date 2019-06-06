@@ -38,14 +38,12 @@ struct bone *spine(prev,root,nmax,len)
   unsigned char nmax
   float len
   {
-  unsigned char n = 0
   struct bone verta[10]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     verta[n] = {root,prev,NULL,{0,0,n!=0},{0,0,len/nmax},matgen_ident,matgen_ident,TRUE,NULL,0}
     prev->next = *verta[n]
     prev = *verta[n]
-    n++
     }
   return *verta[nmax-1]
   }
@@ -56,9 +54,8 @@ struct bone *xtail(prev,root,nmax,len)
   unsigned char nmax
   float len
   {
-  unsigned char n = 0
   struct bone verta[10]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     verta[n] = {root,prev,NULL,{-1,0,0},{-len/nmax,0,0},matgen_ident,matgen_ident,TRUE,NULL,0}
     prev->next = *verta[n]
@@ -74,14 +71,12 @@ struct bone *ztail(prev,root,nmax,len)
   unsigned char nmax
   float len
   {
-  unsigned char n = 0
   struct bone verta[10]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     verta[n] = {root,prev,NULL,{0,0,-1},{-len/nmax,0,0},matgen_ident,matgen_ident,TRUE,NULL,0}
     prev->next = *verta[n]
     prev = *verta[n]
-    n++
     }
   return *verta[nmax-1]
   }
@@ -93,15 +88,13 @@ struct bone *handphalanges(prev,root,nmax,rot)
   struct vector3 rot
   {
   float len = root->len.x
-  unsigned char n = 0
   struct bone phalng[nmax]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     float len = len/G_RATIO
     phalng[n] = {root,prev,NULL,{1,0,0},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL,0}
     prev->next = *phalng[n]
     prev = *phalng[n]
-    n++
     rot = {0,0,0}
     }
   return *phalng[nmax-1]
@@ -114,14 +107,12 @@ struct bone *thumbphalanges(prev,root,nmax,rot)
   struct vector3 rot
   {
   float len = root.len.x / M_PI
-  unsigned char n = 0
   struct bone phalng[nmax]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     phalng[n] = {root,prev,NULL,{1,0,0},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL,0}
     prev->next = *phalng[n]
     prev = *phalng[n]
-    n++
     rot = {0,0,0}
     len = len/G_RATIO
     }
@@ -135,15 +126,13 @@ struct bone *footphalanges(prev,root,nmax,rot)
   struct vector3 rot
   {
   float len = root.len.x
-  unsigned char n = 0
   struct bone phalng[nmax]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     len = len/S_RATIO
     phalng[n] = {root,prev,NULL,{1,0,-1*(n==0)},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL,0}
     prev->next = *phalng[n]
     prev = *phalng[n]
-    n++
     rot = {0,0,0}
     }
   return *phalng[nmax-1]
@@ -157,15 +146,13 @@ struct bone *talonphalanges(prev,root,nmax,rot,factor)
   double factor
   {
   float len = ((root.len.z * -1) / M_E) * factor
-  unsigned char n = 0
   struct bone phalng[nmax]
-  while (n < nmax)
+  for (n = 0,n < nmax,n++)
     {
     len = len/G_RATIO
     phalng[n] = {root,prev,NULL,{1,0,-1*(n==0)},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL,0}
     prev->next = *phalng[n]
     prev = *phalng[n]
-    n++
     rot = {0,0,0}
     }
   return *phalng[nmax-1]
