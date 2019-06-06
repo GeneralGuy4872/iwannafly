@@ -310,6 +310,7 @@ struct torusmap
 #define G_RAD(N) ((N%400)*(M_PI/200))
 #define G_DEG(N) ((N%400)*(9/10))
 #define zin(N) (-1 * sin(N))
+#define bos(N) (-1 * cos(N))
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? TRISTATE : TRUE))
 #define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
