@@ -5,11 +5,11 @@
 #include "./config.c"
 
 #define BUFFER_MAX 512
-
+	
 unsigned char sealevel
 bool forcebaseten
 bool yinv
-  
+    
 bool run = 0
 char joypath[16]
 char mappath[256]
@@ -28,7 +28,23 @@ world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
 init__setup()
   {
   FILE ini_file
-  ini_file = fopen("./conf.ini","r")
+  if (access("~/.iwannafly/conf.ini",R_OK) <= 0)
+    {
+    ini_file = fopen("~/.iwannafly/conf.ini","r")
+    }
+  else if (access("/etc/iwannafly/conf.ini",R_OK) <= 0)
+    {
+    ini_file = fopen("/etc/iwannafly/conf.ini","r")
+    }
+  else if (access("./conf.ini",R_OK) <= 0)
+    {
+    ini_file = fopen("./conf.ini","r")
+    }
+  else
+    {
+    HARD_ERROR_MACRO("init","line#"__LINE__", if-else failure escape","Cannot find conf.ini in (\"~/.iwannafly/\" | \"/etc/iwannafly/\" | \"./\") or access is denied")
+    }
+  
   char ini_data[BUFFER_MAX]
   char *ini_key
   while fscanf(ini_file,"\n",ini_data)
@@ -36,40 +52,62 @@ init__setup()
     ini_key = ini_data
     if ( strtok(ini_data,"=") != NULL )
       {
-      if !(strcmp("species",ini_key))
+      switch ini_key[1]
         {
-        base_species = atoi(ini_data)
+        case : ';'
+          {
+          break
+          }
+        case : 's'
+          {
+          if !(strcmp("species",ini_key))
+            {
+            base_species = atoi(ini_data)
+            }
+          else if !(strcmp("sealevel",ini_key))
+            {
+            sealevel = atoi(ini_data)
+            }
+          break
+          }
+        default
+          {
+          switch ini_key[2]
+            {
+            case : 'o'
+              {
+              if !(strcmp("forcebaseten",ini_key))
+                {
+                forcebaseten = atoi(ini_data)
+                }
+              else if !(strcmp("joypath",ini_key))
+                {
+                strncpy(joypath,ini_data,sizeof(joypath) - 1)
+                }
+              else if !(strcmp("dologs",ini_key))
+                {
+                dologs = atoi(ini_data)
+                }
+              else if !(strcmp("logpath",ini_key))
+                {
+                strncpy(logpath,ini_data,sizeof(logpath) - 1)
+                }
+              break
+              }
+            default
+              {
+              if !(strcmp("mappath",ini_key))
+                {
+                strncpy(mappath,ini_data,sizeof(mappath) - 1)
+                }
+              else
+                {
+                NOP
+                }
+              }
+            }
+          }
         }
-      else if !(strcmp("forcebaseten",ini_key))
-        {
-        forcebaseten = atoi(ini_data)
-        }
-      else if !(strcmp("sealevel",ini_key))
-        {
-        sealevel = atoi(ini_data)
-        }
-      else if !(strcmp("joypath",ini_key))
-        {
-        strncpy(joypath,ini_data,sizeof(joypath) - 1)
-        }
-      else if !(strcmp("mappath",ini_key))
-        {
-        strncpy(mappath,ini_data,sizeof(mappath) - 1)
-        }
-      else if !(strcmp("dologs",ini_key))
-        {
-        dologs = atoi(ini_data)
-        }
-      else if !(strcmp("logpath",ini_key))
-        {
-        strncpy(logpath,ini_data,sizeof(logpath) - 1)
-        }
-      else
-        {
-        continue
-        }
-      }
-    }
   fclose(ini_file); free(ini_data); free(ini_key)
     
   switch (smallsettings.species)
