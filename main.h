@@ -22,24 +22,25 @@
 #define VITALSTAT(Z) "Iwannafly "__MYVERS__";"Z" Compiled on "__DATE__
 #define VITALSTAT_FULL(N,Z) " \033[1;97m~~ Iwannafly ~~\033[m\n  version: "__MYVERS__"\n\n \033[97m- "N" -\033[m\n  revision: "Z"\n\n\033[3mCompiled on "__DATE__"\033[m\n"
 
-//I don't know how the optimizer works and don't want to have arithmatic calculations called every time I need a constant
-//M_SQRT1_2 is standard, and sqrt(1/2) = sqrt(2)/2 = cos(pi/4)
+/*
+the library at <math.h> must provide:
+M_E  M_LN2  M_LN10  M_LOG2E  M_LOG10E
+M_PI  M_PI_2  M_PI_4  M_2_PI  M_1_PI
+M_SQRT_2  M_SQRT1_2
+*/
 #define COS_PI_8 0.9238795325112867561282
 #define COS_PI_16 0.9807852804032304491262
 #define COS_PI_32 0.9951847266721968862448
-
-//M_SQRT2 is standard
 #define SQRT_5 2.236067977499789696409
-
 #define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
-
-//standard math library must provide: e, ln(2), pi, pi/2, pi/4, 2/pi, 1/pi, and several other values derived of e and pi.
-//but not 2 * pi
 #define MY_TAU 6.283185307179586476925
 
 #define FPS 30 //frames per second
 #define MSPF 33 //milliseconds per frame, truncated
+
+#define PI_N(N) (M_PI / N)
+#define PI_2_N(N) (M_PI_2 / N)
 
 div_t div_tmp;
 
