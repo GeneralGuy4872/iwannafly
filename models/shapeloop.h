@@ -135,7 +135,7 @@ struct shape subject
           n++
           iter--
           }
-        SOFT_ERROR_MACRO("GFX","shapeloop.h, line#"__LINE__", switch escape branch","Shapeloop recieved invalid opcode, could be a sign that the array being processed is not shape code for the current version of the shapeloop")
+        SOFT_ERROR_MACRO("GFX","shapeloop.h, line#"__LINE__", switch escape branch","Shapeloop recieved invalid opcode, could be a sign that the array being processed is not shape code for the current version of the shapeloop. If the sentrys are errant as well, this will rais SIGSEGV.")
         mode = 0
         }
       }
