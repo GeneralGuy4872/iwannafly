@@ -82,7 +82,7 @@ init__setup()
         }
       else
         {
-        continue
+        NOP
         }
       }
     }
