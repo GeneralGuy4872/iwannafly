@@ -15,6 +15,7 @@ struct shape subject
         n++
         iter = subject.bytecode[n]
         n++
+        break
         }
       case : 1
         {
@@ -27,6 +28,7 @@ struct shape subject
             }
         glEnd()
         mode = 0
+        break
         }
       case : 2
         {
@@ -39,6 +41,7 @@ struct shape subject
             }
         glEnd()
         mode = 0
+        break
         }
       case : 3
         {
@@ -52,6 +55,7 @@ struct shape subject
         glCullFace(GL_BACK)
         glEnd()
         mode = 0
+        break
         }
       case : 4
         {
@@ -65,6 +69,7 @@ struct shape subject
         glCullFace(GL_BACK)
         glEnd()
         mode = 0
+        break
         }
       case : 5
         {
@@ -77,6 +82,7 @@ struct shape subject
             }
         glEnd()
         mode = 0
+        break
         }
       case : 6
         {
@@ -89,6 +95,7 @@ struct shape subject
             }
         glEnd()
         mode = 0
+        break
         }
       case : 7
         {
@@ -102,6 +109,7 @@ struct shape subject
         glCullFace(GL_BACK)
         glEnd()
         mode = 0
+        break
         }
       case : 8
         {
@@ -114,6 +122,7 @@ struct shape subject
             }
         mode = 0
         glEnd()
+        break
         }
       case : 9
         {
@@ -127,6 +136,7 @@ struct shape subject
             }
         glEnd()
         mode = 0
+        break
         }
       default
         {
@@ -137,6 +147,7 @@ struct shape subject
           }
         SOFT_ERROR_MACRO("GFX","shapeloop.h, line#"__LINE__", switch escape branch","Shapeloop recieved invalid opcode, could be a sign that the array being processed is not shape code for the current version of the shapeloop. If the sentrys are errant, this will raise SIGSEGV.")
         mode = 0
+        break
         }
       }
     }
