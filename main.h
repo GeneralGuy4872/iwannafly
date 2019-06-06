@@ -68,6 +68,11 @@ typedef char mydate_str[24]
 #define LEFT TRISTATE
 #define RIGHT TRUE
 
+//VIEWRNG shall be an odd number
+#define VIEWRNG 5
+#define VIEWRNGL ((VIEWRNG - 1) / 2)
+#define VIEWRNGP (VIEWRNGL + 1)
+
 char weekdays[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","?ERR"}
 
 noop() {}
