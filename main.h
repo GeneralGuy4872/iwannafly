@@ -70,8 +70,9 @@ typedef char mydate_str[24]
 
 //VIEWRNG shall be an odd number
 #define VIEWRNG 5
-#define VIEWRNGL ((VIEWRNG - 1) / 2)
-#define VIEWRNGP (VIEWRNGL + 1)
+#define VIEWRNGmax ((VIEWRNG - 1) / 2)
+#define VIEWRNGmin (VIEWRNGmax * -1)
+#define VIEWRNGlim (VIEWRNGmax + 1)
 
 char weekdays[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","?ERR"}
 
