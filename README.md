@@ -53,4 +53,17 @@ At time of writing, while the project has not been test-compiled, several of the
 
 The heavy use of macro functions througout the project's code base stems from two seperate cases that necessitate their use. Firstly, macro functions are a good way to implement a subroutine or procedure (Fortran and Pascal use them extensively). Secondly, macro functions can accept, and in specific cases return, multiple types, where as functions proper can only accept and return as they are defined (think C++ overloading but better). if you see a goto proto-structured block anywhere, blame Snobol (where all program control is done with branch tables rather than loops), flag it and I will convert it to a <CODE>switch () {}</CODE>, <CODE>if !()</CODE>, <CODE>do {} while ()</CODE>, or array of function pointers if possible.
 
+I am also in the process of changing
+
+<CODE>n = 0;
+while (n < nmax)
+  {
+  ...
+  n++
+  }</CODE>
+
+loops to
+
+<CODE>for {n = 0,n < nmax,n++}</CODE> loops.
+
 While Xt/Xaw is considered an archaic library, I consider it the best choice for my application; It does what I need it to, It doesn't do stuff I don't need it to, and it is lightweight. Additionaly, it's avalibility in a system's package manager is practically guarunteed (being a build dependency for many old apps, such as the xtools and nethack), making porting across linux distos that much easier. It's age also makes drastic changes to the api highly improbable, decreacsing the risk of code rot due to upstream changes.
