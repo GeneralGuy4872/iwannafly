@@ -28,21 +28,35 @@ world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
 init__setup()
   {
   FILE ini_file
-  if (access("~/.iwannafly/conf.ini",R_OK) <= 0)
+  for(n = 1,n,n++)
     {
-    ini_file = fopen("~/.iwannafly/conf.ini","r")
-    }
-  else if (access("/etc/iwannafly/conf.ini",R_OK) <= 0)
-    {
-    ini_file = fopen("/etc/iwannafly/conf.ini","r")
-    }
-  else if (access("./conf.ini",R_OK) <= 0)
-    {
-    ini_file = fopen("./conf.ini","r")
-    }
-  else
-    {
-    HARD_ERROR_MACRO("init","line#"__LINE__", if-else failure escape","Cannot find conf.ini in (\"~/.iwannafly/\" | \"/etc/iwannafly/\" | \"./\") or access is denied")
+    switch n
+      {
+      case : 1
+        {
+        ini_file = fopen("~/.iwannafly/conf.ini","r")
+        break
+        }
+      case : 2
+        {
+        ini_file = fopen("/etc/iwannafly/conf.ini","r")
+        break
+        }
+      case : 3
+        {
+        ini_file = fopen("./conf.ini","r")
+        break
+        }
+      default
+        {
+        HARD_ERROR_MACRO("init","line#"__LINE__", if-else failure escape","Cannot find conf.ini in (\"~/.iwannafly/\" | \"/etc/iwannafly/\" | \"./\") or access is denied")
+        break
+        }
+      }
+    if (ini_file != NULL)
+      {
+      n = FALSE
+      }
     }
 
   char ini_data[BUFFER_MAX]
@@ -165,7 +179,44 @@ init__setup()
 
   free(sealevel);
 
-  dologs ? logfile = fopen(logpath,"w") : free(logfile)
-
+  if dologs
+    {
+    for (n = 1,n,n++)
+      {
+      switch n
+        {
+        case : 1
+          {
+          logfile = fopen(logpath,"a")
+          break
+          }
+        case : 2
+          {
+          logfile = fopen("/var/log/iwannafly.log","a")
+          break
+          }
+        case : 3
+          {
+          logfile = fopen("~/.iwannafly.log","a")
+          break
+          }
+        case : 4
+          {
+          logfile = fopen("./iwannafly.log","a")
+          break
+          }
+        default
+          {
+          SOFT_ERROR_MACR)("init","line#"__LINE__,"Cannot open a log file at specified path, or any of: \"/var/log/iwannafly.log\", \"~/.iwannafly.log\", \"./iwannafly.log\". What's up with your perms?!"}
+          fclose(logfile)
+          break
+          }
+        }
+      if (logfile != NULL)
+        {
+        n = 0
+        }
+      }
+    }
   run = 1
-}
+  }
