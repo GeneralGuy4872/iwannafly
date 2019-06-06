@@ -7,7 +7,8 @@ core.autocrlf=false
 *.scm = linguist-language=Scheme
 *.sno = linguist-language=SNOBOL4 linguist-vendored=false diff
 *.bas = linguist-language=BASIC linguist-vendored=false diff
-*.b = linguist-language=B linguist-vendored=false diff
+*.apl = linguist-language=APL linguist-vendored=false diff
+*.fth = linguist-language=forth  linguist-vendored=false diff
 *.lua = linguist-language=lua
 *.py = linguist-language=python
 *.sh = linguist-language=Shell
