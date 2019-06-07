@@ -41,7 +41,7 @@ animateskel(subject)
   struct skeleton subject
   {
   struct bone **current = subject.root
-  for (n = 0,n < subject.n_bones,n++)
+  for (n = 0;n < subject.n_bones;n++)
     {
     matpush(current.curr,subject.aninext.aniqueue[n])
     current = current.next
