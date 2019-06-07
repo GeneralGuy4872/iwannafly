@@ -114,9 +114,9 @@ init__setup()
             player_tailor.back = (float) atof(ini_data)
             break
             }
-          case HASH5('p','e','l') :
+          case HASH5('c','e','r') :
             {
-            player_tailor.pelv = (float) atof(ini_data)
+            player_tailor.cerv = (float) atof(ini_data)
             break
             }
           case HASH5('n','e','c') :
