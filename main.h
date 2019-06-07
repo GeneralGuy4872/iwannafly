@@ -456,7 +456,7 @@ bytevector4 radf_to_degbv(input)
 #define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d\n",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o\n",CAMERA.points) : fprintf(O,"$%02h\n",CAMERA.points)))
 #define printpoints (C.base == 0 ? printf("%05d\n",CAMERA.points) : (C.base > 0 ? printf("@%06o\n",CAMERA.points) : printf("$%02h\n",CAMERA.points)))
 
-#define HASH5(A,B,C) ( ((short) ((A == ';') ? 0x8000 ; 0x0000)) | ((0x001f & A) << 10) | ((0x001f & B) << 5) | (0x001f & C) )
+#define HASH5(A,B,C) ( (short) ( 0x0000 | ((0x001f & A) << 10) | ((0x001f & B) << 5) | (0x001f & C) ) )
 
 #define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
