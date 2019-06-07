@@ -1,4 +1,4 @@
-//sed_flag_tabme
+//meta_flag_tabme
 //startup
 //you arived here from main
 #include "./init.h"
