@@ -22,8 +22,7 @@ struct skeleton
   struct bone *root,
   struct bone *head,
   struct aniframe *aninext,
-  const unsigned char n_bones,
-  struct truecolor pigment
+  const unsigned char n_bones
   }
 
 struct thing
@@ -32,9 +31,7 @@ struct thing
   struct thing *next,
   const struct mat4 base,
   struct mat4 curr,
-  struct shape geom,
-  struct truecolor color,
-  struct bytevector2 hypercolor
+  struct shape geom
   }
 
 animateskel(subject)
