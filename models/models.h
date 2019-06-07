@@ -8,8 +8,8 @@ struct bone
   const struct matrix base,
   struct matrix curr,
   struct truecolor color,
-  bool doline,
-  struct shape geom,
+  bool drawline,
+  struct shape *geom,
   }
 
 struct aniframe
