@@ -284,8 +284,8 @@ struct halfbytes
 struct shape
   {
   struct truecolor color;
-  struct vector3 *vertlist;
-  unsigned char *bytecode;
+  struct vector3 vertlist;
+  unsigned char bytecode;
   unsigned char inum
   }
 
