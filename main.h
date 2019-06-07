@@ -186,6 +186,12 @@ struct nanofraction
   }
 
 #define FRFL(F) (SANE(F.sign) * ((F.num + 1) / (float) (F.denom + 1) * F.nonzero)
+#define FR_POS(N,D) {0,N - 1,D - 1,1}
+#define FR_NEG(N,D) {1,N - 1,D - 1,1}
+#define FR_ONE {0,0,0,1} //$01 or $80
+#define FR_MONE {1,0,0,1} //$81
+#define FR_ZERO {0,0,0,0} //$00
+#define FR_SIGN(S,N,D) {TOSGN(S),N - 1,D - 1,1}
 
 struct nfrvector3
   {
@@ -315,6 +321,7 @@ struct torusmap
 #define SANE(N) (N == 0 ? TRUE : N)
 #define SGN(N) (N == 0 ? FALSE : (N < 0 ? TRISTATE : TRUE))
 #define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
+#define TOSGN(S) ((S < 0) * -1) //1-bit sign
 
 #define BASEBONEPOS(M) (M.collid.w == 0 ? ((M.pos.z * 2) + M.hitbox.y) / 2 : (M.collid.w < 0 ? ((M.pos.z + M.hitbox.y) + M.hitbox.z) : (M.pos.z + M.hitbox.z)))
 
