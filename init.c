@@ -1,10 +1,6 @@
 //meta_flag_tabme
 //startup
 //you arived here from main
-#include "./init.h"
-
-#include "./config.c"
-
 #define BUFFER_MAX 512
 
 unsigned char sealevel
@@ -17,6 +13,7 @@ char mappath[256]
 char logpath[64]
 bool dologs
 unsigned char base_species
+struct mesurements player_tailor
 FILE logfile
 torusmap planet1
 entity player1
@@ -105,6 +102,61 @@ init__setup()
           case HASH5('l','o','g') :
             {
             strncpy(logpath,ini_data,sizeof(logpath) - 1)
+            break
+            }
+          case HASH5('h','i','p') :
+            {
+            player_tailor.hip = (float) atof(ini_data)
+            break
+            }
+          case HASH5('b','a','c') :
+            {
+            player_tailor.back = (float) atof(ini_data)
+            break
+            }
+          case HASH5('p','e','l') :
+            {
+            player_tailor.pelv = (float) atof(ini_data)
+            break
+            }
+          case HASH5('n','e','c') :
+            {
+            player_tailor.neck = (float) atof(ini_data)
+            break
+            }
+          case HASH5('s','k','u') :
+            {
+            player_tailor.skull = (float) atof(ini_data)
+            break
+            }
+          case HASH5('h','u','m') :
+            {
+            player_tailor.humr = (float) atof(ini_data)
+            break
+            }
+          case HASH5('f','e','m') :
+            {
+            player_tailor.fem = (float) atof(ini_data)
+            break
+            }
+          case HASH5('t','a','i') :
+            {
+            player_tailor.tail = (float) atof(ini_data)
+            break
+            }
+          case HASH5('f','a','n') :
+            {
+            player_tailor.fan_out = (float) atof(ini_data)
+            break
+            }
+          case HASH5('w','i','n') :
+            {
+            player_tailor.wing_humr = (float) atof(ini_data)
+            break
+            }
+          case HASH5('q','a','n') :
+            {
+            player_tailor.q_angle = (float) atof(ini_data)
             break
             }
           default :
