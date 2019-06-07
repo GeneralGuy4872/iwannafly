@@ -1,10 +1,21 @@
-shapeloop(subject)
-struct shape subject
+boneloop(subject)
+  struct bone subject
+  {
+  if (subject.drawline)
+    {
+    shapeloop(shape_line(subject.color,{subject.len.x,subject.len.y,subject.len.z})
+    }
+  shapeloop(subject.geom,subject.color)
+  }
+
+shapeloop(subject,color)
+  struct shape subject
+  struct truecolor color
   {
   unsigned char n = 0 //for loops are not applicable here
   unsigned char mode = 0
   unsigned char iter = 0
-  glColor4b(subject.color.r,subject.color.g,subject.color.b,subject.color.a)
+  glColor4b(color.r,color.g,color.b,color.a)
   while (n < subject.inum)
     {
     switch (mode)
