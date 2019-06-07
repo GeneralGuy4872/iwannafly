@@ -69,7 +69,7 @@ init__setup()
         {
         switch ini_key_hash
           {
-          case HASH5('s','p','e') ://the macro HASH5 it truncates 3 chars to the lower 5 bits, so is not case sensitive
+          case HASH5('s','p','e') ://the macro HASH5 truncates 3 chars to the lower 5 bits, so is not case sensitive
             {
             base_species = atoi(ini_data)
             break
