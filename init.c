@@ -13,7 +13,8 @@ char mappath[256]
 char logpath[64]
 bool dologs
 unsigned char base_species
-struct mesurements player_tailor
+struct mesure_index TAILOR
+mesurements base_mesure
 FILE logfile
 torusmap planet1
 entity player1
@@ -57,123 +58,163 @@ init__setup()
       }
     }
 
-  char ini_data[BUFFER_MAX]
+  char ini_buffer[BUFFER_MAX]
+  char dimpath[BUFFER_MAX]
   char *ini_key
-  while fscanf(ini_file,"\n",ini_data)
+  char *ini_data
+  while fscanf(ini_file,"\n",ini_buffer)
     {
-    ini_key = ini_data
-    if ( strtok(ini_data,"=") != NULL )
+    ini_key = strtok(ini_buffer,"=")
+    if (ini_key != NULL)
       {
-      short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2])
-      if (ini_key_hash > 0)
+      ini_data = strtok(NULL,"\n")
+      if (ini_data != NULL)
         {
-        switch ini_key_hash
+        short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2])
+        if (ini_key_hash > 0)
           {
-          case HASH5('s','p','e') ://the macro HASH5 truncates 3 chars to the lower 5 bits, so is not case sensitive
+          switch ini_key_hash
             {
-            base_species = atoi(ini_data)
-            break
-            }
-          case HASH5('f','o','r') :
-            {
-            forcebaseten = atoi(ini_data)
-            break
-            }
-          case HASH5('s','e','a') :
-            {
-            sealevel = atoi(ini_data)
-            break
-            }
-          case HASH5('j','o','y') :
-            {
-            strncpy(joypath,ini_data,sizeof(joypath) - 1)
-            break
-            }
-          case HASH5('m','a','p') :
-            {
-            strncpy(mappath,ini_data,sizeof(mappath) - 1)
-            break
-            }
-          case HASH5('d','o','l') :
-            {
-            dologs = atoi(ini_data)
-            break
-            }
-          case HASH5('l','o','g') :
-            {
-            strncpy(logpath,ini_data,sizeof(logpath) - 1)
-            break
-            }
-          case HASH5('h','i','p') :
-            {
-            player_tailor.hip = (float) atof(ini_data)
-            break
-            }
-          case HASH5('b','a','c') :
-            {
-            player_tailor.back = (float) atof(ini_data)
-            break
-            }
-          case HASH5('c','e','r') :
-            {
-            player_tailor.cerv = (float) atof(ini_data)
-            break
-            }
-          case HASH5('n','e','c') :
-            {
-            player_tailor.neck = (float) atof(ini_data)
-            break
-            }
-          case HASH5('s','k','u') :
-            {
-            player_tailor.skull = (float) atof(ini_data)
-            break
-            }
-          case HASH5('h','u','m') :
-            {
-            player_tailor.humr = (float) atof(ini_data)
-            break
-            }
-          case HASH5('f','e','m') :
-            {
-            player_tailor.fem = (float) atof(ini_data)
-            break
-            }
-          case HASH5('s','h','o') :
-            {
-            player_tailor.shld = (float) atof(ini_data)
-            break
-            }
-          case HASH5('t','a','i') :
-            {
-            player_tailor.tail = (float) atof(ini_data)
-            break
-            }
-          case HASH5('f','a','n') :
-            {
-            player_tailor.fan_out = (float) atof(ini_data)
-            break
-            }
-          case HASH5('w','i','n') :
-            {
-            player_tailor.wing_humr = (float) atof(ini_data)
-            break
-            }
-          case HASH5('q','a','n') :
-            {
-            player_tailor.q_angle = (float) atof(ini_data)
-            break
-            }
-          default :
-            {
-            break
+            case HASH5('s','p','e') ://the macro HASH5 truncates 3 chars to the lower 5 bits of each (so is not case sensitive) and returns a short
+              {
+              base_species = atoi(ini_data)
+              break
+              }
+            case HASH5('f','o','r') :
+              {
+              forcebaseten = atoi(ini_data)
+              break
+              }
+            case HASH5('s','e','a') :
+              {
+              sealevel = atoi(ini_data)
+              break
+              }
+            case HASH5('j','o','y') :
+              {
+              strncpy(joypath,ini_data,sizeof(joypath) - 1)
+              break
+              }
+            case HASH5('m','a','p') :
+              {
+              strncpy(mappath,ini_data,sizeof(mappath) - 1)
+              break
+              }
+            case HASH5('d','o','l') :
+              {
+              dologs = atoi(ini_data)
+              break
+              }
+            case HASH5('l','o','g') :
+              {
+              strncpy(logpath,ini_data,sizeof(logpath) - 1)
+              break
+              }
+            case HASH5('d','i','m') :
+              {
+              strncpy(dimpath,ini_data,sizeof(dimpath) - 1)
+              break
+              }
+            case HASH5('h','i','p') :
+              {
+              TAILOR.hip = atoi(ini_data)
+              break
+              }
+            case HASH5('b','a','c') :
+              {
+              TAILOR.back = atoi(ini_data)
+              break
+              }
+            case HASH5('c','e','r') :
+              {
+              TAILOR.cerv = atoi(ini_data)
+              break
+              }
+            case HASH5('n','e','c') :
+              {
+              TAILOR.neck = atoi(ini_data)
+              break
+              }
+            case HASH5('s','k','u') :
+              {
+              TAILOR.skull = atoi(ini_data)
+              break
+              }
+            case HASH5('h','u','m') :
+              {
+              TAILOR.humr = atoi(ini_data)
+              break
+              }
+            case HASH5('f','e','m') :
+              {
+              TAILOR.fem = atoi(ini_data)
+              break
+              }
+            case HASH5('s','h','o') :
+              {
+              TAILOR.shld = atoi(ini_data)
+              break
+              }
+            case HASH5('t','a','i') :
+              {
+              TAILOR.tail = atoi(ini_data)
+              break
+              }
+            case HASH5('f','a','n') :
+              {
+              TAILOR.fan_out = atoi(ini_data)
+              break
+              }
+            case HASH5('w','i','n') :
+              {
+              TAILOR.wing_humr = atoi(ini_data)
+              break
+              }
+            case HASH5('q','a','n') :
+              {
+              TAILOR.q_angle = atoi(ini_data)
+              break
+              }
+            default :
+              {
+              break
+              }
             }
           }
         }
       }
     }
-  fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash)
-    
+    fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash)
+
+  FILE dim_file
+  dim_file = fopen(dimpath,"r")
+  if (dim_file != NULL)
+    {
+    char tsv_buffer[BUFFER_MAX]
+    char *tsv_whole
+    char *tsv_num
+    char *tsv_denom
+    for (n=0;fscanf(dim_file,"\n",tsv_denom);n++)
+      {
+      tsv_whole = strtok(tsv_denom,"\t")
+      if ( tsv_whole != NULL )
+        {
+        tsv_num = strtok(NULL,"\t")
+        if ( tsv_num != NULL )
+          {
+          tsv_num = strtok(NULL,"\t")
+          if ( tsv_denom != NULL )
+            {
+            base_mesure[n].whole = atoi(tsv_whole)
+            base_mesure[n].num = atoi(tsv_num)
+            base_mesure[n].denom = atoi(tsv_denom)
+            }
+          }
+        }
+      }
+    fclose(dim_file); 
+    }
+
   switch (base_species)
     {
     case 0 :
