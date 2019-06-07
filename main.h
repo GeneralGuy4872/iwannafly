@@ -185,6 +185,8 @@ struct degree_t
   unsigned int x : 6
   }
 
+//fractional types must be mathed manually, for higher percision use floats
+
 struct nanofraction
   {
   tern sign : 1
@@ -193,26 +195,26 @@ struct nanofraction
   bool nonzero : 1
   }
 
-struct improperfraction
+struct fraction
   {
   signed int whole : 8
   unsigned int num : 4
   unsigned int denom : 4
   }
 
-typedef struct improperfraction mesurements[16]
+typedef struct fraction mesurements[16]
 
-#define FRFL(F) (SANE(F.sign) * ((F.num + 1) / (float) (F.denom + 1) * F.nonzero)
-#define FR_POS(N,D) {0,N - 1,D - 1,1}
-#define FR_NEG(N,D) {1,N - 1,D - 1,1}
-#define FR_ONE {0,0,0,1} //$01 or $80
-#define FR_MONE {1,0,0,1} //$81
-#define FR_ZERO {0,0,0,0} //$00
-#define FR_SIGN(S,N,D) {TOSGN(S),N - 1,D - 1,1}
+#define NFRFL(F) (SANE(F.sign) * ((F.num + 1) / (float) (F.denom + 1) * F.nonzero)
+#define NFR_POS(N,D) {0,N - 1,D - 1,1}
+#define NFR_NEG(N,D) {1,N - 1,D - 1,1}
+#define NFR_ONE {0,0,0,1} //$01 or $80
+#define NFR_MONE {1,0,0,1} //$81
+#define NFR_ZERO {0,0,0,0} //$00
+#define NFR_SIGN(S,N,D) {TOSGN(S),N - 1,D - 1,1}
 
-#define IMPFRFL(F) ((F.whole + (SGN(F.whole) * ((F.num + 1) / (float) (F.denom + 1))) * (F.nonzero != CHAR_MIN))
-#define IMP_FR(W,N,D) {W,N - 1,D - 1}
-#define IMP_FR_ZERO {CHAR_MIN,0,0}
+#define FRFL(F) ((F.whole + (SGN(F.whole) * ((F.num + 1) / (float) (F.denom + 1))) * (F.nonzero != CHAR_MIN))
+#define FR(W,N,D) {W,N - 1,D - 1}
+#define FR_ZERO {CHAR_MIN,0,0}
 
 struct nfrvector3
   {
