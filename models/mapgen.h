@@ -8,9 +8,9 @@ refresh_land()
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	for (n = player.pos.x + VIEWRNGmin,n < (player.pos.x + VIEWRNGlim),n++)
+	for (n = player.pos.x + VIEWRNGmin;n < (player.pos.x + VIEWRNGlim);n++)
 		{
-		for (m = player.pos.y + VIEWRNGmin,m < VIEWRNG,m++)
+		for (m = player.pos.y + VIEWRNGmin;m < VIEWRNG;m++)
 			{
 			glBegin(GL_TRIANGLE_FAN)
 				glvertex3f(XCOORD(0),YCOORD(0),ZCOORD)
@@ -19,7 +19,6 @@ refresh_land()
 				glvertex3f(XCOORD(0),YCOORD(1),ZCOORD)
 			glEnd()
 			}
-		xcoord++
 		}
 	}
 	
