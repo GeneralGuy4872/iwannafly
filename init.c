@@ -125,9 +125,9 @@ init__setup()
               TAILOR.back = atoi(ini_data)
               break
               }
-            case HASH5('c','e','r') :
+            case HASH5('c','o','x') :
               {
-              TAILOR.cerv = atoi(ini_data)
+              TAILOR.coxyx = atoi(ini_data)
               break
               }
             case HASH5('n','e','c') :
