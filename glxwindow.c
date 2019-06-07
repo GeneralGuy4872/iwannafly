@@ -46,7 +46,7 @@ glx__DrawLoop()
         }
       glMultMatrixf(nextbone.base)
       glGetfloatv(GL_MODELVIEW_MATRIX,nextbone.curr) 
-      shapeloop(nextbone.shape)
+      boneloop(nextbone)
       }
     glx__SetCamera(plugh.camera)
     if (nextent->next != NULL)
