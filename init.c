@@ -66,43 +66,57 @@ init__setup()
     ini_key = ini_data
     if ( strtok(ini_data,"=") != NULL )
       {
-      if !(strcmp("species",ini_key))
+      short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2])
+      if (ini_key_hash > 0)
         {
-        base_species = atoi(ini_data)
-        }
-      else if !(strcmp("forcebaseten",ini_key))
-        {
-        forcebaseten = atoi(ini_data)
-        }
-      else if !(strcmp("sealevel",ini_key))
-        {
-        sealevel = atoi(ini_data)
-        }
-      else if !(strcmp("joypath",ini_key))
-        {
-        strncpy(joypath,ini_data,sizeof(joypath) - 1)
-        }
-      else if !(strcmp("mappath",ini_key))
-        {
-        strncpy(mappath,ini_data,sizeof(mappath) - 1)
-        }
-      else if !(strcmp("dologs",ini_key))
-        {
-        dologs = atoi(ini_data)
-        }
-      else if !(strcmp("logpath",ini_key))
-        {
-        strncpy(logpath,ini_data,sizeof(logpath) - 1)
-        }
-      else
-        {
-        NOP
+        switch ini_key_hash
+          {
+          case : HASH5('s','p','e') //the macro HASH5 it truncates 3 chars to the lower 5 bits, so is not case sensitive
+            {
+            base_species = atoi(ini_data)
+            break
+            }
+          case : HASH5('f','o','r')
+            {
+            forcebaseten = atoi(ini_data)
+            break
+            }
+          case : HASH5('s','e','a')
+            {
+            sealevel = atoi(ini_data)
+            break
+            }
+          case : HASH5('j','o','y')
+            {
+            strncpy(joypath,ini_data,sizeof(joypath) - 1)
+            break
+            }
+          case : HASH5('m','a','p')
+            {
+            strncpy(mappath,ini_data,sizeof(mappath) - 1)
+            break
+            }
+          case : HASH5('d','o','l')
+            {
+            dologs = atoi(ini_data)
+            break
+            }
+          case : HASH5('l','o','g')
+            {
+            strncpy(logpath,ini_data,sizeof(logpath) - 1)
+            break
+            }
+          default
+            {
+            break
+            }
+          }
         }
       }
     }
-  fclose(ini_file); free(ini_data); free(ini_key)
+  fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash)
     
-  switch (smallsettings.species)
+  switch (base_species)
     {
     case 0 :
       {
