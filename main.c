@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <math.h>
+#include <limits.h>
 #include <time.h>
 //#include <string.h>
 //#include <regex.h>
