@@ -316,9 +316,10 @@ struct mesurements
   float skull
   float humr
   float femu
+  float scap
   float tail
   float fan_out
-  float wing_humr
+  float wing
   float q_angle
   }
   
