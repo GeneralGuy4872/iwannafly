@@ -139,6 +139,11 @@ init__setup()
             player_tailor.fem = (float) atof(ini_data)
             break
             }
+          case HASH5('s','h','o') :
+            {
+            player_tailor.shld = (float) atof(ini_data)
+            break
+            }
           case HASH5('t','a','i') :
             {
             player_tailor.tail = (float) atof(ini_data)
