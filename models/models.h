@@ -7,6 +7,8 @@ struct bone
   const struct vector3 len,
   const struct matrix base,
   struct matrix curr,
+  struct truecolor color,
+  bool doline,
   struct shape geom,
   }
 
