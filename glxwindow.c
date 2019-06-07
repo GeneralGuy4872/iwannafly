@@ -31,7 +31,7 @@ glx__DrawLoop()
     {
     glLoadMatrix(nextent.rot);
     struct bone *nextbone = nextent.dembones.root
-    for (n = 0,n < nextent.dembones.n_bones,n++)
+    for (n = 0;n < nextent.dembones.n_bones;n++)
       {
       if !n
         {
