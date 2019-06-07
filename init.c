@@ -202,7 +202,7 @@ init__setup()
         tsv_num = strtok(NULL,"\t")
         if ( tsv_num != NULL )
           {
-          tsv_num = strtok(NULL,"\t")
+          tsv_denom = strtok(NULL,"\t")
           if ( tsv_denom != NULL )
             {
             base_mesure[n].whole = atoi(tsv_whole)
