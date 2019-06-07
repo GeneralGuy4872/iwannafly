@@ -316,7 +316,7 @@ struct mesurements
   float skull
   float humr
   float femu
-  float scap
+  float shld
   float tail
   float fan_out
   float wing
