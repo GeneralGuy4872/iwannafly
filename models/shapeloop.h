@@ -7,9 +7,9 @@ struct shape subject
   glColor4b(subject.color.r,subject.color.g,subject.color.b,subject.color.a)
   while (n < subject.inum)
     {
-    switch mode
+    switch (mode)
       {
-      case : 0
+      case 0 :
         {
         mode = subject.bytecode[n]
         n++
@@ -17,7 +17,7 @@ struct shape subject
         n++
         break
         }
-      case : 1
+      case 1 :
         {
         glBegin(GL_POINTS)
           while (iter && (n < subject.inum))
@@ -30,7 +30,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 2
+      case 2 :
         {
         glBegin(GL_LINES)
           while (iter && (n < subject.inum))
@@ -43,7 +43,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 3
+      case 3 :
         {
         glBegin(GL_TRIANGLES)
           while (iter && (n < subject.inum))
@@ -57,7 +57,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 4
+      case 4 :
         {
         glBegin(GL_QUADS)
           while (iter && (n < subject.inum))
@@ -71,7 +71,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 5
+      case 5 :
         {
         glBegin(GL_POLYGON)
           while (iter && (n < subject.inum))
@@ -84,7 +84,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 6
+      case 6 :
         {
         glBegin(GL_LINE_STRIP)
           while (iter && (n < subject.inum))
@@ -97,7 +97,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 7
+      case 7 :
         {
         glBegin(GL_TRIANGLE_FAN)
           while (iter && n < subject.inum))
@@ -111,7 +111,7 @@ struct shape subject
         mode = 0
         break
         }
-      case : 8
+      case 8 :
         {
         glBegin(GL_LINE_LOOP)
           while (iter && (n < subject.inum))
@@ -124,7 +124,7 @@ struct shape subject
         glEnd()
         break
         }
-      case : 9
+      case 9 :
         {
         glBegin(GL_LINES)
           while (iter && n < subject.inum))
@@ -138,7 +138,7 @@ struct shape subject
         mode = 0
         break
         }
-      default
+      default :
         {
         while (iter && (n < subject.inum))
           {
