@@ -306,6 +306,21 @@ struct torusmap
   unsigned char sealevel
   struct bytevector2 start
   }
+
+struct mesurements
+  {
+  float hip
+  float back
+  float cerv
+  float neck
+  float skull
+  float humr
+  float femu
+  float tail
+  float fan_out
+  float wing_humr
+  float q_angle
+  }
   
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
