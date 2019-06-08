@@ -408,6 +408,7 @@ struct torusmap
   struct bytevector2 start
   }
 
+//will be replaced with static macros once a fixed order is established
 struct mesure_index
   {
   unsigned int hip : 4
@@ -424,6 +425,8 @@ struct mesure_index
   unsigned int q_angle : 4
   unsigned int eyes : 4
   unsigned int base : 4
+  unsigned int hbradius : 4
+  unsigned int hbheight : 4
   }
   
 #define MAX(A,B) (A > B ? A : B)
