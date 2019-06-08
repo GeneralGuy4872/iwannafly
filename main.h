@@ -391,7 +391,7 @@ struct hitbox_type
   struct mixfraction r
   struct mixfraction h
   struct fraction eyes
-  struct fraction base
+  struct fraction offset
   }
 
 struct shape
@@ -457,8 +457,8 @@ struct mesure_index
   unsigned int fan_out : 4
   unsigned int wing : 4
   unsigned int q_angle : 4
-  unsigned int eyes : 4
-  unsigned int base : 4
+  unsigned int hbeyes : 4
+  unsigned int hboffset : 4
   unsigned int hbradius : 4
   unsigned int hbheight : 4
   }
@@ -479,7 +479,7 @@ struct mesure_index
 #define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
 #define TOSGN(S) ((S < 0) * -1) //1-bit sign
 
-#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + mixfrfl(M.hitbox.r) + (mixfrfl(M.hitbox.r) * frfl(M.hitbox.base)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.base)) ) )
+#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + mixfrfl(M.hitbox.r) + (mixfrfl(M.hitbox.r) * frfl(M.hitbox.offset)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.offset)) ) )
 #define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (mixfrfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
