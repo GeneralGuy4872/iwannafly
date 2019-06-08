@@ -55,7 +55,7 @@ div_t div_tmp;
 typedef int (*eventfunc)(int,*char[]) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
-typedef char deg_str[3 + 1 + 2 + 1 + 2 + 1 + 2] 
+typedef char deg_str[4 + 1 + 2 + 1] 
 typedef char pts_str[8] //number of octal places in USHRT_MAX, rounded up
 typedef char mydate_str[24]
 
@@ -189,14 +189,6 @@ struct halfbytes
   {
   unsigned char h : 4
   unsigned char l : 4
-  }
-
-struct degree_t
-  {
-  signed int w : 14
-  unsigned int z : 6
-  unsigned int y : 6
-  unsigned int x : 6
   }
 
 struct fraction
@@ -370,7 +362,7 @@ struct statreg
   bool ground : 1
   bool wet : 1
   bool yinv : 1
-  const bool horiz : 1
+  bool horiz : 1
   tern bouy : 2
   bool uv : 1
   bool infra : 1
@@ -380,10 +372,9 @@ struct viewform
   {
   tern base : 2
   quard deg : 2
-  bool dist : 1
+  tern dist : 2
   bool time : 1
   bool uv : 1
-  bool infra : 1
   }
 
 struct hitbox_type
@@ -599,28 +590,22 @@ matrix mainh__matmult_4(fir,sec)
     return result
     }
 
-degree_t radf_to_deg(input)
+div_t radf_to_deg(input)
   float input;
   {
-  degree_t output;
-  div(input * 3600,60) = div_tmp;
-  div_tmp.rem = output.x;
-  div(div_tmp.quot,60) = div_tmp;
-  div_tmp.rem = output.y;
-  div(div_tmp.quot,360) = div_tmp;
-  div_tmp.rem = output.z;
-  div_tmp.quot = output.w;
+  div_t output = div(input,60);
+  output.quot = (output.quot % 360) - 180;
   return output
   }
-#define sprintdeg(N,O) sprintf(O,"%3i*%2i'%2i\"%2i",N.w,N.z,N.y,N.x)
-#define fprintdef(N,O) fprintf(O,"%3i*%2i'%2i\"%2i\n",N.w,N.z,N.y,N.x)
-#define printdeg(N) printf("%3i*%2i'%2i\"%2i\n",N.w,N.z,N.y,N.x)
+#define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
+#define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
+#define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 
-#define sprintpoints(O) (C.base == 0 ? sprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? sprintf(O,"@%06o",CAMERA.points) : sprintf(O,"$%02h",CAMERA.points)))
-#define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d\n",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o\n",CAMERA.points) : fprintf(O,"$%02h\n",CAMERA.points)))
-#define printpoints (C.base == 0 ? printf("%05d\n",CAMERA.points) : (C.base > 0 ? printf("@%06o\n",CAMERA.points) : printf("$%02h\n",CAMERA.points)))
+#define sprintpoints(O) (C.base == 0 ? sprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? sprintf(O,"@%06o",CAMERA.points) : sprintf(O,"$%04x",CAMERA.points)))
+#define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d\n",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o\n",CAMERA.points) : fprintf(O,"$%04x\n",CAMERA.points)))
+#define printpoints (C.base == 0 ? printf("%05d\n",CAMERA.points) : (C.base > 0 ? printf("@%06o\n",CAMERA.points) : printf("$%04x\n",CAMERA.points)))
 
-#define HASH5(A,B,C) ( (short) ( 0x0000 | ((0x001f & A) << 10) | ((0x001f & B) << 5) | (0x001f & C) ) )
+#define HASH5(A,B,C) ( ( ((A == ';') || (B == ';') || (C == ';') ? (short) 0x8000 : (short) 0x0000) | ((0x001f & (short) A) << 10) | ((0x001f & (short) B) << 5) | (0x001f & (short) C) )
 
 #define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
