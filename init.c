@@ -32,12 +32,12 @@ init__setup()
     {
     case HASH5('U','T','F') :
       {
-      ENCODE = 1
+      ENCODE = 0
       break
       }
     case HASH5('I','S','O') :
       {
-      ENCODE = -1
+      ENCODE = 1
       break
       }
     case HASH5('I','B','M') :
@@ -47,7 +47,7 @@ init__setup()
       }
     default :
       {
-      ENCODE = 0
+      ENCODE = -1
       break
       }
     }      
