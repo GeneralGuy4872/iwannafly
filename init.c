@@ -27,31 +27,6 @@ world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
 
 init__setup()
   {
-  char *locale = setlocale(LC_ALL,"")
-  switch (HASH5(*(nl_langinfo(CODESET)))
-    {
-    case HASH5('U','T','F') :
-      {
-      ENCODE = 0
-      break
-      }
-    case HASH5('I','S','O') :
-      {
-      ENCODE = 1
-      break
-      }
-    case HASH5('I','B','M') :
-      {
-      ENCODE = -2
-      break
-      }
-    default :
-      {
-      ENCODE = -1
-      break
-      }
-    }      
-  
   FILE ini_file
   for(n = 1,n,n++)
     {
