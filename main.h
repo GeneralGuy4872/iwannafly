@@ -56,7 +56,7 @@ typedef int (*eventfunc)(int,*char[]) //you know you're getting serious when you
 typedef signed char tern
 typedef unsigned char quard
 typedef char deg_str[4 + 1 + 2 + 1] 
-typedef char pts_str[8] //number of octal places in USHRT_MAX, rounded up
+typedef char field_str[8] //number of octal places in USHRT_MAX, rounded up
 typedef char mydate_str[24]
 
 #ifdef __bool_true_false_are_defined
@@ -601,9 +601,9 @@ div_t radf_to_deg(input)
 #define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 #define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 
-#define sprintpoints(O) (C.base == 0 ? sprintf(O,"%05d",CAMERA.points) : (C.base > 0 ? sprintf(O,"@%06o",CAMERA.points) : sprintf(O,"$%04x",CAMERA.points)))
-#define fprintpoints(O) (C.base == 0 ? fprintf(O,"%05d\n",CAMERA.points) : (C.base > 0 ? fprintf(O,"@%06o\n",CAMERA.points) : fprintf(O,"$%04x\n",CAMERA.points)))
-#define printpoints (C.base == 0 ? printf("%05d\n",CAMERA.points) : (C.base > 0 ? printf("@%06o\n",CAMERA.points) : printf("$%04x\n",CAMERA.points)))
+#define sprintbase(O,N) (C.base == 0 ? sprintf(O,"=%7d",CAMERA.N) : (C.base > 0 ? sprintf(O,"@%7o",CAMERA.N) : sprintf(O,"$%7x",CAMERA.N)))
+#define fprintbase(O,N) (C.base == 0 ? fprintf(O,"=%7d\n",CAMERA.N) : (C.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
+#define printbase(N) (C.base == 0 ? printf("=%7d\n",CAMERA.N) : (C.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
 
 #define HASH5(A,B,C) ( ( ((A == ';') || (B == ';') || (C == ';') ? (short) 0x8000 : (short) 0x0000) | ((0x001f & (short) A) << 10) | ((0x001f & (short) B) << 5) | (0x001f & (short) C) )
 
