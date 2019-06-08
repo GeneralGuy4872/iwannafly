@@ -196,13 +196,25 @@ struct fraction
   tern sign : 2
   unsigned int num : 6
   }
+#define FR_ZERO {0,0}
+#define FR_ONE {1,63}
+#define FR_MONE {-1,63}
+#define FR_INF {-2,0}
+#define FR(S,N) {S,(N)-1}
 
-struct imfraction
+struct mixfraction
   {
-  unsigned int whole : 8
+  unsigned int inter : 8
   tern sign : 2
   unsigned int num : 6
   }
+#define IFR_ZERO {0,0,0}
+#define IFR_ONE {1,1,0}
+#define IFR_MONE {1,-1,0}
+#define IFR_INF {0,-2,0}
+#define IFR(I,S,N) {I,S,N}
+
+#define FR_DENOM 64
 
 struct fracvector3
   {
@@ -211,7 +223,7 @@ struct fracvector3
   struct fraction z
   }
 
-typedef struct imfraction mesurements[16]
+typedef struct mixfraction mesurements[16]
 
 float frac_float(input)
   fraction input
@@ -228,13 +240,13 @@ float frac_float(input)
       }
     default :
       {
-      return (((float) input.num + 1) / 64) * input.sign
+      return (((float) input.num + 1) / FR_DENOM) * input.sign
       }
     }
   }
 
-float imfrac_float(input)
-  imfraction input
+float mixfrac_float(input)
+  mixfraction input
   {
   switch (input.sign)
     {
@@ -248,7 +260,7 @@ float imfrac_float(input)
       }
     default :
       {
-      return ((((float) input.num + 1) / 64) + input.whole) * input.sign
+      return ((((float) input.num) / FR_DENOM) + input.whole) * input.sign
       }
     }
   }
