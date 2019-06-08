@@ -285,6 +285,21 @@ struct fraction flfr(input)
   return output
   }
 
+struct fraction truncfr(input)
+  mixfraction input
+  {
+  fraction output
+  if ((input.num == 0) && ((input.sign == 1) || (input.sign == -1)))
+    {
+    output = {0,0}
+    }
+  else
+    {
+    output = {input.sign,input.num - 1}
+    }
+  return output
+  }
+
 struct my_date_time
   {
   unsigned int year : 3
