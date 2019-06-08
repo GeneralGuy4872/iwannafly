@@ -333,7 +333,7 @@ struct mesure_index
   {
   unsigned int hip : 4
   unsigned int back : 4
-  unsigned int cerv : 4
+  unsigned int coxyx : 4
   unsigned int neck : 4
   unsigned int skull : 4
   unsigned int humr : 4
