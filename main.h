@@ -387,6 +387,8 @@ struct mesure_index
   unsigned int fan_out : 4
   unsigned int wing : 4
   unsigned int q_angle : 4
+  unsigned int eyes : 4
+  unsigned int base : 4
   }
   
 #define MAX(A,B) (A > B ? A : B)
