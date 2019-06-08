@@ -3,7 +3,7 @@ struct bone
   struct bone *up,
   struct bone *prev,
   struct bone *next,
-  const struct nfrvector3 off,
+  const struct fracvector3 off,
   const struct vector3 len,
   const struct matrix base,
   struct matrix curr,
@@ -44,14 +44,14 @@ animateskel(subject)
     matpush(current.curr,subject.aninext.aniqueue[n])
     current = current.next
     }
-  subject.aninext = subject.aninext.next
+  subject.aninext = subject->aninext.next
   }
 
 animatething(subject)
   struct thing subject
   {
   matpush(subject.curr,aninext,aniqueue[0])
-  aninext = aninext.next
+  aninext = aninext->next
   }
   
 //opengl stuff
