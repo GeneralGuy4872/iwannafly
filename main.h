@@ -197,6 +197,13 @@ struct fraction
   unsigned int num : 6
   }
 
+struct imfraction
+  {
+  unsigned int whole : 8
+  tern sign : 2
+  unsigned int num : 6
+  }
+
 struct fracvector3
   {
   struct fraction x
@@ -204,31 +211,7 @@ struct fracvector3
   struct fraction z
   }
 
-fraction float_frac(input)
-  float input
-  {
-  fraction output
-  tern sign
-  if (isnormal(input))
-    {
-    sign = SGN(input)
-    output = ((unsigned char) (fabs(input) * 64)) - 1
-    return {sign,output}
-    }
-  else
-    {
-    output = 0
-    if (input == 0)
-      {
-      sign = 0
-      }
-    else
-      {
-      sign = -2
-      }
-    }
-  return {sign,output}
-  }
+typedef struct imfraction mesurements[16]
 
 float frac_float(input)
   fraction input
@@ -246,6 +229,26 @@ float frac_float(input)
     default :
       {
       return (((float) input.num + 1) / 64) * input.sign
+      }
+    }
+  }
+
+float imfrac_float(input)
+  imfraction input
+  {
+  switch (input.sign)
+    {
+    case 0 :
+      {
+      return 0.0
+      }
+    case -2 :
+      {
+      return INFINITY
+      }
+    default :
+      {
+      return ((((float) input.num + 1) / 64) + input.whole) * input.sign
       }
     }
   }
