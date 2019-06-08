@@ -208,13 +208,13 @@ struct mixfraction
   tern sign : 2
   unsigned int num : 6
   }
-#define IFR_ZERO {0,0,0}
-#define IFR_ONE {1,1,0}
-#define IFR_MONE {1,-1,0}
-#define IFR_INF {0,-2,0}
-#define IFR(I,S,N) {I,S,N}
+#define MFR_ZERO {0,0,0}
+#define MFR_ONE {1,1,0}
+#define MFR_MONE {1,-1,0}
+#define MFR_INF {0,-2,0}
+#define MFR(I,S,N) {I,S,N}
 
-#define FR_DENOM 64
+#define FR_DEN 64
 
 struct fracvector3
   {
@@ -225,7 +225,7 @@ struct fracvector3
 
 typedef struct mixfraction mesurements[16]
 
-float frac_float(input)
+float frfl(input)
   fraction input
   {
   switch (input.sign)
@@ -245,7 +245,7 @@ float frac_float(input)
     }
   }
 
-float mixfrac_float(input)
+float mixfrfl(input)
   mixfraction input
   {
   switch (input.sign)
@@ -405,9 +405,9 @@ struct mesure_index
 #define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
 #define TOSGN(S) ((S < 0) * -1) //1-bit sign
 
-#define BASEBONEPOS(M) (M.stat.horiz ? (M.pos.z + M.hitbox.z) : (M.pos.z + ((M.hitbox.y * 2) + M.hitbox.z)))
-#define EYECOORD(M) (M.stat.horiz ? {
-//M.stat.horiz ? cylinder -z=0 +z=hitbox.y r=hitbox.x
+#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + M.hitbox.r + (M.hitbox.r * frfl(M.hitbox.base)) ) : ( M.pos.z + (M.hitbox.h / 2) + ((M.hitbox.h / 2) * frfl(M.hitbox.base)) ) )
+#define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (M.hitbox.h * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (M.hitbox.h / 2) + ((M.hitbox.h / 2) * frfl(M.hitbox.eyes)) ) )
+
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
 /*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
