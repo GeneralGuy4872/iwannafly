@@ -177,6 +177,12 @@ struct charvector2
   signed char y : 8
   }
 
+struct halfbytes
+  {
+  unsigned char h : 4
+  unsigned char l : 4
+  }
+
 struct degree_t
   {
   signed int w : 14
@@ -185,42 +191,63 @@ struct degree_t
   unsigned int x : 6
   }
 
-//fractional types must be mathed manually, for higher percision use floats
-
-struct nanofraction
-  {
-  tern sign : 1
-  unsigned int num : 3
-  unsigned int denom : 3
-  bool nonzero : 1
-  }
-
 struct fraction
   {
-  signed int whole : 8
-  unsigned int num : 4
-  unsigned int denom : 4
+  tern sign : 2
+  unsigned int num : 6
   }
 
-typedef struct fraction mesurements[16]
-
-#define NFRFL(F) (SANE(F.sign) * ((F.num + 1) / (float) (F.denom + 1) * F.nonzero)
-#define NFR_POS(N,D) {0,N - 1,D - 1,1}
-#define NFR_NEG(N,D) {1,N - 1,D - 1,1}
-#define NFR_ONE {0,0,0,1} //$01 or $80
-#define NFR_MONE {1,0,0,1} //$81
-#define NFR_ZERO {0,0,0,0} //$00
-#define NFR_SIGN(S,N,D) {TOSGN(S),N - 1,D - 1,1}
-
-#define FRFL(F) ((F.whole + (SGN(F.whole) * ((F.num + 1) / (float) (F.denom + 1))) * (F.nonzero != CHAR_MIN))
-#define FR(W,N,D) {W,N - 1,D - 1}
-#define FR_ZERO {CHAR_MIN,0,0}
-
-struct nfrvector3
+struct fracvector3
   {
-  struct nanofraction x
-  struct nanofraction y
-  struct nanofraction z
+  struct fraction x
+  struct fraction y
+  struct fraction z
+  }
+
+fraction float_frac(input)
+  float input
+  {
+  fraction output
+  tern sign
+  if (isnormal(input))
+    {
+    sign = SGN(input)
+    output = ((unsigned char) (fabs(input) * 64)) - 1
+    return {sign,output}
+    }
+  else
+    {
+    output = 0
+    if (input == 0)
+      {
+      sign = 0
+      }
+    else
+      {
+      sign = -2
+      }
+    }
+  return {sign,output}
+  }
+
+float frac_float(input)
+  fraction input
+  {
+  switch (input.sign)
+    {
+    case 0 :
+      {
+      return 0.0
+      }
+    case -2 :
+      {
+      return INFINITY
+      }
+    default :
+      {
+      return (((float) input.num + 1) / 64) * input.sign
+      }
+    }
   }
 
 struct my_date_time
@@ -275,10 +302,12 @@ struct viewform
   bool debug : 1
   }
 
-struct halfbytes
+struct hitbox_type
   {
-  unsigned char h : 4
-  unsigned char l : 4
+  float r
+  float h
+  struct fraction eyes
+  struct fraction base
   }
 
 struct shape
@@ -361,8 +390,9 @@ struct mesure_index
 #define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
 #define TOSGN(S) ((S < 0) * -1) //1-bit sign
 
-#define BASEBONEPOS(M) (M.collid.w == 0 ? ((M.pos.z * 2) + M.hitbox.y) / 2 : (M.collid.w < 0 ? ((M.pos.z + M.hitbox.y) + M.hitbox.z) : (M.pos.z + M.hitbox.z)))
-
+#define BASEBONEPOS(M) (M.stat.horiz ? (M.pos.z + M.hitbox.z) : (M.pos.z + ((M.hitbox.y * 2) + M.hitbox.z)))
+#define EYECOORD(M) (M.stat.horiz ? {
+//M.stat.horiz ? cylinder -z=0 +z=hitbox.y r=hitbox.x
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
 /*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
@@ -480,7 +510,7 @@ matrix mainh__matmult_4(fir,sec)
     return result
     }
 
-degree_t radf_to_degbv(input)
+degree_t radf_to_deg(input)
   float input;
   {
   degree_t output;
