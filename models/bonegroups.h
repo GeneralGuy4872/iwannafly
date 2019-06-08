@@ -2,33 +2,30 @@
 #include "./shapes.h"
 #include "./matrixgen.h"
 
-void doublelink(xyzzy)
-  struct bone xyzzy
-  {
-  xyzzy->prev->next = xyzzy
-  }
+#define doublelink(M) M.prev->next = M
+#define macrodelete(M) {M.prev != NULL ? M.prev->next = M.next : SWYM; M.next != NULL ? M.next->prev = M.prev : SWYM; free(M)}
 
 void deletent(xyzzy)
   struct entity xyzzy
   {
-  xyzzy.prev ? xyzzy->prev->next = xyzzy->next : HARD_ERROR_MACRO("function call","deletent() of "__FILE__"; Line#"__LINE__,"Invalid operation: Tried to unload player. This would lead to undefined behavior throughout the entire program. Session terminated by safty officer")
-  xyzzy.next ? xyzzy->next->prev = xyzzy->prev : WORLD.ent_tail = xyzzy->prev
+  xyzzy.prev != NULL ? xyzzy.prev->next = xyzzy.next : HARD_ERROR_MACRO("function call","deletent() of "__FILE__"; Line#"__LINE__,"Invalid operation: Tried to unload player. This would lead to undefined behavior throughout the entire program. Session terminated by safty officer")
+  xyzzy.next != NULL ? xyzzy.next->prev = xyzzy.prev : WORLD.ent_tail = xyzzy->prev
   free(xyzzy)
   }
 
 void deletscn(xyzzy)
   struct thing xyzzy
   {
-  xyzzy.prev ? xyzzy->prev->next = xyzzy->next : WORLD.scen = xyzzy->next
-  xyzzy.next ? xyzzy->next->prev = xyzzy->prev : WORLD.scen_tail = xyzzy->prev
+  xyzzy.prev != NULL ? xyzzy.prev->next = xyzzy.next : WORLD.scen = xyzzy.next
+  xyzzy.next != NULL ? xyzzy.next->prev = xyzzy.prev : WORLD.scen_tail = xyzzy.prev
   free(xyzzy)
   }
 
 void deletevnt(xyzzy)
   struct event xyzzy
   {
-  xyzzy.prev ? xyzzy->prev->next = xyzzy->next : WORLD.evnt = xyzzy->next
-  xyzzy.next ? xyzzy->next->prev = xyzzy->prev : WORLD.evnt_tail = xyzzy->prev
+  xyzzy.prev != NULL ? xyzzy.prev->next = xyzzy->next : WORLD.evnt = xyzzy.next
+  xyzzy.next != NULL ? xyzzy.next->prev = xyzzy->prev : WORLD.evnt_tail = xyzzy.prev
   free(xyzzy)
   }
 
