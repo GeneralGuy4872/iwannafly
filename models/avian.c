@@ -1,12 +1,16 @@
-struct bone *sculpt_avian()
+struct bone *sculpt_avian(geomet,cam)
+  mesurements geomet
+  cameratype *cam
   {
-  struct polygon pelvis[4] = bone_tetra(.125,.346,.1)
-  *center = {foo->root,NULL,NULL,{0,0,0},{.1,.346,.125},matgen_ident,matgen_ident,FALSE,*pelvis,4}
-  //(*up,*prev,*next,(off.x,off.y,off.z),(len.x,len.y,len.z),base,curr,drawline,*faces,n_polys)
-  bone *cervical = spine(*center,*center,.66,16)
-  bone *neck = spine(*cervical,*cervical,.125,7)
-  bone *head = (*neck,*neck,NULL,(0,0,1),(0,.1,0),matgen_ident,matgen_ident,FALSE,*crystal,8)
-  doublelink(*head)
+  struct bone *index_pelvis = {NULL,NULL,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{0,SUITFIT(geomet,hip)/2,SUITFIT(geomet,coxyx)},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+  //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
+  struct shape *index_pelvis->geom = shape_poly_triangle(SUITFIT(geomet,coxyx),SUITFIT(geomet,hip)/2)
+  struct bone *index_spine = spine(index_pelvis,index_pelvis,SUITFIT(geomet,back),16)
+  struct bone *index_neck = spine(index_spine,index_spine,SUITFIT(geomet,neck),7)
+  struct bone *index_skull = {index_neck,index_neck,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,skull),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+  struct shape *index_pelvis->geom = shape_poly_octo(SUITFIT(geomet,skull)
+  doublelink(index_skull)
+  
   bone *lshoulder = (*cervical,*head,NULL,(0,0,0),(.198,0,0),matgen_z_deg(-90),matgen_ident,TRUE,NULL,0)
   doublelink(*lshoulder)
   bone *lwrist = arm(*lshoulder,*lshoulder,.3,LEFT)
