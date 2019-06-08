@@ -17,6 +17,8 @@
 #include <stdbool.h>
 #include <math.h>
 #include <limits.h>
+#include <locale.h>
+#include <langinfo.h>
 #include <time.h>
 //#include <string.h>
 //#include <regex.h>
@@ -98,12 +100,6 @@ onstep_player (player)
 	
 	player.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
 	player.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
-	/*torii are easier than spheres. cylinders are a better approximation, but have invisible walls the entire length
-	* of the poles because their y axis is clamped. torri are modded instead of clamped.
-	* this torus has a circumfrence of exactly 21600 meters and a ratio of 1:1.
-	* assuming the original definition of 1 nautical mile = 1 arcminute, it would be = 1 meter
-	* because of this, conversions between those units is moot.
-	*/
 	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,2048) //meters, zero;arbitrary ceiling
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
@@ -126,7 +122,7 @@ struct cameratype
 	struct entity *up
 	struct vector4 coord
 	matrix rot = matgen_ident
-	struct viewform format //0 = dec, 1 = oct, -n = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon : 0 = m/ or nmi/, 1 = km/ : 0 = /s, 1 = /h : infra : uv
+	struct viewform format //0 = dec, 1 = oct, -n = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon : 0 = m/, 1 = cm/, -1 = km, -2 = myram/ : 0 = /s, 1 = /h : infra : uv
 	unsigned short points
 	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
