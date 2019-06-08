@@ -31,11 +31,15 @@ glx__DrawLoop()
     {
     glLoadMatrix(nextent.rot);
     struct bone *nextbone = nextent.dembones.root
-    for (n = 0;n < nextent.dembones.n_bones;n++)
+    while 1
       {
-      if !n
+      if (nextbone->up == NULL)
         {
         glLoadIdentity()
+        if nextent.stat.horiz
+          {
+          glMultMatrix(matgen_y_deg(90,1)
+          }
         gltranslate(nextent.pos.x,nextent.pos.y,BASEBONEPOS(nextent))
         glMultMatrixf(plugh.rot)
         }
@@ -47,6 +51,14 @@ glx__DrawLoop()
       glMultMatrixf(nextbone.base)
       glGetfloatv(GL_MODELVIEW_MATRIX,nextbone.curr) 
       boneloop(nextbone)
+      if (nextbone->next != NULL)
+        {
+        nextbone = nextbone->next
+        }
+      else
+        {
+        return 0
+        }
       }
     glx__SetCamera(plugh.camera)
     if (nextent->next != NULL)
