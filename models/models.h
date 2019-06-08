@@ -22,7 +22,6 @@ struct aniframe
 struct skeleton
   {
   struct bone *root,
-  struct bone *head,
   struct aniframe *aninext,
   const unsigned char n_bones
   }
