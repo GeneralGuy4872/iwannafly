@@ -1,5 +1,13 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
+/*whether a variable is in ALL_CAPS or not is not an indicator of if it is a macro; what it means
+* is that it is a global value that may be called (or even modified) by functions stealthily.
+* a macro function in ALL_CAPS is a true macro, andless complicated than one that is not,
+* which is a subroutine. all this is complicated by the fact that even this convoluted formatting
+* is currently inconsistant, and the terms "subroutine" and "macro function" are interchangeable
+* by definition and I have yet to establish a true boundry.
+*/
+
 /*figure out iff && when time comes
 *
 * #define SHMLOCK(V) some_func(V)
