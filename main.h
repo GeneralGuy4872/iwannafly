@@ -236,7 +236,20 @@ float frfl(input)
       }
     case -2 :
       {
-      return INFINITY
+      switch input.num
+        {
+        case 0 :
+          {
+          return INFINITY
+          }
+        case 63 :
+          {
+          return INFINITY * -1
+          }
+        default :
+          {
+          return NAN
+          }
       }
     default :
       {
@@ -256,7 +269,20 @@ float mixfrfl(input)
       }
     case -2 :
       {
-      return INFINITY
+      switch input.num
+        {
+        case 0 :
+          {
+          return INFINITY
+          }
+        case 63 :
+          {
+          return INFINITY * -1
+          }
+        default :
+          {
+          return NAN
+          }
       }
     default :
       {
