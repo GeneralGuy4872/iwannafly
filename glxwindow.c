@@ -46,7 +46,7 @@ glx__DrawLoop()
       else
         {
         glLoadMatrixf(nextbone.up.curr)
-        gltranslate(nextbone.up.len.x * FRFL(nextbone.off.x),nextbone.up.len.y * FRFL(nextbone.off.y),nextbone.up.len.z * FRFL(nextbone.off.z))
+        gltranslate(nextbone.up.len.x * frfl(nextbone.off.x),nextbone.up.len.y * frfl(nextbone.off.y),nextbone.up.len.z * frfl(nextbone.off.z))
         }
       glMultMatrixf(nextbone.base)
       glGetfloatv(GL_MODELVIEW_MATRIX,nextbone.curr) 
