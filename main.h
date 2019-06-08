@@ -264,6 +264,7 @@ float mixfrfl(input)
       }
     }
   }
+#define SUITFIT(M,N) (mixfrfl(M[TAILOR.N]))
 
 struct my_date_time
   {
