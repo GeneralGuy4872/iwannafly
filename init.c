@@ -15,6 +15,7 @@ bool dologs
 unsigned char base_species
 struct mesure_index TAILOR
 mesurements base_mesure
+vector2 base_hitbox
 FILE logfile
 torusmap planet1
 entity player1
@@ -175,6 +176,26 @@ init__setup()
               TAILOR.q_angle = atoi(ini_data)
               break
               }
+            case HASH5('e','y','e') :
+              {
+              TAILOR.eyes = atoi(ini_data)
+              break
+              }
+            case HASH5('b','a','s') :
+              {
+              TAILOR.base = atoi(ini_data)
+              break
+              }
+            case HASH5('h','b','r') :
+              {
+              base_hitbox.x = atof(ini_data)
+              break
+              }
+            case HASH5('h','b','h') :
+              {
+              base_hitbox.y = atof(ini_data)
+              break
+              }
             default :
               {
               break
@@ -202,13 +223,8 @@ init__setup()
         tsv_num = strtok(NULL,"\t")
         if ( tsv_num != NULL )
           {
-          tsv_denom = strtok(NULL,"\t")
-          if ( tsv_denom != NULL )
-            {
-            base_mesure[n].whole = atoi(tsv_whole)
-            base_mesure[n].num = atoi(tsv_num)
-            base_mesure[n].denom = atoi(tsv_denom)
-            }
+          base_mesure[n].whole = atoi(tsv_whole)
+          base_mesure[n].num = atoi(tsv_num)
           }
         }
       }
