@@ -65,12 +65,12 @@ struct entity
 	struct entity *prev
 	struct entity *next
 	struct vector3 pos
-	struct vector3 hitbox //x = radius, y = height, z = bone offset
+	struct hitbox_type hitbox
 	struct vector3 Velo
 	struct vector3 Torq
 	matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infra NOT IMPLEMENTED
-	struct microvec collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = bone offset from
+	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement
 	unsigned char health
 	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
 	struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
@@ -123,7 +123,6 @@ onstep_player (player)
 
 struct cameratype
 	{
-	struct entity *root
 	struct vector4 coord
 	matrix rot = matgen_ident
 	struct viewform format //0 = dec, 1 = oct, -n = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon : 0 = m/ or nmi/, 1 = km/ : 0 = /s, 1 = /h : infra : uv
