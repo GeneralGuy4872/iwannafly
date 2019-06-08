@@ -1,6 +1,5 @@
-struct bone *sculpt_avian(geomet,cam)
+struct bone *sculpt_avian(geomet)
   mesurements geomet
-  cameratype *cam
   {
   struct bone *index_pelvis = {NULL,NULL,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{0,SUITFIT(geomet,hip)/2,SUITFIT(geomet,coxyx)},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
