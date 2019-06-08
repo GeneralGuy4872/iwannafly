@@ -315,7 +315,7 @@ struct viewform
   bool dist : 1
   bool time : 1
   bool uv : 1
-  bool debug : 1
+  bool infra : 1
   }
 
 struct hitbox_type
