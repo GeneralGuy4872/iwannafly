@@ -10,7 +10,7 @@ struct bone *sculpt_avian(geomet,cam)
   struct bone *index_skull = {index_neck,index_neck,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,skull),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
   struct shape *index_pelvis->geom = shape_poly_octo(SUITFIT(geomet,skull)
   doublelink(index_skull)
-  <HR>
+  //<HR>
   bone *lshoulder = (*cervical,*head,NULL,(0,0,0),(.198,0,0),matgen_z_deg(-90),matgen_ident,TRUE,NULL,0)
   doublelink(*lshoulder)
   bone *lwrist = arm(*lshoulder,*lshoulder,.3,LEFT)
