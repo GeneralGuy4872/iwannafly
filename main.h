@@ -320,8 +320,8 @@ struct viewform
 
 struct hitbox_type
   {
-  float r
-  float h
+  struct mixfraction r
+  struct mixfraction h
   struct fraction eyes
   struct fraction base
   }
@@ -408,8 +408,8 @@ struct mesure_index
 #define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
 #define TOSGN(S) ((S < 0) * -1) //1-bit sign
 
-#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + M.hitbox.r + (M.hitbox.r * frfl(M.hitbox.base)) ) : ( M.pos.z + (M.hitbox.h / 2) + ((M.hitbox.h / 2) * frfl(M.hitbox.base)) ) )
-#define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (M.hitbox.h * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (M.hitbox.h / 2) + ((M.hitbox.h / 2) * frfl(M.hitbox.eyes)) ) )
+#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + mixfrfl(M.hitbox.r) + (mixfrfl(M.hitbox.r) * frfl(M.hitbox.base)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.base)) ) )
+#define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (mixfrfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
