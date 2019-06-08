@@ -123,6 +123,7 @@ onstep_player (player)
 
 struct cameratype
 	{
+	struct entity *up
 	struct vector4 coord
 	matrix rot = matgen_ident
 	struct viewform format //0 = dec, 1 = oct, -n = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon : 0 = m/ or nmi/, 1 = km/ : 0 = /s, 1 = /h : infra : uv
