@@ -147,7 +147,7 @@ init__setup()
               }
             case HASH5('f','e','m') :
               {
-              TAILOR.fem = atoi(ini_data)
+              TAILOR.femr = atoi(ini_data)
               break
               }
             case HASH5('s','h','o') :
