@@ -175,14 +175,14 @@ init__setup()
               TAILOR.q_angle = atoi(ini_data)
               break
               }
-            case HASH5('e','y','e') :
+            case HASH5('h','b','e') :
               {
-              TAILOR.eyes = atoi(ini_data)
+              TAILOR.hbeyes = atoi(ini_data)
               break
               }
-            case HASH5('b','a','s') :
+            case HASH5('h','b','o') :
               {
-              TAILOR.base = atoi(ini_data)
+              TAILOR.hboffset = atoi(ini_data)
               break
               }
             case HASH5('h','b','r') :
