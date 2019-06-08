@@ -266,6 +266,25 @@ float mixfrfl(input)
   }
 #define SUITFIT(M,N) (mixfrfl(M[TAILOR.N]))
 
+struct mixfraction flmixfr(input)
+  float input
+  {
+  struct mixfraction output
+  output.whole = (unsigned char) input
+  output.num = (unsigned char) (input - output.whole) * FRAC_DEN
+  output.sign = SGN(input)
+  return output
+  }
+
+struct fraction flfr(input)
+  float input
+  {
+  struct fraction output
+  output.num = ((unsigned int) (input) * FRAC_DEN) - 1
+  output.sign = SGN(input)
+  return output
+  }
+
 struct my_date_time
   {
   unsigned int year : 3
