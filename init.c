@@ -15,7 +15,6 @@ bool dologs
 unsigned char base_species
 struct mesure_index TAILOR
 mesurements base_mesure
-vector2 base_hitbox
 FILE logfile
 torusmap planet1
 entity player1
@@ -188,12 +187,12 @@ init__setup()
               }
             case HASH5('h','b','r') :
               {
-              base_hitbox.x = atof(ini_data)
+              TAILOR.hbradius = atoi(ini_data)
               break
               }
             case HASH5('h','b','h') :
               {
-              base_hitbox.y = atof(ini_data)
+              TAILOR.hbheight = atoi(ini_data)
               break
               }
             default :
