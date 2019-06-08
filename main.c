@@ -17,8 +17,6 @@
 #include <stdbool.h>
 #include <math.h>
 #include <limits.h>
-#include <locale.h>
-#include <langinfo.h>
 #include <time.h>
 //#include <string.h>
 //#include <regex.h>
