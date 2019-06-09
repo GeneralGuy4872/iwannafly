@@ -117,8 +117,7 @@ struct camera_ang
   float x
   float y
   float z
-  unsigned int f : 5
-  char : 0
+  short f
   }
 
 struct vector2
