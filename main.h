@@ -112,6 +112,15 @@ struct vector3
   float z
   }
 
+struct camera_ang
+  {
+  float x
+  float y
+  float z
+  unsigned int f : 5
+  char : 0
+  }
+
 struct vector2
   {
   float x
