@@ -98,7 +98,7 @@ onstep_player (player)
 	
 	player.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
 	player.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
-	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,2048) //meters, zero;arbitrary ceiling
+	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,10000) //meters, zero;arbitrary ceiling
 	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	player.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
 	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
@@ -118,9 +118,20 @@ onstep_player (player)
 struct cameratype
 	{
 	struct entity *up
-	struct vector4 coord
-	matrix rot = matgen_ident
-	struct viewform format //0 = dec, 1 = oct, -n = hex : 0 = deg, 1 = rad, 2 = turn, 3 = gon : 0 = m/, 1 = cm/, -1 = km, -2 = myram/ : 0 = /s, 1 = /h : infra : uv
+	struct camera_ang coord
+	matrix rot
+	struct viewform format
+		/*
+		int base 0 = dec, 1 = oct, -n = hex
+		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
+		speed units 0 = m/s, 1 = km/h, -1 = cm/s, -2 = ft/s
+		elevation units 0 = m, 1 = km, -1 = cm, -2 = ft
+		infrared
+		uv
+		
+		ft = 30cm
+		*/
+	unsigned short gold
 	unsigned short points
 	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
@@ -129,9 +140,9 @@ onstep_camera (camera)
 	struct cameratype camera
 	{
 	camera.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
-	camera.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees; no roll axis, so not clamped to 180
-	camera.coord.z = CLAMP((camera.coord.z + camera_buffer.z),-90,90) //meters, soccer pitch
-	camera.coord.w = CLAMP((camera.coord.w + camera_buffer.w),5,270) //degrees
+	camera.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
+	camera.coord.z = CLAMP((camera.coord.z + camera_buffer.z),-120,120) //meters, 2 arcminutes either direction
+	camera.coord.w = CLAMP((camera.coord.w + camera_buffer.w),5,255) //degrees
 	matset_sphere_deg(camera,camera.coord.x,camera.coord.y,camera.coord.z,1,1)
 	}
 
@@ -171,7 +182,6 @@ main ()
 	{
 	init__setup()
 	printf(VITALSTAT_FULL(Without forks,REV_NOFORK))
-	//still see no reason that this couldn't be just as well with a goto-jump table...
 	while run
 		{
 		if nextframe
