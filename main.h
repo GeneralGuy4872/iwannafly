@@ -55,8 +55,6 @@ div_t div_tmp;
 typedef int (*eventfunc)(int,*char[]) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
-typedef char deg_str[4 + 1 + 2 + 1] 
-typedef char field_str[8] //number of octal places in USHRT_MAX, rounded up
 typedef char mydate_str[24]
 
 #ifdef __bool_true_false_are_defined
@@ -371,7 +369,7 @@ struct statreg
 struct viewform
   {
   tern base : 2
-  quard deg : 2
+  tern deg : 2
   tern dist : 2
   bool time : 1
   bool uv : 1
@@ -463,6 +461,7 @@ struct mesure_index
 #define D_GON(N) ((N%360)*(10/9))
 #define G_RAD(N) ((N%400)*(M_PI/200))
 #define G_DEG(N) ((N%400)*(9/10))
+#define R_BPI(N) ((N/M_PI)%2)
 #define zin(N) (-1 * sin(N))
 #define bos(N) (-1 * cos(N))
 #define SANE(N) (N == 0 ? TRUE : N)
