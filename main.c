@@ -86,33 +86,32 @@ struct entity
 #define ROLL(X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.ground) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
 //end dragons
 
-onstep_player (player)
-	struct entity player
+onstep_player
 	{
-	player.Velo.x = PHYSICS(player,Velo.x,player_buffer.x0)
-	player.Velo.y = PHYSICS(player,Velo.y,player_buffer.y0)
-	player.Velo.z = GRAVITY(player,Velo.z,(player_buffer.rt + player_buffer.lt))
-	player.Torq.x = ROLL(player,Torq.x,(player_buffer.rt - player_buffer.lt))
-	player.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
-	player.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
+	PLAYER.Velo.x = PHYSICS(player,Velo.x,player_buffer.x0)
+	PLAYER.Velo.y = PHYSICS(player,Velo.y,player_buffer.y0)
+	PLAYER.Velo.z = GRAVITY(player,Velo.z,(player_buffer.rt + player_buffer.lt))
+	PLAYER.Torq.x = ROLL(player,Torq.x,(player_buffer.rt - player_buffer.lt))
+	PLAYER.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
+	PLAYER.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
 	
-	player.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
-	player.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
-	player.pos.z = CLAMP((player.pos.z + player.Velo.z),0,10000) //meters, zero;arbitrary ceiling
-	player.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
-	player.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
-	player.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
+	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
+	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
+	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),0,10000) //meters, zero;arbitrary ceiling
+	PLAYER.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
+	PLAYER.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
+	PLAYER.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
 
-	if (player.stat.horiz)
+	if (PLAYER.stat.horiz)
 		{
-		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,INVPIT(player),1)
+		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,TOSGN(!(PLAYER.stat.yinv)),1)
 		}
 	else
 		{
-		matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,INVPIT(player),1)
+		matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,TOSGN(!(PLAYER.stat.yinv)),1)
 		}
 	
-	xwind__update_vals(player)
+	xwind__update_vals(PLAYER)
 	}
 
 struct cameratype
@@ -136,13 +135,12 @@ struct cameratype
 	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
 
-onstep_camera (camera)
-	struct cameratype camera
+onstep_camera
 	{
-	camera.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
-	camera.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
-	camera.coord.z = CLAMP((camera.coord.z + camera_buffer.z),-120,120) //meters, 2 arcminutes either direction
-	camera.coord.w = CLAMP((camera.coord.w + camera_buffer.w),5,255) //degrees
+	CAMERA.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
+	CAMERA.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMERA.coord.z = CLAMP((camera.coord.z + camera_buffer.z),-120,120) //meters, 2 arcminutes either direction
+	CAMERA.coord.f = CLAMP((camera.coord.f + camera_buffer.f),5,270) //degrees
 	matset_sphere_deg(camera,camera.coord.x,camera.coord.y,camera.coord.z,1,1)
 	}
 
