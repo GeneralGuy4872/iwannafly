@@ -88,12 +88,12 @@ struct entity
 
 onstep_player
 	{
-	PLAYER.Velo.x = PHYSICS(player,Velo.x,player_buffer.x0)
-	PLAYER.Velo.y = PHYSICS(player,Velo.y,player_buffer.y0)
-	PLAYER.Velo.z = GRAVITY(player,Velo.z,(player_buffer.rt + player_buffer.lt))
-	PLAYER.Torq.x = ROLL(player,Torq.x,(player_buffer.rt - player_buffer.lt))
-	PLAYER.Torq.z = PHYSICS(player,Torq.z,player_buffer.x1)
-	PLAYER.Torq.y = PHYSICS(player,Torq.y,player_buffer.y1)
+	PLAYER.Velo.x = PHYSICS(player,Velo.x,MOVBUFFER.x)
+	PLAYER.Velo.y = PHYSICS(player,Velo.y,MOVBUFFER.y)
+	PLAYER.Velo.z = GRAVITY(player,Velo.z,(MOVBUFFER.rt + MOVBUFFER.lt))
+	PLAYER.Torq.x = ROLL(player,Torq.x,(MOVBUFFER.rt - MOVBUFFER.lt))
+	PLAYER.Torq.z = PHYSICS(player,Torq.z,MOVBUFFER.yaw)
+	PLAYER.Torq.y = PHYSICS(player,Torq.y,MOVBUFFER.pit)
 	
 	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
 	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
@@ -125,6 +125,7 @@ struct cameratype
 		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
 		speed units 0 = m/s, 1 = km/h, -1 = cm/s, -2 = ft/s
 		elevation units 0 = m, 1 = km, -1 = cm, -2 = ft
+		(latitude/longitude is always in degrees*minutes')
 		infrared
 		uv
 		
@@ -137,10 +138,10 @@ struct cameratype
 
 onstep_camera
 	{
-	CAMERA.coord.x = (camera.coord.x + camera_buffer.x)%360 //degrees
-	CAMERA.coord.y = (camera.coord.y + camera_buffer.y)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
-	CAMERA.coord.z = CLAMP((camera.coord.z + camera_buffer.z),-120,120) //meters, 2 arcminutes either direction
-	CAMERA.coord.f = CLAMP((camera.coord.f + camera_buffer.f),5,270) //degrees
+	CAMERA.coord.x = (camera.coord.x + MOVBUFFER.az)%360 //degrees
+	CAMERA.coord.y = (camera.coord.y + MOVBUFFER.alt)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMERA.coord.r = CLAMP((camera.coord.r + MOVBUFFER.zoom),-120,120) //meters, 2 arcminutes either direction
+	CAMERA.coord.f = CLAMP((camera.coord.f + MOVBUFFER.fov),5,270) //degrees
 	matset_sphere_deg(camera,camera.coord.x,camera.coord.y,camera.coord.z,1,1)
 	}
 
