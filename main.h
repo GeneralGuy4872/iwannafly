@@ -116,8 +116,8 @@ struct camera_ang
   {
   float x
   float y
-  float z
-  short f
+  signed short r
+  unsigned short f
   }
 
 struct vector2
@@ -470,12 +470,13 @@ struct mesure_index
 #define G_RAD(N) ((N%400)*(M_PI/200))
 #define G_DEG(N) ((N%400)*(9/10))
 #define R_BPI(N) ((N/M_PI)%2)
-#define zin(N) (-1 * sin(N))
-#define bos(N) (-1 * cos(N))
+#define zin(N) NEG(sin(N))
+#define bos(N) NEG(cos(N))
 #define SANE(N) (N == 0 ? TRUE : N)
-#define SGN(N) (N == 0 ? FALSE : (N < 0 ? TRISTATE : TRUE))
-#define FSGN(N) ((tern) (SGN(N) * TRISTATE)) //flipped sign
-#define TOSGN(S) ((S < 0) * -1) //1-bit sign
+
+#define SGN(N) ( isfinite(N) ? ( N == 0 ? 0 : ( N < 0 ? -1 : 1 )) : QUANTUM )
+#define TOSGN(N) ( N < 0 ? -1 : 0 )
+#define NEG(N) (-1 * N)
 
 #define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + mixfrfl(M.hitbox.r) + (mixfrfl(M.hitbox.r) * frfl(M.hitbox.offset)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.offset)) ) )
 #define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (mixfrfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
@@ -601,7 +602,9 @@ div_t radf_to_deg(input)
   float input;
   {
   div_t output = div(input,60);
+  
   output.quot = (output.quot % 360) - 180;
+  output.quot > -180 ? NOP : output.quot = output.quot + 180
   return output
   }
 #define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
