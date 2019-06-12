@@ -1,26 +1,19 @@
 //ioctl interface for input via /dev/js0
 //you arrived here from main
 
-struct joybuff
+struct inbuff
   {
-  signed short x0
-  signed short y0
-  float x1
-  float y1
+  signed short x
+  signed short y
+  float yaw
+  float pit
+  float az
+  float alt
   unsigned short lt
   unsigned short rt
+  signed short zoom
+  unsigned short fov
   }
-
-struct moubuff
-  {
-  float x
-  float y
-  signed char z
-  unsigned char w
-  }
-
-struct joybuff player_buffer = {0,0,0,0,0,0}
-struct moubuff camera_buffer = {0,0,0,0}
 
 /*
 
