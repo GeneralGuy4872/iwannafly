@@ -29,7 +29,7 @@ struct bone *sculpt_avian(geomet)
   doublelink(lcarple4)
   struct bone *lfinger4 = handphalanges(lcarple4,lcarple4,3,{0,0,0})
   struct bone *rshoulder = malloc(sizeof(struct bone))
-  *rshoulder = {index_spine,lfinger,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,shld),0,0},matgen_z_deg(90),matgen_ident,TRUE,NULL}
+  *rshoulder = {index_spine,lfinger4,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,shld),0,0},matgen_z_deg(90),matgen_ident,TRUE,NULL}
   doublelink(rshoulder)
   struct bone *rarm = arm(rshoulder,rshoulder,SUITFIT(geomet,humr),RIGHT)
   struct bone *rthumb = thumbphalanges(rarm,rarm,3,{0,0,45})
