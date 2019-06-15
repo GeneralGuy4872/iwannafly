@@ -1,55 +1,57 @@
 struct bone *sculpt_avian(geomet)
   mesurements geomet
   {
-  struct bone *index_pelvis = {NULL,NULL,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{0,SUITFIT(geomet,hip)/2,SUITFIT(geomet,coxyx)},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+  struct bone *pelvis = {NULL,NULL,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{0,SUITFIT(geomet,hip)/2,SUITFIT(geomet,coxyx)},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
-  struct shape *index_pelvis->geom = shape_poly_triangle(SUITFIT(geomet,coxyx),SUITFIT(geomet,hip)/2)
-  struct bone *index_spine = spine(index_pelvis,index_pelvis,SUITFIT(geomet,back),16)
-  struct bone *index_neck = spine(index_spine,index_spine,SUITFIT(geomet,neck),7)
-  struct bone *index_skull = {index_neck,index_neck,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,skull),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
-  struct shape *index_pelvis->geom = shape_poly_octo(SUITFIT(geomet,skull)
-  doublelink(index_skull)
-  //<HR>
-  bone *lshoulder = (*cervical,*head,NULL,(0,0,0),(.198,0,0),matgen_z_deg(-90),matgen_ident,TRUE,NULL,0)
-  doublelink(*lshoulder)
-  bone *lwrist = arm(*lshoulder,*lshoulder,.3,LEFT)
-  bone *lthumb = thumbphalanges(*lwrist,*lwrist,3,(0,0,45))
-  bone *lcarple3 = (*lwrist,*lthumb,NULL,(1,0,0),(lwrist->len.x / M_PI,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
-  doublelink(*lcarple3)
-  bone *lfinger3 = handphalanges(*lcarple3,*lcarple3,3,(0,0,0))
-  bone *lcarple2 = (*lwrist,*lfinger3,NULL,(1,0,0),((lwrist->len.x / M_PI) * COS_PI_32,0,0),matgen_z_deg(11.25),matgen_ident,TRUE,NULL,0)
-  doublelink(*lcarple2)
-  bone *lfinger2 = handphalanges(*lcarple2,*lcarple2,3,(0,0,-11.25))
-  bone *lcarple4 = (*lwrist,*lfinger2,NULL,(1,0,0),((lwrist->len.x / M_PI) * COS_PI_32,0,0),matgen_z_deg(-11.25),matgen_ident,TRUE,NULL,0)
-  doublelink(*lcarple4)
-  bone *lfinger4 = handphalanges(*lcarple4,*lcarple4,3,(0,0,11.25))
-  bone *rshoulder = (*cervical,*lfinger4,NULL,(0,0,0),(.198,0,0),matgen_z_deg(90),matgen_ident,TRUE,NULL,0)
-  doublelink(*rshoulder)
-  bone *rwrist = arm(*rshoulder,*rshoulder,.3,RIGHT)
-  bone *rthumb = thumbphalanges(*rwrist,*rwrist,3,(0,0,-45))
-  bone *rcarple3 = (*rwrist,*rthumb,NULL,(1,0,0),(rwrist->len.x / M_PI,0,0),matgen_ident,matgen_ident,TRUE,NULL,0)
-  doublelink(*rcarple3)
-  bone *rfinger3 = handphalanges(*rcarple3,*rcarple3,3,(0,0,0))
-  bone *rcarple2 = (*rwrist,*rfinger3,NULL,(1,0,0),((rwrist->len.x / M_PI) * COS_PI_32,0,0),matgen_z_deg(-11.25),matgen_ident,TRUE,NULL,0)
-  doublelink(*rcarple2)
-  bone *rfinger2 = handphalanges(*rcarple2,*rcarple2,3,(0,0,11.25))
-  bone *rcarple4 = (*rwrist,*rfinger2,NULL,(1,0,0),((rwrist->len.x / M_PI) * COS_PI_32,0,0),matgen_z_deg(11.25),matgen_ident,TRUE,NULL,0)
-  doublelink(*rcarple4)
-  bone *rfinger4 = handphalanges(*rcarple4,*rcarple4,3,(0,0,-11.25))
-  bone *lankle = digiti(*rfinger4,*center,.48,(-15,15),LEFT)
-  bone *ltoe2 = talonphalanges(*lankle,*lankle,3,(0,0,30),COS_PI_16)
-  bone *ltoe3 = talonphalanges(*ltoe2,*lankle,3,(0,0,0),1)
-  bone *ltoe4 = talonphalanges(*ltoe3,*lankle,3,(0,0,-30),COS_PI_8)
-  bone *ltoe1 = talonphalanges(*ltoe4,*lankle,2,(0,0,180),M_SQRT1_2)
-  bone *rankle = digiti(*ltoe1,*center,.48,(15,15),RIGHT)
-  bone *rtoe2 = talonphalanges(*rankle,*rankle,3,(0,0,-30),COS_PI_16)
-  bone *rtoe3 = talonphalanges(*rtoe2,*rankle,3,(0,0,0),1)
-  bone *rtoe4 = talonphalanges(*rtoe3,*rankle,3,(0,0,30),COS_PI_16)
-  bone *rtoe1 = talonphalanges(*rtoe4,*rankle,2,(0,0,-180),COS_PI_8)
-  bone *lwing = avewing(*rtoe1,*cervical->prev->prev->prev->prev->prev,.86,LEFT) //.up = vert[(nmax-1)-5]
-  bone *rwing = avewing(*lwing,*cervical->prev->prev->prev->prev->prev,.86,RIGHT)
-  polygon triangle[1] = bone_inv_triangle(.5,.5)
-  bone *tail = (*center,*rwing,NULL,(1,0,0),(0,.5,-.5),matgen_y_deg(45),matgen_ident,FALSE,*triangle,1)
+  struct shape *pelvis->geom = shape_poly_triangle(SUITFIT(geomet,coxyx),SUITFIT(geomet,hip)/2)
+  struct bone *spine = spine(pelvis,pelvis,SUITFIT(geomet,back),16)
+  struct bone *neck = spine(spine,spine,SUITFIT(geomet,neck),7)
+  struct bone *skull = {neck,neck,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,skull),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+  struct shape *pelvis->geom = shape_poly_octo(SUITFIT(geomet,skull))
+  doublelink(skull)
+  struct bone *lshoulder = {spine,skull,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,shld),0,0},matgen_z_deg(-90),matgen_ident,TRUE,NULL}
+  doublelink(lshoulder)
+  struct bone *larm = arm(lshoulder,lshoulder,SUITFIT(geomet,humr),LEFT)
+  struct bone *lthumb = thumbphalanges(larm,larm,3,{0,0,45})
+  struct bone *lcarple3 = {larm,lthumb,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{larm->len.x / M_PI,0,0},matgen_ident,matgen_ident,TRUE,NULL}
+  doublelink(lcarple3)
+  struct bone *lfinger3 = handphalanges(lcarple3,lcarple3,3,{0,0,0})
+  struct bone *lcarple2 = {larm,lfinger3,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(larm->len.x / M_PI) * COS_PI_32,0,0},matgen_z_deg(11.25),matgen_ident,TRUE,NULL}
+  doublelink(lcarple2)
+  struct bone *lfinger2 = handphalanges(lcarple2,lcarple2,3,{0,0,0})
+  struct bone *lcarple4 = {larm,lfinger2,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(larm->len.x / M_PI) * COS_PI_32,0,0},matgen_z_deg(-11.25),matgen_ident,TRUE,NULL}
+  doublelink(lcarple4)
+  struct bone *lfinger4 = handphalanges(lcarple4,lcarple4,3,{0,0,0})
+  struct bone *rshoulder = {spine,lfinger,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,shld),0,0},matgen_z_deg(90),matgen_ident,TRUE,NULL}
+  doublelink(rshoulder)
+  struct bone *rarm = arm(rshoulder,rshoulder,SUITFIT(geomet,humr),RIGHT)
+  struct bone *rthumb = thumbphalanges(rarm,rarm,3,{0,0,45})
+  struct bone *rcarple3 = {rarm,rthumb,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{rarm->len.x / M_PI,0,0},matgen_ident,matgen_ident,TRUE,NULL}
+  doublelink(rcarple3)
+  struct bone *rfinger3 = handphalanges(rcarple3,rcarple3,3,{0,0,0})
+  struct bone *rcarple2 = {rarm,rfinger3,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(rarm->len.x / M_PI) * COS_PI_32,0,0},matgen_z_deg(-11.25),matgen_ident,TRUE,NULL}
+  doublelink(rcarple2)
+  struct bone *rfinger2 = handphalanges(rcarple2,rcarple2,3,{0,0,0})
+  struct bone *rcarple4 = {rarm,rfinger2,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(rarm->len.x / M_PI) * COS_PI_32,0,0},matgen_z_deg(11.25),matgen_ident,TRUE,NULL}
+  doublelink(rcarple4)
+  struct bone *rfinger4 = handphalanges(rcarple4,rcarple4,3,{0,0,0})
+  struct bone *lleg = digiti(pelvis,rfinger4,SUITFIT(geomet,femr),( NEG(SUITFIT(geomet,q_angle)),15),LEFT)
+  struct bone *ltoe2 = talonphalanges(lleg,lleg,3,{0,0,30},COS_PI_16)
+  struct bone *ltoe3 = talonphalanges(lleg,ltoe2,3,{0,0,0},1)
+  struct bone *ltoe4 = talonphalanges(lleg,ltoe3,3,{0,0,-30},COS_PI_8)
+  struct bone *ltoe1 = talonphalanges(lleg,ltoe4,2,{0,0,180},M_SQRT1_2)
+  struct bone *lleg = digiti(pelvis,rfinger4,SUITFIT(geomet,femr),(SUITFIT(geomet,q_angle),15),LEFT)
+  struct bone *ltoe2 = talonphalanges(lleg,lleg,3,{0,0,-30},COS_PI_16)
+  struct bone *ltoe3 = talonphalanges(lleg,ltoe2,3,{0,0,0},1)
+  struct bone *ltoe4 = talonphalanges(lleg,ltoe3,3,{0,0,30},COS_PI_8)
+  struct bone *ltoe1 = talonphalanges(lleg,ltoe4,2,{0,0,180},M_SQRT1_2)
+  struct bone *lwing = avewing(spine->prev->prev->prev->prev->prev,rwing,SUITFIT(geom,wing),LEFT)
+  struct bone *rwing = avewing(spine->prev->prev->prev->prev->prev,lwing,SUITFIT(geom,wing),RIGHT)
+  //spine() returns vert[nmax-1], so wing.up = vert[nmax-6]
+  //vert is the internal abbriviation for vertabra
+  //nmax is the length of the array (meaning nmax-1 is the last element)
+  struct bone *tail = {pelvis,rwing,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,tail),SUITFIT(geomet,fan_out),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+  struct shape *tail->geom = shape_poly_xfan(SUITFIT(geomet,tail),SUITFIT(geomet,fan_out)/2,4)
   doublelink(tail)
-  return *center
+  return pelvis
   }
