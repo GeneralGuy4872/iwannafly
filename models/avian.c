@@ -3,11 +3,11 @@ struct bone *sculpt_avian(geomet)
   {
   struct bone *pelvis = {NULL,NULL,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{0,SUITFIT(geomet,hip)/2,SUITFIT(geomet,coxyx)},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
-  struct shape *pelvis->geom = shape_poly_triangle(SUITFIT(geomet,coxyx),SUITFIT(geomet,hip)/2)
+  struct shape *(pelvis->geom) = shape_poly_triangle(SUITFIT(geomet,coxyx),SUITFIT(geomet,hip)/2)
   struct bone *spine = spine(pelvis,pelvis,SUITFIT(geomet,back),16)
   struct bone *neck = spine(spine,spine,SUITFIT(geomet,neck),7)
   struct bone *skull = {neck,neck,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,skull),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
-  struct shape *pelvis->geom = shape_poly_octo(SUITFIT(geomet,skull))
+  struct shape *(skull->geom) = shape_poly_octo(SUITFIT(geomet,skull))
   doublelink(skull)
   struct bone *lshoulder = {spine,skull,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,shld),0,0},matgen_z_deg(-90),matgen_ident,TRUE,NULL}
   doublelink(lshoulder)
@@ -51,7 +51,7 @@ struct bone *sculpt_avian(geomet)
   //vert is the internal abbriviation for vertabra
   //nmax is the length of the array (meaning nmax-1 is the last element)
   struct bone *tail = {pelvis,rwing,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{SUITFIT(geomet,tail),SUITFIT(geomet,fan_out),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
-  struct shape *tail->geom = shape_poly_xfan(SUITFIT(geomet,tail),SUITFIT(geomet,fan_out)/2,4)
+  struct shape *(tail->geom) = shape_poly_xfan(SUITFIT(geomet,tail),SUITFIT(geomet,fan_out)/2,4)
   doublelink(tail)
   return pelvis
   }
