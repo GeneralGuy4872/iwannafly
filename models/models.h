@@ -5,7 +5,6 @@ struct bone
   struct bone *next,
   struct fracvector3 off,
   struct vector3 len,
-  struct bytevector2 theta,
   struct matrix base,
   struct matrix curr,
   struct truecolor color,
