@@ -43,6 +43,8 @@ M_SQRT_2  M_SQRT1_2
 #define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
 #define MY_TAU 6.283185307179586476925
+#define LOG_3_PI 1.041978045992185865114
+#define ONE_1_9 1.11111111111111111111111
 
 #define FPS 30 //frames per second (hz)
 static const float MSEC_FRAME = ((1.0 / FPS) * 1000) //milliseconds per frame (msec)
