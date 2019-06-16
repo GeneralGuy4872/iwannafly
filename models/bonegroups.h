@@ -38,7 +38,7 @@ struct bone *spine(root,prev,nmax,len)
   struct bone verta[10]
   for (n = 0;n < nmax;n++)
     {
-    verta[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR(n!=0,FR_DEN)},{0,0,len/nmax},matgen_ident,matgen_ident,TRUE,NULL}
+    verta[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR(n!=0,FR_DEN)},{0,0,len/nmax},{0,0},matgen_ident,matgen_ident,TRUE,NULL}
     prev->next = verta[n]
     prev = verta[n]
     }
@@ -54,7 +54,7 @@ struct bone *offspine(root,prev,nmax,len)
   struct bone verta[10]
   for (n = 0;n < nmax;n++)
     {
-    verta[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len/nmax},matgen_ident,matgen_ident,TRUE,NULL}
+    verta[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len/nmax},{0,0},matgen_ident,matgen_ident,TRUE,NULL}
     prev->next = verta[n]
     prev = verta[n]
     }
@@ -70,7 +70,7 @@ struct bone *xtail(root,prev,nmax,len)
   struct bone verta[10]
   for (n = 0;n < nmax;n++)
     {
-    verta[n] = {root,prev,NULL,{FR_MONE,FR_ZERO,FR_ZERO},{-len/nmax,0,0},matgen_ident,matgen_ident,TRUE,NULL}
+    verta[n] = {root,prev,NULL,{FR_MONE,FR_ZERO,FR_ZERO},{-len/nmax,0,0},{0,0},matgen_ident,matgen_ident,TRUE,NULL}
     prev->next = verta[n]
     prev = verta[n]
     }
@@ -86,7 +86,7 @@ struct bone *ztail(root,prev,nmax,len)
   struct bone verta[10]
   for (n = 0;n < nmax;n++)
     {
-    verta[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR_MONE},{-len/nmax,0,0},matgen_ident,matgen_ident,TRUE,NULL}
+    verta[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR_MONE},{-len/nmax,0,0},{0,0},matgen_ident,matgen_ident,TRUE,NULL}
     prev->next = verta[n]
     prev = verta[n]
     }
@@ -104,12 +104,27 @@ struct bone *handphalanges(root,prev,nmax,rot)
   for (n = 0;n < nmax;n++)
     {
     float len = len/G_RATIO
-    phalng[n] = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
-    prev->next = &(phalng[n])
-    prev = &(phalng[n])
+    phalng[n] = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},{0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+    prev->next = phalng[n]
+    prev = phalng[n]
     rot = {0,0,0}
     }
   return phalng[nmax-1]
+  }
+
+struct bone *finger(root,prev,nmax,rot,factor)
+  struct bone *prev
+  struct bone *root
+  unsigned char nmax
+  struct vector3 rot
+  {
+  struct bone *carple = malloc(sizeof(struct bone))
+  *carple = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(root->len.x / M_E) * factor,0,0},{0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+  doublelink(carple)
+  rot.x = NEG(rot.x)
+  rot.y = NEG(rot.y)
+  rot.z = NEG(rot.z)
+  return handphalanges(carple,carple,nmax,rot)
   }
 
 struct bone *thumbphalanges(root,prev,nmax,rot)
@@ -118,13 +133,13 @@ struct bone *thumbphalanges(root,prev,nmax,rot)
   unsigned char nmax
   struct vector3 rot
   {
-  float len = root.len.x / M_PI
+  float len = root->len.x / M_PI
   struct bone phalng[nmax]
   for (n = 0;n < nmax;n++)
     {
-    phalng[n] = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
-    prev->next = *phalng[n]
-    prev = *phalng[n]
+    phalng[n] = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},{0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+    prev->next = phalng[n]
+    prev = phalng[n]
     rot = {0,0,0}
     len = len/G_RATIO
     }
@@ -137,17 +152,32 @@ struct bone *footphalanges(root,prev,nmax,rot)
   unsigned char nmax
   struct vector3 rot
   {
-  float len = root.len.x
+  float len = root->len.x
   struct bone phalng[nmax]
   for (n = 0;n < nmax;n++)
     {
     len = len/S_RATIO
-    phalng[n] = {root,prev,NULL,{FR_ONE,FR_ZERO,FR(n!=0 - 1,FR_DEN)},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+    phalng[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR_ONE},{len,0,0},{0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
     prev->next = *phalng[n]
-    prev = *phalng[n]
+    prev = phalng[n]
     rot = {0,0,0}
     }
   return phalng[nmax-1]
+  }
+
+struct bone *toe(root,prev,nmax,rot,factor)
+  struct bone *prev
+  struct bone *root
+  unsigned char nmax
+  struct vector3 rot
+  {
+  struct bone *carple = malloc(sizeof(struct bone))
+  *carple = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(root->len.z / M_LOG2E) * factor,0,0},{0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+  doublelink(carple)
+  rot.x = NEG(rot.x)
+  rot.y = NEG(rot.y)
+  rot.z = NEG(rot.z)
+  return footphalanges(carple,carple,nmax,rot)
   }
 
 struct bone *talonphalanges(root,prev,nmax,rot,factor)
@@ -157,13 +187,13 @@ struct bone *talonphalanges(root,prev,nmax,rot,factor)
   struct vector3 rot
   double factor
   {
-  float len = ((root.len.z * -1) / M_E) * factor
+  float len = ((root->len.z * -1) / M_E) * factor
   struct bone phalng[nmax]
   for (n = 0;n < nmax;n++)
     {
     len = len/G_RATIO
-    phalng[n] = {root,prev,NULL,{NFR_ONE,NFR_ZERO,FR(n!=0 - 1,FR_DEN},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
-    prev->next = *phalng[n]
+    phalng[n] = {root,prev,NULL,{FR(n!=0,FR_DEN),FR_ZERO,FR(n==0,FR_DEN},{len,0,0},{0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+    prev->next = phalng[n]
     prev = phalng[n]
     rot = {0,0,0}
     }
@@ -178,10 +208,10 @@ struct bone *arm(root,prev,len,side)
   {
   struct bone limb[2]
     {
-    prev->next = *limb[0]
-    limb[0] = {root,prev,limb[1],{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},matgen_ident,matgen_ident,TRUE,NULL}
+    prev->next = limb[0]
+    limb[0] = {root,prev,limb[1],{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},{0,0},matgen_ident,matgen_ident,TRUE,NULL}
     len = len/G_RATIO
-    limb[1] = {root,limb[0],NULL,{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},matgen_x_deg(90),matgen_ident,TRUE,NULL}
+    limb[1] = {root,limb[0],NULL,{FR_ONE,FR_ZERO,FR_ZERO},{len,0,0},{0,0},matgen_x_deg(90),matgen_ident,TRUE,NULL}
     }
   return limb[1]
   }
@@ -195,11 +225,11 @@ struct bone *leg(root,prev,len,Q,side)
   {
   struct bone limb[2]
     {
-    prev->next = *limb[0]
-    limb[0] = {root,prev,limb[1],{FR_ZERO,FR(side,FR_DEN/2),FR_ONE},{0,0,-1*len},matgen_x_deg(Q),matgen_ident,TRUE,NULL}
+    prev->next = limb[0]
+    limb[0] = {root,prev,limb[1],{FR_ZERO,FR(side,FR_DEN/2),FR_ONE},{0,0,-1*len},{0,0},matgen_x_deg(Q),matgen_ident,TRUE,NULL}
     len = len/G_RATIO
     Q = Q * -1
-    limb[1] = {root,limb[0],NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,-1*len},matgen_x_deg(Q),matgen_ident,TRUE,NULL}
+    limb[1] = {root,limb[0],NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,-1*len},{0,0},matgen_x_deg(Q),matgen_ident,TRUE,NULL}
     }
   return limb[1]
   }
@@ -214,11 +244,11 @@ struct bone *digiti(root,prev,len,Q,side)
   struct bone limb[3]
     {
     prev->next = limb[0]
-    limb[0] = {root,prev,limb[1],{FR_ZERO,FR(side,FR_DEN/2),FR_ONE},{0,0,-1 * len},matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL}
+    limb[0] = {root,prev,limb[1],{FR_ZERO,FR(side,FR_DEN/2),FR_ONE},{0,0,-1 * len},{0,0},matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL}
     Q = {Q.x * -1,Q.y * 2 * -1}
-    limb[1] = {root,limb[0],limb[2],{FR_ZERO,FR_ZERO,FR_ONE},{0,0,-1 * len * G_RATIO},matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL}
+    limb[1] = {root,limb[0],limb[2],{FR_ZERO,FR_ZERO,FR_ONE},{0,0,-1 * len * G_RATIO},{0,0},matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL}
     Q = {0,Q.y * -1}
-    limb[2] = {root,limb[1],NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,-1 * len},matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL}
+    limb[2] = {root,limb[1],NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,-1 * len},{0,0},matgen_master_deg(Q.x,Q.y,0),matgen_ident,TRUE,NULL}
     }
   return limb[2]
   }
@@ -232,9 +262,9 @@ struct bone *avewing(root,prev,len,side)
   struct bone limb[3]
     {
     prev->next = limb[0]
-    limb[0] = {root,prev,limb[1],{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len},matgen_x_deg(135 * side),matgen_ident,TRUE,NULL}
-    limb[1] = {root,limb[0],limb[2],{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len * G_RATIO},matgen_x_deg(108 * side),matgen_ident,TRUE,NULL}
-    limb[2] = {root,limb[1],NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len},matgen_x_deg(150 * -1 * side),matgen_ident,TRUE,NULL}
+    limb[0] = {root,prev,limb[1],{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len},{0,0},matgen_x_deg(135 * side),matgen_ident,TRUE,NULL}
+    limb[1] = {root,limb[0],limb[2],{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len * G_RATIO},{0,0},matgen_x_deg(108 * side),matgen_ident,TRUE,NULL}
+    limb[2] = {root,limb[1],NULL,{FR_ZERO,FR_ZERO,FR_ONE},{0,0,len},{0,0},matgen_x_deg(150 * -1 * side),matgen_ident,TRUE,NULL}
     }
   return limb[2]
   }
