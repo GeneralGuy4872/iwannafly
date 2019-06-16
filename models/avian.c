@@ -37,7 +37,7 @@ struct bone *sculpt_avian(geomet)
   struct bone *rtoe3 = talonphalanges(rleg,rtoe2,3,{0,0,0},1)
   struct bone *rtoe4 = talonphalanges(rleg,rtoe3,3,{0,0,xRIGHT(30)},COS_PI_8)
   struct bone *rtoe1 = talonphalanges(rleg,rtoe4,2,{0,0,180},M_SQRT1_2)
-  struct bone *lwing = avewing(index_spine->prev->prev->prev->prev->prev,rwing,mfrfl(geomet[13]),LEFT)
+  struct bone *lwing = avewing(index_spine->prev->prev->prev->prev->prev,rtoe1,mfrfl(geomet[13]),LEFT)
   struct bone *rwing = avewing(index_spine->prev->prev->prev->prev->prev,lwing,mfrfl(geomet[13]),RIGHT)
   //spine() returns vert[nmax-1], so wing.up = vert[nmax-6]
   //vert is the internal abbriviation for vertabra
