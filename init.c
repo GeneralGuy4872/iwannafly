@@ -59,6 +59,7 @@ init__setup()
 
   char ini_buffer[BUFFER_MAX]
   char dimpath[BUFFER_MAX]
+  char angpath[BUFFER_MAX]
   char *ini_key
   char *ini_data
   while fscanf(ini_file,"\n",ini_buffer)
@@ -114,6 +115,11 @@ init__setup()
               strncpy(dimpath,ini_data,sizeof(dimpath) - 1)
               break
               }
+            case HASH5('a','n','g') :
+              {
+              strncpy(dimpath,ini_data,sizeof(dimpath) - 1)
+              break
+              }
             default :
               {
               break
@@ -132,20 +138,29 @@ init__setup()
     char tsv_buffer[BUFFER_MAX]
     char *tsv_whole
     char *tsv_num
-    for (n=0;fscanf(dim_file,"\n",tsv_denom);n++)
+    for (n=0;fscanf(dim_file,"\n",tsv_buffer);n++)
       {
-      tsv_whole = strtok(tsv_denom,"\t")
+      tsv_whole = strtok(tsv_buffer,"\t")
       if ( tsv_whole != NULL )
         {
         tsv_num = strtok(NULL,"\t")
         if ( tsv_num != NULL )
           {
-          TAILOR[n].whole = atoi(tsv_whole)
-          TAILOR[n].num = atoi(tsv_num)
+          TAILOR.fr.[n].whole = atoi(tsv_whole)
+          TAILOR.fr.[n].num = atoi(tsv_num)
           }
         }
       }
     fclose(dim_file); 
+    }
+
+  FILE ang_file
+  ang_file = fopen(angpath,"r")
+  if (ang_file != NULL)
+    {
+    char tsv_q[BUFFER_MAX]
+    fscanf(ang_file,"\n",tsv_buffer)
+    atof(
     }
 
   switch (base_species)
