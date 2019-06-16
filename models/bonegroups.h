@@ -29,6 +29,8 @@ void deletevnt(xyzzy)
   free(xyzzy)
   }
 
+//use of irrational constants is as a starting point, will fine-tune values later
+
 struct bone *spine(root,prev,nmax,len)
   struct bone *prev
   struct bone *root
@@ -141,7 +143,7 @@ struct bone *thumbphalanges(root,prev,nmax,rot)
     prev->next = phalng[n]
     prev = phalng[n]
     rot = {0,0,0}
-    len = len/G_RATIO
+    len = len/((n==0) + 1)
     }
   return phalng[nmax-1]
   }
@@ -152,15 +154,15 @@ struct bone *footphalanges(root,prev,nmax,rot)
   unsigned char nmax
   struct vector3 rot
   {
-  float len = root->len.x
+  float len = root->len.x / M_PI
   struct bone phalng[nmax]
   for (n = 0;n < nmax;n++)
     {
-    len = len/S_RATIO
     phalng[n] = {root,prev,NULL,{FR_ZERO,FR_ZERO,FR_ONE},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
     prev->next = *phalng[n]
     prev = phalng[n]
     rot = {0,0,0}
+    len = len/M_SQRT_2
     }
   return phalng[nmax-1]
   }
@@ -172,7 +174,7 @@ struct bone *toe(root,prev,nmax,rot,factor)
   struct vector3 rot
   {
   struct bone *carple = malloc(sizeof(struct bone))
-  *carple = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(root->len.z / M_LOG2E) * factor,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
+  *carple = {root,prev,NULL,{FR_ONE,FR_ZERO,FR_ZERO},{(root->len.z / M_PI) * factor,0,0},matgen_master_deg(rot.x,rot.y,rot.z),matgen_ident,TRUE,NULL}
   doublelink(carple)
   rot.x = NEG(rot.x)
   rot.y = NEG(rot.y)
