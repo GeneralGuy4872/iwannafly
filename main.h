@@ -44,8 +44,8 @@ M_SQRT_2  M_SQRT1_2
 #define S_RATIO 2.414213562373095048802
 #define MY_TAU 6.283185307179586476925
 
-#define FPS 30 //frames per second
-#define MSPF 33 //milliseconds per frame, truncated
+#define FPS 30 //frames per second (hz)
+static const float MSEC_FRAME = ((1.0 / FPS) * 1000) //milliseconds per frame (msec)
 
 #define PI_N(N) (M_PI / N)
 #define PI_2_N(N) (M_PI_2 / N)
@@ -72,16 +72,19 @@ typedef char mydate_str[24]
 #define TRISTATE (tern) -1
 #define QUANTUM (tern) -2
 
-#define LEFT TRISTATE
-#define RIGHT TRUE
+#define LEFT -1
+#define RIGHT 1
+#define xLEFT(N) (LEFT * N)
+#define xRIGHT(N) (RIGHT * N)
+
 
 //VIEWRNG shall be an odd number
 #define VIEWRNG 5
-#define VIEWRNGmax ((VIEWRNG - 1) / 2)
-#define VIEWRNGmin (VIEWRNGmax * -1)
-#define VIEWRNGlim (VIEWRNGmax + 1)
+static const signed char VIEWRNGmax = ((VIEWRNG - 1) / 2)
+static const signed char VIEWRNGmin = (VIEWRNGmax * -1)
+static const signed char VIEWRNGlim = (VIEWRNGmax + 1)
 
-char weekdays[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","?ERR"}
+static const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","?ERR"}
 
 noop() {}
 #define NOP noop()
@@ -229,8 +232,28 @@ struct fracvector3
   struct fraction z
   }
 
-typedef struct mixfraction mesurements[16]
-
+typedef struct mixfraction mesurements[20]
+/*hbradius 0
+ *hbheight 1
+ *hboffset 2
+ *eyes 3
+ *skull 4
+ *neck 5
+ *shoulder 6
+ *back 7
+ *humerus 8
+ *femur 9
+ *pelvis 10
+ *coxxyx 11
+ *tail 12
+ *wing 13
+ *q angle 14
+ *digiti angle 15
+ *fan radius 16
+ *fan length 17
+ *fan angle 18
+ */
+ 
 float frfl(input)
   fraction input
   {
@@ -264,7 +287,7 @@ float frfl(input)
     }
   }
 
-float mixfrfl(input)
+float mfrfl(input)
   mixfraction input
   {
   switch (input.sign)
@@ -296,9 +319,8 @@ float mixfrfl(input)
       }
     }
   }
-#define SUITFIT(M,N) (mixfrfl(M[TAILOR.N]))
 
-struct mixfraction flmixfr(input)
+struct mixfraction flmfr(input)
   float input
   {
   struct mixfraction output
@@ -359,9 +381,9 @@ tick_tock(counter)
   counter.month = div_tmp.rem
   counter.year = (counter.year + div_tmp.quot)%7
   }    
-#define sprinttimedate(N,O) sprintf(O,"%i:%i:%i %s %i/%i/%i",N.hour,N.minute,N.second,weekdays[N.weekday],N.day,N.month,N.year)
-#define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,weekdays[N.weekday],N.day,N.month,N.year)
-#define printtimedate(N) printf("%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,weekdays[N.weekday],N.day,N.month,N.year)
+#define sprinttimedate(N,O) sprintf(O,"%i:%i:%i %s %i/%i/%i",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
+#define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
+#define printtimedate(N) printf("%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
 
 struct statreg
   {
@@ -437,27 +459,6 @@ struct torusmap
   unsigned char dots[360][360]
   unsigned char sealevel
   struct bytevector2 start
-  }
-
-//will be replaced with static macros once a fixed order is established
-struct mesure_index
-  {
-  unsigned int hip : 4
-  unsigned int back : 4
-  unsigned int coxyx : 4
-  unsigned int neck : 4
-  unsigned int skull : 4
-  unsigned int humr : 4
-  unsigned int femu : 4
-  unsigned int shld : 4
-  unsigned int tail : 4
-  unsigned int fan_out : 4
-  unsigned int wing : 4
-  unsigned int q_angle : 4
-  unsigned int hbeyes : 4
-  unsigned int hboffset : 4
-  unsigned int hbradius : 4
-  unsigned int hbheight : 4
   }
   
 #define MAX(A,B) (A > B ? A : B)
