@@ -43,7 +43,7 @@ struct bone *sculpt_avian(geomet)
   //vert is the internal abbriviation for vertabra
   //nmax is the length of the array (meaning nmax-1 is the last element)
     struct bone *index_tail = malloc(sizeof(struct bone))
-    *index_tail = {pelvis,rwing,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{mfrfl(geomet[17]),mfrfl(geomet[16]),0},{mfrfl(geomet[18]),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+    *index_tail = {pelvis,rwing,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{mfrfl(geomet[17]),mfrfl(geomet[16]),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
     *(tail->geom) = shape_poly_xfan(mflfr(geomet[17]),mflfr(geomet[16])/2,mflfr(geomet[18]))
     doublelink(tail)
   return pelvis
