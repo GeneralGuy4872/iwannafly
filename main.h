@@ -1,24 +1,24 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
 /*whether a variable is in ALL_CAPS or not is not an indicator of if it is a macro; what it means
-* is that it is a global value that may be called (or even modified) by functions stealthily.
-* a macro function in ALL_CAPS is a true macro, andless complicated than one that is not,
-* which is a subroutine. all this is complicated by the fact that even this convoluted formatting
-* is currently inconsistant, and the terms "subroutine" and "macro function" are interchangeable
-* by definition and I have yet to establish a true boundry.
-*/
+ *is that it is a global value that may be called (or even modified) by functions stealthily.
+ *a macro function in ALL_CAPS is a true macro, andless complicated than one that is not,
+ *which is a subroutine. all this is complicated by the fact that even this convoluted formatting
+ *is currently inconsistant, and the terms "subroutine" and "macro function" are interchangeable
+ *by definition and I have yet to establish a true boundry.
+ */
 
 /*figure out iff && when time comes
-*
-* #define SHMLOCK(V) some_func(V)
-* #define SHMUNLOCK(V) sume_func(V)
-* #define SHMEX(V,F) SHMLOCK(V); F; SHMUNLOCK(V);
-*
-* #define MMAKE(M,L,N) *M = sizeof(L) mmem [N]
-* #define MMLOCK(V) some_func(V)
-* #define MMUNLOCK(V) sume_func(V)
-* #define MMEX(V,F) MMLOCK(V); F; MMUNLOCK(V);
-*/
+ *
+ *#define SHMLOCK(V) some_func(V)
+ *#define SHMUNLOCK(V) sume_func(V)
+ *#define SHMEX(V,F) SHMLOCK(V); F; SHMUNLOCK(V);
+ *
+ *#define MMAKE(M,L,N) *M = sizeof(L) mmem [N]
+ *#define MMLOCK(V) some_func(V)
+ *#define MMUNLOCK(V) sume_func(V)
+ *#define MMEX(V,F) MMLOCK(V); F; MMUNLOCK(V);
+ */
 
 //these will eventualy be dependent on wait times, once I figure out how to fork without causing wabbits
 //see notes/forks.txt
@@ -31,11 +31,11 @@
 #define VITALSTAT_FULL(N,Z) " \033[1;97m~~ Iwannafly ~~\033[m\n  version: "__MYVERS__"\n\n \033[97m- "N" -\033[m\n  revision: "Z"\n\n\033[3mCompiled on "__DATE__"\033[m\n"
 
 /*
-the library at <math.h> must provide:
-M_E  M_LN2  M_LN10  M_LOG2E  M_LOG10E
-M_PI  M_PI_2  M_PI_4  M_2_PI  M_1_PI
-M_SQRT_2  M_SQRT1_2
-*/
+ *the library at <math.h> must provide:
+ *M_E  M_LN2  M_LN10  M_LOG2E  M_LOG10E
+ *M_PI  M_PI_2  M_PI_4  M_2_PI  M_1_PI
+ *M_SQRT_2  M_SQRT1_2
+ */
 #define COS_PI_8 0.9238795325112867561282
 #define COS_PI_16 0.9807852804032304491262
 #define COS_PI_32 0.9951847266721968862448
@@ -487,8 +487,9 @@ struct torusmap
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
 /*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
-* have not found a clear definition on what layer of the matrix needs to be column major for opengl
-* since I have to rewrite glm, may have dug too deep.*/
+ * have not found a clear definition on what layer of the matrix needs to be column major for opengl
+ * since I have to rewrite glm, may have dug too deep.
+ */
 #define matgen_raw(A,B,C,D,E,F,G,H,I,X,Y,Z) {{A,D,G,0},{B,E,H,0},{C,F,I,0},{X,Y,Z,1}}
 //generate a column-major matrix declaration from a row-major list
 #define matset_raw(M,A,B,C,D,E,F,G,H,I,X,Y,Z) {  M[0][0] = A; M[0][1] = D; M[0][2] = G; M[0][3] = 0; M[1][0] = B; M[1][1] = E; M[1][2] = H; M[1][3] = 0; M[2][0] = C; M[2][1] = F; M[2][2] = I; M[2][3] = 0; M[3][0] = X; M[3][1] = Y; M[3][2] = Z; M[3][3] = 1;  }
