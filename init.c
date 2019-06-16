@@ -13,9 +13,7 @@ char mappath[256]
 char logpath[64]
 bool dologs
 unsigned char base_species
-tern ENCODE
-struct mesure_index TAILOR
-mesurements base_mesure
+mesurements TAILOR
 FILE logfile
 torusmap planet1
 entity player1
@@ -116,86 +114,6 @@ init__setup()
               strncpy(dimpath,ini_data,sizeof(dimpath) - 1)
               break
               }
-            case HASH5('h','i','p') :
-              {
-              TAILOR.hip = atoi(ini_data)
-              break
-              }
-            case HASH5('b','a','c') :
-              {
-              TAILOR.back = atoi(ini_data)
-              break
-              }
-            case HASH5('c','o','x') :
-              {
-              TAILOR.coxyx = atoi(ini_data)
-              break
-              }
-            case HASH5('n','e','c') :
-              {
-              TAILOR.neck = atoi(ini_data)
-              break
-              }
-            case HASH5('s','k','u') :
-              {
-              TAILOR.skull = atoi(ini_data)
-              break
-              }
-            case HASH5('h','u','m') :
-              {
-              TAILOR.humr = atoi(ini_data)
-              break
-              }
-            case HASH5('f','e','m') :
-              {
-              TAILOR.femr = atoi(ini_data)
-              break
-              }
-            case HASH5('s','h','o') :
-              {
-              TAILOR.shld = atoi(ini_data)
-              break
-              }
-            case HASH5('t','a','i') :
-              {
-              TAILOR.tail = atoi(ini_data)
-              break
-              }
-            case HASH5('f','a','n') :
-              {
-              TAILOR.fan_out = atoi(ini_data)
-              break
-              }
-            case HASH5('w','i','n') :
-              {
-              TAILOR.wing_humr = atoi(ini_data)
-              break
-              }
-            case HASH5('q','a','n') :
-              {
-              TAILOR.q_angle = atoi(ini_data)
-              break
-              }
-            case HASH5('h','b','e') :
-              {
-              TAILOR.hbeyes = atoi(ini_data)
-              break
-              }
-            case HASH5('h','b','o') :
-              {
-              TAILOR.hboffset = atoi(ini_data)
-              break
-              }
-            case HASH5('h','b','r') :
-              {
-              TAILOR.hbradius = atoi(ini_data)
-              break
-              }
-            case HASH5('h','b','h') :
-              {
-              TAILOR.hbheight = atoi(ini_data)
-              break
-              }
             default :
               {
               break
@@ -214,7 +132,6 @@ init__setup()
     char tsv_buffer[BUFFER_MAX]
     char *tsv_whole
     char *tsv_num
-    char *tsv_denom
     for (n=0;fscanf(dim_file,"\n",tsv_denom);n++)
       {
       tsv_whole = strtok(tsv_denom,"\t")
@@ -223,8 +140,8 @@ init__setup()
         tsv_num = strtok(NULL,"\t")
         if ( tsv_num != NULL )
           {
-          base_mesure[n].whole = atoi(tsv_whole)
-          base_mesure[n].num = atoi(tsv_num)
+          TAILOR[n].whole = atoi(tsv_whole)
+          TAILOR[n].num = atoi(tsv_num)
           }
         }
       }
