@@ -7,19 +7,20 @@ Far Future plugin interface:
 
 a plugin compiler program parses:
 
-.tsv|.csv        : float, array of float, vector, array of vector, matrix
-.txt             : string literal
-.ini             : struct, non-recursive
-.sgml|.xml|.json : struct, recursive
-.rc              : multiple ini structs
+.tsv  : array
+.csv  : vector
+.ini  : macros
+.rc   : multiple (non-recursive) struct
+.json : single (recursive) struct
+.xml  : multiple (recursive) structs
 
 to objects that can be linked into the main build
 
-events can be programmed in C files and compiled seperately
+events can be programmed in C files using some API and compiled seperately
 
 the resultant objects, along with:
 
-.bin|.hex|.dat|.raw : heightmaps
+.bin|.hex|.dat|.raw : raw binary data
 
 can be specified in a recompiler script that generates a makefile and rebuilds the game to include them
 
