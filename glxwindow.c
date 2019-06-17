@@ -8,12 +8,11 @@
 
 #include "./glxwindow.h"
 
-glx__SetCamera(camera)
-  struct cameratype camera
+glx__SetCamera()
   {    
-  glMatrixMode(GL_PROJECTION);
-  glLoadMatrix(camera.root.head.curr);
-  glMultMatrix(camera.coord)
+  glMatrixMode(GL_MODELVIEW);
+  glLoadMatrix(CAMERA->root.rot);
+  glMultMatrix(matgen_sphere(CAMERA->coord.x,CAMERA->coord.y,CAMERA->coord.z,1,1))
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(camera.coord.w,1,.25,100);
@@ -40,13 +39,13 @@ glx__DrawLoop()
           {
           glMultMatrix(matgen_y_deg(90,1)
           }
-        gltranslate(nextent.pos.x,nextent.pos.y,BASEBONEPOS(nextent))
+        gltranslate(nextent->pos.x,nextent->pos.y,BASEBONEPOS(nextent))
         glMultMatrixf(plugh.rot)
         }
       else
         {
-        glLoadMatrixf(nextbone.up.curr)
-        gltranslate(nextbone.up.len.x * frfl(nextbone.off.x),nextbone.up.len.y * frfl(nextbone.off.y),nextbone.up.len.z * frfl(nextbone.off.z))
+        glLoadMatrixf(nextbone->up->curr)
+        gltranslate(nextbone->up->len.x * frfl(nextbone->off.x),nextbone->up->len.y * frfl(nextbone.off.y),nextbone->up->len.z * frfl(nextbone->off.z))
         }
       glMultMatrixf(nextbone.base)
       glGetfloatv(GL_MODELVIEW_MATRIX,nextbone.curr) 
