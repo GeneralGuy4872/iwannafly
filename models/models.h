@@ -53,5 +53,3 @@ animatething(subject)
   matpush(subject.curr,aninext,aniqueue[0])
   aninext = aninext->next
   }
-  
-//opengl stuff
