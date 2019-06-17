@@ -63,7 +63,7 @@ shapeloop(subject,color)
             n++
             iter0
             }
-        glCullFace(GL_BACK)
+          glCullFace(GL_BACK)
         glEnd()
         mode = 0
         break
@@ -77,7 +77,7 @@ shapeloop(subject,color)
             n++
             iter--
             }
-        glCullFace(GL_BACK)
+          glCullFace(GL_BACK)
         glEnd()
         mode = 0
         break
@@ -117,7 +117,7 @@ shapeloop(subject,color)
             n++
             iter--
             }
-        glCullFace(GL_BACK)
+          glCullFace(GL_BACK)
         glEnd()
         mode = 0
         break
@@ -131,8 +131,8 @@ shapeloop(subject,color)
             n++
             iter--
             }
-        mode = 0
         glEnd()
+        mode = 0
         break
         }
       case 9 :
