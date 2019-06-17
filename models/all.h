@@ -20,7 +20,6 @@ polymorph_avian(target,geomet)
 	mesurements geomet
 	{
 	target.dembones = sculpt_avian(geomet)
-	target.hitbox = {SUITFIT(geomet,hbradius),SUITFIT(geomet,hbheight),SUITFIT(geomet,hbeyes),SUITFIT(geomet,hboffset)}
 	target.stat.horiz = FALSE
 	target.stat.uv = TRUE
 	target.stat.infra = FALSE
@@ -36,7 +35,7 @@ polymorph_avian(target,geomet)
 	mesurements geomet
 	{
 	entity *parent
-	entity tmp = malloc(sizeof(struct entity))
+	entity *tmp = malloc(sizeof(struct entity))
 	if (WORLD.ent_tail != NULL)
   		{
 		parent = WORLD.ent_tail
@@ -59,5 +58,5 @@ polymorph_avian(target,geomet)
 				}
 			}
   		}
-	struct entity tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{SUITFIT(geomet,hbradius),SUITFIT(geomet,hbheight),SUITFIT(geomet,hbeyes),SUITFIT(geomet,hboffset)},{0,0,0},{0,0,0},matgen_ident,'\0','\0',255,{AVE_FRIC,AVE_DRAG_W,AVE_DRAG_Z},{AVE_SPD_X,AVE_SPD_M,AVE_SPD_Z,AVE_SPD_W},sculpt_avian(geomet)}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,'\0','\0',255,{AVE_FRIC,AVE_DRAG_W,AVE_DRAG_Z},{AVE_SPD_X,AVE_SPD_M,AVE_SPD_Z,AVE_SPD_W},sculpt_avian(geomet)}
 	}
