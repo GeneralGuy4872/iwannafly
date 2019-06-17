@@ -34,7 +34,7 @@ foo	bar	quux : an array
 foo	bar
 quux	xyzzy : an array of arrays
 
-a,b,c,d	e,f,g,h	i,j,k,l	w,x,y,z : a matrix
+a,b,c,x	d,e,f,y	g,h,i,z	j,k,l,w : a matrix
 
 technically, [,\t] are interpreted the same and the difference is for readability.
 a space is interpreted as part of the value.
