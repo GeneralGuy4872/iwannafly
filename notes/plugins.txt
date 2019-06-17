@@ -5,23 +5,36 @@
 
 Far Future plugin interface:
 
-a plugin compiler program parses:
+a perl script uses an .rc file to generate a makefile that uses awk to parse:
 
-.tsv  : array
-.csv  : vector
-.ini  : macros
-.rc   : multiple (non-recursive) struct
-.json : single (recursive) struct
-.xml  : multiple (recursive) structs
+.tsv|.csv : array, fraction, vector, matrix, etc
+.ini      : macros, single (non-nested) struct
+.rc       : multiple (non-nested) struct, single (FINITEly nested) struct
+.json     : single (infinately nested) struct
+.xml      : multiple (infinately nested) structs
 
-to objects that can be linked into the main build
-
-events can be programmed in C files using some API and compiled seperately
-
-the resultant objects, along with:
+to C.
+another perl script generates a makefile that combines the resultant code with:
 
 .bin|.hex|.dat|.raw : raw binary data
+.c                  : event function, skeleton
 
-can be specified in a recompiler script that generates a makefile and rebuilds the game to include them
+and the vanilla source to produce the modded game.
 
-alternatively, the uncompiled files could be parsed by the game at runtime. both routes should be pursued.
+a different perl script takes a set of mesurements foo.?sv and a skeleton bar.c and displays it.
+
+
+
+.?sv formatting:
+
+foo,bar,quux : a vector
+
+foo	bar	quux : an array
+
+foo	bar
+quux	xyzzy : an array of arrays
+
+a,b,c,d	e,f,g,h	i,j,k,l	w,x,y,z : a matrix
+
+technically, [,\t] are interpreted the same and the difference is for readability.
+a space is interpreted as part of the value.
