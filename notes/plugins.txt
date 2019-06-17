@@ -1,15 +1,26 @@
-.ini : settings file
-.log : output log
+.ini  : settings file (may be changed to a .foorc file if parser can be improved)
+.tsv  : player mesurements
+.log  : output log
 .save : save file
 
 Far Future plugin interface:
 
-plugin program parses:
-.tsv|.csv           : float, array of float, vector, array of vector, matrix
-.bin|.hex|.dat|.raw : binary file
-.txt|<none>         : string literal
-.ini                : struct, non-recursive
-.sgml|.xml|.json    : struct, recursive
-to C code (useing Awk or Snobol, probably)
-.h = backing code
-.c = main code
+a plugin compiler program parses:
+
+.tsv|.csv        : float, array of float, vector, array of vector, matrix
+.txt             : string literal
+.ini             : struct, non-recursive
+.sgml|.xml|.json : struct, recursive
+.rc              : multiple ini structs
+
+to objects that can be linked into the main build
+
+events can be programmed in C files and compiled seperately
+
+the resultant objects, along with:
+
+.bin|.hex|.dat|.raw : heightmaps
+
+can be specified in a recompiler script that generates a makefile and rebuilds the game to include them
+
+alternatively, the uncompiled files could be parsed by the game at runtime. both routes should be pursued.
