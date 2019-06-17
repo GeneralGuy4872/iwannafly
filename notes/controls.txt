@@ -1,0 +1,14 @@
+movement: stick 1
+pitch/roll: stick 2
+left thrust: left trigger
+right thrust: right trigger
+align camera to player: right shoulder
+align player to camera: left shoulder
+move camera: mouse movement
+camera zoom: scrollwheel
+fov increse: start
+fov decrese: back
+pause: home menu
+jump ~2 meters parabolically in a direction: + control pad
+shoot an arrow: left click
+shoot a magic missile: right click
