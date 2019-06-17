@@ -135,21 +135,9 @@ init__setup()
   dim_file = fopen(dimpath,"r")
   if (dim_file != NULL)
     {
-    char tsv_buffer[BUFFER_MAX]
-    char *tsv_whole
-    char *tsv_num
-    for (n=0;fscanf(dim_file,"\n",tsv_buffer);n++)
+    for (n=0;n<20;n++)
       {
-      tsv_whole = strtok(tsv_buffer,"\t")
-      if ( tsv_whole != NULL )
-        {
-        tsv_num = strtok(NULL,"\t")
-        if ( tsv_num != NULL )
-          {
-          TAILOR.fr.[n].whole = atoi(tsv_whole)
-          TAILOR.fr.[n].num = atoi(tsv_num)
-          }
-        }
+      fscanf(dim_file,%hd,TAILOR[n].whole,TAILOR[n].num)
       }
     fclose(dim_file); 
     }
