@@ -7,34 +7,20 @@ Far Future plugin interface:
 
 a perl script uses an .rc file to generate a makefile that uses awk to parse:
 
-.tsv|.csv : array, fraction, vector, matrix, etc
-.ini      : macros, single (non-nested) struct
-.rc       : multiple (non-nested) struct, single (FINITEly nested) struct
-.json     : single (infinately nested) struct
-.xml      : multiple (infinately nested) structs
+.tsv  : array, fraction, vector, matrix, etc
+.ini  : simple macros, single (non-nested) struct
+.rc   : multiple (non-nested) struct, single (FINITEly nested) struct
+.json : single (infinately nested) struct
+.xml  : multiple (infinately nested) structs
 
-to C.
+to C. file syntax is assumed from extention.
+
 another perl script generates a makefile that combines the resultant code with:
 
 .bin|.hex|.dat|.raw : raw binary data
-.c                  : event function, skeleton
+.c                  : event function, skeleton, misc code
+.h                  : shape macros, misc code
 
 and the vanilla source to produce the modded game.
 
 a different perl script takes a set of mesurements foo.?sv and a skeleton bar.c and displays it.
-
-
-
-.?sv formatting:
-
-foo,bar,quux : a vector
-
-foo	bar	quux : an array
-
-foo	bar
-quux	xyzzy : an array of arrays
-
-a,b,c,x	d,e,f,y	g,h,i,z	j,k,l,w : a matrix
-
-technically, [,\t] are interpreted the same and the difference is for readability.
-a space is interpreted as part of the value.
