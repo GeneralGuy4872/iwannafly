@@ -235,26 +235,9 @@ struct fracvector3
   }
 
 typedef struct mixfraction mesurements[20]
-/*hbradius 0
- *hbheight 1
- *hboffset 2
- *eyes 3
- *skull 4
- *neck 5
- *shoulder 6
- *back 7
- *humerus 8
- *femur 9
- *pelvis 10
- *coxxyx 11
- *tail 12
- *wing 13
- *q angle 14
- *digiti angle 15
- *fan radius 16
- *fan length 17
- *fan angle 18
- */
+enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
+  mes_neck,mes_shld,mes_back,mes_humr,mes_femr,mes_pelv,mes_cxyx,
+  mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_tth}
  
 float frfl(input)
   fraction input
