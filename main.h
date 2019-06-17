@@ -234,26 +234,31 @@ struct fracvector3
   struct fraction z
   }
 
-typedef struct mixfraction mesurements[20]
-/*hbradius 0
- *hbheight 1
- *hboffset 2
- *eyes 3
- *skull 4
- *neck 5
- *shoulder 6
- *back 7
- *humerus 8
- *femur 9
- *pelvis 10
- *coxxyx 11
- *tail 12
- *wing 13
- *q angle 14
- *digiti angle 15
- *fan radius 16
- *fan length 17
- *fan angle 18
+struct mesurements
+  {
+  struct mixfraction mfr[16]
+  struct fraction fr[2]
+  unsigned char b
+  }
+/*hbradius mfr[0]
+ *hbheight mfr[1]
+ *hboffset fr[0]
+ *eyes fr[1]
+ *skull mfr[2]
+ *neck mfr[3]
+ *shoulder mfr[4]
+ *back mfr[5]
+ *humerus mfr[6]
+ *femur mfr[7]
+ *pelvis mfr[8]
+ *coxxyx mfr[9]
+ *tail mfr[10]
+ *wing mfr[11]
+ *q angle mfr[12]
+ *digiti angle mfr[13]
+ *fan radius mfr[14]
+ *fan length mfr[15]
+ *fan angle b
  */
  
 float frfl(input)
