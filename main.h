@@ -324,7 +324,7 @@ struct fraction flfr(input)
   return output
   }
 
-struct fraction truncfr(input)
+struct fraction frtr(input)
   mixfraction input
   {
   fraction output
