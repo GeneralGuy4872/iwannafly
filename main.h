@@ -591,16 +591,16 @@ div_t radf_to_deg(input)
   div_t output = div(input,60);
   
   output.quot = (output.quot % 360) - 180;
-  output.quot > -180 ? NOP : output.quot = output.quot + 180
+  output.quot > -180 ? NOP : output.quot = output.quot + 360
   return output
   }
 #define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
 #define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 #define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 
-#define sprintbase(O,N) (C.base == 0 ? sprintf(O,"=%7d",CAMERA.N) : (C.base > 0 ? sprintf(O,"@%7o",CAMERA.N) : sprintf(O,"$%7x",CAMERA.N)))
-#define fprintbase(O,N) (C.base == 0 ? fprintf(O,"=%7d\n",CAMERA.N) : (C.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
-#define printbase(N) (C.base == 0 ? printf("=%7d\n",CAMERA.N) : (C.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
+#define sprintbase(O,N) (CAMERA.base == 0 ? sprintf(O,"=%7d",CAMERA.N) : (CAMERA.base > 0 ? sprintf(O,"@%7o",CAMERA.N) : sprintf(O,"$%7x",CAMERA.N)))
+#define fprintbase(O,N) (CAMERA.base == 0 ? fprintf(O,"=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
+#define printbase(N) (CAMERA.base == 0 ? printf("=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
 
 #define HASH5(A,B,C) ( ( ((A == ';') || (B == ';') || (C == ';') ? (short) 0x8000 : (short) 0x0000) | ((0x001f & (short) A) << 10) | ((0x001f & (short) B) << 5) | (0x001f & (short) C) )
 
