@@ -5,12 +5,7 @@
 #include "./feline.c"
 #include "./draconic.c"
 
-//the settings variable "wing" refers only to the first bone in the wing
-//the settings variable "tail" only refers to fan-shaped tails. long tails should use back * sqrt2
-//the settings variable "fan-out" refers to the width of a fan-shaped tail with a 180 degree spread
-
-/*
- * *skeleton sculpt_foo(mesurements geomet) provided in each included file creates the model for an entity
+/* *skeleton sculpt_foo(mesurements geomet) provided in each included file creates the model for an entity
  * (int) polymorph_foo(entity *bar,mesurements geomet) changes an existing entity to the default values of foo, keeping velocity, rotation, and position
  * (int) summon_foo(float xcoord,float ycoord,float zcoord,mesurements geomet) creates a new entity of the species foo and appends it to the list of entitys
  */
