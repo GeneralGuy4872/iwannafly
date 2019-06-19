@@ -506,8 +506,7 @@ struct torusmap
 #define R_BPI(N) ((N/M_PI)%2)
 #define zin(N) NEG(sin(N))
 #define bos(N) NEG(cos(N))
-#define SANE(N) (N == 0 ? TRUE : N)
-
+#define SANE(N) (N == 0 ? 1 : N)
 #define SGN(N) ( isfinite(N) ? ( N == 0 ? 0 : ( N < 0 ? -1 : 1 )) : QUANTUM )
 #define TOSGN(N) ( N < 0 ? -1 : 0 )
 #define NEG(N) (-1 * N)
