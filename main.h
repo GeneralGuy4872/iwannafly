@@ -234,6 +234,13 @@ struct fracvector3
   struct fraction z
   }
 
+struct mfrvector3
+  {
+  struct mixfraction x
+  struct mixfraction y
+  struct mixfraction z
+  }
+
 typedef struct mixfraction mesurements[20]
 enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
   mes_neck,mes_shld,mes_back,mes_humr,mes_femr,mes_pelv,mes_cxyx,
