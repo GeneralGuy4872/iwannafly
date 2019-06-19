@@ -38,8 +38,8 @@ PLANNED PLATFORMS
 -----------------
 
 - Debian i686
-- Gentoo i686
 - NetBSD i386
+- Gentoo  x86
 
 Will add other systems if I get better hardware, Arch being paramount amoungst them
 
