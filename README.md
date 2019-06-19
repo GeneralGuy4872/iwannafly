@@ -38,7 +38,7 @@ PLANNED PLATFORMS
 -----------------
 
 - Debian i686
-- GNUStep i686 (Debian with <CODE>sysvinit</CODE>)
+- Gentoo i686
 - NetBSD i386
 - Arch 32 i686
 
