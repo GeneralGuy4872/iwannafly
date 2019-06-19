@@ -70,20 +70,25 @@ struct entity
 	struct vector3 Torq
 	matrix rot = matgen_ident
 	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infra NOT IMPLEMENTED
-	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement
+	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement/parlyz
 	unsigned char health
-	struct vector3 Ff //x = Friction, y = Water Drag, z = Air Drag
-	struct bytevector4 Spd //x = Land Speed, y = Mud Speed, z = Air Speed, w = Water speed
+	float Ff
+	float m
+	struct fraction Drag[2] //0 = water, 1 = air
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
 
 //HERE BE DRAGONS
-#define SPEED(X) ((X.stat.wet ? (X.stat.ground ? X.Spd.y : X.Spd.w) : (X.stat.ground ? X.Spd.x : X.Spd.z)) * X.collid.w)
 #define INVPIT(X) (SANE(FSGN(X.stat.yinv)))
-#define PHYSICS(X,Y,Z) ((X.Y + (Z * SPEED(X))) - ( (MIN((X.Ff.x * X.stat.ground * (Z * SPEED(X))),fabs(X.Y + (Z * SPEED(X)))) * FSGN(X.Y + (Z * SPEED(X))) / SANE((X.Ff.w * X.stat.wet) + (X.Ff.y * !(X.stat.wet))
-#define GRAVITY(X,Y,Z) (((X.Y + (Z * X.Spd.z)) - (grav * !(X.stat.ground) * (X.stat.bouy * X.stat.wet))) * !(X.stat.ground)) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
-#define ROLL(X,Y,Z) ((X.Y + (Z * X.Spd.z)) * !(X.stat.ground) / SANE((X.Ff.y * !(X.stat.ground) * X.stat.wet) + (X.Ff.z * !(X.stat.ground) * !(X.stat.wet))
+#define SPEED(X,Y,Z) (X.Y + (Z / X.m))
+#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag[0]) : X.Drag[0]) : 1)
+#define AIRDRAG(X) SANE(X.stat.wet ? ((X.Drag[0] * X.stat.bouy) / 2) : X.Drag[1])
+#define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag[0]) : X.Drag[0]) : (X.stat.ground ? 1 : X.Drag[1]))
+#define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
+#define GRAVITY(X,Y,Z) ((SPEED(X,Y,Z) - (grav * !(X.stat.ground)) / AIRDRAG(X)))
+#define PIVOT(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / ROTDRAG(X)))
+#define ROLL(X,Y,Z) (X.stat.ground ? 0 : PIVOT(X,Y,Z))
 //end dragons
 
 onstep_player
