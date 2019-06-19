@@ -40,9 +40,8 @@ PLANNED PLATFORMS
 - Debian i686
 - Gentoo i686
 - NetBSD i386
-- Arch 32 i686
 
-Will add other systems if I get better hardware, Arch 64 being paramount amoungst them
+Will add other systems if I get better hardware, Arch being paramount amoungst them
 
 Right now my dev systems consist of a Netburst Celeron, a K7 with no ethernet (has rj45 and rs232 instead), and an early C2D laptop that only runs P6 kernels; all of which date from between the late 90s and mid 2000s with full compliment of parallel-PCI expansion bus, IDE drives, and "legacy" ports on the towers. (the K7 actually has an EISA slot for the graphics card!)
 
