@@ -455,6 +455,7 @@ struct torusmap
   
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
+#define ABSMIN(A,B) (fabs(A) < fabs(B) ? A : B)
 #define CLAMP(N,A,B) MIN(MAX(N,A),B)
 #define RAD(N) ((N%360)*(M_PI/180))
 #define DEG(N) (N*(180/M_PI))
