@@ -312,13 +312,33 @@ float mfrfl(input)
     }
   }
 
-struct mixfraction flmfr(input)
+struct fraction flmfr(input)
   float input
   {
   struct mixfraction output
-  output.whole = (unsigned char) input
-  output.num = (unsigned char) (input - output.whole) * FRAC_DEN
   output.sign = SGN(input)
+  input = fabs(input)
+  if isfinite(input)
+    {
+    output.whole = (signed char) (input)
+    output.num = (unsigned char) ((input - output.whole) * FRAC_DEN)
+    }
+  else
+    {
+    output.whole = 0
+    if (input != input)
+      {
+      output.num = 42
+      }
+    else if (input < 0)
+      {
+      output.num = 63
+      }
+    else
+      {
+      output.num = 0
+      }
+    }
   return output
   }
 
@@ -326,8 +346,28 @@ struct fraction flfr(input)
   float input
   {
   struct fraction output
-  output.num = ((unsigned int) (input) * FRAC_DEN) - 1
   output.sign = SGN(input)
+  input = fabs(input)
+  if isfinite(input)
+    {
+    float tmp = (signed char) (input)
+    output.num = (unsigned char) ((input - tmp) * FRAC_DEN)
+    }
+  else
+    {
+    if (input != input)
+      {
+      output.num = 42
+      }
+    else if (input < 0)
+      {
+      output.num = 63
+      }
+    else
+      {
+      output.num = 0
+      }
+    }
   return output
   }
 
