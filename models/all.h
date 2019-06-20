@@ -7,7 +7,7 @@
 
 /* *skeleton sculpt_foo(mesurements geomet) provided in each included file creates the model for an entity
  * (int) polymorph_foo(entity *bar,mesurements geomet) changes an existing entity to the default values of foo, keeping velocity, rotation, and position
- * (int) summon_foo(float xcoord,float ycoord,float zcoord,mesurements geomet) creates a new entity of the species foo and appends it to the list of entitys
+ * (int) summon_foo(float xcoord,float ycoord,float zcoord,mesurements geomet,bool yinv) creates a new entity of the species foo and appends it to the list of entitys
  *
  * macros are for converting joystick inputs into speed and friction factors.
  * these are currently chosen arbitrarily, but will eventually be based on classical physics
@@ -21,8 +21,13 @@ polymorph_avian(target,geomet)
 	{
 	target.dembones = sculpt_avian(geomet)
 	target.stat.horiz = FALSE
+	target.stat.bouy = -2
 	target.stat.uv = TRUE
-	target.stat.infra = FALSE
+	target.stat.infra = TRUE
+	target.stat.gills = FALSE
+	target.stat.wings = TRUE
+	target.stat.nolegs = UNTRUE
+	target.stat.nohands = UNTRUE
 	target.Ff = AVE_FRIC
 	target.m = AVE_MASS
 	target.Drag[0] = AVE_DRAG_WATER
@@ -30,11 +35,12 @@ polymorph_avian(target,geomet)
 	forcebaseten ? NOP : CAMERA.base = TRISTATE
 	}
 
-*entity summon_avian(xcoord,ycoord,zcoord,geomet)
+*entity summon_avian(xcoord,ycoord,zcoord,geomet,yinv)
 	float xcoord
 	float ycoord
 	float zcoord
 	mesurements geomet
+	bool yinv
 	{
 	entity *parent
 	entity *tmp = malloc(sizeof(struct entity))
@@ -60,5 +66,5 @@ polymorph_avian(target,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,'\0','\0',255,AVE_FRIC,AVE_MASS,{AVE_DRAG_WATER,AVE_DRAG_AIR},sculpt_avian(geomet)}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,-2,TRUE,TRUE , FALSE,TRUE,UNTRUE,UNTRUE,TRUE,TRUE,TRUE),'\0',255,AVE_FRIC,AVE_MASS,{AVE_DRAG_WATER,AVE_DRAG_AIR},sculpt_avian(geomet)}
 	}
