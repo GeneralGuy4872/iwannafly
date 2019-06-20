@@ -100,7 +100,7 @@ onstep_player
 	
 	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
 	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
-	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),0,10000) //meters, zero;arbitrary ceiling
+	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),0,35000) //meters, zero;arbitrary ceiling
 	PLAYER.rot.x = (player.rot.x + player.Torq.x)%360 //degrees
 	PLAYER.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
 	PLAYER.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
