@@ -135,7 +135,7 @@ struct cameratype
 		
 		ft = 30cm
 		*/
-	unsigned short gold
+	unsigned short gold //they're comfy and easy to...wait...
 	unsigned short points
 	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
