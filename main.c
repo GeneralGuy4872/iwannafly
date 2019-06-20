@@ -1,13 +1,12 @@
-/**************************************
-*
-* Working Title: I wanna Fly
-*
-* An open world/flight simulation
-* program with a winged humanoid
-* player character, written on
-* OpenGL/Mesa and Athena (Xt,Xaw)
-*
-**************************************/
+/**********************************
+* Working Title: I wanna Fly      *
+*                                 *
+* An open world/flight simulation *
+* program with a winged humanoid  *
+* player character, written on    *
+* OpenGL/Mesa and Athena (Xt,Xaw) *
+*                                 *
+***********************************/
 
 //NOTE: I've decided that it's faster to write first and worry about syntax later.
 //the resulting psudocode is largely C-based with elements borrowed from C++, GLSL, and Mathmatic Notation
