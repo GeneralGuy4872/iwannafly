@@ -158,6 +158,7 @@ init__setup()
       polymorph_avian(PLAYER)
       forcebten ? CAMERA.base = 0 : CAMERA.base = 1
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/avianquest")
       break
       }
     case 1 :
@@ -165,6 +166,7 @@ init__setup()
       polymorph_human(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/knightquest")
       break
       }
     case 2 :
@@ -172,6 +174,7 @@ init__setup()
       polymorph_merfolk(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/merquest")
       break
       }
     case 3 :
@@ -179,12 +182,15 @@ init__setup()
       polymorph_insectoid(PLAYER)
       forcebten ? CAMERA.base = 0 : CAMERA.base = 1
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/hivequest")
+      break
       }/*
     case 4 :
       {
       polymorph_felid(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/felidquest")
       break
       }
     case 5 :
@@ -192,13 +198,15 @@ init__setup()
       polymorph_draconic(PLAYER)
       smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/o_dr_quest")
       break
       }
     case 6 :
       {
-      polymorph_elf(PLAYER)
+      polymorph_human(PLAYER)
       smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/elfquest")
       break
       }
     case 7 :
@@ -206,14 +214,47 @@ init__setup()
       polymorph_dwarf(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/dwarfquest")
+      break
+      }
+    case 8 :
+      {
+      polymorph_human(PLAYER)
+      CAMERA.base = 0
+      PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/roguequest")
+      break
+      }
+    case 9 :
+      {
+      polymorph_human(PLAYER)
+      CAMERA.base = 0
+      PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/drowquest")
+      break
+      }
+    case 10 :
+      {
+      polymorph_dwarf(PLAYER)
+      CAMERA.base = 0
+      PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/gnomequest")
+      break
+      }
+    case 11 :
+      {
+      polymorph_draconic(PLAYER)
+      CAMERA.base = 0
+      PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/c_dr_quest")
       break
       }*/
     default :
       {
-      SOFT_ERROR_MACRO("parseing of conf.ini by "__FILE__,"form switch default escape, at line#"__LINE__,"invalid value in species-field of ini file.")
       polymorph_avian(PLAYER)
-      forcebten ? CAMERA.base = 0 : CAMERA.base = 1
+      CAMERA.base = 0
       PLAYER.stat.yinv = yinv
+      printf("you are error.\n\nyou must fix your config file to achieve the full game experiance. loading default values...")
       break
       }
     }
