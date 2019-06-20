@@ -23,8 +23,10 @@ polymorph_avian(target,geomet)
 	target.stat.horiz = FALSE
 	target.stat.uv = TRUE
 	target.stat.infra = FALSE
-	target.Ff = {AVE_FRIC,AVE_DRAG_W,AVE_DRAG_Z}
-	target.Spd = {AVE_SPD_X,AVE_SPD_M,AVE_SPD_Z,AVE_SPD_W}
+	target.Ff = AVE_FRIC
+	target.m = AVE_MASS
+	target.Drag[0] = AVE_DRAG_WATER
+	target.Drag[1] = AVE_DRAG_AIR
 	forcebaseten ? NOP : CAMERA.base = TRISTATE
 	}
 
@@ -58,5 +60,5 @@ polymorph_avian(target,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,'\0','\0',255,{AVE_FRIC,AVE_DRAG_W,AVE_DRAG_Z},{AVE_SPD_X,AVE_SPD_M,AVE_SPD_Z,AVE_SPD_W},sculpt_avian(geomet)}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,'\0','\0',255,AVE_FRIC,AVE_MASS,{AVE_DRAG_WATER,AVE_DRAG_AIR},sculpt_avian(geomet)}
 	}
