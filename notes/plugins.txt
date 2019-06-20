@@ -17,7 +17,8 @@ to C. file syntax is assumed from extention.
 
 another perl script generates a makefile that combines the resultant code with:
 
-.bin|.hex|.dat|.raw : raw binary data
+.bin|.hex|.dat|.raw : raw binary data (dynamically loaded)
+.txt                : large blocks of text (displayed using cat)
 .c                  : event function, skeleton, misc code
 .h                  : shape macros, misc code
 
