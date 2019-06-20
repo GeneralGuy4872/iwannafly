@@ -73,6 +73,10 @@ typedef char mydate_str[24]
 #define FALSE ((bool) 0)
 #endif /*__bool_true_false_are_defined*/
 
+#define UNTRUE FALSE 
+#define CORRECT TRUE
+//I keep using the wrong values with inverted bools
+
 #define TRISTATE (tern) -1
 #define QUANTUM (tern) -2
 
