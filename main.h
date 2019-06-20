@@ -84,11 +84,11 @@ typedef char mydate_str[24]
 
 //VIEWRNG shall be an odd number
 #define VIEWRNG 5
-static const signed char VIEWRNGmax = ((VIEWRNG - 1) / 2)
-static const signed char VIEWRNGmin = (VIEWRNGmax * -1)
-static const signed char VIEWRNGlim = (VIEWRNGmax + 1)
+#define VIEWRNGmax ((VIEWRNG - 1) / 2)
+#define VIEWRNGmin (VIEWRNGmax * -1)
+#define VIEWRNGlim (VIEWRNGmax + 1)
 
-static const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","?ERR"}
+const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","OVER"}
 
 noop() {}
 #define NOP noop()
