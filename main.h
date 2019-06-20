@@ -8,6 +8,8 @@
  *by definition and I have yet to establish a true boundry.
  */
 
+#define BUFFER_MAX 512
+
 /*figure out iff && when time comes
  *
  *#define SHMLOCK(V) some_func(V)
@@ -651,6 +653,28 @@ div_t radf_to_deg(input)
 #define printbase(N) (CAMERA.base == 0 ? printf("=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
 
 #define HASH5(A,B,C) ( ( ((A == ';') || (B == ';') || (C == ';') ? (short) 0x8000 : (short) 0x0000) | ((0x001f & (short) A) << 10) | ((0x001f & (short) B) << 5) | (0x001f & (short) C) )
+
+file_cat(path)
+  const char *path
+  {
+  FILE tmp = fopen(path)
+  if (tmp == NULL)
+    {
+    return -1
+    }
+  char tmpbuffer[BUFFER_MAX]
+  n = TRUE
+  while n
+    {
+    if (fgets(tmpbuffer,BUFFER_MAX,tmp) == NULL)
+      {
+      n = FALSE
+      }
+    else
+      {
+      printf(tmpbuffer)
+      }
+    }
 
 #define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
