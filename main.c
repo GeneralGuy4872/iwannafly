@@ -56,7 +56,8 @@
 * nautical miles and meters may (but shouldn't) be used interchangeably for reasons explained below
 */
 
-const float grav = 9.8 / FPS //meters / second / microfortnight
+#define grav (9.8 / FPS)
+//meters / second / microfortnight
 
 struct entity
 	{
