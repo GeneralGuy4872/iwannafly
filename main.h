@@ -56,7 +56,7 @@ static const float MSEC_FRAME = ((1.0 / FPS) * 1000) //milliseconds per frame (m
 
 div_t div_tmp;
 
-typedef int (*eventfunc)(int,*char[]) //you know you're getting serious when you're using function pointers
+typedef int (*eventfunc)(int,int) //you know you're getting serious when you're using function pointers
 typedef signed char tern
 typedef unsigned char quard
 typedef char mydate_str[24]
@@ -459,11 +459,13 @@ struct event
   struct event *prev
   struct event *next
   ushortvector3 coords
-  bytevector2 size
+  bytevector4 size //w = 0 sphere of radius x, w = 1 cylinder of radius x and height z, w = 2 cuboid
   unsigned long durat
   eventfunc *ontrigger
-  char *strings[]
-  int params
+  char *good
+  char *bad
+  char *meh
+  int params[2]
   }
 
 struct truecolor
@@ -492,7 +494,7 @@ struct torusmap
   {
   unsigned char dots[360][360]
   unsigned char sealevel
-  struct bytevector2 start
+  struct bytevector2 start[8] //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
   }
   
 #define MAX(A,B) (A > B ? A : B)
