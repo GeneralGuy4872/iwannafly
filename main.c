@@ -5,7 +5,6 @@
 * program with a winged humanoid  *
 * player character, written on    *
 * OpenGL/Mesa and Athena (Xt,Xaw) *
-*                                 *
 ***********************************/
 
 //NOTE: I've decided that it's faster to write first and worry about syntax later.
