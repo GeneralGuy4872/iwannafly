@@ -513,6 +513,7 @@ struct torusmap
 #define TOSGN(N) ( N < 0 ? -1 : 0 )
 #define NEG(N) (-1 * N)
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
+#define nextline(F) fscanf(F,"%*[^\n]s");
 
 #define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + mixfrfl(M.hitbox.r) + (mixfrfl(M.hitbox.r) * frfl(M.hitbox.offset)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.offset)) ) )
 #define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (mixfrfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
