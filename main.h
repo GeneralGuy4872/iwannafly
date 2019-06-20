@@ -428,6 +428,13 @@ struct statreg
   tern bouy : 2
   bool uv : 1
   bool infra : 1
+  bool gills : 1
+  bool wings : 1
+  bool nolegs : 1
+  bool nohands : 1
+  tern detect : 2
+  bool trouble : 1
+  bool caster : 1
   }
 
 struct viewform
