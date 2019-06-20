@@ -81,9 +81,9 @@ struct entity
 //HERE BE DRAGONS
 #define INVPIT(X) (SANE(FSGN(X.stat.yinv)))
 #define SPEED(X,Y,Z) (X.Y + (Z / X.m))
-#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag[0]) : X.Drag[0]) : 1)
-#define AIRDRAG(X) SANE(X.stat.wet ? ((X.Drag[0] * X.stat.bouy) / 2) : X.Drag[1])
-#define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag[0]) : X.Drag[0]) : (X.stat.ground ? 1 : X.Drag[1]))
+#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * frfl(X.Drag[0])) : frfl(X.Drag[0])) : 1)
+#define AIRDRAG(X) SANE(X.stat.wet ? ((frfl(X.Drag[0]) * X.stat.bouy) / 2) : frfl(X.Drag[1]))
+#define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * frfl(X.Drag[0])) : frfl(X.Drag[0])) : (X.stat.ground ? 1 : frfl(X.Drag[1])))
 #define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
 #define GRAVITY(X,Y,Z) ((SPEED(X,Y,Z) - (grav * !(X.stat.ground)) / AIRDRAG(X)))
 #define PIVOT(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / ROTDRAG(X)))
