@@ -12,7 +12,7 @@ char joypath[16]
 char mappath[256]
 char logpath[64]
 bool dologs
-unsigned char base_species
+unsigned char base_role
 mesurements TAILOR
 FILE logfile
 torusmap planet1
@@ -75,9 +75,9 @@ init__setup()
           {
           switch ini_key_hash
             {
-            case HASH5('s','p','e') ://the macro HASH5 truncates 3 chars to the lower 5 bits of each (so is not case sensitive) and returns a short
+            case HASH5('r','o','l') ://the macro HASH5 truncates 3 chars to the lower 5 bits of each (so is not case sensitive) and returns a short
               {
-              base_species = atoi(ini_data)
+              base_role = atoi(ini_data)
               break
               }
             case HASH5('f','o','r') :
@@ -151,7 +151,7 @@ init__setup()
     atof(
     }
 
-  switch (base_species)
+  switch (base_role)
     {
     case 0 :
       {
@@ -203,8 +203,8 @@ init__setup()
       }
     case 6 :
       {
-      polymorph_human(PLAYER)
-      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
+      polymorph_elf(PLAYER)
+      CAMERA.base = 0
       PLAYER.stat.yinv = yinv
       system("cat /usr/share/iwannafly/elfquest")
       break
@@ -227,7 +227,7 @@ init__setup()
       }
     case 9 :
       {
-      polymorph_human(PLAYER)
+      polymorph_drow(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
       system("cat /usr/share/iwannafly/drowquest")
@@ -235,7 +235,7 @@ init__setup()
       }
     case 10 :
       {
-      polymorph_dwarf(PLAYER)
+      polymorph_gnome(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
       system("cat /usr/share/iwannafly/gnomequest")
@@ -244,9 +244,17 @@ init__setup()
     case 11 :
       {
       polymorph_draconic(PLAYER)
-      CAMERA.base = 0
+      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
       PLAYER.stat.yinv = yinv
       system("cat /usr/share/iwannafly/c_dr_quest")
+      break
+      }
+    case 12 :
+      {
+      polymorph_seaelf(PLAYER)
+      CAMERA.base = 0
+      PLAYER.stat.yinv = yinv
+      system("cat /usr/share/iwannafly/seaelfquest")
       break
       }*/
     default :
