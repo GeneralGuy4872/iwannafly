@@ -68,7 +68,23 @@ struct entity
 	struct vector3 Velo
 	struct vector3 Torq
 	matrix rot = matgen_ident
-	struct statreg stat //bool ground, bool wet, bool yinv, bool horiz, tern bouy, bool uv, bool infra NOT IMPLEMENTED
+	struct statreg stat
+		/* bool ground
+		 * bool wet
+		 * bool yinv
+		 * bool horiz
+		 * tern bouy
+		 * bool uv
+		 * bool infra - deferred
+		 * -BOUND-
+		 * bool gills - deferred
+		 * bool wings - deferred
+		 * bool nolegs
+		 * bool nohands - deferred
+		 * tern detect - deferred
+		 * bool trouble - deferred
+		 * bool caster - deferred
+		 */
 	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement/parlyz
 	unsigned char health
 	float Ff
