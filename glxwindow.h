@@ -2,7 +2,7 @@
 
 //preliminary outline from glancing over toutorials.
 //need to nano -v headers and read docs/manpages to double-check stuff
-#define MAINWINSIZE 505,505
+#define MAINWINSIZE 505
 
 Display *monitor = XOpenDisplay(NULL);
 Window desktop = DefaultRootWindow(monitor);
@@ -11,7 +11,7 @@ XVisualInfo *VisInf = glXChooseVisual(monitor, 0, attrib);
 XSetWindowAttributes WinAtt;
 WinAtt.colormap = XCreateColormap(monitor,desktop,VisInf->visual,AllocNone);
 WinAtt.eventmask = ExposureMask | KeyPressMask | VisibilityChangeMask | Button1MotionMask | Button2MotionMask //start here and finnagle around with it if unexpected results
-Window mainwindow = XCreateWindow(monitor,desktop,0,0,MAINWINSIZE,0,VisInf->depth,InputOutput,VisInf->visual,CWColormap | CWEventMask,&swa);
+Window mainwindow = XCreateWindow(monitor,desktop,0,0,MAINWINSIZE,MAINWINSIZE,0,VisInf->depth,InputOutput,VisInf->visual,CWColormap | CWEventMask,&swa);
 GLXContext glxc = glXCreateContext(monitor,VisInf,NULL,TRUE);
 XWindowAttributes GotWinAtt;
 XEvent x_event;
@@ -30,8 +30,8 @@ do_MotionNotify (XEvent *eventp)
 	{
 	XMotionEvent *e = (XMotionEvent *) eventp;
 
-	CAMBUFFER.az = e->x
-	CAMBUFFER.alt = e->y
+	CAMBUFFER.az = e->x - (MAINWINSIZE / 2)
+	CAMBUFFER.alt = e->y - (MAINWINSIZE / 2)
 	}
 
 static void
