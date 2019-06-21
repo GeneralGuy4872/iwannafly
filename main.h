@@ -701,6 +701,8 @@ struct movement_buffer_t
   }
 
 struct movement_buffer_t MOVEBUFFER
+#define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
+#define MOVEBUFFER_rol ((MOVEBUFFER.rt / 2) - (MOVEBUFFER.lt / 2))
 
 fetchJSAXIS()
   {
@@ -709,12 +711,12 @@ fetchJSAXIS()
     SWYM
     }
   JSAXISFLAG = -1
-  MOVEBUFFER.x = JSAXISBUFF[1] / NEG((float) SHRT_MAX / 100)
-  MOVEBUFFER.y = JSAXISBUFF[0] / ((float) SHRT_MAX / 100)
-  MOVEBUFFER.pit = JSAXISBUFF[5] / NEG((float) SHRT_MAX / 100)
-  MOVEBUFFER.yaw = JSAXISBUFF[4] / ((float) SHRT_MAX / 100)
-  MOVEBUFFER.lt = (JSAXISBUFF[3] + SHRT_MIN) / ((float) USHRT_MAX / 100)
-  MOVEBUFFER.rt = (JSAXISBUFF[6] + SHRT_MIN) / ((float) USHRT_MAX / 100)
+  MOVEBUFFER.x = (float) JSAXISBUFF[1] / -SHRT_MAX
+  MOVEBUFFER.y = (float) JSAXISBUFF[0] / SHRT_MAX
+  MOVEBUFFER.pit = (float) JSAXISBUFF[5] / -SHRT_MAX
+  MOVEBUFFER.yaw = (float) JSAXISBUFF[4] / SHRT_MAX
+  MOVEBUFFER.lt = (float) (JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX
+  MOVEBUFFER.rt = (float) (JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX
   JSAXISFLAG = 0
   }
   
