@@ -25,7 +25,7 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-//#include <signal.h>
+#include <signal.h>
 //#include <err.h>
 //#include <errno.h>
 
