@@ -24,3 +24,58 @@ glx__startup()
   glEnable(GL_DEPTH_TEST);
   XStoreName(dpy, win, VITALSTAT(REV_NOFORK));
   }
+
+static void
+do_MotionNotify (XEvent *eventp)
+	{
+	XMotionEvent *e = (XMotionEvent *) eventp;
+
+	CAMBUFFER.az = e->x
+	CAMBUFFER.alt = e->y
+	}
+
+static void
+do_ButtonPress (XEvent *eventp)
+	{
+	XButtenEvent *e = (XButtonEvent *) eventp;
+
+	switch (e->button)
+		{
+		case 4 :
+			{
+			CAMBUFFER.zoom++
+			break
+			}
+		case 5 :
+			{
+			CAMBUFFER.zoom--
+			break
+			}
+		case 6 :
+			{
+			CAMBUFFER.fov--
+			break
+			}
+		case 8 :
+			{
+			CAMBUFFER.fov--
+			break
+			}
+		case 7 :
+			{
+			CAMBUFFER.fov++
+			break
+			}
+		case 9 :
+			{
+			CAMBUFFER.fov++
+			break
+			}
+		default :
+			{
+			NOP
+			break
+			}
+		}
+	}
+
