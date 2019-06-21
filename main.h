@@ -524,7 +524,7 @@ struct torusmap
 #define SANE(N) (N == 0 ? 1 : N)
 #define SGN(N) ( isfinite(N) ? ( N == 0 ? 0 : ( N < 0 ? -1 : 1 )) : QUANTUM )
 #define TOSGN(N) ( N < 0 ? -1 : 0 )
-#define NEG(N) (-1 * N)
+#define NEG(N) (-1 * (N))
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
@@ -689,6 +689,38 @@ file_cat(path)
       printf(tmpbuffer)
       }
     }
+
+struct movement_buffer_t
+  {
+  float x
+  float y
+  float yaw
+  float pit
+  float lt
+  float rt
+  }
+
+struct movement_buffer_t MOVEBUFFER
+
+fetchJSAXIS()
+  {
+  while (JSAXISFLAG > 0)
+    {
+    SWYM
+    }
+  JSAXISFLAG = -1
+  MOVEBUFFER.x = JSAXISBUFF[1] / NEG((float) SHRT_MAX / 100)
+  MOVEBUFFER.y = JSAXISBUFF[0] / ((float) SHRT_MAX / 100)
+  MOVEBUFFER.pit = JSAXISBUFF[5] / NEG((float) SHRT_MAX / 100)
+  MOVEBUFFER.yaw = JSAXISBUFF[4] / ((float) SHRT_MAX / 100)
+  MOVEBUFFER.lt = (JSAXISBUFF[3] + SHRT_MIN) / ((float) USHRT_MAX / 100)
+  MOVEBUFFER.rt = (JSAXISBUFF[6] + SHRT_MIN) / ((float) USHRT_MAX / 100)
+  JSAXISFLAG = 0
+  }
+  
+
+#define _$_ "\xA4"
+//bypass localization for now by specifying currency symbol is whatever this generates.
 
 #define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
 #define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
