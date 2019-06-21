@@ -32,7 +32,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h> //know what this does now
 
-DIFFERENTIATION = fork()
 signed short JSAXISBUFF[8] = mmap(NULL,sizeof(JSAXISBUFF),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 signed char JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 
@@ -42,11 +41,7 @@ signed char JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MAP
 //(this isn't SNOBOL this time; SNOBOL has no loops. it's Pascal.)
 main()
 	{
-	if (DIFFERENTIATION > 0)
-		{
-		raise(SIGUSR1)
-		}
-	else if (DIFFERENTIATION < 0)
+	if (fork() == 0)
 BEGIN
 #include "./joystick.c"
 END
