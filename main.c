@@ -101,8 +101,8 @@ struct entity
 	unsigned char health
 	float Ff
 	float m
-	struct fraction Drag[2] //0 = water, 1 = air
-	struct mixfraction Fa[3] //0 = ground, 1 = air, 2 = water
+	struct vector2 *Drag //x = water, y = air
+	struct vector3 *Fa //x = ground, y = water, z = air
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
@@ -110,10 +110,10 @@ struct entity
 //HERE BE DRAGONS
 #define INVPIT(X) (SANE(FSGN(X.stat.yinv)))
 #define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m))
-#define ACCL(X) SANE(X.stat.wet ? ( (X.stat.wings ? (mfrfl(X.Fa[2]) / 4) : (X.stat.ground ? ( (X.stat.noarms ? (2 * mfrfl(X.Fa[2])) : (mfrfl(X.Fa[2]) / 2) ): mfrfl(X.Drag[2]) )):( (X.stat.ground ? ( (X.stat.nolegs ? ( (mfrfl(X.Fa[0]) / 4) : X.Fa[0] )) : X.Fa[1] )))))
-#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * frfl(X.Drag[0])) : frfl(X.Drag[0])) : 1)
-#define AIRDRAG(X) SANE(X.stat.wet ? ((frfl(X.Drag[0]) * X.stat.bouy) / 2) : frfl(X.Drag[1]))
-#define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * frfl(X.Drag[0])) : frfl(X.Drag[0])) : (X.stat.ground ? 1 : frfl(X.Drag[1])))
+#define ACCL(X) SANE(X.stat.wet ? ( (X.stat.wings ? (X.Fa->y / 4) : (X.stat.ground ? ( (X.stat.noarms ? (2 * X.Fa->y) : (X.Fa->y / 2) ): X.Fa->y )):( (X.stat.ground ? ( (X.stat.nolegs ? ( (X.Fa->x / 4) : X.Fa->x )) : X.Fa->z )))))
+#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->x) : X.Drag->x) : 1)
+#define AIRDRAG(X) SANE(X.stat.wet ? (X.Drag->x * X.stat.bouy) / 2) : X.Drag->y)
+#define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->x)) : X.Drag->x)) : (X.stat.ground ? 1 : X.Drag->y)))
 #define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
 #define GRAVITY(X,Y) (X.Y - (grav * !(X.stat.ground)) / AIRDRAG(X)))
 #define PIVOT(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / ROTDRAG(X)))
