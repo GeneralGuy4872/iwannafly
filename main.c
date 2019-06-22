@@ -115,6 +115,7 @@ struct entity
 #define AIRDRAG(X) SANE(X.stat.wet ? (X.Drag->x * X.stat.bouy) / 2) : X.Drag->y)
 #define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->x)) : X.Drag->x)) : (X.stat.ground ? 1 : X.Drag->y)))
 #define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
+#define ZPHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / AIRDRAG(X)))
 #define GRAVITY(X,Y) (X.Y - (grav * !(X.stat.ground)) / AIRDRAG(X)))
 #define PIVOT(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / ROTDRAG(X)))
 #define ROLL(X,Y,Z) (X.stat.ground ? 0 : PIVOT(X,Y,Z))
@@ -132,7 +133,7 @@ onstep_player
 
 	PLAYER.Velo.x = PHYSICS(player,Velo.x,((MOVEBUFFER.x * cos(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * cos(PLAYER.rot.y) * cos(PLAYER.rot.z))))
 	PLAYER.Velo.y = PHYSICS(player,Velo.y,((MOVEBUFFER.x * sin(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * cos(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.x) * sin(PLAYER.rot.z))))
-	PLAYER.Velo.x = PHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))))
+	PLAYER.Velo.z = ZPHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))))
 	PLAYER.Velo.z = GRAVITY(player,Velo.z)
 
 	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
