@@ -100,7 +100,7 @@ struct entity
 	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement/parlyz
 	unsigned char health
 	float Ff
-	float m
+	unsigned short m
 	struct vector2 *Drag //x = water, y = air
 	struct vector3 *Fa //x = ground, y = water, z = air
 	struct skeleton dembones
