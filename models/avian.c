@@ -1,3 +1,8 @@
+#define AVE_FRIC .9
+#define AVE_MASS 35
+struct vector2 AVE_DRAG = {.9,.9}
+struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)}
+
 struct bone *sculpt_avian(geomet)
   mesurements geomet
   {
@@ -48,3 +53,57 @@ struct bone *sculpt_avian(geomet)
     doublelink(tail)
   return pelvis
   }
+
+polymorph_avian(target,geomet)
+	entity target
+	mesurements geomet
+	{
+	target.dembones = sculpt_avian(geomet)
+	target.stat.horiz = FALSE
+	target.stat.bouy = -2
+	target.stat.uv = TRUE
+	target.stat.infra = TRUE
+	target.stat.gills = FALSE
+	target.stat.wings = TRUE
+	target.stat.nolegs = UNTRUE
+	target.stat.nohands = UNTRUE
+	target.Ff = AVE_FRIC
+	target.m = AVE_MASS
+	target.Drag = &AVE_DRAG
+	target.Fa = &AVE_SPD
+	forcebaseten ? NOP : CAMERA.base = TRISTATE
+	}
+
+*entity summon_avian(xcoord,ycoord,zcoord,geomet,yinv)
+	float xcoord
+	float ycoord
+	float zcoord
+	mesurements geomet
+	bool yinv
+	{
+	entity *parent
+	entity *tmp = malloc(sizeof(struct entity))
+	if (WORLD.ent_tail != NULL)
+  		{
+		parent = WORLD.ent_tail
+		WORLD.ent_tail = &tmp
+		}
+	else
+		{
+		if (world.ent == NULL)
+			{
+			WORLD.ent = &tmp
+			WORLD.ent_tail = &tmp
+			}
+		else
+			{
+			WORLD.ent_tail = &tmp
+			parent = WORLD.ent
+			while (parent->next != NULL)
+				{
+				parent = parent->next
+				}
+			}
+  		}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,-2,TRUE,TRUE , FALSE,TRUE,UNTRUE,UNTRUE,TRUE,TRUE,TRUE),'\0',255,AVE_FRIC,AVE_MASS,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
+	}
