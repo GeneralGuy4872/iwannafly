@@ -1,4 +1,4 @@
-#define AVE_FRIC .9
+#define AVE_FRIC 1 / M_E
 #define AVE_MASS 35
 struct vector2 AVE_DRAG = {.9,.9}
 struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)}
