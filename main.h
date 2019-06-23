@@ -196,6 +196,12 @@ struct halfbytes
   unsigned char lo : 4
   }
 
+struct plotparam
+  {
+  signed char x : 4
+  signed char y : 4
+  }
+
 struct fraction
   {
   tern sign : 2
