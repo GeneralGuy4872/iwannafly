@@ -102,6 +102,7 @@ struct entity
 	struct plotparam alignment //x = lawful/chaotic, y = good/evil
 	float Ff
 	unsigned short m
+	//they're comfy and easy to...wait...
 	struct vector2 *Drag //x = ground, y = water, z = air
 	struct vector3 *Fa //x = ground, y = water, z = air
 	struct skeleton dembones
@@ -165,7 +166,6 @@ struct cameratype
 		*/
 	unsigned short gold
 	unsigned short points
-	//they're comfy and easy to...wait...
 	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
 
