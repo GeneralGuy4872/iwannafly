@@ -11,7 +11,7 @@ mainloop()
 	volatile int joystick;
 	joystick = (open ("/dev/input/js0",O_RDONLY | O_NONBLOCK));
 	struct js_event event1;
-  signed short values[8]
+	signed short values[8];
 	while (1)
 		{
 		for(int n=0;n<SHRT_MAX;n++)
@@ -22,19 +22,18 @@ mainloop()
 				values[event1.number] = event1.value;
 				}
 			}
-    while (JSAXISFLAG < 0)
-      {
-      sleep(0)
-      }
-    JSAXISFLAG = 1
-    JSAXISBUFF[0] = values[0]
-    JSAXISBUFF[1] = values[1]
-    JSAXISBUFF[2] = values[2]
-    JSAXISBUFF[3] = values[3]
-    JSAXISBUFF[4] = values[4]
-    JSAXISBUFF[5] = values[5]
-    JSAXISBUFF[6] = values[6]
-    JSAXISBUFF[7] = values[7]
-    JSAXISFLAG = 0
+	while (JSAXISFLAG < 0)
+		{
+		sleep(0);
 		}
+	JSAXISFLAG = 1;
+	JSAXISBUFF[0] = values[0];
+	JSAXISBUFF[1] = values[1];
+	JSAXISBUFF[2] = values[2];
+	JSAXISBUFF[3] = values[3];
+	JSAXISBUFF[4] = values[4];
+	JSAXISBUFF[5] = values[5];
+	JSAXISBUFF[6] = values[6];
+	JSAXISBUFF[7] = values[7];
+	JSAXISFLAG = 0;
 	}
