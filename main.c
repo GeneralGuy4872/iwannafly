@@ -7,9 +7,6 @@
  * OpenGL/Mesa and Athena (Xt,Xaw) *
  ***********************************/
 
-//NOTE: I've decided that it's faster to write first and worry about syntax later.
-//the resulting psudocode is largely C-based with elements borrowed from C++, GLSL, and Mathmatic Notation
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
