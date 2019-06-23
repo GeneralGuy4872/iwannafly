@@ -427,7 +427,7 @@ struct statreg
   bool gills : 1
   bool wings : 1
   bool nolegs : 1
-  bool nohands : 1
+  bool fireproof : 1
   tern detect : 2
   bool trouble : 1
   bool caster : 1
