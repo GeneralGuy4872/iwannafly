@@ -1,7 +1,7 @@
 #include "./bonegroups.h"
 #include "./avian.c"
 #include "./human.c"
-//#include "./merfolk.c"
+#include "./merfolk.c"
 //#include "./feline.c"
 //#include "./draconic.c"
 
