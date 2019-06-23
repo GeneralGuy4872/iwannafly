@@ -175,7 +175,7 @@ init__setup()
       PLAYER.stat.yinv = yinv
       file_cat("/usr/share/iwannafly/merquest")
       break
-      }
+      }/*
     case 3 :
       {
       polymorph_insectoid(PLAYER)
@@ -183,7 +183,7 @@ init__setup()
       PLAYER.stat.yinv = yinv
       file_cat("/usr/share/iwannafly/hivequest")
       break
-      }/*
+      }
     case 4 :
       {
       polymorph_felid(PLAYER)
