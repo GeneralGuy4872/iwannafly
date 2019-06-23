@@ -16,7 +16,7 @@
 #include <math.h>
 #include <limits.h>
 #include <time.h>
-//#include <string.h>
+#include <string.h>
 //#include <regex.h>
 
 #include <unistd.h>
@@ -90,18 +90,19 @@ struct entity
 		 * bool infra - deferred
 		 * -BOUND-
 		 * bool gills - deferred
-		 * bool wings - deferred
-		 * bool nolegs
-		 * bool nohands - deferred
-		 * tern detect - deferred
-		 * bool trouble - deferred
+		 * bool wings
+		 * bool fireproof - deferred
 		 * bool caster - deferred
+		 * bool trouble - deferred
+		 * bool weather - deferred
+		 * bool darkpower - deferred
+		 * bool lightpower - deferred
 		 */
 	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement/parlyz
 	unsigned char health
 	float Ff
 	unsigned short m
-	struct vector2 *Drag //x = water, y = air
+	struct vector2 *Drag //x = ground, y = water, z = air
 	struct vector3 *Fa //x = ground, y = water, z = air
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
@@ -109,16 +110,12 @@ struct entity
 
 //HERE BE DRAGONS
 #define INVPIT(X) (SANE(FSGN(X.stat.yinv)))
-#define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m))
-#define ACCL(X) SANE(X.stat.wet ? ( (X.stat.wings ? (X.Fa->y / 4) : (X.stat.ground ? ( (X.stat.noarms ? (2 * X.Fa->y) : (X.Fa->y / 2) ): X.Fa->y )):( (X.stat.ground ? ( (X.stat.nolegs ? ( (X.Fa->x / 4) : X.Fa->x )) : X.Fa->z )))))
-#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->x) : X.Drag->x) : 1)
-#define AIRDRAG(X) SANE(X.stat.wet ? (X.Drag->x * X.stat.bouy) / 2) : X.Drag->y)
-#define ROTDRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->x)) : X.Drag->x)) : (X.stat.ground ? 1 : X.Drag->y)))
+#define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m)
+#define ACCL(X) SANE(X.stat.wet ? (X.stat.wings ? (X.Fa->y / 4) : X.Fa->y) : (X.stat.ground ? X.Fa->x : X.Fa->z ))
+#define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->y) : X.Drag->y) : (X.stat.ground ? X.Drag->x : X.Drag->z))
 #define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
-#define ZPHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / AIRDRAG(X)))
-#define GRAVITY(X,Y) (X.Y - (grav * !(X.stat.ground)) / AIRDRAG(X)))
-#define PIVOT(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / ROTDRAG(X)))
-#define ROLL(X,Y,Z) (X.stat.ground ? 0 : PIVOT(X,Y,Z))
+#define GRAVITY(X,Y) (X.Y - (X.stat.ground ? 0 : (X.stat.wet ? (grav * X.stat.bouy) : grav)) / DRAG(X))
+#define ROLL(X,Y,Z) (X.stat.ground ? 0 : PHYSICS(X,Y,Z))
 //end dragons
 
 onstep_player
@@ -133,7 +130,7 @@ onstep_player
 
 	PLAYER.Velo.x = PHYSICS(player,Velo.x,((MOVEBUFFER.x * cos(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * cos(PLAYER.rot.y) * cos(PLAYER.rot.z))))
 	PLAYER.Velo.y = PHYSICS(player,Velo.y,((MOVEBUFFER.x * sin(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * cos(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.x) * sin(PLAYER.rot.z))))
-	PLAYER.Velo.z = ZPHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))))
+	PLAYER.Velo.z = PHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))))
 	PLAYER.Velo.z = GRAVITY(player,Velo.z)
 
 	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
