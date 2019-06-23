@@ -64,7 +64,7 @@ BEGIN
  * of the basic physics implementation; inprecise mesures of time based on accumulated loops
  * approximately equal to one second with a margin of error based on CPU speed and strain
  * use "microfortnights" as in VMS for the PDP-11, to distinguish them from exact values.
- * meters currently equal one arcminute exactly. 
+ * meters currently equal one arcminute on the surface of the torus exactly.
  */
 
 #define grav (9.8 / FPS)
