@@ -22,11 +22,11 @@ mainloop()
 				values[event1.number] = event1.value;
 				}
 			}
-	while (JSAXISFLAG < 0)
+	while (JSAXISFLAG == 0)
 		{
 		sleep(0);
 		}
-	JSAXISFLAG = 1;
+	JSAXISFLAG = -1;
 	JSAXISBUFF[0] = values[0];
 	JSAXISBUFF[1] = values[1];
 	JSAXISBUFF[2] = values[2];
