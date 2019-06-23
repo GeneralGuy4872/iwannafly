@@ -63,10 +63,10 @@ typedef char mydate_str[24]
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
-#define TRUE true
+#define TRUE (true)
 #endif /*!(TRUE)*/
 #ifndef FALSE
-#define FALSE false
+#define FALSE (false)
 #endif /*!(FALSE)*/
 #else /*!(__bool_true_false_are_defined)*/
 #define TRUE ((bool) 1)
@@ -77,8 +77,8 @@ typedef char mydate_str[24]
 #define CORRECT TRUE
 //I keep using the wrong values with inverted bools
 
-#define TRISTATE (tern) -1
-#define QUANTUM (tern) -2
+#define TRISTATE ((tern) -1)
+#define QUANTUM ((tern) -2)
 
 #define LEFT -1
 #define RIGHT 1
@@ -217,6 +217,8 @@ struct fraction
 #define FR_ONE {1,63}
 #define FR_MONE {-1,63}
 #define FR_INF {-2,0}
+#define FR_MINF {-2,63}
+#define FR_NAN {-2,42}
 #define FR(S,N) {S,(N)-1}
 
 struct mixfraction
@@ -229,6 +231,8 @@ struct mixfraction
 #define MFR_ONE {1,1,0}
 #define MFR_MONE {1,-1,0}
 #define MFR_INF {0,-2,0}
+#define MFR_MINF {0,-2,63}
+#define MFR_NAN {0,-2,42}
 #define MFR(I,S,N) {I,S,N}
 
 #define FR_DEN 64
@@ -706,18 +710,18 @@ struct movement_buffer_t MOVEBUFFER
 
 fetchJSAXIS()
   {
-  while (JSAXISFLAG > 0)
+  while (JSAXISFLAG >= 0)
     {
     SWYM
     }
-  JSAXISFLAG = -1
+  JSAXISFLAG++
   MOVEBUFFER.x = (float) JSAXISBUFF[1] / -SHRT_MAX
   MOVEBUFFER.y = (float) JSAXISBUFF[0] / SHRT_MAX
   MOVEBUFFER.pit = (float) JSAXISBUFF[5] / -SHRT_MAX
   MOVEBUFFER.yaw = (float) JSAXISBUFF[4] / SHRT_MAX
   MOVEBUFFER.lt = (float) (JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX
   MOVEBUFFER.rt = (float) (JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX
-  JSAXISFLAG = 0
+  JSAXISFLAG--
   }
   
 
