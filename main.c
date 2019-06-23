@@ -37,8 +37,7 @@ signed char JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MAP
 
 #define BEGIN {
 #define END mainloop();}
-//for use with forks, to keep track of what code belongs to what process.
-//(this isn't SNOBOL this time; SNOBOL has no loops. it's Pascal.)
+
 main()
 	{
 	if (fork() == 0)
