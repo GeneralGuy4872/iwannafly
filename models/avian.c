@@ -65,8 +65,8 @@ polymorph_avian(target,geomet)
 	target.stat.infra = TRUE
 	target.stat.gills = FALSE
 	target.stat.wings = TRUE
-	target.stat.nolegs = UNTRUE
-	target.stat.nohands = UNTRUE
+	target.stat.fireproof = FALSE
+	target.stat.weather = TRUE
 	target.Ff = AVE_FRIC
 	target.m = AVE_MASS
 	target.Drag = &AVE_DRAG
@@ -105,5 +105,5 @@ polymorph_avian(target,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,-2,TRUE,TRUE , FALSE,TRUE,UNTRUE,UNTRUE,TRUE,TRUE,TRUE),'\0',255,AVE_FRIC,AVE_MASS,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,-2,TRUE,TRUE , FALSE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE},'\0',255,{6,-4},AVE_FRIC,AVE_MASS,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
 	}
