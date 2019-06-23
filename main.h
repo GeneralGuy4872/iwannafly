@@ -426,11 +426,12 @@ struct statreg
   bool infra : 1
   bool gills : 1
   bool wings : 1
-  bool nolegs : 1
   bool fireproof : 1
-  tern detect : 2
-  bool trouble : 1
   bool caster : 1
+  bool trouble : 1
+  bool weather : 1
+  bool darkpower : 1
+  bool lightpower : 1
   }
 
 struct viewform
