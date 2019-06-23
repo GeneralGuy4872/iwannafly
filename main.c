@@ -100,6 +100,7 @@ struct entity
 		 */
 	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement/parlyz
 	unsigned char health
+	struct plotparam alignment //x = lawful/chaotic, y = good/evil
 	float Ff
 	unsigned short m
 	struct vector2 *Drag //x = ground, y = water, z = air
