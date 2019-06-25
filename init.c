@@ -136,18 +136,9 @@ init__setup()
     {
     for (n=0;n<20;n++)
       {
-      fscanf(dim_file,%hd,TAILOR[n].whole,TAILOR[n].num)
+      fscanf(dim_file,%hd,TAILOR[n])
       }
     fclose(dim_file); 
-    }
-
-  FILE ang_file
-  ang_file = fopen(angpath,"r")
-  if (ang_file != NULL)
-    {
-    char tsv_q[BUFFER_MAX]
-    fscanf(ang_file,"\n",tsv_buffer)
-    atof(
     }
 
   switch (base_role)
