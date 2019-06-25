@@ -21,26 +21,60 @@ refresh_land()
 			}
 		}
 	}
-	
-/* ground collisions
-if x+y<1
-	if y<x
-		z = ((pos.x%1)*map[x][y]) + ((1 - pos.x%1)*map[x+1][y])/2
-	else if y>x
-		z = ((pos.y%1)*map[x][y]) + ((1 - pos.y%1)*map[x][y+1])/2
-	else
-		z = ((pos.x%1)*map[x][y]) + ((1 - pos.x%1)*((map[x+1][y]+map[x][y+1])/2))/2
-else if x+y>1
-	if y<x
-		z = ((pos.x%1)*map[x+1][y]) + ((1 - pos.x%1)*map[x+1][y+1])
-	else if y>x
-		z = ((pos.y%1)*map[x][y+1]) + ((1 - pos.y%1)*map[x+1][y+1])
-	else
-		z = ((pos.x%1)*((map[x+1][y]+map[x][y+1])/2))) + ((1 - pos.x%1)*map[x+1][y+1]/2
-else
-	z = ((pos.x%1)*map[x][y+1]) + ((1 - pos.x%1)*map[x+1][y])/2
-*/
-
 #undefine XCOORD
 #undefine YCOORD
 #undefine ZCOORD
+	
+groundcheck(argument)
+	entity argument
+	{
+	
+	double xpos = argument.pos.x / 60
+	short xcoord = floor(xpos) % 360
+	float xrem = xpos - xcoord
+	double ypos = argument.pos.y / 60
+	short ycoord = floor(ypos) % 360
+	float yrem = ypos - ycoord
+	float groundlvl
+	
+	if ((xrem == 0) && (yrem == 0))
+		{
+		groundlvl = MAP.dots[xcoord][ycoord]
+		}
+	else if (xrem == 0)
+		{
+		groundlvl = ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2)
+		}
+	else if (yrem == 0)
+		{
+		groundlvl = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2)
+		}
+	else if ((xrem + yrem) == 60)
+		{
+		groundlvl = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2)
+		}
+	else if ((xrem + yrem) > 60)
+		{
+		groundlvl = (((xrem * MAP.dots[xcoord][(ycoord + 1)%360]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) + ((yrem * MAP.dots[(xcoord + 1)%360][ycoord]) + ((1 - yrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) / 2)
+		}
+	else
+		{
+		groundlvl = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
+		}
+	
+	groundlvl = groundlvl * 5
+	
+	if (argument.pos.z <= groundlvl)
+		{
+		argument.stat.ground = TRUE
+		}
+	else
+		{
+		argument.stat.ground = FALSE
+		}
+	
+	if (argument.pos.z < groundlvl)
+		{
+		argument.pos.z = groundlvl
+		}
+	}
