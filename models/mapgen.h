@@ -39,42 +39,28 @@ groundcheck(argument)
 	
 	if ((xrem == 0) && (yrem == 0))
 		{
-		groundlvl = MAP.dots[xcoord][ycoord]
+		argument.pos.w = MAP.dots[xcoord][ycoord]
 		}
 	else if (xrem == 0)
 		{
-		groundlvl = ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2)
+		argument.pos.w = ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2)
 		}
 	else if (yrem == 0)
 		{
-		groundlvl = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2)
+		argument.pos.w = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2)
 		}
 	else if ((xrem + yrem) == 60)
 		{
-		groundlvl = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2)
+		argument.pos.w = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2)
 		}
 	else if ((xrem + yrem) > 60)
 		{
-		groundlvl = (((xrem * MAP.dots[xcoord][(ycoord + 1)%360]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) + ((yrem * MAP.dots[(xcoord + 1)%360][ycoord]) + ((1 - yrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) / 2)
+		argument.pos.w = (((xrem * MAP.dots[xcoord][(ycoord + 1)%360]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) + ((yrem * MAP.dots[(xcoord + 1)%360][ycoord]) + ((1 - yrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) / 2)
 		}
 	else
 		{
-		groundlvl = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
+		argument.pos.w = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
 		}
 	
-	groundlvl = groundlvl * 5
-	
-	if (argument.pos.z <= groundlvl)
-		{
-		argument.stat.ground = TRUE
-		}
-	else
-		{
-		argument.stat.ground = FALSE
-		}
-	
-	if (argument.pos.z < groundlvl)
-		{
-		argument.pos.z = groundlvl
-		}
+	argument.pos.w = argument.pos.w * 5
 	}
