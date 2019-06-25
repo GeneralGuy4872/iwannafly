@@ -115,8 +115,8 @@ struct camera_ang
   {
   float x
   float y
-  signed short r
-  unsigned short f
+  signed char r
+  unsigned char f
   }
 
 struct vector2
@@ -224,20 +224,8 @@ struct plotparam
   }
 
 #define FR_ONE 64
-
-signed short flfr(input)
-  float input
-  {
-  signed short tmp = input * FR_ONE
-  return tmp
-  }
-  
-float flfr(input)
-  signed short input
-  {
-  float tmp = (float) input / FR_ONE
-  return tmp
-  }
+#define flfr(input) ((signed short) (input * FR_ONE))
+#define frfl(input) ((float) input / FR_ONE)
 
 typedef signed short mesurements[20]
 enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
@@ -281,17 +269,22 @@ struct statreg
   bool wet : 1
   bool yinv : 1
   bool horiz : 1
-  tern bouy : 2
-  bool uv : 1
-  bool infra : 1
   bool gills : 1
   bool wings : 1
   bool fireproof : 1
   bool caster : 1
+  }
+
+struct sensereg
+  {
+  bool uv : 1
+  bool infra : 1
   bool trouble : 1
   bool weather : 1
-  bool darkpower : 1
-  bool lightpower : 1
+  bool good : 1
+  bool evil : 1
+  bool law : 1
+  bool chaos : 1
   }
 
 struct viewform
