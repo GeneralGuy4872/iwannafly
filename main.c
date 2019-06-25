@@ -76,7 +76,7 @@ struct entity
 	{
 	struct entity *prev
 	struct entity *next
-	struct vector3 pos
+	struct vector4 pos
 	struct hitbox_type hitbox
 	struct vector3 Velo
 	struct vector3 Torq
@@ -105,7 +105,7 @@ struct entity
 	float Ff
 	unsigned short m
 	//they're comfy and easy to...wait...
-	struct vector2 *Drag //x = ground, y = water, z = air
+	struct vector3 *Drag //x = ground, y = water, z = air
 	struct vector3 *Fa //x = ground, y = water, z = air
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
@@ -138,8 +138,18 @@ onstep_player
 
 	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
 	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
+	PLAYER.pos.w = groundcheck(PLAYER)
 	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),0,6000) //meters, zero;arbitrary ceiling
 
+	if (PLAYER.pos.w >= PLAYER.pos.z)
+		{
+		PLAYER.stat.ground = TRUE
+		}
+	else
+		{
+		PLAYER.stat.ground = FALSE
+		}
+	
 	if (PLAYER.stat.horiz)
 		{
 		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,TOSGN(!(PLAYER.stat.yinv)),1)
@@ -234,7 +244,7 @@ mainloop ()
 					}
 				else
 					{
-					if (stepcount < FPS)
+					if (stepcount < MSEC_FRAME)
 						{
 						onstep_master()
 						stepcount++
