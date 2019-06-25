@@ -67,6 +67,11 @@ BEGIN
 #define grav (9.8 / FPS)
 //meters / second / microfortnight
 
+//#define air_dense 1.225
+//standard approximation
+//#define water_dense 1000
+//formerly by definition
+
 struct entity
 	{
 	struct entity *prev
