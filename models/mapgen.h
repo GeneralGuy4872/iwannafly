@@ -25,7 +25,7 @@ refresh_land()
 #undefine YCOORD
 #undefine ZCOORD
 	
-groundcheck(argument)
+float groundcheck(argument)
 	entity argument
 	{
 	
@@ -35,32 +35,32 @@ groundcheck(argument)
 	double ypos = argument.pos.y / 60
 	short ycoord = floor(ypos) % 360
 	float yrem = ypos - ycoord
-	float groundlvl
+	float ground
 	
 	if ((xrem == 0) && (yrem == 0))
 		{
-		argument.pos.w = MAP.dots[xcoord][ycoord]
+		ground = MAP.dots[xcoord][ycoord]
 		}
 	else if (xrem == 0)
 		{
-		argument.pos.w = ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2)
+		ground = ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2)
 		}
 	else if (yrem == 0)
 		{
-		argument.pos.w = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2)
+		ground = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2)
 		}
 	else if ((xrem + yrem) == 60)
 		{
-		argument.pos.w = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2)
+		ground = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2)
 		}
 	else if ((xrem + yrem) > 60)
 		{
-		argument.pos.w = (((xrem * MAP.dots[xcoord][(ycoord + 1)%360]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) + ((yrem * MAP.dots[(xcoord + 1)%360][ycoord]) + ((1 - yrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) / 2)
+		ground = (((xrem * MAP.dots[xcoord][(ycoord + 1)%360]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) + ((yrem * MAP.dots[(xcoord + 1)%360][ycoord]) + ((1 - yrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) / 2)
 		}
 	else
 		{
-		argument.pos.w = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
+		ground = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
 		}
 	
-	argument.pos.w = argument.pos.w * 5
+	return ground * 5
 	}
