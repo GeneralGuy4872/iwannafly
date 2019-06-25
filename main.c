@@ -86,27 +86,29 @@ struct entity
 		 * bool wet
 		 * bool yinv
 		 * bool horiz
-		 * tern bouy
-		 * bool uv
-		 * bool infra - deferred
-		 * -BOUND-
-		 * bool gills - deferred
 		 * bool wings
+		 * bool caster
+		 * bool gills - deferred
 		 * bool fireproof - deferred
-		 * bool caster - deferred
+		 */
+	struct sensereg detects
+		/* bool uv
+		 * bool infra - deferred
 		 * bool trouble - deferred
 		 * bool weather - deferred
-		 * bool darkpower - deferred
-		 * bool lightpower - deferred
+		 * bool good - deferred
+		 * bool evil - deferred
+		 * bool law - deferred
+		 * bool chaos deferred
 		 */
-	struct minivector collid //NOT IMPLEMENTED x = restrict x movement, y = restrict y movement, z = restrict z movement, w = mirror movement/parlyz
-	unsigned char health
 	struct plotparam alignment //x = lawful/chaotic, y = good/evil
+	unsigned char health
 	float Ff
 	unsigned short m
 	//they're comfy and easy to...wait...
 	struct vector3 *Drag //x = ground, y = water, z = air
 	struct vector3 *Fa //x = ground, y = water, z = air
+	struct unsigned short dens
 	struct skeleton dembones
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	}
@@ -170,15 +172,14 @@ struct cameratype
 		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
 		speed units 0 = m/s, 1 = km/h, -1 = cm/s, -2 = ft/s
 		elevation units 0 = m, 1 = km, -1 = cm, -2 = ft
-		(latitude/longitude is always in degrees*minutes')
+		(latitude/longitude is always in degrees* minutes' format)
 		infrared
 		uv
 
-		ft = 30cm
+		exact conversion of 1ft = 30cm
 		*/
 	unsigned short gold
 	unsigned short points
-	//since degrees are technically base 60 and speed is a float, points is the only thing that uses base
 	}
 
 onstep_camera
@@ -186,7 +187,7 @@ onstep_camera
 	CAMERA.coord.x = (CAMERA.coord.x + CAMBUFFER.az)%360 //degrees
 	CAMERA.coord.y = (CAMERA.coord.y + CAMBUFFER.alt)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
 	CAMERA.coord.r = CLAMP((CAMERA.coord.r + CAMBUFFER.zoom),-120,120) //meters, 2 arcminutes either direction
-	CAMERA.coord.f = CLAMP((CAMERA.coord.f + CAMBUFFER.fov),5,270) //degrees
+	CAMERA.coord.f = CLAMP((CAMERA.coord.f + CAMBUFFER.fov),5,255) //degrees
 	matset_sphere_deg(CAMERA.coord.x + PLAYER.rot.z,CAMERA.coord.y,CAMERA.coord.r,1,1)
 	}
 
