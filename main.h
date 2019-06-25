@@ -146,6 +146,27 @@ struct ushortvector2
   unsigned short y
   }
 
+struct shortvector4
+  {
+  signed short x
+  signed short y
+  signed short z
+  signed short w
+  }
+
+struct shortvector3
+  {
+  signed short x
+  signed short y
+  signed short z
+  }
+
+struct shortvector2
+  {
+  signed short x
+  signed short y
+  }
+
 struct microvector
   {
   tern x : 2
@@ -202,7 +223,21 @@ struct plotparam
   signed char y : 4
   }
 
-#define FRAC_DEN 64
+#define FR_ONE 64
+
+signed short flfr(input)
+  float input
+  {
+  signed short tmp = input * FR_ONE
+  return tmp
+  }
+  
+float flfr(input)
+  signed short input
+  {
+  float tmp = (float) input / FR_ONE
+  return tmp
+  }
 
 typedef signed short mesurements[20]
 enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
@@ -270,10 +305,10 @@ struct viewform
 
 struct hitbox_type
   {
-  struct mixfraction r
-  struct mixfraction h
-  struct fraction eyes
-  struct fraction offset
+  signed short r
+  signed short h
+  signed char eyes
+  signed char offset
   }
 
 struct shape
@@ -319,13 +354,22 @@ struct lowcolor
   unsigned int b : 2
   }
 
+struct fuzzcoord
+  {
+  unsigned int x : 9
+  unsigned int y : 9
+  unsigned int r : 6
+  }
+//x and y are coordinates when taken % 360
+//r is yaw in radians when taked * (M_PI / 32), or degrees when taken * (45 / 8)
+
 struct torusmap
   {
   unsigned char dots[360][360]
   unsigned char sealevel
-  struct bytevector2 start[8] //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
+  struct fuzzcoord start[8] //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
   }
-  
+
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
 #define ABSMIN(A,B) (fabs(A) < fabs(B) ? A : B)
@@ -336,7 +380,7 @@ struct torusmap
 #define D_GON(N) ((N%360)*(10/9))
 #define G_RAD(N) ((N%400)*(M_PI/200))
 #define G_DEG(N) ((N%400)*(9/10))
-#define R_BPI(N) ((N/M_PI)%2)
+#define R_BPI(N) (N/M_PI)
 #define zin(N) NEG(sin(N))
 #define bos(N) NEG(cos(N))
 #define SANE(N) (N == 0 ? 1 : N)
@@ -346,8 +390,8 @@ struct torusmap
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
-#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + mixfrfl(M.hitbox.r) + (mixfrfl(M.hitbox.r) * frfl(M.hitbox.offset)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.offset)) ) )
-#define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (mixfrfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (mixfrfl(M.hitbox.h) / 2) + ((mixfrfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
+#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + frfl(M.hitbox.r) + (frfl(M.hitbox.r) * frfl(M.hitbox.offset)) ) : ( M.pos.z + (frfl(M.hitbox.h) / 2) + ((frfl(M.hitbox.h) / 2) * frfl(M.hitbox.offset)) ) )
+#define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (frfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (frfl(M.hitbox.h) / 2) + ((frfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
