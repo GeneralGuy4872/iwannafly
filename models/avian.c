@@ -1,6 +1,7 @@
 #define AVE_FRIC M_E
 #define AVE_MASS 35
-struct vector2 AVE_DRAG = {.9,.9}
+#define AVE_DENSE 50
+struct vector2 AVE_DRAG = {.9,.9,.9}
 struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)}
 
 struct bone *sculpt_avian(geomet)
@@ -60,12 +61,11 @@ polymorph_avian(target,geomet)
 	{
 	target.dembones = sculpt_avian(geomet)
 	target.stat.horiz = FALSE
-	target.stat.bouy = -2
+	target.stat.wings = TRUE
+	target.stat.gills = FALSE
+	target.stat.fireproof = FALSE
 	target.stat.uv = TRUE
 	target.stat.infra = TRUE
-	target.stat.gills = FALSE
-	target.stat.wings = TRUE
-	target.stat.fireproof = FALSE
 	target.stat.weather = TRUE
 	target.Ff = AVE_FRIC
 	target.m = AVE_MASS
@@ -105,5 +105,5 @@ polymorph_avian(target,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord},{geomet[mes_hbr],geomet[mes_hbh],frtr(geomet[mes_hboff]),frtr(geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,-2,TRUE,TRUE , FALSE,TRUE,FALSE,TRUE,TRUE,TRUE,TRUE,FALSE},'\0',255,{6,-4},AVE_FRIC,AVE_MASS,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord]},{geomet[mes_hbr],geomet[mes_hbh],geomet[mes_hboff]),geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,TRUE,TRUE,TRUE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
 	}
