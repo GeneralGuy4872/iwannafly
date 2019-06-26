@@ -351,10 +351,10 @@ struct fuzzcoord
   {
   unsigned int x : 9
   unsigned int y : 9
-  unsigned int r : 6
+  unsigned int yaw : 6
   }
 //x and y are coordinates when taken % 360
-//r is yaw in radians when taked * (M_PI / 32), or degrees when taken * (45 / 8)
+//yaw is in radians when taked * (M_PI / 32), or degrees when taken * (45 / 8)
 
 struct torusmap
   {
