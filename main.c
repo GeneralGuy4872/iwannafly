@@ -170,8 +170,8 @@ struct cameratype
 		/*
 		int base 0 = dec, 1 = oct, -n = hex
 		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
-		speed units 0 = m/s, 1 = km/h, -1 = cm/s, -2 = ft/s
-		elevation units 0 = m, 1 = km, -1 = cm, -2 = ft
+		distance units 0 = m, 1 = km, -1 = cm, -2 = ft
+		
 		(latitude/longitude is always in degrees* minutes' format)
 		infrared
 		uv
