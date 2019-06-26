@@ -10,16 +10,16 @@ struct bone *sculpt_avian(geomet)
   {
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
     struct bone *pelvis = malloc(sizeof(struct bone))
-    *pelvis = {NULL,NULL,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+    *pelvis = {NULL,NULL,NULL,{0,0,0},{0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
     *(pelvis->geom) = shape_poly_triangle(mfrfl(geomet[mes_cxyx]),mfrfl(geomet[mes_pelv])/2)
   struct bone *index_spine = spine(pelvis,pelvis,mfrfl(geomet[mes_back]),16)
   struct bone *neck = spine(index_spine,index_spine,mfrfl(geomet[mes_neck]),7)
     struct bone *skull = malloc(sizeof(struct bone))
-    *skull = {neck,neck,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{mfrfl(geomet[mes_skull]),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+    *skull = {neck,neck,NULL,{0,0,0},{mfrfl(geomet[mes_skull]),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
     *(skull->geom) = shape_poly_octo(mfrfl(geomet[mes_skull]))
     doublelink(skull)
     struct bone *lshoulder = malloc(sizeof(struct bone))
-    *lshoulder = {index_spine,skull,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{mfrfl(geomet[mes_shld]),0,0},matgen_z_deg(xLEFT(90)),matgen_ident,TRUE,NULL}
+    *lshoulder = {index_spine,skull,NULL,{0,0,0},{mfrfl(geomet[mes_shld]),0,0},matgen_z_deg(xLEFT(90)),matgen_ident,TRUE,NULL}
     doublelink(lshoulder)
   struct bone *larm = arm(lshoulder,lshoulder,mfrfl(geomet[mes_humr]),LEFT)
   struct bone *lthumb = thumbphalanges(larm,larm,3,{0,0,xLEFT(-45)})
@@ -27,7 +27,7 @@ struct bone *sculpt_avian(geomet)
   struct bone *lfinger2 = finger(larm,lfinger3,3,{0,0,xLEFT(-11.25)},COS_PI_32)
   struct bone *lfinger4 = finger(larm,lfinger2,3,{0,0,xLEFT(11.25)},COS_PI_32)
     struct bone *rshoulder = malloc(sizeof(struct bone))
-    *rshoulder = {index_spine,lfinger4,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{mfrfl(geomet[mes_shld]),0,0},matgen_z_deg(xRIGHT(90)),matgen_ident,TRUE,NULL}
+    *rshoulder = {index_spine,lfinger4,NULL,{0,0,0},{mfrfl(geomet[mes_shld]),0,0},matgen_z_deg(xRIGHT(90)),matgen_ident,TRUE,NULL}
     doublelink(rshoulder)
   struct bone *rarm = arm(rshoulder,rshoulder,mfrfl(geomet[mes_humr]),RIGHT)
   struct bone *rthumb = thumbphalanges(rarm,rarm,3,{0,0,xRIGHT(-45)})
@@ -50,7 +50,7 @@ struct bone *sculpt_avian(geomet)
   //vert is the internal abbriviation for vertabra
   //nmax is the length of the array (meaning nmax-1 is the last element)
     struct bone *index_tail = malloc(sizeof(struct bone))
-    *index_tail = {pelvis,rwing,NULL,{FR_ZERO,FR_ZERO,FR_ZERO},{mfrfl(geomet[mes_tl]),mfrfl(geomet[mes_tr]),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
+    *index_tail = {pelvis,rwing,NULL,{0,0,0},{mfrfl(geomet[mes_tl]),mfrfl(geomet[mes_tr]),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))}
     *(tail->geom) = shape_poly_xfan(mflfr(geomet[mes_tl]),mflfr(geomet[mes_tr]),mflfr(geomet[mes_tth]))
     doublelink(tail)
   return pelvis
