@@ -298,8 +298,8 @@ struct viewform
 
 struct hitbox_type
   {
-  signed short r
-  signed short h
+  signed short x
+  signed short z
   signed char eyes
   signed char offset
   }
