@@ -61,7 +61,12 @@ BEGIN
  * of the basic physics implementation; inprecise mesures of time based on accumulated loops
  * approximately equal to one second with a margin of error based on CPU speed and strain
  * use "microfortnights" as in VMS for the PDP-11, to distinguish them from exact values.
+ *
  * meters currently equal one arcminute on the surface of the torus exactly.
+ * feet are exactly 30cm
+ * 
+ * some mesurements may be stored using a conversion factor to save space,
+ * most common variant is CMS mesurements in interger types.
  */
 
 #define grav (9.8 / FPS)
@@ -69,7 +74,7 @@ BEGIN
 
 #define air_dense 1.225
 //standard approximation
-#define water_dense 1000
+#define water_dense 1000.0
 //formerly by definition
 
 struct entity
