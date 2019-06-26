@@ -107,5 +107,5 @@ polymorph_avian(target,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord]},{geomet[mes_hbr],geomet[mes_hbh],geomet[mes_hboff]),geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,TRUE,TRUE,TRUE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
+	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord] * 5},{geomet[mes_hbr],geomet[mes_hbh],geomet[mes_hboff]),geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,yinv,FALSE,TRUE,TRUE,TRUE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet)}
 	}
