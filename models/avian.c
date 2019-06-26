@@ -1,6 +1,7 @@
 #define AVE_FRIC M_E
 #define AVE_MASS 35
 #define AVE_DENSE 50
+//units for density is (g/cc)/64, and must be converted for use with SI and before storage
 struct vector2 AVE_DRAG = {.9,.9,.9}
 struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)}
 
@@ -69,6 +70,7 @@ polymorph_avian(target,geomet)
 	target.stat.weather = TRUE
 	target.Ff = AVE_FRIC
 	target.m = AVE_MASS
+	target.density = AVE_DENSE
 	target.Drag = &AVE_DRAG
 	target.Fa = &AVE_SPD
 	forcebaseten ? NOP : CAMERA.base = TRISTATE
