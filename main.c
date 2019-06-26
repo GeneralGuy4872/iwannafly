@@ -119,7 +119,7 @@ struct entity
 #define ACCL(X) SANE(X.stat.wet ? (X.stat.wings ? (X.Fa->y / 4) : X.Fa->y) : (X.stat.ground ? X.Fa->x : X.Fa->z ))
 #define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->y) : X.Drag->y) : (X.stat.ground ? X.Drag->x : X.Drag->z))
 #define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
-#define GRAVITY(X,Y) (X.Y - (X.stat.ground ? 0 : (X.stat.wet ? (grav * (X.density - water_dense)) : (grav * (X.density - air_dense)) )) / DRAG(X)) //eh, close enough for now.
+#define GRAVITY(X,Y) (X.Y - (X.stat.ground ? 0 : (X.stat.wet ? (grav * ((X.density * 15.625) - water_dense)) : (grav * ((X.density * 15.625) - air_dense)) )) / DRAG(X)) //eh, close enough for now.
 #define ROLL(X,Y,Z) (X.stat.ground ? 0 : PHYSICS(X,Y,Z))
 //end dragons
 
