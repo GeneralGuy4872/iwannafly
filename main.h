@@ -232,11 +232,14 @@ struct magic_type
 
 struct spell
   {
-  signed char damage
-  signed char recoil
+  unsigned int damage : 7
+  signed int recoil : 7
+  quard spread : 2 //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
+  struct halfbytes impact //hi = knockback, lo = splash radius
   struct magic_type type
-  unsigned char spread
   }
+
+#include "./spells.h"
 
 typedef struct *spell spellbook[4]
 
