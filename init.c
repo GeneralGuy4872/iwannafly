@@ -3,7 +3,7 @@
 //you arived here from main
 
 unsigned char sealevel
-bool forcebaseten
+bool forcebten
 bool yinv
   
 bool run = 0
@@ -25,7 +25,7 @@ world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
 init__setup()
   {
   FILE ini_file
-  for(n = 1,n,n++)
+  for (unsigned char n = 1,n,n++)
     {
     switch (n)
       {
@@ -81,7 +81,7 @@ init__setup()
               }
             case HASH5('f','o','r') :
               {
-              forcebaseten = atoi(ini_data)
+              forcebten = atoi(ini_data)
               break
               }
             case HASH5('s','e','a') :
@@ -134,7 +134,7 @@ init__setup()
   dim_file = fopen(dimpath,"r")
   if (dim_file != NULL)
     {
-    for (n=0;n<20;n++)
+    for (unsigned char n = 0;n<20;n++)
       {
       fscanf(dim_file,%hd,TAILOR[n])
       }
@@ -147,7 +147,6 @@ init__setup()
       {
       polymorph_avian(PLAYER)
       forcebten ? CAMERA.base = 0 : CAMERA.base = 1
-      PLAYER.stat.yinv = yinv
       file_cat("/usr/share/iwannafly/avianquest")
       break
       }
@@ -209,7 +208,7 @@ init__setup()
       }
     case 8 :
       {
-      polymorph_human(PLAYER)
+      polymorph_wizard(PLAYER)
       CAMERA.base = 0
       PLAYER.stat.yinv = yinv
       file_cat("/usr/share/iwannafly/roguequest")
@@ -256,8 +255,6 @@ init__setup()
       break
       }
     }
-  
-  free(yinv);
 
   FILE heightmap_file = fopen(mappath,"rb")
   fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
@@ -269,7 +266,7 @@ init__setup()
 
   if dologs
     {
-    for (n = 1;n;n++)
+    for (unsigned char n = 1;n;n++)
       {
       switch (n)
         {
