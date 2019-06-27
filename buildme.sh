@@ -1,2 +1,2 @@
 #!/bin/sh
-cc main.c
+cc main.c -lX11 -lXaw -lXt
