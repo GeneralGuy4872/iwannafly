@@ -89,12 +89,7 @@ noop() {}
 
 typedef float matrix[4][4]
 
-bool toggle(setting)
-  bool setting
-  {
-  setting = !setting
-  return setting
-  }
+#define toggle(setting) setting = !setting;
 
 struct vector4
   {
@@ -222,6 +217,28 @@ struct plotparam
   signed char x : 4
   signed char y : 4
   }
+
+struct magic_type
+  {
+  bool fire : 1
+  bool air : 1
+  bool water : 1
+  bool earth : 1
+  bool chaos : 1
+  bool light : 1
+  bool dark : 1
+  bool energy : 1
+  }
+
+struct spell
+  {
+  signed char damage
+  signed char recoil
+  struct magic_type type
+  unsigned char spread
+  }
+
+typedef struct spell spellbook[4]
 
 #define FR_ONE 64
 #define flfr(input) ((signed short) (input * FR_ONE))
