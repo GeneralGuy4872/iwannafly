@@ -238,7 +238,7 @@ struct spell
   unsigned char spread
   }
 
-typedef struct spell spellbook[4]
+typedef struct *spell spellbook[4]
 
 #define FR_ONE 64
 #define flfr(input) ((signed short) (input * FR_ONE))
