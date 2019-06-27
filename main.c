@@ -85,7 +85,7 @@ struct entity
 	struct hitbox_type hitbox
 	struct vector3 Velo
 	struct vector3 Torq
-	matrix rot = matgen_ident
+	matrix rot
 	struct statreg stat
 		/* bool ground
 		 * bool wet
