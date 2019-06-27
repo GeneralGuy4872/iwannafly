@@ -267,12 +267,12 @@ struct statreg
   {
   bool ground : 1
   bool wet : 1
-  bool yinv : 1
   bool horiz : 1
+  bool caster : 1
+  bool locks : 1
   bool gills : 1
   bool wings : 1
   bool fireproof : 1
-  bool caster : 1
   }
 
 struct sensereg
