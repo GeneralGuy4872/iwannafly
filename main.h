@@ -383,8 +383,8 @@ struct torusmap
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
-#define BASEBONEPOS(M) ( M.stat.horiz ? ( M.pos.z + frfl(M.hitbox.r) + (frfl(M.hitbox.r) * frfl(M.hitbox.offset)) ) : ( M.pos.z + (frfl(M.hitbox.h) / 2) + ((frfl(M.hitbox.h) / 2) * frfl(M.hitbox.offset)) ) )
-#define EYECOORD(M) ( M.stat.horiz ? ( M.pos.x + (frfl(M.hitbox.h) * frfl(M.hitbox.eyes)) ) : ( M.pos.z + (frfl(M.hitbox.h) / 2) + ((frfl(M.hitbox.h) / 2) * frfl(M.hitbox.eyes)) ) )
+#define BASEBONEPOS(M) ( M.pos.z + (frfl(M.hitbox.z) * frfl(M.hitbox.offset) )
+#define EYECOORD(M) { (M.pos.x + (M.stat.horiz ? frfl(M.hitbox.eyes) : 0)),M.pos.y,(M.pos.z + (M.stat.horiz ? frfl(M.hitbox.z)/2 : frfl(M.hitbox.eyes)))}
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
