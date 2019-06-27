@@ -89,10 +89,10 @@ struct entity
 	struct statreg stat
 		/* bool ground
 		 * bool wet
-		 * bool yinv
 		 * bool horiz
-		 * bool wings
 		 * bool caster
+		 * bool wings
+		 * bool locks
 		 * bool gills - deferred
 		 * bool fireproof - deferred
 		 */
@@ -119,7 +119,6 @@ struct entity
 	}
 
 //HERE BE DRAGONS
-#define INVPIT(X) (SANE(FSGN(X.stat.yinv)))
 #define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m)
 #define ACCL(X) SANE(X.stat.wet ? (X.stat.wings ? (X.Fa->y / 4) : X.Fa->y) : (X.stat.ground ? X.Fa->x : X.Fa->z ))
 #define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->y) : X.Drag->y) : (X.stat.ground ? X.Drag->x : X.Drag->z))
@@ -157,13 +156,22 @@ onstep_player
 		PLAYER.stat.ground = FALSE
 		}
 	
-	if (PLAYER.stat.horiz)
+	if ( (MAP.sealevel * 5) >= (PLAYER.pos.z + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z)) )
 		{
-		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,TOSGN(!(PLAYER.stat.yinv)),1)
+		PLAYER.stat.wet = TRUE
 		}
 	else
 		{
-		matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,TOSGN(!(PLAYER.stat.yinv)),1)
+		PLAYER.stat.wet = FALSE
+		}
+	
+	if (PLAYER.stat.horiz)
+		{
+		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,1,1)
+		}
+	else
+		{
+		matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,1,1)
 		}
 	}
 
