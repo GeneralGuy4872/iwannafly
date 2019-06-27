@@ -11,7 +11,8 @@
 glx__SetCamera()
   {    
   glMatrixMode(GL_MODELVIEW);
-  glLoadMatrix(CAMERA->root.rot);
+  glTraslate(EYECOORDS(PLAYER));
+  glMultMatrix(PLAYER.rot);
   glMultMatrix(matgen_sphere(CAMERA->coord.x,CAMERA->coord.y,CAMERA->coord.z,1,1))
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
