@@ -1,7 +1,3 @@
-#include "./models.h"
-#include "./shapes.h"
-#include "./matrixgen.h"
-
 #define doublelink(M) M.prev->next = M
 #define macrodelete(M) {M.prev != NULL ? M.prev->next = M.next : SWYM; M.next != NULL ? M.next->prev = M.prev : SWYM; free(M)}
 
