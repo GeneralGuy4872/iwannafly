@@ -108,11 +108,13 @@ struct vector3
 
 struct camera_ang
   {
-  float x
-  float y
-  signed char r
-  unsigned char f
+  unsigned char az
+  unsigned char alt
+  signed char z
+  unsigned char fov
   }
+//azimuth and altitude are taken (n % 180) * 2
+//z and fov are literal
 
 struct vector2
   {
@@ -369,12 +371,11 @@ struct lowcolor
 
 struct fuzzcoord
   {
-  unsigned int x : 9
-  unsigned int y : 9
-  unsigned int yaw : 6
+  unsigned char x
+  unsigned char y
+  unsigned int yaw
   }
-//x and y are coordinates when taken % 360
-//yaw is in radians when taked * (M_PI / 32), or degrees when taken * (45 / 8)
+//values are taken (n % 180) * 2
 
 struct torusmap
   {
@@ -403,7 +404,6 @@ struct torusmap
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
-#define BASEBONEPOS(M) ( M.pos.z + (frfl(M.hitbox.z) * frfl(M.hitbox.offset) )
 #define EYECOORD(M) { (M.pos.x + (M.stat.horiz ? frfl(M.hitbox.eyes) : 0)),M.pos.y,(M.pos.z + (M.stat.horiz ? frfl(M.hitbox.z)/2 : frfl(M.hitbox.eyes)))}
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
@@ -577,7 +577,7 @@ struct movement_buffer_t
 
 struct movement_buffer_t MOVEBUFFER
 #define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
-#define MOVEBUFFER_rol ((MOVEBUFFER.rt / 2) - (MOVEBUFFER.lt / 2))
+#define MOVEBUFFER_rol (MOVEBUFFER.rt - MOVEBUFFER.lt)
 
 fetchJSAXIS()
   {
@@ -590,8 +590,8 @@ fetchJSAXIS()
   MOVEBUFFER.y = (float) JSAXISBUFF[0] / SHRT_MAX
   MOVEBUFFER.pit = (float) JSAXISBUFF[5] / -SHRT_MAX
   MOVEBUFFER.yaw = (float) JSAXISBUFF[4] / SHRT_MAX
-  MOVEBUFFER.lt = (float) (JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX
-  MOVEBUFFER.rt = (float) (JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX
+  MOVEBUFFER.lt = ((float) JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX
+  MOVEBUFFER.rt = ((float) JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX
   JSAXISFLAG--
   }
   
