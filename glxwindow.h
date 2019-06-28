@@ -123,6 +123,3 @@ glx__startup()
 	XStoreName(dpy, win, VITALSTAT(REV_NOFORK));
 	glx__eventswitch(dsply,glxwin);
 	}
-	
- * XK_End : camera.coord.az=0 camera.coord.alt=0 camera.coord.z=0 camera.coord.fov=50
- */
