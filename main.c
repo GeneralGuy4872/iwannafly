@@ -34,9 +34,9 @@
 #include "joystick.c"
 #include "timeing.c"
 
-#include "xwindow.c"
+//#include "xwindow.c"
 #include "glxwindow.c"
-#include "textout.c"
+//#include "textout.c"
 
 //---<HR>---
 
