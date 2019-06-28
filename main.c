@@ -30,19 +30,10 @@
 #include <GL/glu.h> //know what this does now
 
 signed short JSAXISBUFF[8] = mmap(NULL,sizeof(JSAXISBUFF),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
-signed char JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+signed char *JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 
-#define BEGIN {
-#define END mainloop();}
-
-main()
-	{
-	if (fork() == 0)
-BEGIN
 #include "./joystick.c"
-END
-	else
-BEGIN
+
 #include "./main.h"
 #include "./models/all.c"
 #include "./init.c"
@@ -270,4 +261,15 @@ mainloop ()
 	printf("runlevel lowered, exiting...\n");
 	exit(0);
 	}
-END}
+
+main()
+	{
+	if (fork() == 0)
+		{
+		jsloop()
+		}
+	else
+		{
+		mainloop()
+		}
+	}
