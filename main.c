@@ -79,14 +79,14 @@ BEGIN
 
 struct entity
 	{
-	struct entity *prev
-	struct entity *next
-	struct vector4 pos
-	struct vector3 rot
-	struct hitbox_type hitbox
-	struct vector3 Velo
-	struct vector3 Torq
-	struct statreg stat
+	struct entity *prev;
+	struct entity *next;
+	struct vector4 pos;
+	struct vector3 rot;
+	struct hitbox_type hitbox;
+	struct vector3 Velo;
+	struct vector3 Torq;
+	struct statreg stat;
 		/* bool ground
 		 * bool wet
 		 * bool horiz
@@ -96,7 +96,7 @@ struct entity
 		 * bool gills - deferred
 		 * bool fireproof - deferred
 		 */
-	struct sensereg detects
+	struct sensereg detects;
 		/* bool uv
 		 * bool infra - deferred
 		 * bool trouble - deferred
@@ -106,18 +106,18 @@ struct entity
 		 * bool law - deferred
 		 * bool chaos deferred
 		 */
-	struct plotparam alignment //x = lawful/chaotic, y = good/evil
-	unsigned char health
-	float Ff
-	unsigned short m
-	unsigned short density
+	struct plotparam alignment; //x = lawful/chaotic, y = good/evil
+	unsigned char health;
+	float Ff;
+	unsigned short m;
+	unsigned short density;
 	//they're comfy and easy to...wait...
-	struct vector3 *Drag //x = ground, y = water, z = air
-	struct vector3 *Fa //x = ground, y = water, z = air
-	struct skeleton dembones
-	spellbook spells
+	struct vector3 *Drag; //x = ground, y = water, z = air
+	struct vector3 *Fa; //x = ground, y = water, z = air
+	struct skeleton dembones;
+	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
-	}
+	};
 
 //HERE BE DRAGONS
 #define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m)
@@ -130,40 +130,40 @@ struct entity
 
 onstep_player
 	{
-	PLAYER.Torq.x = ROLL(player,Torq.x,MOVEBUFFER_rol)
-	PLAYER.Torq.z = PHYSICS(player,Torq.z,MOVEBUFFER.yaw)
-	PLAYER.Torq.y = PHYSICS(player,Torq.y,MOVEBUFFER.pit)
+	PLAYER.Torq.x = ROLL(player,Torq.x,MOVEBUFFER_rol);
+	PLAYER.Torq.z = PHYSICS(player,Torq.z,MOVEBUFFER.yaw);
+	PLAYER.Torq.y = PHYSICS(player,Torq.y,MOVEBUFFER.pit);
 
-	PLAYER.rot.x = CLAMP((player.rot.x + player.Torq.x),-90,90) //degrees
-	PLAYER.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90) //degrees
-	PLAYER.rot.z = (player.rot.z + player.Torq.z)%360 //degrees
+	PLAYER.rot.x = CLAMP((player.rot.x + player.Torq.x),-90,90); //degrees
+	PLAYER.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90); //degrees
+	PLAYER.rot.z = (player.rot.z + player.Torq.z)%360; //degrees
 
-	PLAYER.Velo.x = PHYSICS(player,Velo.x,((MOVEBUFFER.x * cos(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * cos(PLAYER.rot.y) * cos(PLAYER.rot.z))))
-	PLAYER.Velo.y = PHYSICS(player,Velo.y,((MOVEBUFFER.x * sin(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * cos(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.x) * sin(PLAYER.rot.z))))
-	PLAYER.Velo.z = PHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))))
-	PLAYER.Velo.z = GRAVITY(player,Velo.z)
+	PLAYER.Velo.x = PHYSICS(player,Velo.x,((MOVEBUFFER.x * cos(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * cos(PLAYER.rot.y) * cos(PLAYER.rot.z))));
+	PLAYER.Velo.y = PHYSICS(player,Velo.y,((MOVEBUFFER.x * sin(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * cos(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.x) * sin(PLAYER.rot.z))));
+	PLAYER.Velo.z = PHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))));
+	PLAYER.Velo.z = GRAVITY(player,Velo.z);
 
-	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
-	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
-	PLAYER.pos.w = groundcheck(PLAYER)
-	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),PLAYER.pos.w,6000) //meters, groundlevel;arbitrary ceiling
+	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600; //arcminutes
+	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600; //arcminutes
+	PLAYER.pos.w = groundcheck(PLAYER);
+	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),PLAYER.pos.w,6000); //meters, groundlevel;arbitrary ceiling
 
 	if (PLAYER.pos.w >= PLAYER.pos.z)
 		{
-		PLAYER.stat.ground = TRUE
+		PLAYER.stat.ground = TRUE;
 		}
 	else
 		{
-		PLAYER.stat.ground = FALSE
+		PLAYER.stat.ground = FALSE;
 		}
 	
 	if ( (MAP.sealevel * 5) >= (PLAYER.pos.z + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z))) )
 		{
-		PLAYER.stat.wet = TRUE
+		PLAYER.stat.wet = TRUE;
 		}
 	else
 		{
-		PLAYER.stat.wet = FALSE
+		PLAYER.stat.wet = FALSE;
 		}
 	
 
@@ -171,8 +171,8 @@ onstep_player
 
 struct cameratype
 	{
-	struct camera_ang coord
-	struct viewform format
+	struct camera_ang coord;
+	struct viewform format;
 		/*
 		int base 0 = dec, 1 = oct, -n = hex
 		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
@@ -184,45 +184,45 @@ struct cameratype
 
 		exact conversion of 1ft = 30cm
 		*/
-	unsigned short gold
-	unsigned short points
-	}
+	unsigned short gold;
+	unsigned short points;
+	};
 
 onstep_camera
 	{
-	CAMERA.coord.az = (CAMERA.coord.az + CAMBUFFER.x)%180 //degrees/2
-	CAMERA.coord.alt = (CAMERA.coord.alt + CAMBUFFER.y)%180 //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
-	CAMERA.coord.z = CLAMP((CAMERA.coord.z + CAMBUFFER.z),-120,120) //meters, 2 arcminutes either direction
-	CAMERA.coord.fov = CLAMP((CAMERA.coord.fov + CAMBUFFER.w),5,255) //degrees (solid degrees?)
+	CAMERA.coord.az = (CAMERA.coord.az + CAMBUFFER.x)%180; //degrees/2
+	CAMERA.coord.alt = (CAMERA.coord.alt + CAMBUFFER.y)%180; //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMERA.coord.z = CLAMP((CAMERA.coord.z + CAMBUFFER.z),-120,120); //meters, 2 arcminutes either direction
+	CAMERA.coord.fov = CLAMP((CAMERA.coord.fov + CAMBUFFER.w),5,255); //degrees (solid degrees?)
 	}
 
 struct world
 	{
-	struct torusmap *map
-	struct entity *ent
-	struct entity *ent_tail
-	struct thing *scen
-	struct thing *scen_tail
-	struct event *evnt
-	struct event *evnt_tail
-	struct cameratype *cam
-	}
+	struct torusmap *map;
+	struct entity *ent;
+	struct entity *ent_tail;
+	struct thing *scen;
+	struct thing *scen_tail;
+	struct event *evnt;
+	struct event *evnt_tail;
+	struct cameratype *cam;
+	};
 
 //---<HR>---
 
 onstep_master ()
 	{
-	onstep_player(PLAYER)
-	onstep_camera(CAMERA)
-	input__onstep_buffers()
-	ready = TRUE
+	glx__eventswitch(dsply,glxwin);
+	onstep_player();
+	onstep_camera();
+	ready = TRUE;
 	}
 
 onstep_paused ()
 	{
-	onstep_camera(CAMERA)
-	input__onstep_camonly()
-	ready = TRUE
+	glx__eventswitch(dsply,glxwin);
+	onstep_camera();
+	ready = TRUE;
 	}
 
 #include "./models/mapgen.h"
@@ -230,36 +230,36 @@ onstep_paused ()
 /*MAIN*/
 mainloop ()
 	{
-	init__setup()
-	printf(VITALSTAT_FULL(Without forks,REV_NOFORK))
-	while run
+	init__setup();
+	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m- %s -\033[m\n  main program revision: %s\n   joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
+	while (run)
 		{
-		if nextframe
+		if (nextframe)
 			{
-			if ready
+			if (ready)
 				{
-				glx__DrawLoop(WORLD)
-				nextframe = FALSE
-				ready = FALSE
+				glx__drawLoop(WORLD);
+				nextframe = FALSE;
+				ready = FALSE;
 				}
 			else
 				{
-				if paused
+				if (paused)
 					{
-					onstep_paused()
+					onstep_paused();
 					}
 				else
 					{
 					if (stepcount < MSEC_FRAME)
 						{
-						onstep_master()
-						stepcount++
+						onstep_master();
+						stepcount++;
 						}
 					else
 						{
-						refresh_land(PLAYER)
-						onstep_master()
-						stepcount = 0
+						refresh_land();
+						onstep_master();
+						stepcount = 0;
 						}
 					}
 				}
@@ -267,9 +267,7 @@ mainloop ()
 		else
 			{}
 		}
-	printf("runlevel lowered, exiting...")
-	DOTLOAD
-	printf("\n")
-	exit(0)
+	printf("runlevel lowered, exiting...\n");
+	exit(0);
 	}
 END}
