@@ -2,10 +2,10 @@
 #include "shapes.h"
 #include "bonegroups.h"
 #include "avian.c"
-#include "human.c"
-#include "merfolk.c"
-#include "draconic.c"
-#include "elf.c"
+//#include "human.c"
+//#include "merfolk.c"
+//#include "draconic.c"
+//#include "elf.c"
 
 /* &bone sculpt_foo(mesurements geomet) provided in each included file creates the model for an entity
  * (int) polymorph_foo(entity *bar,mesurements geomet) changes an existing entity to the default values of foo, keeping velocity, rotation, and position
