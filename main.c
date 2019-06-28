@@ -64,48 +64,6 @@
 #define water_dense 1000.0
 //formerly by definition
 
-struct entity
-	{
-	struct entity *prev;
-	struct entity *next;
-	struct vector4 pos;
-	struct vector3 rot;
-	struct hitbox_type hitbox;
-	struct vector3 Velo;
-	struct vector3 Torq;
-	struct statreg stat;
-		/* bool ground
-		 * bool wet
-		 * bool horiz
-		 * bool caster
-		 * bool wings
-		 * bool locks
-		 * bool gills - deferred
-		 * bool fireproof - deferred
-		 */
-	struct sensereg detects;
-		/* bool uv
-		 * bool infra - deferred
-		 * bool trouble - deferred
-		 * bool weather - deferred
-		 * bool good - deferred
-		 * bool evil - deferred
-		 * bool law - deferred
-		 * bool chaos deferred
-		 */
-	struct plotparam alignment; //x = lawful/chaotic, y = good/evil
-	unsigned char health;
-	float Ff;
-	unsigned short m;
-	unsigned short density;
-	//they're comfy and easy to...wait...
-	struct vector3 *Drag; //x = ground, y = water, z = air
-	struct vector3 *Fa; //x = ground, y = water, z = air
-	struct skeleton dembones;
-	spellbook spells;
-	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
-	};
-
 //HERE BE DRAGONS
 #define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m)
 #define ACCL(X) SANE(X.stat.wet ? (X.stat.wings ? (X.Fa->y / 4) : X.Fa->y) : (X.stat.ground ? X.Fa->x : X.Fa->z ))
@@ -152,28 +110,7 @@ onstep_player
 		{
 		PLAYER.stat.wet = FALSE;
 		}
-	
-
 	}
-
-struct cameratype
-	{
-	struct camera_ang coord;
-	struct viewform format;
-		/*
-		int base 0 = dec, 1 = oct, -n = hex
-		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
-		distance units 0 = m, 1 = km, -1 = cm, -2 = ft
-		
-		(latitude/longitude is always in degrees* minutes' format)
-		infrared
-		uv
-
-		exact conversion of 1ft = 30cm
-		*/
-	unsigned short gold;
-	unsigned short points;
-	};
 
 onstep_camera
 	{
@@ -183,17 +120,6 @@ onstep_camera
 	CAMERA.coord.fov = CLAMP((CAMERA.coord.fov + CAMBUFFER.w),5,255); //degrees (solid degrees?)
 	}
 
-struct world
-	{
-	struct torusmap *map;
-	struct entity *ent;
-	struct entity *ent_tail;
-	struct thing *scen;
-	struct thing *scen_tail;
-	struct event *evnt;
-	struct event *evnt_tail;
-	struct cameratype *cam;
-	};
 
 //---<HR>---
 
