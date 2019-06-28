@@ -10,15 +10,10 @@
 
 #define BUFFER_MAX 512
 
-//these will eventualy be dependent on wait times, once I figure out how to fork without causing wabbits
-//see notes/forks.txt
-#define SPINLOAD sleep(100); printf(" \b|\b"); sleep(100); printf(" \b/\b"); sleep(100); printf(" \b-\b"); sleep(100); printf(" \b\\\b"); 
-#define DOTLOAD sleep(100); printf("\b\b\b   "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b.. "); sleep(100); printf("\b\b\b..."); sleep(100); printf("\b\b\b .."); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b.  "); sleep(100); printf("\b\b\b . "); sleep(100); printf("\b\b\b  ."); sleep(100); printf("\b\b\b .:"); sleep(100); printf("\b\b\b...");
-
-#define __MYVERS__ "00.00.01"
-#define REV_NOFORK "000.000"
-#define VITALSTAT(Z) "Iwannafly "__MYVERS__";"Z" Compiled on "__DATE__
-#define VITALSTAT_FULL(N,Z) " \033[1;97m~~ Iwannafly ~~\033[m\n  version: "__MYVERS__"\n\n \033[97m- "N" -\033[m\n  revision: "Z"\n\n\033[3mCompiled on "__DATE__"\033[m\n"
+#define __MYVERS__ "000.001.000"
+#define REV_MAIN "001.000"
+#define REV_JS "000.002"
+#define VITALSTAT(N,R) "Iwannafly v"__MYVERS__", "N" r"R", Compiled on "__DATE__
 
 /*
  *the library at <math.h> must provide:
@@ -37,17 +32,17 @@
 #define ONE_1_9 1.11111111111111111111111
 
 #define FPS 30 //frames per second (hz)
-static const float MSEC_FRAME = ((1.0 / FPS) * 1000) //milliseconds per frame (msec)
+static const float MSEC_FRAME = ((1.0 / FPS) * 1000); //milliseconds per frame (msec)
 
 #define PI_N(N) (M_PI / N)
 #define PI_2_N(N) (M_PI_2 / N)
 
 div_t div_tmp;
 
-typedef int (*eventfunc)(int,int) //you know you're getting serious when you're using function pointers
-typedef signed char tern
-typedef unsigned char quard
-typedef char mydate_str[24]
+typedef int (*eventfunc)(int,int); //you know you're getting serious when you're using function pointers
+typedef signed char tern;
+typedef unsigned char quard;
+typedef char mydate_str[24];
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
@@ -80,89 +75,89 @@ typedef char mydate_str[24]
 #define VIEWRNGmin (VIEWRNGmax * -1)
 #define VIEWRNGlim (VIEWRNGmax + 1)
 
-const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","OVER"}
+const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","OVER"};
 
 noop() {}
-#define NOP noop()
-#define SWYM sleep(0)
-#define X_HCF_X exit(1)
+#define NOP noop();
+#define SWYM sleep(0);
+#define X_HCF_X exit(1);
 
-typedef float matrix[4][4]
+typedef float matrix[4][4];
 
 #define toggle(setting) setting = !setting;
 
 struct vector4
   {
-  float x
-  float y
-  float z
-  float w
-  }
+  float x;
+  float y;
+  float z;
+  float w;
+  };
 
 struct vector3
   {
-  float x
-  float y
-  float z
-  }
+  float x;
+  float y;
+  float z;
+  };
 
 struct camera_ang
   {
-  unsigned char az
-  unsigned char alt
-  signed char z
-  unsigned char fov
-  }
+  unsigned char az;
+  unsigned char alt;
+  signed char z;
+  unsigned char fov;
+  };
 //azimuth and altitude are taken (n % 180) * 2
 //z and fov are literal
 
 struct vector2
   {
-  float x
-  float y
-  }
+  float x;
+  float y;
+  };
 
 struct ushortvector4
   {
-  unsigned short x
-  unsigned short y
-  unsigned short z
-  unsigned short w
-  }
+  unsigned short x;
+  unsigned short y;
+  unsigned short z;
+  unsigned short w;
+  };
 
 struct ushortvector3
   {
-  unsigned short x
-  unsigned short y
-  unsigned short z
-  }
+  unsigned short x;
+  unsigned short y;
+  unsigned short z;
+  };
 
 struct ushortvector2
   {
-  unsigned short x
-  unsigned short y
-  }
+  unsigned short x;
+  unsigned short y;
+  };
 
 struct shortvector4
   {
-  signed short x
-  signed short y
-  signed short z
-  signed short w
-  }
+  signed short x;
+  signed short y;
+  signed short z;
+  signed short w;
+  };
 
 struct shortvector3
   {
-  signed short x
-  signed short y
-  signed short z
-  }
+  signed short x;
+  signed short y;
+  signed short z;
+  };
 
 struct shortvector2
   {
-  signed short x
-  signed short y
-  }
+  signed short x;
+  signed short y;
+  };
 
 struct microvector
   {
@@ -170,7 +165,7 @@ struct microvector
   tern y : 2
   tern z : 2
   tern w : 2
-  }
+  };
 
 struct minivector
   {
@@ -178,7 +173,7 @@ struct minivector
   quard y : 2
   quard z : 2
   quard w : 2
-  }
+  };
 
 struct bytevector4
   {
@@ -186,13 +181,13 @@ struct bytevector4
   unsigned int y : 8
   unsigned int z : 8
   unsigned int w : 8
-  }
+  };
 
 struct bytevector2
   {
   unsigned int x : 8
   unsigned int y : 8
-  }
+  };
 
 struct charvector4
   {
@@ -200,25 +195,25 @@ struct charvector4
   signed char y : 8
   signed char z : 8
   signed char w : 8
-  }
+  };
 
 struct charvector2
   {
   signed char x : 8
   signed char y : 8
-  }
+  };
 
 struct halfbytes
   {
   unsigned char hi : 4
   unsigned char lo : 4
-  }
+  };
 
 struct plotparam
   {
   signed char x : 4
   signed char y : 4
-  }
+  };
 
 struct magic_type
   {
@@ -230,29 +225,29 @@ struct magic_type
   bool light : 1
   bool dark : 1
   bool energy : 1
-  }
+  };
 
 struct spell
   {
   unsigned int damage : 7
   signed int recoil : 7
   quard spread : 2 //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
-  struct halfbytes impact //hi = knockback, lo = splash radius
-  struct magic_type type
-  }
+  struct halfbytes impact; //hi = knockback, lo = splash radius
+  struct magic_type type;
+  };
 
 #include "./spells.h"
 
-typedef struct *spell spellbook[4]
+typedef struct *spell spellbook[4];
 
 #define FR_ONE 64
 #define flfr(input) ((signed short) (input * FR_ONE))
 #define frfl(input) ((float) input / FR_ONE)
 
-typedef signed short mesurements[20]
+typedef signed short mesurements[20];
 enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
   mes_neck,mes_shld,mes_back,mes_humr,mes_femr,mes_pelv,mes_cxyx,
-  mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_tth}
+  mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_tth};
 
 struct my_date_time
   {
@@ -263,23 +258,23 @@ struct my_date_time
   unsigned int hour : 5
   unsigned int minute : 6
   unsigned int second : 6
-  }
+  };
 
 tick_tock(counter)
-  struct my_date_time counter
+  struct my_date_time counter;
   {
-  div_tmp = div(counter.second + 1,60) //add, mod, and carry out
-  counter.second = div_tmp.rem
-  div_tmp = div(counter.minute + div_tmp.quot,60) //carry in, mod, carry out
-  counter.minute = div_tmp.rem
-  div_tmp = div(counter.hour + div_tmp.quot,24)
-  counter.hour = div_tmp.rem
-  counter.weekday = (counter.weekday + div_tmp.quot)%7 //carry in and mod, no carry out
-  div_tmp = div(counter.day + div_tmp.quot,30)
-  counter.day = div_tmp.rem
-  div_tmp = div(counter.month + div_tmp.quot,12)
-  counter.month = div_tmp.rem
-  counter.year = (counter.year + div_tmp.quot)%7
+  div_tmp = div(counter.second + 1,60); //add, mod, and carry out
+  counter.second = div_tmp.rem;
+  div_tmp = div(counter.minute + div_tmp.quot,60); //carry in, mod, carry out
+  counter.minute = div_tmp.rem;
+  div_tmp = div(counter.hour + div_tmp.quot,24);
+  counter.hour = div_tmp.rem;
+  counter.weekday = (counter.weekday + div_tmp.quot)%7; //carry in and mod, no carry out
+  div_tmp = div(counter.day + div_tmp.quot,30);
+  counter.day = div_tmp.rem;
+  div_tmp = div(counter.month + div_tmp.quot,12);
+  counter.month = div_tmp.rem;
+  counter.year = (counter.year + div_tmp.quot)%7;
   }    
 #define sprinttimedate(N,O) sprintf(O,"%i:%i:%i %s %i/%i/%i",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
 #define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
@@ -295,7 +290,7 @@ struct statreg
   bool gills : 1
   bool wings : 1
   bool fireproof : 1
-  }
+  };
 
 struct sensereg
   {
@@ -307,7 +302,7 @@ struct sensereg
   bool evil : 1
   bool law : 1
   bool chaos : 1
-  }
+  };
 
 struct viewform
   {
@@ -316,36 +311,34 @@ struct viewform
   tern dist : 2
   bool time : 1
   bool uv : 1
-  }
+  };
 
 struct hitbox_type
   {
-  signed short x
-  signed short z
-  signed char eyes
-  signed char offset
-  }
+  signed short x;
+  signed short z;
+  signed char eyes;
+  signed char offset;
+  };
 
 struct shape
   {
   struct vector3 vertlist;
   unsigned char bytecode;
   unsigned char inum
-  }
+  };
 
 struct event
   {
-  struct event *prev
-  struct event *next
-  ushortvector3 coords
-  bytevector4 size //w = 0 sphere of radius x, w = 1 cylinder of radius x and height z, w = 2 cuboid
-  unsigned long durat
-  eventfunc *ontrigger
-  char *good
-  char *bad
-  char *meh
-  int params[2]
-  }
+  struct event *prev;
+  struct event *next;
+  ushortvector3 coords;
+  bytevector4 size; //w = 0 sphere of radius x, w = 1 cylinder of radius x and height z, w = 2 cuboid
+  unsigned long durat;
+  eventfunc *ontrigger;
+  char strings[4][BUFFER_MAX];
+  int params[2];
+  };
 
 struct truecolor
   {
@@ -353,36 +346,36 @@ struct truecolor
   unsigned int g : 8
   unsigned int b : 8
   unsigned int a : 8
-  }
+  };
 
 struct highcolor
   {
   unsigned int r : 5
   unsigned int g : 6
   unsigned int b : 5
-  }
+  };
 
 struct lowcolor
   {
   unsigned int r : 3
   unsigned int g : 3
   unsigned int b : 2
-  }
+  };
 
 struct fuzzcoord
   {
-  unsigned char x
-  unsigned char y
+  unsigned char x;
+  unsigned char y;
   unsigned int yaw
-  }
+  };
 //values are taken (n % 180) * 2
 
 struct torusmap
   {
-  unsigned char dots[360][360]
-  unsigned char sealevel
+  unsigned char dots[360][360];
+  unsigned char sealevel;
   struct fuzzcoord start[8] //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
-  }
+  };
 
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
@@ -505,23 +498,19 @@ struct torusmap
 #define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
 
 matrix mainh__matmult_4(fir,sec)
-  matrix fir
-  matrix sec
+  matrix fir;
+  matrix sec;
     {
-    unsigned char xcoord = 0
-    unsigned char ycoord
-    matrix result
-    while (xcoord < 4)
+    unsigned char ycoord;
+    matrix result;
+    for (unsigned char xcoord = 0;xcoord < 4;xcoord++)
       {
-      ycoord = 0
-      while (ycoord < 4)
+      for (unsigned char ycoord = 0;ycoord < 4;ycoord++)
         {
-        result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord]) + (fir[xcoord][3] * sec[3][ycoord])
-        ycoord++
+        result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord]) + (fir[xcoord][3] * sec[3][ycoord]);
         }
-      xcoord++
       }
-    return result
+    return result;
     }
 
 div_t radf_to_deg(input)
@@ -530,8 +519,8 @@ div_t radf_to_deg(input)
   div_t output = div(input,60);
   
   output.quot = (output.quot % 360) - 180;
-  output.quot > -180 ? NOP : output.quot = output.quot + 360
-  return output
+  output.quot > -180 ? NOP : output.quot = output.quot + 360;
+  return output;
   }
 #define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
 #define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
@@ -545,20 +534,19 @@ div_t radf_to_deg(input)
 #define STR_INT(A,B,C,D) (unsigned int) ( ((A | 0x000000FF) << 24) | ((B | 0x000000FF) << 16) | ((C | 0x000000FF) << 8) | (D | 0x000000FF) )
 
 file_cat(path)
-  const char *path
+  const char *path;
   {
-  FILE tmp = fopen(path)
+  FILE tmp = fopen(path);
   if (tmp == NULL)
     {
-    return -1
+    return -1;
     }
-  char tmpbuffer[BUFFER_MAX]
-  n = TRUE
-  while n
+  char tmpbuffer[BUFFER_MAX];
+  for (bool n = TRUE;n;NOP)
     {
     if (fgets(tmpbuffer,BUFFER_MAX,tmp) == NULL)
       {
-      n = FALSE
+      n = FALSE;
       }
     else
       {
@@ -568,13 +556,13 @@ file_cat(path)
 
 struct movement_buffer_t
   {
-  float x
-  float y
-  float yaw
-  float pit
-  float lt
-  float rt
-  }
+  float x;
+  float y;
+  float yaw;
+  float pit;
+  float lt;
+  float rt;
+  };
 
 struct movement_buffer_t MOVEBUFFER
 #define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
@@ -586,17 +574,17 @@ fetchJSAXIS()
     {
     SWYM
     }
-  JSAXISFLAG++
-  MOVEBUFFER.x = (float) JSAXISBUFF[1] / -SHRT_MAX
-  MOVEBUFFER.y = (float) JSAXISBUFF[0] / SHRT_MAX
-  MOVEBUFFER.pit = (float) JSAXISBUFF[5] / -SHRT_MAX
-  MOVEBUFFER.yaw = (float) JSAXISBUFF[4] / SHRT_MAX
-  MOVEBUFFER.lt = ((float) JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX
-  MOVEBUFFER.rt = ((float) JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX
-  JSAXISFLAG--
+  JSAXISFLAG++;
+  MOVEBUFFER.x = (float) JSAXISBUFF[1] / -SHRT_MAX;
+  MOVEBUFFER.y = (float) JSAXISBUFF[0] / SHRT_MAX;
+  MOVEBUFFER.pit = (float) JSAXISBUFF[5] / -SHRT_MAX;
+  MOVEBUFFER.yaw = (float) JSAXISBUFF[4] / SHRT_MAX;
+  MOVEBUFFER.lt = ((float) JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX;
+  MOVEBUFFER.rt = ((float) JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX;
+  JSAXISFLAG--;
   }
   
-struct charbuffer4 CAMBUFFER
+struct charbuffer4 CAMBUFFER;
 
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
