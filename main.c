@@ -29,16 +29,16 @@
 #include <GL/gl.h>
 #include <GL/glu.h> //know what this does now
 
-#include "./joystick.c"
+#include "joystick.c"
 
-#include "./main.h"
-#include "./models/all.h"
-#include "./init.c"
-#include "./timing.c"
+#include "main.h"
+#include "models/all.h"
+#include "init.c"
+#include "timing.c"
 
-#include "./xwindow.c"
-#include "./glxwindow.c"
-#include "./textout.c"
+#include "xwindow.c"
+#include "glxwindow.c"
+#include "textout.c"
 
 //---<HR>---
 
@@ -265,7 +265,7 @@ main()
 		{
 		signed short (*JSAXISBUFF)[8];
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
-		bool *JSAXISFLAG
+		signed char *JSAXISFLAG;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
 		jsloop()
 		}
@@ -273,7 +273,7 @@ main()
 		{
 		signed short (*JSAXISBUFF)[8];
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
-		bool *JSAXISFLAG
+		signed char *JSAXISFLAG;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
 		mainloop()
 		}
