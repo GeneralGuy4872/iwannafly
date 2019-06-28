@@ -103,14 +103,11 @@ glx__eventswitch(monitor,winder)
 	Display *monitor
 	Window winder
 	{
-	while TRUE
+	if XPending(monitor)
 		{
-		if XPending(monitor)
-			{
-			XEvent event
-			XNextEvent(monitor,&event)
-			glx__keysymswitch(monitor,winder,event)
-			}
+		XEvent event
+		XNextEvent(monitor,&event)
+		glx__keysymswitch(monitor,winder,event)
 		}
 	}
 
@@ -121,5 +118,4 @@ glx__startup()
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	XStoreName(dpy, win, VITALSTAT(REV_NOFORK));
-	glx__eventswitch(dsply,glxwin);
 	}
