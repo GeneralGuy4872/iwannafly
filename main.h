@@ -690,3 +690,12 @@ struct world
 	struct event *evnt_tail;
 	struct cameratype *cam;
 	};
+
+struct torusmap planet1;
+struct entity player1;
+struct cameratype camera1;
+struct world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
+#define MAP WORLD.(*map)
+#define PLAYER WORLD.(*ent)
+#define CAMERA WORLD.(*cam)
+bool run = 0;
