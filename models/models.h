@@ -5,8 +5,8 @@ struct bone
   struct bone *next;
   struct charvector3 off;
   struct vector3 len;
-  struct matrix base;
-  struct matrix curr;
+  matrix base;
+  matrix curr;
   struct truecolor color;
   bool drawline;
   struct shape *geom;
