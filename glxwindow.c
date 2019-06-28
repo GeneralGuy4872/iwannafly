@@ -1,7 +1,9 @@
 //you arrived here from main.c
 
+#include <X11/Xt.h>
 #include <X11/Xlib.h>
-#include <X11/Xutils.h>
+#include <X11/keysym.h>
+
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glx.h>
