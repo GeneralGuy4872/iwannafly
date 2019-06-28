@@ -13,18 +13,18 @@ char logpath[64];
 bool dologs;
 unsigned char base_role;
 mesurements TAILOR;
-FILE logfile;
-torusmap planet1;
-entity player1;
-cameratype camera1;
-world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
+FILE *logfile;
+struct torusmap planet1;
+struct entity player1;
+struct cameratype camera1;
+struct world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
 #define MAP WORLD->map
 #define PLAYER WORLD->ent
 #define CAMERA WORLD->cam
 
-init__setup()
+init__setup ()
   {
-  FILE ini_file;
+  FILE *ini_file;
   for (unsigned char n = 1;n>0;n++)
     {
     switch (n)
@@ -46,8 +46,8 @@ init__setup()
         }
       default :
         {
-        HARD_ERROR_MACRO("init","line#"__LINE__", if-else failure escape","Cannot find conf.ini in (\"~/.iwannafly/\" | \"/etc/iwannafly/\" | \"./\") or access is denied");
-        break
+        HARD_ERROR_MACRO
+        break;
         }
       }
     if (ini_file != NULL)
@@ -264,9 +264,9 @@ init__setup()
 
   free(sealevel);
 
-  if dologs
+  if (dologs)
     {
-    for (unsigned char n = 1;n;n++)
+    for (unsigned char n = 1;n>0;n++)
       {
       switch (n)
         {
@@ -292,8 +292,10 @@ init__setup()
           }
         default :
           {
-          SOFT_ERROR_MACR)("init","line#"__LINE__,"Cannot open a log file at specified path, or any of: \"/var/log/iwannafly.log\", \"~/.iwannafly.log\", \"./iwannafly.log\". What's up with your perms?!"}
+          SOFT_ERROR_MACRO
           fclose(logfile)
+          dologs = FALSE
+          n = 0
           break
           }
         }
