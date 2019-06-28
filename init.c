@@ -2,87 +2,87 @@
 //startup
 //you arived here from main
 
-unsigned char sealevel
-bool forcebten
-bool yinv
+unsigned char sealevel;
+bool forcebten;
+bool yinv;
   
-bool run = 0
-char joypath[16]
-char mappath[256]
-char logpath[64]
-bool dologs
-unsigned char base_role
-mesurements TAILOR
-FILE logfile
-torusmap planet1
-entity player1
-cameratype camera1
-world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1}
+bool run = 0;
+char joypath[16];
+char mappath[256];
+char logpath[64];
+bool dologs;
+unsigned char base_role;
+mesurements TAILOR;
+FILE logfile;
+torusmap planet1;
+entity player1;
+cameratype camera1;
+world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
 #define MAP WORLD->map
 #define PLAYER WORLD->ent
 #define CAMERA WORLD->cam
 
 init__setup()
   {
-  FILE ini_file
-  for (unsigned char n = 1,n,n++)
+  FILE ini_file;
+  for (unsigned char n = 1;n>0;n++)
     {
     switch (n)
       {
       case 1 :
         {
-        ini_file = fopen("~/.iwannafly/conf.ini","r")
-        break
+        ini_file = fopen("~/.iwannafly/conf.ini","r");
+        break;
         }
       case 2 :
         {
-        ini_file = fopen("/etc/iwannafly/conf.ini","r")
-        break
+        ini_file = fopen("/etc/iwannafly/conf.ini","r");
+        break;
         }
       case 3 :
         {
-        ini_file = fopen("./conf.ini","r")
-        break
+        ini_file = fopen("./conf.ini","r");
+        break;
         }
       default :
         {
-        HARD_ERROR_MACRO("init","line#"__LINE__", if-else failure escape","Cannot find conf.ini in (\"~/.iwannafly/\" | \"/etc/iwannafly/\" | \"./\") or access is denied")
+        HARD_ERROR_MACRO("init","line#"__LINE__", if-else failure escape","Cannot find conf.ini in (\"~/.iwannafly/\" | \"/etc/iwannafly/\" | \"./\") or access is denied");
         break
         }
       }
     if (ini_file != NULL)
       {
-      n = FALSE
+      n = FALSE;
       }
     }
 
-  char ini_buffer[BUFFER_MAX]
-  char dimpath[BUFFER_MAX]
-  char angpath[BUFFER_MAX]
-  char *ini_key
-  char *ini_data
+  char ini_buffer[BUFFER_MAX];
+  char dimpath[BUFFER_MAX];
+  char angpath[BUFFER_MAX];
+  char *ini_key;
+  char *ini_data;
   while fscanf(ini_file,"\n",ini_buffer)
     {
-    ini_key = strtok(ini_buffer,"=")
+    ini_key = strtok(ini_buffer,"=");
     if (ini_key != NULL)
       {
-      ini_data = strtok(NULL,"\n")
+      ini_data = strtok(NULL,"\n");
       if (ini_data != NULL)
         {
-        short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2])
+        short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2]);
         if (ini_key_hash > 0)
           {
-          switch ini_key_hash
+          switch (ini_key_hash)
             {
             case HASH5('r','o','l') ://the macro HASH5 truncates 3 chars to the lower 5 bits of each (so is not case sensitive) and returns a short
               {
-              base_role = atoi(ini_data)
-              break
+              base_role = atoi(ini_data);
+              break;
               }
             case HASH5('f','o','r') :
               {
-              forcebten = atoi(ini_data)
-              break
+              forcebten = atoi(ini_data);
+              break;
               }
             case HASH5('s','e','a') :
               {
