@@ -89,6 +89,7 @@ void noop () {}
 #define X_HCF_X exit(1);
 
 typedef float matrix[4][4];
+matrix MATRIX_UTILITY_REGISTER
 
 #define toggle(setting) setting = !setting;
 
@@ -266,7 +267,7 @@ struct my_date_time
   unsigned int second : 6;
   };
 
-tick_tock(counter)
+tick_tock (counter)
   struct my_date_time counter;
   {
   div_tmp = div(counter.second + 1,60); //add, mod, and carry out
@@ -338,8 +339,8 @@ struct event
   {
   struct event *prev;
   struct event *next;
-  ushortvector3 coords;
-  bytevector4 size; //w = 0 sphere of radius x, w = 1 cylinder of radius x and height z, w = 2 cuboid
+  struct ushortvector3 coords;
+  struct bytevector4 size; //w = 0 sphere of radius x, w = 1 cylinder of radius x and height z, w = 2 cuboid
   unsigned long durat;
   eventfunc *ontrigger;
   char strings[4][BUFFER_MAX];
@@ -503,7 +504,7 @@ struct torusmap
 #define mat4vec4(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z,(M[0][3] + M[1][3] + M[2][3] + M[3][3]) * V.w}
 #define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
 
-matrix mainh__matmult_4(fir,sec)
+mainh__matmult_4(fir,sec)
   matrix fir;
   matrix sec;
     {
@@ -516,7 +517,8 @@ matrix mainh__matmult_4(fir,sec)
         result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord]) + (fir[xcoord][3] * sec[3][ycoord]);
         }
       }
-    return result;
+    matpush(MATRIX_UTILITY_REGISTER,result);
+    return 1
     }
 
 div_t radf_to_deg(input)
