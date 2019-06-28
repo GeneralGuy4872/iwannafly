@@ -37,6 +37,11 @@ static const float MSEC_FRAME = ((1.0 / FPS) * 1000); //milliseconds per frame (
 #define PI_N(N) (M_PI / N)
 #define PI_2_N(N) (M_PI_2 / N)
 
+long JSAXISBUFF_ADDRESS;
+JSAXISBUFF_ADDRESS = (long) mmap(NULL,sizeof(short) * 8,PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+long JSAXISFLAG_ADDRESS;
+JSAXISFLAG_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+
 div_t div_tmp;
 
 typedef int (*eventfunc)(int,int); //you know you're getting serious when you're using function pointers
