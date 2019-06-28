@@ -26,7 +26,7 @@ mainloop()
 		{
 		sleep(0);
 		}
-	JSAXISFLAG = -1;
+	*JSAXISFLAG = -1;
 	JSAXISBUFF[0] = values[0];
 	JSAXISBUFF[1] = values[1];
 	JSAXISBUFF[2] = values[2];
@@ -35,5 +35,5 @@ mainloop()
 	JSAXISBUFF[5] = values[5];
 	JSAXISBUFF[6] = values[6];
 	JSAXISBUFF[7] = values[7];
-	JSAXISFLAG = 0;
+	*JSAXISFLAG = 0;
 	}
