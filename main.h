@@ -595,6 +595,7 @@ fetchJSAXIS()
   JSAXISFLAG--
   }
   
+struct charbuffer4 CAMBUFFER
 
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
