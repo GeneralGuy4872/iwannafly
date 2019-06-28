@@ -33,7 +33,6 @@
 #include "init.c"
 #include "joystick.c"
 #include "timeing.c"
-#include "models/all.h"
 
 #include "xwindow.c"
 #include "glxwindow.c"
