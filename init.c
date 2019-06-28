@@ -86,42 +86,42 @@ init__setup ()
               }
             case HASH5('s','e','a') :
               {
-              sealevel = atoi(ini_data)
-              break
+              sealevel = atoi(ini_data);
+              break;
               }
             case HASH5('j','o','y') :
               {
-              strncpy(joypath,ini_data,sizeof(joypath) - 1)
-              break
+              strncpy(joypath,ini_data,sizeof(joypath) - 1);
+              break;
               }
             case HASH5('m','a','p') :
               {
-              strncpy(mappath,ini_data,sizeof(mappath) - 1)
-              break
+              strncpy(mappath,ini_data,sizeof(mappath) - 1);
+              break;
               }
             case HASH5('d','o','l') :
               {
-              dologs = atoi(ini_data)
-              break
+              dologs = atoi(ini_data);
+              break;
               }
             case HASH5('l','o','g') :
               {
-              strncpy(logpath,ini_data,sizeof(logpath) - 1)
-              break
+              strncpy(logpath,ini_data,sizeof(logpath) - 1);
+              break;
               }
             case HASH5('d','i','m') :
               {
-              strncpy(dimpath,ini_data,sizeof(dimpath) - 1)
-              break
+              strncpy(dimpath,ini_data,sizeof(dimpath) - 1);
+              break;
               }
             case HASH5('a','n','g') :
               {
-              strncpy(dimpath,ini_data,sizeof(dimpath) - 1)
-              break
+              strncpy(dimpath,ini_data,sizeof(dimpath) - 1);
+              break;
               }
             default :
               {
-              break
+              break;
               }
             }
           }
@@ -130,13 +130,13 @@ init__setup ()
     }
     fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash)
 
-  FILE dim_file
-  dim_file = fopen(dimpath,"r")
+  FILE *dim_file;
+  dim_file = fopen(dimpath,"r");
   if (dim_file != NULL)
     {
     for (unsigned char n = 0;n<20;n++)
       {
-      fscanf(dim_file,%hd,TAILOR[n])
+      fscanf(dim_file,%hd,TAILOR[n]);
       }
     fclose(dim_file); 
     }
@@ -145,26 +145,26 @@ init__setup ()
     {
     case 0 :
       {
-      polymorph_avian(PLAYER)
-      forcebten ? CAMERA.base = 0 : CAMERA.base = 1
-      file_cat("/usr/share/iwannafly/avianquest")
-      break
+      polymorph_avian(PLAYER);
+      forcebten ? CAMERA.base = 0 : CAMERA.base = 1;
+      file_cat("/usr/share/iwannafly/avianquest");
+      break;
       }
     case 1 :
       {
-      polymorph_human(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/knightquest")
-      break
+      polymorph_human(PLAYER);
+      CAMERA.base = 0;
+      PLAYER.stat.yinv = yinv;
+      file_cat("/usr/share/iwannafly/knightquest");
+      break;
       }
     case 2 :
       {
-      polymorph_merfolk(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/merquest")
-      break
+      polymorph_merfolk(PLAYER);
+      CAMERA.base = 0;
+      PLAYER.stat.yinv = yinv;
+      file_cat("/usr/share/iwannafly/merquest");
+      break;
       }/*
     case 3 :
       {
@@ -248,19 +248,18 @@ init__setup ()
       }*/
     default :
       {
-      polymorph_avian(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      printf("you are error.\n\nyou must fix your config file to achieve the full game experiance. loading default values...")
-      break
+      polymorph_avian(PLAYER);
+      CAMERA.base = 0;
+      printf("you are error.\n");
+      break;
       }
     }
 
-  FILE heightmap_file = fopen(mappath,"rb")
-  fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file)
-  fclose(heightmap_file)
-  free(mappath)
-  MAP.sealevel = sealevel
+  FILE *heightmap_file = fopen(mappath,"rb");
+  fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file);
+  fclose(heightmap_file);
+  free(mappath);
+  MAP.sealevel = sealevel;
 
   free(sealevel);
 
@@ -272,38 +271,38 @@ init__setup ()
         {
         case 1 :
           {
-          logfile = fopen(logpath,"a")
-          break
+          logfile = fopen(logpath,"a");
+          break;
           }
         case 2 :
           {
-          logfile = fopen("/var/log/iwannafly.log","a")
-          break
+          logfile = fopen("/var/log/iwannafly.log","a");
+          break;
           }
         case 3 :
           {
-          logfile = fopen("~/.iwannafly.log","a")
-          break
+          logfile = fopen("~/.iwannafly.log","a");
+          break;
           }
         case 4 :
           {
-          logfile = fopen("./iwannafly.log","a")
-          break
+          logfile = fopen("./iwannafly.log","a");
+          break;
           }
         default :
           {
-          SOFT_ERROR_MACRO
-          fclose(logfile)
-          dologs = FALSE
-          n = 0
-          break
+          SOFT_ERROR_MACRO;
+          fclose(logfile);
+          dologs = FALSE;
+          n = 0;
+          break;
           }
         }
       if (logfile != NULL)
         {
-        n = 0
+        n = 0;
         }
       }
     }
-  run = 1
+  run = 1;
   }
