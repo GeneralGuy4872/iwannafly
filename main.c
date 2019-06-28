@@ -32,7 +32,7 @@
 #include "main.h"
 #include "init.c"
 #include "joystick.c"
-#include "timing.c"
+#include "timeing.c"
 #include "models/all.h"
 
 #include "xwindow.c"
@@ -260,6 +260,8 @@ mainloop ()
 
 main()
 	{
+	JSAXISBUFF_ADDRESS = (long) mmap(NULL,sizeof(short) * 8,PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+	JSAXISFLAG_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 	if (fork() == 0)
 		{
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
