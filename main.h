@@ -13,7 +13,7 @@
 #define __MYVERS__ "000.001.000"
 #define REV_MAIN "001.000"
 #define REV_JS "000.002"
-#define VITALSTAT(N,R) "Iwannafly v"__MYVERS__", "N" r"R", Compiled on "__DATE__
+#define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
 /*
  *the library at <math.h> must provide:
@@ -558,8 +558,9 @@ file_cat (path)
       {
       printf(tmpbuffer);
       }
-    fclose(tmp);
     }
+  fclose(tmp);
+  }
 
 struct movement_buffer_t
   {
