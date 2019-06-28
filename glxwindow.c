@@ -27,11 +27,11 @@ glx__DrawLoop()
   glLoadIdentity();
   glMatrixMode(GL_MODELVIEW);
   struct entity *nextent = WORLD->ent
-  while 1
+  while TRUE
     {
     glLoadMatrix(nextent.rot);
     struct bone *nextbone = nextent.dembones.root
-    while 1
+    while TRUE
       {
       if (nextbone->up == NULL)
         {
@@ -60,18 +60,16 @@ glx__DrawLoop()
         nextbone = nextbone->next
         }
       else
-        {
         break
-        }
       }
-    glx__SetCamera(plugh.camera)
     if (nextent->next != NULL)
       {
       nextent = nextent->next
       }
     else
-      {
       break
-      }
     }
+  
+  glx__SetCamera();
+  glXSwapBuffers(dsply,glxwin)
   }
