@@ -76,7 +76,7 @@ polymorph_avian(target,geomet)
 	forcebaseten ? NOP : CAMERA.base = TRISTATE;
 	}
 
-*entity summon_avian(xcoord,ycoord,zcoord,geomet)
+struct entity *summon_avian(xcoord,ycoord,zcoord,geomet)
 	float xcoord;
 	float ycoord;
 	float zcoord;
