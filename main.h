@@ -99,14 +99,14 @@ struct vector4
   float y;
   float z;
   float w;
-  }cast_vec4;
+  }vec4;
 
 struct vector3
   {
   float x;
   float y;
   float z;
-  }cast_vec3;
+  }vec3;
 
 struct camera_ang
   {
@@ -122,7 +122,7 @@ struct vector2
   {
   float x;
   float y;
-  }cast_vec2;
+  }vec2;
 
 struct ushortvector4
   {
@@ -130,20 +130,20 @@ struct ushortvector4
   unsigned short y;
   unsigned short z;
   unsigned short w;
-  }cast_ushort_vec4;
+  }ushrtvec4;
 
 struct ushortvector3
   {
   unsigned short x;
   unsigned short y;
   unsigned short z;
-  }cast_ushort_vec3;
+  }ushrtvec3;
 
 struct ushortvector2
   {
   unsigned short x;
   unsigned short y;
-  }cast_ushort_vec2;
+  }ushrtvec2;
 
 struct shortvector4
   {
@@ -151,20 +151,20 @@ struct shortvector4
   signed short y;
   signed short z;
   signed short w;
-  }cast_short_vec4;
+  }shrtvec4;
 
 struct shortvector3
   {
   signed short x;
   signed short y;
   signed short z;
-  }cast_short_vec3;
+  }shrtvec3;
 
 struct shortvector2
   {
   signed short x;
   signed short y;
-  }cast_short_vec2;
+  }shrtvec2;
 
 struct microvector
   {
@@ -172,7 +172,7 @@ struct microvector
   tern y : 2;
   tern z : 2;
   tern w : 2;
-  }cast_microvec;
+  }microvec;
 
 struct minivector
   {
@@ -180,7 +180,7 @@ struct minivector
   quard y : 2;
   quard z : 2;
   quard w : 2;
-  }cast_minivec;
+  }minivec;
 
 struct bytevector4
   {
@@ -188,20 +188,20 @@ struct bytevector4
   unsigned int y : 8;
   unsigned int z : 8;
   unsigned int w : 8;
-  }cast_byte_vec4;
+  }bytevec4;
 
 struct bytevector3
   {
   unsigned int x : 8;
   unsigned int y : 8;
   unsigned int z : 8;
-  }cast_byte_vec3;
+  }bytevec3;
 
 struct bytevector2
   {
   unsigned int x : 8;
   unsigned int y : 8;
-  }cast_byte_vec2;
+  }bytevec2;
 
 struct charvector4
   {
@@ -209,32 +209,32 @@ struct charvector4
   signed char y : 8;
   signed char z : 8;
   signed char w : 8;
-  }cast_char_vec4;
+  }charvec4;
 
 struct charvector3
   {
   signed char x : 8;
   signed char y : 8;
   signed char z : 8;
-  }cast_char_vec3;
+  }charvec3;
 
 struct charvector2
   {
   signed char x : 8;
   signed char y : 8;
-  }cast_char_vec2;
+  }charvec2;
 
 struct halfbytes
   {
   unsigned char hi : 4;
   unsigned char lo : 4;
-  }cast_nibble;
+  }halfs;
 
 struct plotparam
   {
   signed char x : 4;
   signed char y : 4;
-  }cast_signed_nibble;
+  }shalfs;
 
 struct magic_type
   {
@@ -246,7 +246,7 @@ struct magic_type
   bool light : 1;
   bool dark : 1;
   bool energy : 1;
-  }cast_magic_element;
+  }bits_magic;
 
 struct spell
   {
@@ -255,7 +255,7 @@ struct spell
   quard spread : 2; //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
   struct halfbytes impact; //hi = knockback, lo = splash radius
   struct magic_type type;
-  }cast_spell;
+  };
 
 #include "spells.h"
 
@@ -311,7 +311,7 @@ struct statreg
   bool gills : 1;
   bool wings : 1;
   bool fireproof : 1;
-  }cast_stat;
+  }bits_stat;
 
 struct sensereg
   {
@@ -323,7 +323,7 @@ struct sensereg
   bool evil : 1;
   bool law : 1;
   bool chaos : 1;
-  }cast_sense;
+  }bits_sense;
 
 struct viewform
   {
@@ -332,7 +332,7 @@ struct viewform
   tern dist : 2;
   bool time : 1;
   bool uv : 1;
-  }cast_view;
+  }bits_view;
 
 struct hitbox_type
   {
@@ -340,14 +340,14 @@ struct hitbox_type
   signed short z;
   signed char eyes;
   signed char offset;
-  }cast_hitbox;
+  }hitboxvec;
 
 struct shape
   {
   struct vector3 vertlist;
   unsigned char bytecode;
   unsigned char inum;
-  }cast_shape;
+  }shapetyp;
 
 struct event
   {
@@ -359,7 +359,7 @@ struct event
   eventfunc *ontrigger;
   char strings[4][BUFFER_MAX];
   int params[2];
-  }cast_event;
+  }event_ele;
 
 struct truecolor
   {
@@ -367,28 +367,28 @@ struct truecolor
   unsigned int g : 8;
   unsigned int b : 8;
   unsigned int a : 8;
-  }cast_trucolor;
+  }trucolor_pix;
 
 struct highcolor
   {
   unsigned int r : 5;
   unsigned int g : 6;
   unsigned int b : 5;
-  }cast_highcolor;
+  }hicolor_pix;
 
 struct lowcolor
   {
   unsigned int r : 3;
   unsigned int g : 3;
   unsigned int b : 2;
-  }cast_lowcolor;
+  }locolor_pix;
 
 struct fuzzcoord
   {
   unsigned char x;
   unsigned char y;
   unsigned int yaw;
-  }cast_coords;
+  }coords_typ;
 //values are taken (n % 180) * 2
 
 struct torusmap
@@ -396,7 +396,7 @@ struct torusmap
   unsigned char dots[360][360];
   unsigned char sealevel;
   struct fuzzcoord start[8]; //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
-  }cast_map;
+  }mapele;
 
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
@@ -586,7 +586,7 @@ struct movement_buffer_t
   float pit;
   float lt;
   float rt;
-  }cast_movbuf;
+  }movbuf_typ;
 
 struct movement_buffer_t MOVEBUFFER;
 #define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
@@ -658,7 +658,7 @@ struct entity
 	struct bone dembones;
 	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
-	}cast_entity;
+	}entity_ele;
 
 struct cameratype
 	{
@@ -677,7 +677,7 @@ struct cameratype
 		*/
 	unsigned short gold;
 	unsigned short points;
-	}cast_camera;
+	}camera_ele;
 
 struct world
 	{
@@ -689,13 +689,13 @@ struct world
 	struct event *evnt;
 	struct event *evnt_tail;
 	struct cameratype *cam;
-	};
+	}world_typ;
 
 struct torusmap planet1;
 struct entity player1;
 struct cameratype camera1;
 struct world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
-#define MAP WORLD.(*map)
-#define PLAYER WORLD.(*ent)
-#define CAMERA WORLD.(*cam)
+#define MAP WORLD.map
+#define PLAYER WORLD.ent
+#define CAMERA WORLD.cam
 bool run = 0;
