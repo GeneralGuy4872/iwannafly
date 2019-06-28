@@ -240,9 +240,9 @@ struct spell
   struct magic_type type;
   };
 
-#include "./spells.h"
+#include "spells.h"
 
-typedef struct *spell spellbook[4];
+typedef struct spell *spellbook[4]; //afaict, only place there should be a *foo[n]. all the others gtg.
 
 #define FR_ONE 64
 #define flfr(input) ((signed short) (input * FR_ONE))
@@ -523,7 +523,7 @@ div_t radf_to_deg(input)
   div_t output = div(input,60);
   
   output.quot = (output.quot % 360) - 180;
-  output.quot > -180 ? NOP : output.quot = output.quot + 360;
+  output.quot > -180 ? noop() : output.quot = output.quot + 360;
   return output;
   }
 #define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
@@ -537,16 +537,16 @@ div_t radf_to_deg(input)
 #define HASH5(A,B,C) ( ( ((A == ';') || (B == ';') || (C == ';') ? (short) 0x8000 : (short) 0x0000) | ((0x001f & (short) A) << 10) | ((0x001f & (short) B) << 5) | (0x001f & (short) C) )
 #define STR_INT(A,B,C,D) (unsigned int) ( ((A | 0x000000FF) << 24) | ((B | 0x000000FF) << 16) | ((C | 0x000000FF) << 8) | (D | 0x000000FF) )
 
-file_cat(path)
+file_cat (path)
   const char *path;
   {
-  FILE tmp = fopen(path);
+  FILE *tmp = fopen(path,"r");
   if (tmp == NULL)
     {
     return -1;
     }
   char tmpbuffer[BUFFER_MAX];
-  for (bool n = TRUE;n;NOP)
+  for (bool n = TRUE;n;noop())
     {
     if (fgets(tmpbuffer,BUFFER_MAX,tmp) == NULL)
       {
@@ -554,8 +554,9 @@ file_cat(path)
       }
     else
       {
-      printf(tmpbuffer)
+      printf(tmpbuffer);
       }
+    fclose(*tmp);
     }
 
 struct movement_buffer_t
@@ -568,11 +569,11 @@ struct movement_buffer_t
   float rt;
   };
 
-struct movement_buffer_t MOVEBUFFER
+struct movement_buffer_t MOVEBUFFER;
 #define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
 #define MOVEBUFFER_rol (MOVEBUFFER.rt - MOVEBUFFER.lt)
 
-fetchJSAXIS()
+fetchJSAXIS ()
   {
   while (JSAXISFLAG >= 0)
     {
@@ -593,5 +594,5 @@ struct charbuffer4 CAMBUFFER;
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
-#define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : NOP; printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
-#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : NOP; printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
+#define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : noop(); printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : noop(); printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
