@@ -61,7 +61,7 @@ init__setup ()
   char angpath[BUFFER_MAX];
   char *ini_key;
   char *ini_data;
-  while fscanf(ini_file,"\n",ini_buffer)
+  while (fscanf(ini_file,"\n",ini_buffer))
     {
     ini_key = strtok(ini_buffer,"=");
     if (ini_key != NULL)
