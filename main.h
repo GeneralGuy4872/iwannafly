@@ -525,7 +525,7 @@ div_t radf_to_deg(input)
   div_t output = div(input,60);
   
   output.quot = (output.quot % 360) - 180;
-  output.quot > -180 ? noop() : output.quot = output.quot + 360;
+  if (output.quot > -180) output.quot = output.quot + 360;
   return output;
   }
 #define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
@@ -558,7 +558,7 @@ file_cat (path)
       {
       printf(tmpbuffer);
       }
-    fclose(*tmp);
+    fclose(tmp);
     }
 
 struct movement_buffer_t
@@ -597,4 +597,4 @@ struct charbuffer4 CAMBUFFER;
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
 #define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : noop(); printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
-#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : noop(); printf(\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : noop(); printf("\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
