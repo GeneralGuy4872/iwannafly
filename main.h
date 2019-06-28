@@ -39,8 +39,10 @@ static const float MSEC_FRAME = ((1.0 / FPS) * 1000); //milliseconds per frame (
 
 long JSAXISBUFF_ADDRESS;
 JSAXISBUFF_ADDRESS = (long) mmap(NULL,sizeof(short) * 8,PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
 JSAXISFLAG_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+signed char *JSAXISFLAG;
 
 div_t div_tmp;
 
