@@ -10,7 +10,7 @@ struct bone
   struct truecolor color;
   bool drawline;
   struct shape *geom;
-  };
+  }bone_typ;
 
 /*
 struct aniframe
