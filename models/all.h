@@ -1,3 +1,4 @@
+#include "models.h"
 #include "shapes.h"
 #include "bonegroups.h"
 #include "avian.c"
