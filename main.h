@@ -641,7 +641,7 @@ struct entity
 	//they're comfy and easy to...wait...
 	struct vector3 *Drag; //x = ground, y = water, z = air
 	struct vector3 *Fa; //x = ground, y = water, z = air
-	struct skeleton dembones;
+	struct bone dembones;
 	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	};
