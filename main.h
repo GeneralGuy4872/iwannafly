@@ -38,10 +38,8 @@ static const float MSEC_FRAME = ((1.0 / FPS) * 1000); //milliseconds per frame (
 #define PI_2_N(N) (M_PI_2 / N)
 
 long JSAXISBUFF_ADDRESS;
-JSAXISBUFF_ADDRESS = (long) mmap(NULL,sizeof(short) * 8,PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
-JSAXISFLAG_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 signed char *JSAXISFLAG;
 
 div_t div_tmp;
@@ -89,7 +87,7 @@ void noop () {}
 #define X_HCF_X exit(1);
 
 typedef float matrix[4][4];
-matrix MATRIX_UTILITY_REGISTER
+matrix MATRIX_UTILITY_REGISTER;
 
 #define toggle(setting) setting = !setting;
 
@@ -313,11 +311,11 @@ struct sensereg
 
 struct viewform
   {
-  tern base : 2
-  tern deg : 2
-  tern dist : 2
-  bool time : 1
-  bool uv : 1
+  tern base : 2;
+  tern deg : 2;
+  tern dist : 2;
+  bool time : 1;
+  bool uv : 1;
   };
 
 struct hitbox_type
@@ -332,7 +330,7 @@ struct shape
   {
   struct vector3 vertlist;
   unsigned char bytecode;
-  unsigned char inum
+  unsigned char inum;
   };
 
 struct event
@@ -349,31 +347,31 @@ struct event
 
 struct truecolor
   {
-  unsigned int r : 8
-  unsigned int g : 8
-  unsigned int b : 8
-  unsigned int a : 8
+  unsigned int r : 8;
+  unsigned int g : 8;
+  unsigned int b : 8;
+  unsigned int a : 8;
   };
 
 struct highcolor
   {
-  unsigned int r : 5
-  unsigned int g : 6
-  unsigned int b : 5
+  unsigned int r : 5;
+  unsigned int g : 6;
+  unsigned int b : 5;
   };
 
 struct lowcolor
   {
-  unsigned int r : 3
-  unsigned int g : 3
-  unsigned int b : 2
+  unsigned int r : 3;
+  unsigned int g : 3;
+  unsigned int b : 2;
   };
 
 struct fuzzcoord
   {
   unsigned char x;
   unsigned char y;
-  unsigned int yaw
+  unsigned int yaw;
   };
 //values are taken (n % 180) * 2
 
@@ -381,7 +379,7 @@ struct torusmap
   {
   unsigned char dots[360][360];
   unsigned char sealevel;
-  struct fuzzcoord start[8] //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
+  struct fuzzcoord start[8]; //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
   };
 
 #define MAX(A,B) (A > B ? A : B)
@@ -518,7 +516,7 @@ mainh__matmult_4(fir,sec)
         }
       }
     matpush(MATRIX_UTILITY_REGISTER,result);
-    return 1
+    return 1;
     }
 
 div_t radf_to_deg(input)
