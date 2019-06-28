@@ -580,12 +580,12 @@ fetchJSAXIS ()
     SWYM
     }
   (*JSAXISFLAG)++;
-  MOVEBUFFER.x = (float) JSAXISBUFF[1] / -SHRT_MAX;
-  MOVEBUFFER.y = (float) JSAXISBUFF[0] / SHRT_MAX;
-  MOVEBUFFER.pit = (float) JSAXISBUFF[5] / -SHRT_MAX;
-  MOVEBUFFER.yaw = (float) JSAXISBUFF[4] / SHRT_MAX;
-  MOVEBUFFER.lt = ((float) JSAXISBUFF[3] + SHRT_MIN) / USHRT_MAX;
-  MOVEBUFFER.rt = ((float) JSAXISBUFF[6] + SHRT_MIN) / USHRT_MAX;
+  MOVEBUFFER.x = (float) (*JSAXISBUFF)[1] / -SHRT_MAX;
+  MOVEBUFFER.y = (float) (*JSAXISBUFF)[0] / SHRT_MAX;
+  MOVEBUFFER.pit = (float) (*JSAXISBUFF)[5] / -SHRT_MAX;
+  MOVEBUFFER.yaw = (float) (*JSAXISBUFF)[4] / SHRT_MAX;
+  MOVEBUFFER.lt = ((float) (*JSAXISBUFF)[3] + SHRT_MIN) / USHRT_MAX;
+  MOVEBUFFER.rt = ((float) (*JSAXISBUFF)[6] + SHRT_MIN) / USHRT_MAX;
   (*JSAXISFLAG)--;
   }
   
