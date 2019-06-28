@@ -12,11 +12,11 @@ glx__SetCamera()
   {    
   glMatrixMode(GL_MODELVIEW);
   glTraslate(EYECOORDS(PLAYER));
-  glMultMatrix(PLAYER.rot);
-  glMultMatrix(matgen_sphere(CAMERA->coord.x,CAMERA->coord.y,CAMERA->coord.z,1,1))
+  glMultMatrix(PLAYER.ori);
+  glMultMatrix(matgen_sphere(CAMERA->coord.x,CAMERA->coord.y,NEG(CAMERA->coord.z),1,1))
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  gluPerspective(camera.coord.w,1,.25,100);
+  gluPerspective(camera.coord.fov,1,.25,100);
   }
 
 glx__DrawLoop()
@@ -38,10 +38,14 @@ glx__DrawLoop()
         glLoadIdentity()
         if nextent.stat.horiz
           {
-          glMultMatrix(matgen_y_deg(90,1)
+          glMultMatrix(matgen_zeuler_deg(player.rot.z,player.rot.y,player.rot.x,1,1,1))
+          glMultMatrix(matgen_y_deg(90,1))
           }
-        gltranslate(nextent->pos.x,nextent->pos.y,BASEBONEPOS(nextent))
-        glMultMatrixf(plugh.rot)
+        else
+      		{
+      		glMultMatrix(matgen_master_deg(player.rot.x,player.rot.y,player.rot.z,1,1,1))
+      		}
+        gltranslate(nextent->pos.x,nextent->pos.y,( nextent->pos.z + (frfl(nextent->hitbox.z) * frfl(nextent->hitbox.offset)) ))
         }
       else
         {
@@ -57,7 +61,7 @@ glx__DrawLoop()
         }
       else
         {
-        return 0
+        break
         }
       }
     glx__SetCamera(plugh.camera)
@@ -67,7 +71,7 @@ glx__DrawLoop()
       }
     else
       {
-      return 0
+      break
       }
     }
   }
