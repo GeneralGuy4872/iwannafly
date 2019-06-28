@@ -149,7 +149,7 @@ init__setup ()
       forcebten ? CAMERA.base = 0 : CAMERA.base = 1;
       file_cat("/usr/share/iwannafly/avianquest");
       break;
-      }
+      }/*
     case 1 :
       {
       polymorph_human(PLAYER);
@@ -165,7 +165,7 @@ init__setup ()
       PLAYER.stat.yinv = yinv;
       file_cat("/usr/share/iwannafly/merquest");
       break;
-      }/*
+      }
     case 3 :
       {
       polymorph_insectoid(PLAYER)
