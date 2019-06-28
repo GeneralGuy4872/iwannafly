@@ -29,12 +29,11 @@
 #include <GL/gl.h>
 #include <GL/glu.h> //know what this does now
 
-#include "joystick.c"
-
 #include "main.h"
-#include "models/all.h"
 #include "init.c"
+#include "joystick.c"
 #include "timing.c"
+#include "models/all.h"
 
 #include "xwindow.c"
 #include "glxwindow.c"
@@ -263,17 +262,13 @@ main()
 	{
 	if (fork() == 0)
 		{
-		signed short (*JSAXISBUFF)[8];
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
-		signed char *JSAXISFLAG;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
 		jsloop()
 		}
 	else
 		{
-		signed short (*JSAXISBUFF)[8];
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
-		signed char *JSAXISFLAG;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
 		mainloop()
 		}
