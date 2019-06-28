@@ -10,12 +10,12 @@ struct bone *sculpt_avian(geomet)
   {
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
     struct bone *pelvis = malloc(sizeof(struct bone));
-    *pelvis = {NULL,NULL,NULL,{0,0,0},{0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
+    *pelvis = (struct bone){NULL,NULL,NULL,(cast_char_vec3){0,0,0},(cast_short_vec3){0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
     *(pelvis->geom) = shape_poly_triangle(mfrfl(geomet[mes_cxyx]),mfrfl(geomet[mes_pelv])/2);
   struct bone *index_spine = spine(pelvis,pelvis,mfrfl(geomet[mes_back]),16);
   struct bone *neck = spine(index_spine,index_spine,mfrfl(geomet[mes_neck]),7);
     struct bone *skull = malloc(sizeof(struct bone));
-    *skull = {neck,neck,NULL,{0,0,0},{mfrfl(geomet[mes_skull]),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
+    *skull = (struct bone){neck,neck,NULL,(cast_char_vec3){0,0,0},(cast_short_vec3){mfrfl(geomet[mes_skull]),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
     *(skull->geom) = shape_poly_octo(mfrfl(geomet[mes_skull]));
     doublelink(skull);
     struct bone *lshoulder = malloc(sizeof(struct bone));
@@ -106,5 +106,5 @@ struct entity *summon_avian(xcoord,ycoord,zcoord,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,{xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord] * 5},{geomet[mes_hbr],geomet[mes_hbh],geomet[mes_hboff]),geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet),{NULL,NULL,NULL,NULL}};
+	struct entity *tmp = {WORLD.ent_tail,NULL,(cast_vec4){xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord] * 5},{geomet[mes_hbr],geomet[mes_hbh],geomet[mes_hboff]),geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet),{NULL,NULL,NULL,NULL}};
 	}
