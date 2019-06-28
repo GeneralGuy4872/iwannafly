@@ -82,10 +82,10 @@ struct entity
 	struct entity *prev
 	struct entity *next
 	struct vector4 pos
+	struct vector3 rot
 	struct hitbox_type hitbox
 	struct vector3 Velo
 	struct vector3 Torq
-	matrix rot
 	struct statreg stat
 		/* bool ground
 		 * bool wet
@@ -146,7 +146,7 @@ onstep_player
 	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600 //arcminutes
 	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600 //arcminutes
 	PLAYER.pos.w = groundcheck(PLAYER)
-	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),0,6000) //meters, zero;arbitrary ceiling
+	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),PLAYER.pos.w,6000) //meters, groundlevel;arbitrary ceiling
 
 	if (PLAYER.pos.w >= PLAYER.pos.z)
 		{
@@ -157,7 +157,7 @@ onstep_player
 		PLAYER.stat.ground = FALSE
 		}
 	
-	if ( (MAP.sealevel * 5) >= (PLAYER.pos.z + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z)) )
+	if ( (MAP.sealevel * 5) >= (PLAYER.pos.z + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z))) )
 		{
 		PLAYER.stat.wet = TRUE
 		}
@@ -166,20 +166,12 @@ onstep_player
 		PLAYER.stat.wet = FALSE
 		}
 	
-	if (PLAYER.stat.horiz)
-		{
-		matset_zeuler_deg(player.ori,player.rot.z,player.rot.y,player.rot.x,1,1,1)
-		}
-	else
-		{
-		matset_master_deg(player.ori,player.rot.x,player.rot.y,player.rot.z,1,1,1)
-		}
+
 	}
 
 struct cameratype
 	{
 	struct camera_ang coord
-	matrix rot
 	struct viewform format
 		/*
 		int base 0 = dec, 1 = oct, -n = hex
@@ -198,11 +190,10 @@ struct cameratype
 
 onstep_camera
 	{
-	CAMERA.coord.x = (CAMERA.coord.x + CAMBUFFER.az)%360 //degrees
-	CAMERA.coord.y = (CAMERA.coord.y + CAMBUFFER.alt)%360 //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
-	CAMERA.coord.r = CLAMP((CAMERA.coord.r + CAMBUFFER.zoom),-120,120) //meters, 2 arcminutes either direction
-	CAMERA.coord.f = CLAMP((CAMERA.coord.f + CAMBUFFER.fov),5,255) //degrees
-	matset_sphere_deg(CAMERA.coord.x + PLAYER.rot.z,CAMERA.coord.y,CAMERA.coord.r,1,1)
+	CAMERA.coord.az = (CAMERA.coord.az + CAMBUFFER.x)%180 //degrees/2
+	CAMERA.coord.alt = (CAMERA.coord.alt + CAMBUFFER.y)%180 //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMERA.coord.z = CLAMP((CAMERA.coord.z + CAMBUFFER.z),-120,120) //meters, 2 arcminutes either direction
+	CAMERA.coord.fov = CLAMP((CAMERA.coord.fov + CAMBUFFER.w),5,255) //degrees (solid degrees?)
 	}
 
 struct world
