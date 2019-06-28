@@ -29,9 +29,6 @@
 #include <GL/gl.h>
 #include <GL/glu.h> //know what this does now
 
-signed short JSAXISBUFF[8] = mmap(NULL,sizeof(JSAXISBUFF),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
-signed char *JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
-
 #include "./joystick.c"
 
 #include "./main.h"
@@ -266,10 +263,18 @@ main()
 	{
 	if (fork() == 0)
 		{
+		signed short (*JSAXISBUFF)[8];
+		JSAXISBUFF = JSAXISBUFF_ADDRESS;
+		bool *JSAXISFLAG
+		JSAXISFLAG = JSAXISFLAG_ADDRESS;
 		jsloop()
 		}
 	else
 		{
+		signed short (*JSAXISBUFF)[8];
+		JSAXISBUFF = JSAXISBUFF_ADDRESS;
+		bool *JSAXISFLAG
+		JSAXISFLAG = JSAXISFLAG_ADDRESS;
 		mainloop()
 		}
 	}
