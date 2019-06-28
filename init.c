@@ -18,9 +18,9 @@ struct torusmap planet1;
 struct entity player1;
 struct cameratype camera1;
 struct world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
-#define MAP WORLD->map
-#define PLAYER WORLD->ent
-#define CAMERA WORLD->cam
+#define MAP WORLD.(*map)
+#define PLAYER WORLD.(*ent)
+#define CAMERA WORLD.(*cam)
 
 init__setup ()
   {
@@ -128,7 +128,7 @@ init__setup ()
         }
       }
     }
-    fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash)
+    fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash);
 
   FILE *dim_file;
   dim_file = fopen(dimpath,"r");
@@ -136,7 +136,7 @@ init__setup ()
     {
     for (unsigned char n = 0;n<20;n++)
       {
-      fscanf(dim_file,%hd,TAILOR[n]);
+      fscanf(dim_file,"%hd",TAILOR[n]);
       }
     fclose(dim_file); 
     }
