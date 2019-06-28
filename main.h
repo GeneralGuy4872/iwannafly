@@ -77,8 +77,7 @@ typedef char mydate_str[24];
 
 const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","OVER"};
 
-noop() {}
-#define NOP noop();
+void noop () {}
 #define SWYM sleep(0);
 #define X_HCF_X exit(1);
 
@@ -161,77 +160,77 @@ struct shortvector2
 
 struct microvector
   {
-  tern x : 2
-  tern y : 2
-  tern z : 2
-  tern w : 2
+  tern x : 2;
+  tern y : 2;
+  tern z : 2;
+  tern w : 2;
   };
 
 struct minivector
   {
-  quard x : 2
-  quard y : 2
-  quard z : 2
-  quard w : 2
+  quard x : 2;
+  quard y : 2;
+  quard z : 2;
+  quard w : 2;
   };
 
 struct bytevector4
   {
-  unsigned int x : 8
-  unsigned int y : 8
-  unsigned int z : 8
-  unsigned int w : 8
+  unsigned int x : 8;
+  unsigned int y : 8;
+  unsigned int z : 8;
+  unsigned int w : 8;
   };
 
 struct bytevector2
   {
-  unsigned int x : 8
-  unsigned int y : 8
+  unsigned int x : 8;
+  unsigned int y : 8;
   };
 
 struct charvector4
   {
-  signed char x : 8
-  signed char y : 8
-  signed char z : 8
-  signed char w : 8
+  signed char x : 8;
+  signed char y : 8;
+  signed char z : 8;
+  signed char w : 8;
   };
 
 struct charvector2
   {
-  signed char x : 8
-  signed char y : 8
+  signed char x : 8;
+  signed char y : 8;
   };
 
 struct halfbytes
   {
-  unsigned char hi : 4
-  unsigned char lo : 4
+  unsigned char hi : 4;
+  unsigned char lo : 4;
   };
 
 struct plotparam
   {
-  signed char x : 4
-  signed char y : 4
+  signed char x : 4;
+  signed char y : 4;
   };
 
 struct magic_type
   {
-  bool fire : 1
-  bool air : 1
-  bool water : 1
-  bool earth : 1
-  bool chaos : 1
-  bool light : 1
-  bool dark : 1
-  bool energy : 1
+  bool fire : 1;
+  bool air : 1;
+  bool water : 1;
+  bool earth : 1;
+  bool chaos : 1;
+  bool light : 1;
+  bool dark : 1;
+  bool energy : 1;
   };
 
 struct spell
   {
-  unsigned int damage : 7
-  signed int recoil : 7
-  quard spread : 2 //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
+  unsigned int damage : 7;
+  signed int recoil : 7;
+  quard spread : 2; //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
   struct halfbytes impact; //hi = knockback, lo = splash radius
   struct magic_type type;
   };
@@ -251,13 +250,13 @@ enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
 
 struct my_date_time
   {
-  unsigned int year : 3
-  unsigned int month : 4
-  unsigned int day : 5
-  unsigned int weekday : 3
-  unsigned int hour : 5
-  unsigned int minute : 6
-  unsigned int second : 6
+  unsigned int year : 3;
+  unsigned int month : 4;
+  unsigned int day : 5;
+  unsigned int weekday : 3;
+  unsigned int hour : 5;
+  unsigned int minute : 6;
+  unsigned int second : 6;
   };
 
 tick_tock(counter)
@@ -282,26 +281,26 @@ tick_tock(counter)
 
 struct statreg
   {
-  bool ground : 1
-  bool wet : 1
-  bool horiz : 1
-  bool caster : 1
-  bool locks : 1
-  bool gills : 1
-  bool wings : 1
-  bool fireproof : 1
+  bool ground : 1;
+  bool wet : 1;
+  bool horiz : 1;
+  bool caster : 1;
+  bool locks : 1;
+  bool gills : 1;
+  bool wings : 1;
+  bool fireproof : 1;
   };
 
 struct sensereg
   {
-  bool uv : 1
-  bool infra : 1
-  bool trouble : 1
-  bool weather : 1
-  bool good : 1
-  bool evil : 1
-  bool law : 1
-  bool chaos : 1
+  bool uv : 1;
+  bool infra : 1;
+  bool trouble : 1;
+  bool weather : 1;
+  bool good : 1;
+  bool evil : 1;
+  bool law : 1;
+  bool chaos : 1;
   };
 
 struct viewform
