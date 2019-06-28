@@ -6,7 +6,7 @@ struct js_event
 	unsigned char number;
 	}; //grumble grumble incomplete repos grumble
 
-joyloop()
+jsloop()
 	{
 	volatile int joystick;
 	joystick = (open ("/dev/input/js0",O_RDONLY | O_NONBLOCK));
