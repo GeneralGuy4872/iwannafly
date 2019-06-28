@@ -597,5 +597,5 @@ struct charbuffer4 CAMBUFFER;
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
-#define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Generated a \033[95mWARNING\033[m at %s\ntext: %s\n",F,E,A); dologs ? fprintf(logfile,"%s Generated a *WARNING* at %s\ntext: %s\n",F,E,A) : noop(); printf("\n\033[94mO.o <Maybe that's something you should, uhh, take a look at?\033[m\n");
-#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"%s Threw a \033[91mFATAL ERROR\033[m at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A); dologs ? fprintf(logfile,"%s Threw a *FATAL ERROR* at %s\nadditional info: %s\nprogram may have exited with side-effects.\nread mmap(2) and shm_open(3) for more information\n",F,E,A) : noop(); printf("\n\033[94mX_X <HELP! I've fallen and I can't get up!\033[m\n"); X_HCF_X;
+#define SOFT_ERROR_MACRO(F,E,A) fprintf(stderr,"Soft Error, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__);
+#define HARD_ERROR_MACRO(F,E,A) fprintf(stderr,"HARD ERROR, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__); X_HCF_X
