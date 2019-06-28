@@ -190,6 +190,13 @@ struct bytevector4
   unsigned int w : 8;
   };
 
+struct bytevector3
+  {
+  unsigned int x : 8;
+  unsigned int y : 8;
+  unsigned int z : 8;
+  };
+
 struct bytevector2
   {
   unsigned int x : 8;
@@ -202,6 +209,13 @@ struct charvector4
   signed char y : 8;
   signed char z : 8;
   signed char w : 8;
+  };
+
+struct charvector3
+  {
+  signed char x : 8;
+  signed char y : 8;
+  signed char z : 8;
   };
 
 struct charvector2
