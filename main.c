@@ -35,7 +35,7 @@ signed char *JSAXISFLAG = mmap(NULL,sizeof(JSAXISFLAG),PROT_READ | PROT_WRITE,MA
 #include "./joystick.c"
 
 #include "./main.h"
-#include "./models/all.c"
+#include "./models/all.h"
 #include "./init.c"
 #include "./timing.c"
 
