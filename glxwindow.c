@@ -8,7 +8,7 @@
 #include <GL/glu.h>
 #include <GL/glx.h>
 
-#include "./glxwindow.h"
+#include "glxwindow.h"
 
 glx__SetCamera()
   {    
