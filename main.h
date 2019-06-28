@@ -602,6 +602,8 @@ struct charbuffer4 CAMBUFFER;
 #define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__);
 #define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__); X_HCF_X
 
+#include "models/models.h"
+
 struct entity
 	{
 	struct entity *prev;
