@@ -1,4 +1,7 @@
-Successful Builds = 0 : Working Builds = 0
+0|0|0
+=====
+prealpha stats:
+builds|segfaults|kpanics
 
 Iwannafly
 =========
