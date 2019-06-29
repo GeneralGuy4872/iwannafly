@@ -1,4 +1,10 @@
-**prealpha stats:** *syntax editing*
+**prealpha stats:**
+
+🗹 minimal implimentation
+
+➤ *syntax editing*
+
+⌛ debugging
 
 - ∅ days since last working build,	0 total
 - ∅ days since last segfault build,	0 total
