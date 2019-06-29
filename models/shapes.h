@@ -1,13 +1,13 @@
 //HERE BE DRAGONS
-//X⇗ Y→ Z↑ for now, will probably change
+//X/\ Y-> Z^ for now, will probably change
 //unroll the arrays so that each entry is on a seperate row while editing, but put them back where you found them when done
 //
 
-#define v_line(X,Y,Z) {(vector3){0,0,0},(vector3){X,Y,Z}}
+#define v_line(X,Y,Z) {{.x = 0,.y = 0,.z = 0},{.x = X,.y = Y,.z = Z}}
 #define i_line {9,1, 1}
 #define num_line 3
 
-#define shape_line(X,Y,Z) ((shape_typ){(vector3[]) v_xline(X,Y,Z),(unsigned char[]) i_line,n_line})
+#define shape_line(X,Y,Z) ({.vertlist = v_xline(X,Y,Z),.bytecode = i_line,.inum = n_line})
 
 #define v_triangle(H,W) {(vector3){0,0,0},(vector3){0,-W,-H},(vector3){0,W,-H}}
 #define i_wire_triangle {8,3, 0,1,2}
