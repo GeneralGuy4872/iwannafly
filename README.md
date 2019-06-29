@@ -1,9 +1,9 @@
 **prealpha stats:** *syntax editing*
 
-∅ days since last working build,	0 total
-∅ days since last segfault build,	0 total
-∅ days since last system breaking build,	0 total
-0 days since last failed build
+- ∅ days since last working build,	0 total
+- ∅ days since last segfault build,	0 total
+- ∅ days since last system breaking build,	0 total
+- 0 days since last failed build
 
 
 Iwannafly
