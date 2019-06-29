@@ -44,7 +44,6 @@ signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
 
-div_t div_tmp;
 
 typedef int (*eventfunc)(int,int); //you know you're getting serious when you're using function pointers
 typedef signed char tern;
@@ -160,85 +159,86 @@ typedef struct shortvector3
   signed short x;
   signed short y;
   signed short z;
-  } alias_shortvector3;
+  } shortvector3;
+div_t div_tmp;
 
 typedef struct shortvector2
   {
   signed short x;
   signed short y;
-  } alias_shortvector2;
+  } shortvector2;
 
-struct microvector
+typedef struct microvector
   {
   tern x : 2;
   tern y : 2;
   tern z : 2;
   tern w : 2;
-  }alias_microvector;
+  } microvector;
 
-struct minivector
+typedef struct minivector
   {
   quard x : 2;
   quard y : 2;
   quard z : 2;
   quard w : 2;
-  }alias_minivector;
+  } minivector;
 
-struct bytevector4
+typedef struct bytevector4
   {
   unsigned int x : 8;
   unsigned int y : 8;
   unsigned int z : 8;
   unsigned int w : 8;
-  }alias_bytevector4;
+  } bytevector4;
 
-struct bytevector3
+typedef struct bytevector3
   {
   unsigned int x : 8;
   unsigned int y : 8;
   unsigned int z : 8;
-  }alias_bytevector3;
+  } bytevector3;
 
-struct bytevector2
+typedef struct bytevector2
   {
   unsigned int x : 8;
   unsigned int y : 8;
-  }alias_bytevector2;
+  } bytevector2;
 
-struct charvector4
+typedef struct charvector4
   {
   signed char x : 8;
   signed char y : 8;
   signed char z : 8;
   signed char w : 8;
-  }alias_charvector4;
+  } charvector4;
 
-struct charvector3
+typedef struct charvector3
   {
   signed char x : 8;
   signed char y : 8;
   signed char z : 8;
-  }alias_charvector3;
+  } charvector3;
 
-struct charvector2
+typedef struct charvector2
   {
   signed char x : 8;
   signed char y : 8;
-  }alias_charvector2;
+  } charvector2;
 
-struct halfbytes
+typedef struct halfbytes
   {
   unsigned char hi : 4;
   unsigned char lo : 4;
-  }alias_halfbytes;
+  } halfbytes;
 
-struct plotparam
+typedef struct plotparam
   {
   signed char x : 4;
   signed char y : 4;
-  }alias_plotparam;
+  } plotparam;
 
-struct magic_type
+typedef struct magic_type
   {
   bool fire : 1;
   bool air : 1;
@@ -248,20 +248,20 @@ struct magic_type
   bool light : 1;
   bool dark : 1;
   bool energy : 1;
-  }alias_magic_type;
+  } magic_type;
 
-struct spell
+typedef struct spell
   {
   unsigned int damage : 7;
   signed int recoil : 7;
   quard spread : 2; //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
-  struct halfbytes impact; //hi = knockback, lo = splash radius
-  struct magic_type type;
-  }alias_spell;//these are used as arguments to a proto-magic function. spells should be const and are only defined once, in a header.
+  halfbytes impact; //hi = knockback, lo = splash radius
+  magic_type type;
+  } spell;//these are used as arguments to a proto-magic function. spells should be const and are only defined once, in a header.
 
 #include "spells.h"
 
-typedef struct spell *spellbook[4]; //entitys can have up to 4 pointers to spells
+typedef spell *spellbook[4]; //entitys can have up to 4 pointers to spells
 
 #define FR_ONE 64
 #define flfr(input) ((signed short) (input * FR_ONE))
@@ -272,7 +272,7 @@ enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
   mes_neck,mes_shld,mes_back,mes_humr,mes_femr,mes_pelv,mes_cxyx,
   mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_tth};
 
-struct my_date_time
+typedef struct my_date_time
   {
   unsigned int year : 3;
   unsigned int month : 4;
@@ -281,10 +281,10 @@ struct my_date_time
   unsigned int hour : 5;
   unsigned int minute : 6;
   unsigned int second : 6;
-  }alias_my_date_time;
+  } my_date_time;
 
 tick_tock (counter)
-  struct my_date_time counter;
+  my_date_time counter;
   {
   div_tmp = div(counter.second + 1,60); //add, mod, and carry out
   counter.second = div_tmp.rem;
@@ -303,7 +303,7 @@ tick_tock (counter)
 #define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
 #define printtimedate(N) printf("%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
 
-struct statreg
+typedef struct statreg
   {
   bool ground : 1;
   bool wet : 1;
@@ -313,9 +313,9 @@ struct statreg
   bool gills : 1;
   bool wings : 1;
   bool fireproof : 1;
-  }alias_statreg;
+  } statreg;
 
-struct sensereg
+typedef struct sensereg
   {
   bool uv : 1;
   bool infra : 1;
@@ -325,33 +325,33 @@ struct sensereg
   bool evil : 1;
   bool law : 1;
   bool chaos : 1;
-  }alias_sensereg;
+  } sensereg;
 
-struct viewform
+typedef struct viewform
   {
   tern base : 2;
   tern deg : 2;
   tern dist : 2;
   bool time : 1;
   bool uv : 1;
-  }alias_viewform;
+  } viewform;
 
-struct hitbox_type
+typedef struct hitbox_type
   {
   signed short x;
   signed short z;
   signed char eyes;
   signed char offset;
-  }alias_hitbox_type;
+  } hitbox_type;
 
-struct shape
+typedef struct shape
   {
-  static struct vector3 vertlist[];
+  static vector3 vertlist[];
   static unsigned char bytecode[];
   static unsigned char inum;
-  }alias_shape;
+  } shape;
 
-struct event_props
+typedef struct event_props
   {
   unsigned short x : 9;
   unsigned short y : 9;
@@ -360,56 +360,56 @@ struct event_props
   bool g : 1;
   bool b : 1;
   quard shape : 2;
-  }alias_event_props;
+  } event_props;
 
-struct event
+typedef struct mainh_event
   {
-  struct event *prev;
-  struct event *next;
-  struct ushortvector3 coords;
-  struct bytevector3 size;
-  struct event_props attrib; //shape 0 = disk of x, shape 1 = sphere of x, shape 2 = cylinder xz, shape 3 = cuboid
+  event *prev;
+  event *next;
+  ushortvector3 coords;
+  bytevector3 size;
+  event_props attrib; //shape 0 = disk of x, shape 1 = sphere of x, shape 2 = cylinder xz, shape 3 = cuboid
   unsigned short durat; //0 means until triggered, otherwise in seconds
   eventfunc *ontrigger; //the function that the event triggers
   int params[2]; //intended as arguments to switches in ontrigger; actual args are globals with fixed names, like CAMERA->gold
-  };
+  } mainh_event;
 
-struct truecolor
+typedef struct truecolor
   {
   unsigned int r : 8;
   unsigned int g : 8;
   unsigned int b : 8;
   unsigned int a : 8;
-  }alias_truecolor;
+  } truecolor;
 
-struct highcolor
+typedef struct highcolor
   {
   unsigned int r : 5;
   unsigned int g : 6;
   unsigned int b : 5;
-  }alias_highcolor;
+  } highcolor;
 
-struct lowcolor
+typedef struct lowcolor
   {
   unsigned int r : 3;
   unsigned int g : 3;
   unsigned int b : 2;
-  }alias_lowcolor;
+  } lowcolor;
 
-struct fuzzcoord
+typedef struct startcoord
   {
   unsigned char x;
   unsigned char y;
   unsigned int yaw;
-  }alias_fizzcoord;
+  } startcoord;
 //values are taken (n % 180) * 2
 
-struct torusmap
+typedef struct torusmap
   {
   unsigned char dots[360][360];
   unsigned char sealevel;
-  struct fuzzcoord start[8]; //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
-  };
+  startcoord start[8]; //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
+  } torusmap;
 
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
@@ -531,7 +531,7 @@ struct torusmap
 #define mat4vec4(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z,(M[0][3] + M[1][3] + M[2][3] + M[3][3]) * V.w}
 #define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
 
-mainh__matmult_4(fir,sec)
+mainh__matmult_4 (fir,sec)
   matrix fir;
   matrix sec;
     {
@@ -591,7 +591,7 @@ file_cat (path)
   fclose(tmp);
   }
 
-struct movement_buffer_t
+typedef struct movement_buffer_t
   {
   float x;
   float y;
@@ -599,9 +599,9 @@ struct movement_buffer_t
   float pit;
   float lt;
   float rt;
-  }alias_movement_buffer_t;
+  } movement_buffer_t;
 
-struct movement_buffer_t MOVEBUFFER;
+movement_buffer_t MOVEBUFFER;
 #define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
 #define MOVEBUFFER_rol (MOVEBUFFER.rt - MOVEBUFFER.lt)
 
@@ -629,18 +629,41 @@ struct charbuffer4 CAMBUFFER;
 #define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__);
 #define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__); X_HCF_X
 
+typedef struct bone
+  {
+  bone *up;
+  bone *prev;
+  bone *next;
+  charvector3 off;
+  vector3 len;
+  matrix base;
+  matrix curr;
+  truecolor color;
+  bool ultraviolet;
+  bool drawline;
+  shape *geom;
+  } bone;
+
+typedef struct thing
+  {
+  thing *prev;
+  thing *next;
+  matrix rot;
+  shape *geom;
+  } thing;
+
 #include "models/all.h"
 
-struct entity
+typedef struct entity
 	{
-	struct entity *prev;
-	struct entity *next;
-	struct vector4 pos;
-	struct vector3 rot;
-	struct hitbox_type hitbox;
-	struct vector3 Velo;
-	struct vector3 Torq;
-	struct statreg stat;
+	entity *prev;
+	entity *next;
+	vector4 pos;
+	vector3 rot;
+	hitbox_type hitbox;
+	vector3 Velo;
+	vector3 Torq;
+	statreg stat;
 		/* bool ground
 		 * bool wet
 		 * bool horiz
@@ -650,7 +673,7 @@ struct entity
 		 * bool gills - deferred
 		 * bool fireproof - deferred
 		 */
-	struct sensereg detects;
+	sensereg detects;
 		/* bool uv
 		 * bool infra - deferred
 		 * bool trouble - deferred
@@ -660,23 +683,23 @@ struct entity
 		 * bool law - deferred
 		 * bool chaos deferred
 		 */
-	struct plotparam alignment; //x = lawful/chaotic, y = good/evil
+	plotparam alignment; //x = lawful/chaotic, y = good/evil
 	unsigned char health;
 	float Ff;
 	unsigned short m;
 	unsigned short density;
 	//they're comfy and easy to...wait...
-	struct vector3 *Drag; //x = ground, y = water, z = air
-	struct vector3 *Fa; //x = ground, y = water, z = air
-	struct bone dembones;
+	vector3 *Drag; //x = ground, y = water, z = air
+	vector3 *Fa; //x = ground, y = water, z = air
+	bone dembones;
 	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
-	};
+	} entity;
 
-struct cameratype
+typedef struct cameratype
 	{
-	struct camera_ang coord;
-	struct viewform format;
+	camera_ang coord;
+	viewform format;
 		/*
 		int base 0 = dec, 1 = oct, -n = hex
 		rotation base 0 = deg, 1 = rad base pi, -1 = gradians, -2 rad base 10
@@ -690,24 +713,24 @@ struct cameratype
 		*/
 	unsigned short gold;
 	unsigned short points;
-	};
+	} cameratype;
 
-struct world
+typedef struct worldtype
 	{
-	struct torusmap *map;
-	struct entity *ent;
-	struct entity *ent_tail;
-	struct thing *scen;
-	struct thing *scen_tail;
-	struct event *evnt;
-	struct event *evnt_tail;
-	struct cameratype *cam;
-	};
+	torusmap *map;
+	entity *ent;
+	entity *ent_tail;
+	thing *scen;
+	thing *scen_tail;
+	mainh_event *evnt;
+	mainh_event *evnt_tail;
+	cameratype *cam;
+	} worldtype;
 
-struct torusmap planet1;
-struct entity player1;
-struct cameratype camera1;
-struct world WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
+torusmap planet1;
+entity player1;
+cameratype camera1;
+worldtype WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
 #define MAP WORLD.map
 #define PLAYER WORLD.ent
 #define CAMERA WORLD.cam

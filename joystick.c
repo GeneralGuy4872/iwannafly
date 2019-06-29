@@ -1,11 +1,11 @@
 //see below
-struct js_event
+typedef struct js_event
 	{
 	unsigned int time;
 	signed short value;
 	unsigned char type;
 	unsigned char number;
-	};
+	} jsevent;
 /* previous structure definition (and event type identifiers below)
  * are from a linux kernel documentation page;
  * I could not find the source file which it describes in my distro's
@@ -16,9 +16,9 @@ struct js_event
 
 jsloop ()
 	{
-	volatile int joystick;
+	int joystick;
 	joystick = (open ("/dev/input/js0",O_RDONLY | O_NONBLOCK));
-	struct js_event event1;
+	js_event event1;
 	signed short values[8];
 	while (1)
 		{

@@ -1,21 +1,22 @@
 boneloop(subject)
-  struct bone subject
+  bone subject
   {
   if (subject.drawline)
     {
-    shapeloop(shape_line(subject.color,{subject.len.x,subject.len.y,subject.len.z})
+    shapeloop(shape_line(subject.len.x,subject.len.y,subject.len.z,subject.color,subject.ultraviolet)
     }
-  shapeloop(subject.geom,subject.color)
+  shapeloop(subject.geom,subject.color,subject.ultraviolet)
   }
 
-shapeloop(subject,color)
-  struct shape subject
-  struct truecolor color
+shapeloop(subject,color,ultra)
+  shape subject
+  truecolor color
+  bool ultra
   {
   unsigned char n = 0 //for loops are not applicable here
   unsigned char mode = 0
   unsigned char iter = 0
-  glColor4b(color.r,color.g,color.b,color.a)
+  glColor4b((CAMERA->uv && PLAYER->stat.uv && ultra) ? 0xFF : color.r,(CAMERA->uv && PLAYER->stat.uv && ultra) ? 0 : color.g,(CAMERA->uv && PLAYER->stat.uv && ultra) ? 0xFF : color.b,(CAMERA->uv && PLAYER->stat.uv && ultra) ? 0x7F : color.a)
   while (n < subject.inum)
     {
     switch (mode)
@@ -111,7 +112,7 @@ shapeloop(subject,color)
       case 7 :
         {
         glBegin(GL_TRIANGLE_FAN)
-          while (iter && n < subject.inum))
+          while (iter && (n < subject.inum))
             {
             glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
             n++
@@ -138,7 +139,7 @@ shapeloop(subject,color)
       case 9 :
         {
         glBegin(GL_LINES)
-          while (iter && n < subject.inum))
+          while (iter && (n < subject.inum))
             {
             glvertex3f(subject.vertlist[0].x,subject.vertlist[0].y,subject.vertlist[0].z)
             glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
