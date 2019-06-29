@@ -257,11 +257,11 @@ struct spell
   quard spread : 2; //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
   struct halfbytes impact; //hi = knockback, lo = splash radius
   struct magic_type type;
-  };
+  };//these are used as arguments to a proto-magic function. spells should be const and are only defined once, in a header.
 
 #include "spells.h"
 
-typedef struct spell *spellbook[4]; //afaict, only place there should be a *foo[n]. all the others gtg.
+typedef struct spell *spellbook[4]; //entitys can have up to 4 pointers to spells
 
 #define FR_ONE 64
 #define flfr(input) ((signed short) (input * FR_ONE))
@@ -351,16 +351,27 @@ struct shape
   static unsigned char inum;
   };
 
+struct event_props
+  {
+  unsigned short x : 9;
+  unsigned short y : 9;
+  unsigned short z : 9;
+  bool r : 1;
+  bool g : 1;
+  bool b : 1;
+  quard shape : 2;
+  };
+
 struct event
   {
   struct event *prev;
   struct event *next;
   struct ushortvector3 coords;
-  struct bytevector4 size; //w = 0 sphere of radius x, w = 1 cylinder of radius x and height z, w = 2 cuboid
-  unsigned long durat;
-  eventfunc *ontrigger;
-  char strings[4][BUFFER_MAX];
-  int params[2];
+  struct bytevector3 size;
+  struct event_props attrib; //shape 0 = disk of x, shape 1 = sphere of x, shape 2 = cylinder xz, shape 3 = cuboid
+  unsigned short durat; //0 means until triggered, otherwise in seconds
+  eventfunc *ontrigger; //the function that the event triggers
+  int params[2]; //intended as arguments to switches in ontrigger; actual args are globals with fixed names, like CAMERA->gold
   };
 
 struct truecolor
