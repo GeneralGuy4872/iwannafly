@@ -1,6 +1,6 @@
 #define XCOORD(N) (((n + N) % 360) * 60)
 #define YCOORD(N) (((m + N) % 360) * 60)
-#define ZCOORD ((MAP.dots[n][m] - 15) * 5)
+#define ZCOORD hightfloat(MAP.dots[n][m])
 
 refresh_land()
 	{
@@ -62,5 +62,5 @@ float groundcheck(argument)
 		ground = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
 		}
 	
-	return (ground - 15) * 5
+	return hightfloat(ground)
 	}
