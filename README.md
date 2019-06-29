@@ -1,8 +1,8 @@
-0;0;0
------
 prealpha stats:
 
-builds;segfaults;kpanics
+**0;0;0**
+
+*(builds;segfaults;kpanics)*
 
 Iwannafly
 =========
@@ -65,6 +65,6 @@ While Xt/Xaw is considered an archaic library, I consider it the best choice for
 
 Note: Motorola Notation is used in game and in documentation, meaning that $n is a hexadecimal number and @n is an octal number. latitude and longitude are recorded as d\*m'. the symbol for currency shall be <CODE>\xA4</CODE>, which *must* display � (not ▯) in a unicode local, and displays ¤ (generic currency symbol) in most others.
 
-Liscensing stuff
-================
+LISCENSE?
+---------
 While I would like to release under LGPL or RevBSD, it likely inherits "GPLv2 or any later version" somewhere. I am not a lawyer (and generally dislike them showing up at my house with stacks of paper...), so I'll need to figure this out before Beta.
