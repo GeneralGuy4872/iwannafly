@@ -1,16 +1,16 @@
 **prealpha stats:**
+- 🗹 outline concept
 - 🗹 minimal implimentation
-- ➤ *syntax editing*
+- ➤ *syntax fixing*
 - ⌛ debugging
-- ⌛ alpha
+- ⌛ alpha release
 
 **build stats:**
-- ∅ days since last working build
+- last working build : NULL
 	- 0 total
-- ∅ days since last segfault build
+- last segfault build : NULL
 	- 0 total
-- 1 days since last failed build
-	- 28 June 2019
+- last failed build : 28 June 2019
 
 Iwannafly
 =========
