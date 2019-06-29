@@ -7,7 +7,7 @@
 **build stats:**
 - ∅ days since last working build
 	- 0 total
-- ∅ days since last segfault build,
+- ∅ days since last segfault build
 	- 0 total
 - 1 days since last failed build
 	- 28 June 2019
