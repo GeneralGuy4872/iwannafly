@@ -1,8 +1,8 @@
-prealpha stats:
+**prealpha stats:** *syntax editing*
 
-**0 ; 0 ; 0**
+**0 ; 0 ; 0 ; 0**
 
-*(builds;segfaults;kpanics)*
+*(builds;segfaults;kpanics;**worse...**)*
 
 Iwannafly
 =========
