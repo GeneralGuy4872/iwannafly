@@ -1,18 +1,17 @@
-#define AVE_FRIC M_E
-#define AVE_MASS 35
-#define AVE_DENSE 50
-//units for density is (g/cc)/64, and must be converted for use with SI and before storage
-struct vector3 AVE_DRAG = {.9,.9,.9};
-struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)};
+#define AVE_FRIC M_E //some unit
+#define AVE_MASS 35 //kg
+#define AVE_DENSE 730 //kg/m^3
+struct vector3 AVE_DRAG = {.x = .9,.y = .9,.z = .9};
+struct vector3 AVE_SPD = {.x = 8 + (8/9),.y = 1,.z = 88 + (8/9)};
 
 struct bone *sculpt_avian(geomet)
   mesurements geomet;
   {
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
     struct bone *pelvis = malloc(sizeof(struct bone));
-    *pelvis = (struct bone){NULL,NULL,NULL,(cast_char_vec3){0,0,0},(cast_short_vec3){0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
-    *(pelvis->geom) = shape_poly_triangle(mfrfl(geomet[mes_cxyx]),mfrfl(geomet[mes_pelv])/2);
-  struct bone *index_spine = spine(pelvis,pelvis,mfrfl(geomet[mes_back]),16);
+    *pelvis = (struct bone){NULL,NULL,NULL,(struct charvector3){0,0,0},(struct shortvector3){0,frfl(geomet[mes_pelv])/2,frfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
+    *(pelvis->geom) = shape_poly_triangle(frfl(geomet[mes_cxyx]),frfl(geomet[mes_pelv])/2);
+  struct bone *index_spine = spine(pelvis,pelvis,frfl(geomet[mes_back]),16);
   struct bone *neck = spine(index_spine,index_spine,mfrfl(geomet[mes_neck]),7);
     struct bone *skull = malloc(sizeof(struct bone));
     *skull = (struct bone){neck,neck,NULL,(cast_char_vec3){0,0,0},(cast_short_vec3){mfrfl(geomet[mes_skull]),0,0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
@@ -83,7 +82,7 @@ struct entity *summon_avian(xcoord,ycoord,zcoord,geomet)
 	mesurements geomet;
 	{
 	entity *parent;
-	entity *tmp = malloc(sizeof(struct entity));
+	struct entity *tmp = malloc(sizeof(struct entity));
 	if (WORLD.ent_tail != NULL)
   		{
 		parent = WORLD.ent_tail;
@@ -106,5 +105,5 @@ struct entity *summon_avian(xcoord,ycoord,zcoord,geomet)
 				}
 			}
   		}
-	struct entity *tmp = {WORLD.ent_tail,NULL,(cast_vec4){xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord] * 5},{geomet[mes_hbr],geomet[mes_hbh],geomet[mes_hboff]),geomet[mes_hbeyes])},{0,0,0},{0,0,0},matgen_ident,{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet),{NULL,NULL,NULL,NULL}};
+	*tmp = {.prev = WORLD.ent_tail,.pos = {.x = xcoord,.y = ycoord,.z = zcoord,.w = hightfloat(MAP.dots[xcoord][ycoord])},.hitbox = {.x = geomet[mes_hbr],.z = geomet[mes_hbh],.offset = geomet[mes_hboff],.eyes = geomet[mes_hbeyes]},.stat = {.caster = TRUE,.wings = TRUE},.sense = {.uv = TRUE,.infra = TRUE,.trouble = TRUE,.weather = TRUE,.law = TRUE},.alignment = {.x = 6,.y = -4},.health = 255,.Ff = AVE_FRIC,.m = AVE_MASS,.density = AVE_DENSE,.Drag = &AVE_DRAG,.Spd = &AVE_SPD,.dembones = sculpt_avian(geomet)};
 	}
