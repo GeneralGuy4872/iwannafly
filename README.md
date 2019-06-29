@@ -2,8 +2,7 @@
 
 - ∅ days since last working build,	0 total
 - ∅ days since last segfault build,	0 total
-- ∅ days since last system breaking build,	0 total
-- 0 days since last failed build
+- 1 days since last failed build	(28 June)
 
 
 Iwannafly
