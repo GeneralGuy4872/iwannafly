@@ -1,10 +1,18 @@
+//see below
 struct js_event
 	{
 	unsigned int time;
 	signed short value;
 	unsigned char type;
 	unsigned char number;
-	}; //grumble grumble incomplete repos grumble
+	};
+/* previous structure definition (and event type identifiers below)
+ * are from a linux kernel documentation page;
+ * I could not find the source file which it describes in my distro's
+ * repo to #include it. sorce web address is:
+ * https://www.kernel.org/doc/Documentation/input/joystick-api.txt
+ * last section says use of code snippits is permitted
+ */
 
 jsloop ()
 	{
