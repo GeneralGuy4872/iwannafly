@@ -95,78 +95,78 @@ matrix MATRIX_UTILITY_REGISTER;
 
 #define toggle(setting) setting = !setting;
 
-struct vector4
+typedef struct vector4
   {
   float x;
   float y;
   float z;
   float w;
-  };
+  } vector4;
 
-struct vector3
+typedef struct vector3
   {
   float x;
   float y;
   float z;
-  };
+  } vector3;
 
-struct camera_ang
+typedef struct camera_ang
   {
   unsigned char az;
   unsigned char alt;
   signed char z;
   unsigned char fov;
-  };
+  } camera_ang;
 //azimuth and altitude are taken (n % 180) * 2
 //z and fov are literal
 
-struct vector2
+typedef struct vector2
   {
   float x;
   float y;
-  };
+  } vector2;
 
-struct ushortvector4
+typedef struct ushortvector4
   {
   unsigned short x;
   unsigned short y;
   unsigned short z;
   unsigned short w;
-  };
+  } ushortvector2;
 
-struct ushortvector3
+typedef struct ushortvector3
   {
   unsigned short x;
   unsigned short y;
   unsigned short z;
-  };
+  } ushortvector3;
 
-struct ushortvector2
+typedef struct ushortvector2
   {
   unsigned short x;
   unsigned short y;
-  };
+  } ushortvector2;
 
-struct shortvector4
+typedef struct shortvector4
   {
   signed short x;
   signed short y;
   signed short z;
   signed short w;
-  };
+  } shortvector4;
 
-struct shortvector3
+typedef struct shortvector3
   {
   signed short x;
   signed short y;
   signed short z;
-  };
+  } alias_shortvector3;
 
-struct shortvector2
+typedef struct shortvector2
   {
   signed short x;
   signed short y;
-  };
+  } alias_shortvector2;
 
 struct microvector
   {
@@ -174,7 +174,7 @@ struct microvector
   tern y : 2;
   tern z : 2;
   tern w : 2;
-  };
+  }alias_microvector;
 
 struct minivector
   {
@@ -182,7 +182,7 @@ struct minivector
   quard y : 2;
   quard z : 2;
   quard w : 2;
-  };
+  }alias_minivector;
 
 struct bytevector4
   {
@@ -190,20 +190,20 @@ struct bytevector4
   unsigned int y : 8;
   unsigned int z : 8;
   unsigned int w : 8;
-  };
+  }alias_bytevector4;
 
 struct bytevector3
   {
   unsigned int x : 8;
   unsigned int y : 8;
   unsigned int z : 8;
-  };
+  }alias_bytevector3;
 
 struct bytevector2
   {
   unsigned int x : 8;
   unsigned int y : 8;
-  };
+  }alias_bytevector2;
 
 struct charvector4
   {
@@ -211,32 +211,32 @@ struct charvector4
   signed char y : 8;
   signed char z : 8;
   signed char w : 8;
-  };
+  }alias_charvector4;
 
 struct charvector3
   {
   signed char x : 8;
   signed char y : 8;
   signed char z : 8;
-  };
+  }alias_charvector3;
 
 struct charvector2
   {
   signed char x : 8;
   signed char y : 8;
-  };
+  }alias_charvector2;
 
 struct halfbytes
   {
   unsigned char hi : 4;
   unsigned char lo : 4;
-  };
+  }alias_halfbytes;
 
 struct plotparam
   {
   signed char x : 4;
   signed char y : 4;
-  };
+  }alias_plotparam;
 
 struct magic_type
   {
@@ -248,7 +248,7 @@ struct magic_type
   bool light : 1;
   bool dark : 1;
   bool energy : 1;
-  };
+  }alias_magic_type;
 
 struct spell
   {
@@ -257,7 +257,7 @@ struct spell
   quard spread : 2; //0 = pinpoint, 1 = narrow, 2 = wide, 3 = omnidirectional
   struct halfbytes impact; //hi = knockback, lo = splash radius
   struct magic_type type;
-  };//these are used as arguments to a proto-magic function. spells should be const and are only defined once, in a header.
+  }alias_spell;//these are used as arguments to a proto-magic function. spells should be const and are only defined once, in a header.
 
 #include "spells.h"
 
@@ -281,7 +281,7 @@ struct my_date_time
   unsigned int hour : 5;
   unsigned int minute : 6;
   unsigned int second : 6;
-  };
+  }alias_my_date_time;
 
 tick_tock (counter)
   struct my_date_time counter;
@@ -313,7 +313,7 @@ struct statreg
   bool gills : 1;
   bool wings : 1;
   bool fireproof : 1;
-  };
+  }alias_statreg;
 
 struct sensereg
   {
@@ -325,7 +325,7 @@ struct sensereg
   bool evil : 1;
   bool law : 1;
   bool chaos : 1;
-  };
+  }alias_sensereg;
 
 struct viewform
   {
@@ -334,7 +334,7 @@ struct viewform
   tern dist : 2;
   bool time : 1;
   bool uv : 1;
-  };
+  }alias_viewform;
 
 struct hitbox_type
   {
@@ -342,14 +342,14 @@ struct hitbox_type
   signed short z;
   signed char eyes;
   signed char offset;
-  };
+  }alias_hitbox_type;
 
 struct shape
   {
   static struct vector3 vertlist[];
   static unsigned char bytecode[];
   static unsigned char inum;
-  };
+  }alias_shape;
 
 struct event_props
   {
@@ -360,7 +360,7 @@ struct event_props
   bool g : 1;
   bool b : 1;
   quard shape : 2;
-  };
+  }alias_event_props;
 
 struct event
   {
@@ -380,28 +380,28 @@ struct truecolor
   unsigned int g : 8;
   unsigned int b : 8;
   unsigned int a : 8;
-  };
+  }alias_truecolor;
 
 struct highcolor
   {
   unsigned int r : 5;
   unsigned int g : 6;
   unsigned int b : 5;
-  };
+  }alias_highcolor;
 
 struct lowcolor
   {
   unsigned int r : 3;
   unsigned int g : 3;
   unsigned int b : 2;
-  };
+  }alias_lowcolor;
 
 struct fuzzcoord
   {
   unsigned char x;
   unsigned char y;
   unsigned int yaw;
-  };
+  }alias_fizzcoord;
 //values are taken (n % 180) * 2
 
 struct torusmap
@@ -599,7 +599,7 @@ struct movement_buffer_t
   float pit;
   float lt;
   float rt;
-  };
+  }alias_movement_buffer_t;
 
 struct movement_buffer_t MOVEBUFFER;
 #define MOVEBUFFER_z ((MOVEBUFFER.rt + MOVEBUFFER.lt) / 2)
