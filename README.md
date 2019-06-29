@@ -1,6 +1,6 @@
 prealpha stats:
 
-**0;0;0**
+**0 ; 0 ; 0**
 
 *(builds;segfaults;kpanics)*
 
