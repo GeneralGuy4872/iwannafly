@@ -80,15 +80,15 @@ onstep_player
 
 	PLAYER.rot.x = CLAMP((player.rot.x + player.Torq.x),-90,90); //degrees
 	PLAYER.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90); //degrees
-	PLAYER.rot.z = (player.rot.z + player.Torq.z)%360; //degrees
+	PLAYER.rot.z = fmod(player.rot.z + player.Torq.z,360); //degrees
 
 	PLAYER.Velo.x = PHYSICS(player,Velo.x,((MOVEBUFFER.x * cos(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * cos(PLAYER.rot.y) * cos(PLAYER.rot.z))));
 	PLAYER.Velo.y = PHYSICS(player,Velo.y,((MOVEBUFFER.x * sin(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * cos(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.x) * sin(PLAYER.rot.z))));
 	PLAYER.Velo.z = PHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))));
 	PLAYER.Velo.z = GRAVITY(player,Velo.z);
 
-	PLAYER.pos.x = (player.pos.x + player.Velo.x)%21600; //arcminutes
-	PLAYER.pos.y = (player.pos.y + player.Velo.y)%21600; //arcminutes
+	PLAYER.pos.x = fmod(player.pos.x + player.Velo.x,21600); //arcminutes
+	PLAYER.pos.y = fmod(player.pos.y + player.Velo.y,21600); //arcminutes
 	PLAYER.pos.w = groundcheck(PLAYER);
 	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),PLAYER.pos.w,6000); //meters, groundlevel;arbitrary ceiling
 

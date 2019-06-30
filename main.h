@@ -131,7 +131,7 @@ typedef struct ushortvector4
   unsigned short y;
   unsigned short z;
   unsigned short w;
-  } ushortvector2;
+  } ushortvector4;
 
 typedef struct ushortvector3
   {
@@ -298,7 +298,7 @@ tick_tock (counter)
   div_tmp = div(counter.month + div_tmp.quot,12);
   counter.month = div_tmp.rem;
   counter.year = (counter.year + div_tmp.quot)%7;
-  }    
+  }
 #define sprinttimedate(N,O) sprintf(O,"%i:%i:%i %s %i/%i/%i",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
 #define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
 #define printtimedate(N) printf("%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
@@ -346,9 +346,9 @@ typedef struct hitbox_type
 
 typedef struct shape
   {
-  static vector3 vertlist[];
-  static unsigned char bytecode[];
-  static unsigned char inum;
+  unsigned char (*bytecode)[];
+  unsigned char inum;
+  vector3 vertlist[];
   } shape;
 
 typedef struct event_props
@@ -364,13 +364,13 @@ typedef struct event_props
 
 typedef struct mainh_event
   {
-  event *prev;
-  event *next;
+  struct event *prev;
+  struct event *next;
   ushortvector3 coords;
   bytevector3 size;
   event_props attrib; //shape 0 = disk of x, shape 1 = sphere of x, shape 2 = cylinder xz, shape 3 = cuboid
   unsigned short durat; //0 means until triggered, otherwise in seconds
-  eventfunc *ontrigger; //the function that the event triggers
+  struct eventfunc *ontrigger; //the function that the event triggers
   int params[2]; //intended as arguments to switches in ontrigger; actual args are globals with fixed names, like CAMERA->gold
   } mainh_event;
 
@@ -396,6 +396,27 @@ typedef struct lowcolor
   unsigned int b : 2;
   } lowcolor;
 
+#define rgbi(R,G,B,I,A) {I ? (R ? 0xFF : 0x55) : (R ? 0xAA : 0x00),I ? (G ? 0xFF : 0x55) : (G ? 0xAA : 0x00),I ? (B ? 0xFF : 0x55) : (B ? 0xAA : 0x00),A != 0 ? (A == 1 ? 0x7F : 0xFF) : 0}
+#define vga(R,G,B,A) {R != 0 ? (R == 1 ? 0x7F : 0xFF) : 0,G != 0 ? (G == 1 ? 0x7F : 0xFF) : 0,B != 0 ? (B == 1 ? 0x7F : 0xFF) : 0,A != 0 ? (A == 1 ? 0x7F : 0xFF) : 0}
+
+typedef struct rgbi_param
+	{
+	bool r : 1;
+	bool g : 1;
+	bool b : 1;
+	bool i : 1;
+	tern a : 2;
+	bool uv : 1;
+	} rgbi_param;
+
+typedef struct vga_param
+	{
+	tern r : 2;
+	tern g : 2;
+	tern b : 2;
+	tern a : 2;
+	} vga_param;
+
 typedef struct startcoord
   {
   unsigned char x;
@@ -415,12 +436,12 @@ typedef struct torusmap
 #define MIN(A,B) (A < B ? A : B)
 #define ABSMIN(A,B) (fabs(A) < fabs(B) ? A : B)
 #define CLAMP(N,A,B) MIN(MAX(N,A),B)
-#define RAD(N) ((N%360)*(M_PI/180))
+#define RAD(N) (fmod(N,360)*(M_PI/180))
 #define DEG(N) (N*(180/M_PI))
 #define R_GON(N) (N*(200/M_PI))
-#define D_GON(N) ((N%360)*(10/9))
-#define G_RAD(N) ((N%400)*(M_PI/200))
-#define G_DEG(N) ((N%400)*(9/10))
+#define D_GON(N) (fmod(N,360)*(10/9))
+#define G_RAD(N) (fmod(N,400)*(M_PI/200))
+#define G_DEG(N) (fmod(N,400)*(9/10))
 #define R_BPI(N) (N/M_PI)
 #define zin(N) NEG(sin(N))
 #define bos(N) NEG(cos(N))
@@ -532,21 +553,20 @@ typedef struct torusmap
 #define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
 
 mainh__matmult_4 (fir,sec)
-  matrix fir;
-  matrix sec;
-    {
-    unsigned char ycoord;
-    matrix result;
-    for (unsigned char xcoord = 0;xcoord < 4;xcoord++)
-      {
-      for (unsigned char ycoord = 0;ycoord < 4;ycoord++)
-        {
-        result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord]) + (fir[xcoord][3] * sec[3][ycoord]);
-        }
-      }
-    matpush(MATRIX_UTILITY_REGISTER,result);
-    return 1;
-    }
+	matrix fir;
+	matrix sec;
+	{
+	matrix result;
+	for (unsigned char xcoord = 0;xcoord < 4;xcoord++)
+		{
+		for (unsigned char ycoord = 0;ycoord < 4;ycoord++)
+			{
+			result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord]) + (fir[xcoord][3] * sec[3][ycoord]);
+			}
+		}
+	matpush(MATRIX_UTILITY_REGISTER,result);
+	return 1;
+	}
 
 div_t radf_to_deg(input)
   float input;
@@ -572,6 +592,7 @@ file_cat (path)
   const char *path;
   {
   FILE *tmp = fopen(path,"r");
+  int lines;
   if (tmp == NULL)
     {
     return -1;
@@ -586,9 +607,11 @@ file_cat (path)
     else
       {
       printf(tmpbuffer);
+      lines++;
       }
     }
   fclose(tmp);
+  return lines;
   }
 
 typedef struct movement_buffer_t
@@ -626,14 +649,14 @@ struct charbuffer4 CAMBUFFER;
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
-#define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__);
-#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%s",__FILE__,__LINE__);if (dologs) fprintf(logfile,"Soft Error, file:%s line:%s",__FILE__,__LINE__); X_HCF_X
+#define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%s",__FILE__,__LINE__);
+#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%s",__FILE__,__LINE__); X_HCF_X
 
 typedef struct bone
   {
-  bone *up;
-  bone *prev;
-  bone *next;
+  struct bone *up;
+  struct bone *prev;
+  struct bone *next;
   charvector3 off;
   vector3 len;
   matrix base;
@@ -641,23 +664,21 @@ typedef struct bone
   truecolor color;
   bool ultraviolet;
   bool drawline;
-  shape *geom;
+  struct shape *geom;
   } bone;
 
 typedef struct thing
   {
-  thing *prev;
-  thing *next;
+  struct thing *prev;
+  struct thing *next;
   matrix rot;
-  shape *geom;
+  struct shape *geom;
   } thing;
-
-#include "models/all.h"
 
 typedef struct entity
 	{
-	entity *prev;
-	entity *next;
+	struct entity *prev;
+	struct entity *next;
 	vector4 pos;
 	vector3 rot;
 	hitbox_type hitbox;
@@ -689,9 +710,9 @@ typedef struct entity
 	unsigned short m;
 	unsigned short density;
 	//they're comfy and easy to...wait...
-	vector3 *Drag; //x = ground, y = water, z = air
-	vector3 *Fa; //x = ground, y = water, z = air
-	bone dembones;
+	struct vector3 *Drag; //x = ground, y = water, z = air
+	struct vector3 *Fa; //x = ground, y = water, z = air
+	struct bone *dembones;
 	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	} entity;
@@ -717,14 +738,14 @@ typedef struct cameratype
 
 typedef struct worldtype
 	{
-	torusmap *map;
-	entity *ent;
-	entity *ent_tail;
-	thing *scen;
-	thing *scen_tail;
-	mainh_event *evnt;
-	mainh_event *evnt_tail;
-	cameratype *cam;
+	struct torusmap *map;
+	struct entity *ent;
+	struct entity *ent_tail;
+	struct thing *scen;
+	struct thing *scen_tail;
+	struct mainh_event *evnt;
+	struct mainh_event *evnt_tail;
+	struct cameratype *cam;
 	} worldtype;
 
 torusmap planet1;
@@ -735,3 +756,5 @@ worldtype WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
 #define PLAYER WORLD.ent
 #define CAMERA WORLD.cam
 bool run = 0;
+
+#include "models/all.h"
