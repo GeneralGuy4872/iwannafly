@@ -1,14 +1,13 @@
 #define AVE_FRIC M_E
 #define AVE_MASS 35
 #define AVE_DENSE 50
-//units for density is (g/cc)/64, and must be converted for use with SI and before storage
 struct vector3 AVE_DRAG = {.9,.9,.9};
 struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)};
 
 struct bone *sculpt_avian(geomet)
   mesurements geomet;
   {
-  //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,bool drawline,shape *geom}
+  //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,truecolor color,bool ultraviolet,bool drawline,shape *geom}
     struct bone *pelvis = malloc(sizeof(struct bone));
     *pelvis = {NULL,NULL,NULL,{0,0,0},{0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
     *(pelvis->geom) = shape_poly_triangle(mfrfl(geomet[mes_cxyx]),mfrfl(geomet[mes_pelv])/2);
