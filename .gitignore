@@ -3,8 +3,10 @@
 **/*.out
 **/*.elf
 #exclude files generated while testing
-**/*.tmp
 **/*.save
 **/*.log
 #exclude sed scripts used to edit code en-masse. I know regex-fu
 **/*.sed
+#exclude temporary files
+**/*.tmp
+**/*.swp
