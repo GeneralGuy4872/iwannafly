@@ -1,8 +1,8 @@
 #!/bin/sh
-find ./*.[ch] */*.[ch] | xargs wc -l > lines_of_c.log
-find ./*.awk */*.awk ./*.pl */*.pl ./*.sh */*.sh ./make */make | xargs wc -l > lines_of_script.log
-find ./*.xml ./*.json ./*.ini ./*.[tc]sv */*.xml */*.json */*.ini */*.[tc]sv | xargs wc -l > lines_of_plugin.log
-find ./*.hex ./*.bin ./*.dat ./*.raw */*.hex */*.bin */*.dat */*.raw | xargs wc -c > bytes_of_binary.log
-find ./*.txt */.txt | xargs wc -l > lines_of_text.log
-find ./*.md ./*.html ./*.rtf */*.md */*.html */*.rtf | xargs wc -l > lines_of_markup.log
-find ./*.man.[0-9] */*.man.[0-9] > lines_of_manpage.log
+find  * -name "*.[ch]" | xargs wc -l > lines_of_c.log
+find  * -name "*.awk" -o -name "*.pl" -o -name "*.sh" -o -name "make" | xargs wc -l > lines_of_script.log
+find  * -name "*.xml" -o -name "*.json" -o -name "*.ini" -o -name "*.[tc]sv" | xargs wc -l > lines_of_plugin.log
+find  * -name "*.hex" -o -name "*.bin" -o -name "*.dat" -o -name "*.raw" | xargs wc -c > bytes_of_binary.log
+find  * -name "*.txt" -o ! -name "*.*" -a ! -name "make" -a -type f| xargs wc -l > lines_of_text.log
+find  * -name "*.md" -o -name "*.html" -o -name "*.rtf" | xargs wc -l > lines_of_markup.log
+find  * -name "*.man.[0-9]" -name "README" > lines_of_docs.log
