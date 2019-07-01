@@ -22,7 +22,6 @@ Requirements
 Libraries:
 
 - C Standard Libraries
-- ioctl joystick interface
 
 - OpenGL / Mesa version with matrix stack
 - GLX
@@ -35,18 +34,17 @@ System:
 
 - Display
 - Keyboard
-- Mouse
-- A 3d graphics card
-- Lots of RAM
-- Xbox 360 controller (or equivilant device)
+- A 3d graphics card; shader support shouldn't be required
+- Ludicrous amounts of ram (current estimates upwards of a GiB)
+- Xbox 360-style controler, located at <CODE>/dev/input/js0</CODE>
 
 - Unix-like Operating System
-- Xorg display server or compatible api
-- ANSI-compatible Terminal Emulator (such as <CODE>xterm</CODE>)
-- POSIX shell
+- active X Session
+- <CODE>xterm</CODE> or other ANSI-compatible Terminal Emulator
 - <CODE>make</CODE>
 - C preprocessor with macro forward-calling
-- Actual C compiler (i.e. not MSVC)
+- Actual C compiler with full C99, C89, and K&R support
+- sane POSIX enviroment
 
 PLANNED PLATFORMS
 -----------------
