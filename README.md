@@ -63,6 +63,8 @@ Right now my dev systems consist of a Netburst Celeron, a K7 with no ethernet (h
 OTHER NOTES
 -----------
 
+My progress has recently been derailed by a necisarry API change regarding struct heierarchy that will propagate throughout nearly every aspect of the project. Where I was planning on moving into debugging this month, I might be lucky to get back to the syntax checking stage this month instead.
+
 A major point of confusion at present is proper initialization of structs and pointers to structs. Code is inconsistant between using the <CODE>struct</CODE> keyword and <CODE>typedef</CODE> aliases, and is also inconsistand about using C89 struct literals or C99 compound objects. The latter will be resolved by syntax necessity, with preference for the C89 style, but the former issue may or may not be resolved for some time, as the project has at present
 
 The heavy use of macro functions througout the project's code base stems from two seperate cases that necessitate their use. Firstly, macro functions are a good way to implement a subroutine or procedure (Fortran and Pascal use them extensively). Secondly, macro functions can accept, and in specific cases return, multiple types, where as functions proper can only accept and return as they are defined (think C++ overloading but better). There should be no gotos in the project currently, but I make no promises about the future regarding the use of branch jumps (<CODE>? goto sucess : goto failure</CODE> at the end of a line, derived from snobol) or a loop escape in extraordinary circumstanses; my third use of gotos is exactly duplicated by switch statements, so the latter has been deployed widely in their stead.
