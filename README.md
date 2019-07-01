@@ -46,7 +46,7 @@ System:
 - POSIX shell
 - <CODE>make</CODE>
 - C preprocessor with macro forward-calling
-- C compiler with the ability to mix C99, C89, and K&R syntax
+- Actual C compiler (i.e. not MSVC)
 
 PLANNED PLATFORMS
 -----------------
