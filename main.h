@@ -15,7 +15,7 @@
 #define REV_JS "000.002"
 #define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
-
+div_t div_tmp;
 
 /*
  *the library at <math.h> must provide:
@@ -126,6 +126,12 @@ typedef struct vector2
   float y;
   } vector2;
 
+typedef struct vectorZ
+  {
+  float x;
+  float z;
+  } vectorZ;
+
 typedef struct ushortvector4
   {
   unsigned short x;
@@ -161,7 +167,6 @@ typedef struct shortvector3
   signed short y;
   signed short z;
   } shortvector3;
-div_t div_tmp;
 
 typedef struct shortvector2
   {
@@ -268,10 +273,10 @@ typedef spell *spellbook[4]; //entitys can have up to 4 pointers to spells
 #define flfr(input) ((signed short) (input * FR_ONE))
 #define frfl(input) ((float) input / FR_ONE)
 
-typedef signed short mesurements[20];
-enum mesure_index {mes_hbr,mes_hbh,mes_skull,
-  mes_neck,mes_shld,mes_back,mes_humr,mes_femr,mes_pelv,mes_cxyx,
-  mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_ta};
+typedef signed short mesurements[16];
+enum mesure_index {mes_skull,mes_neck,mes_shld,mes_back,mes_humr,mes_femr,
+  mes_pelv,mes_cxyx,mes_tail,mes_wing,mes_q,mes_dig,mes_fan_r1,mes_fan_r2,
+  mes_fan_ang};
 
 typedef struct my_date_time
   {
@@ -336,12 +341,6 @@ typedef struct viewform
   bool time : 1;
   bool uv : 1;
   } viewform;
-
-typedef struct hitbox_type
-  {
-  signed short x;
-  signed short z;
-  } hitbox_type;
 
 typedef struct shape
   {
@@ -669,6 +668,7 @@ typedef struct bone
 typedef struct skeleton
   {
   bone root;
+  vectorZ hitbox;
   vector2 off;
   } skeleton;
 
@@ -686,7 +686,6 @@ typedef struct entity
 	struct entity *next;
 	vector4 pos;
 	vector3 rot;
-	hitbox_type hitbox;
 	vector3 Velo;
 	vector3 Torq;
 	statreg stat;

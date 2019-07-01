@@ -4,9 +4,10 @@
 struct vector3 AVE_DRAG = {.9,.9,.9};
 struct vector3 AVE_SPD = {8 + (8/9),1,88 + (8/9)};
 
-struct bone *sculpt_avian(geomet)
+struct skeleton *sculpt_avian(geomet)
   mesurements geomet;
   {
+  skeleton tmp;
   //{*up,*prev,*next,{off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,truecolor color,bool ultraviolet,bool drawline,shape *geom}
     struct bone *pelvis = malloc(sizeof(struct bone));
     *pelvis = {NULL,NULL,NULL,{0,0,0},{0,mfrfl(geomet[mes_pelv])/2,mfrfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
@@ -52,7 +53,8 @@ struct bone *sculpt_avian(geomet)
     *index_tail = {pelvis,rwing,NULL,{0,0,0},{mfrfl(geomet[mes_tl]),mfrfl(geomet[mes_tr]),0},matgen_ident,matgen_ident,FALSE,malloc(sizeof(struct shape))};
     *(tail->geom) = shape_poly_xfan(mflfr(geomet[mes_tl]),mflfr(geomet[mes_tr]),mflfr(geomet[mes_tth]));
     doublelink(tail);
-  return pelvis;
+  tmp.root = *pelvis;
+  tmp.hitbox.x = frfl(geomet[mes_shld]) + frfl(geomet[mes_humr])
   }
 
 polymorph_avian(target,geomet)
