@@ -31,6 +31,7 @@
 #define S_RATIO 2.414213562373095048802
 #define MY_TAU 6.283185307179586476925
 #define LOG_3_PI 1.041978045992185865114
+#define LOG_3_E 0.9102392266268373936142
 #define ONE_1_9 1.11111111111111111111111
 
 #define FPS 30 //frames per second (hz)
@@ -268,9 +269,9 @@ typedef spell *spellbook[4]; //entitys can have up to 4 pointers to spells
 #define frfl(input) ((float) input / FR_ONE)
 
 typedef signed short mesurements[20];
-enum mesure_index {mes_hbr,mes_hbh,mes_hboff,mes_hbeyes,mes_skull,
+enum mesure_index {mes_hbr,mes_hbh,mes_skull,
   mes_neck,mes_shld,mes_back,mes_humr,mes_femr,mes_pelv,mes_cxyx,
-  mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_tth};
+  mes_tail,mes_wing,mes_q,mes_dig,mes_tr,mes_tl,mes_ta};
 
 typedef struct my_date_time
   {
@@ -340,8 +341,6 @@ typedef struct hitbox_type
   {
   signed short x;
   signed short z;
-  signed char eyes;
-  signed char offset;
   } hitbox_type;
 
 typedef struct shape
@@ -667,6 +666,12 @@ typedef struct bone
   struct shape *geom;
   } bone;
 
+typedef struct skeleton
+  {
+  bone root;
+  vector2 off;
+  } skeleton;
+
 typedef struct thing
   {
   struct thing *prev;
@@ -712,7 +717,7 @@ typedef struct entity
 	//they're comfy and easy to...wait...
 	struct vector3 *Drag; //x = ground, y = water, z = air
 	struct vector3 *Fa; //x = ground, y = water, z = air
-	struct bone *dembones;
+	struct skeleton *dembones;
 	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	} entity;

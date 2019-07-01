@@ -244,7 +244,7 @@ struct bone *leg(root,prev,len,Q,side,color)
     {
     prev->next = limb[0];
     limb[0] = {root,prev,limb[1],{0,side * FR_ONE/2,FR_ONE},{0,0,-1*len},matgen_x_deg(Q,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
-    len = len/G_RATIO;
+    len = len * LOG_3_E;
     Q = Q * -1;
     limb[1] = {root,limb[0],NULL,{0,0,FR_ONE},{0,0,-1*len},matgen_x_deg(Q,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     }
@@ -265,8 +265,10 @@ struct bone *digiti(root,prev,len,Q,side,color)
     prev->next = limb[0];
     limb[0] = {root,prev,limb[1],{0,side * FR_ONE/2,FR_ONE},{0,0,len},matgen_master_deg(Q.x,Q.y,0,side,side,1),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     Q = {Q.x * -1,Q.y * 2 * -1};
-    limb[1] = {root,limb[0],limb[2],{0,0,FR_ONE},{0,0,len * G_RATIO},matgen_master_deg(Q.x,Q.y,0,side,side,1),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
+    len = len * LOG_3_E;
+    limb[1] = {root,limb[0],limb[2],{0,0,FR_ONE},{0,0,len},matgen_master_deg(Q.x,Q.y,0,side,side,1),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     Q = {0,Q.y * -1};
+    len = len * LOG_3_E;
     limb[2] = {root,limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_master_deg(Q.x,Q.y,0,side,side,1),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     }
   return &limb[2];
@@ -283,7 +285,7 @@ struct bone *avewing(root,prev,len,side,color)
     {
     prev->next = limb[0];
     limb[0] = {root,prev,limb[1],{0,0,FR_ONE},{0,0,len},matgen_x_deg(135,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
-    limb[1] = {root,limb[0],limb[2],{0,0,FR_ONE},{0,0,len * G_RATIO},matgen_x_deg(108,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
+    limb[1] = {root,limb[0],limb[2],{0,0,FR_ONE},{0,0,len * S_RATIO},matgen_x_deg(108,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     limb[2] = {root,limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_x_deg(-150,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     }
   return &limb[2];
