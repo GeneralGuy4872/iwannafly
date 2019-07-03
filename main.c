@@ -78,21 +78,23 @@ onstep_player
 	PLAYER.Torq.z = PHYSICS(player,Torq.z,MOVEBUFFER.yaw);
 	PLAYER.Torq.y = PHYSICS(player,Torq.y,MOVEBUFFER.pit);
 
-	PLAYER.rot.x = CLAMP((player.rot.x + player.Torq.x),-90,90); //degrees
-	PLAYER.rot.y = CLAMP((player.rot.y + player.Torq.y),-90,90); //degrees
-	PLAYER.rot.z = fmod(player.rot.z + player.Torq.z,360); //degrees
+	PLAYER.rot.x = CLAMP((player.rot.x + PLAYER.Torq.x),-90,90); //degrees
+	PLAYER.rot.y = CLAMP((player.rot.y + PLAYER.Torq.y),-90,90); //degrees
+	PLAYER.rot.z = fmod(player.rot.z + PLAYER.Torq.z,360); //degrees
 
-	PLAYER.Velo.x = PHYSICS(player,Velo.x,((MOVEBUFFER.x * cos(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * cos(PLAYER.rot.y) * cos(PLAYER.rot.z))));
-	PLAYER.Velo.y = PHYSICS(player,Velo.y,((MOVEBUFFER.x * sin(PLAYER.rot.z) * cos(PLAYER.rot.y)) + (MOVEBUFFER.y * cos(PLAYER.rot.z) * sin(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.x) * sin(PLAYER.rot.z))));
-	PLAYER.Velo.z = PHYSICS(player,Velo.z,((MOVEBUFFER.x * cos(PLAYER.rot.z) * sin(PLAYER.rot.y)) + (MOVEBUFFER.y * sin(PLAYER.rot.z) * cos(PLAYER.rot.x)) + (MOVEBUFFER_Z * sin(PLAYER.rot.y) * cos(PLAYER.rot.x))));
+	vector3 abs_movebuff = matmult(PLAYER.stat.horiz ? matgen_xeular_deg(PLAYER.rot.z,PLAYER.rot.y,PLAYER.rot.x,1,1,1) : matgen_master_deg(PLAYER.rot.z,PLAYER.rot.y,PLAYER.rot.x,1,1,1),{MOVEBUFFER.X,MOVEBUFFER.Y,MOVEBUFFER_Z})
+
+	PLAYER.Velo.x = PHYSICS(player,Velo.x,abs_movebuff.x);
+	PLAYER.Velo.y = PHYSICS(player,Velo.y,abs_movebuff.y);
+	PLAYER.Velo.z = PHYSICS(player,Velo.z,abs_movebuff.z);
 	PLAYER.Velo.z = GRAVITY(player,Velo.z);
 
-	PLAYER.pos.x = fmod(player.pos.x + player.Velo.x,21600); //arcminutes
-	PLAYER.pos.y = fmod(player.pos.y + player.Velo.y,21600); //arcminutes
+	PLAYER.pos.x = fmod(PLAYER.pos.x + PLAYER.Velo.x,21600); //arcminutes
+	PLAYER.pos.y = fmod(PLAYER.pos.y + PLAYER.Velo.y,21600); //arcminutes
 	PLAYER.pos.w = groundcheck(PLAYER);
-	PLAYER.pos.z = CLAMP((player.pos.z + player.Velo.z),PLAYER.pos.w,6000); //meters, groundlevel;arbitrary ceiling
+	PLAYER.pos.z = CLAMP((PLAYER.pos.z + PLAYER.Velo.z),PLAYER.pos.w,10000); //meters, groundlevel;arbitrary ceiling
 
-	if ( PLAYER.pos.w >= PLAYER.pos.z)
+	if (PLAYER.pos.w >= PLAYER.pos.z)
 		{
 		PLAYER.stat.ground = TRUE;
 		}
@@ -101,7 +103,7 @@ onstep_player
 		PLAYER.stat.ground = FALSE;
 		}
 	
-	if ( (MAP.sealevel * 5) >= PLAYER.pos.w + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z))) )
+	if ((MAP.sealevel * 5) >= PLAYER.pos.w + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z))) )
 		{
 		PLAYER.stat.wet = TRUE;
 		}

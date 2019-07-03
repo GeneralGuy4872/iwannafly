@@ -1,28 +1,30 @@
 //need to start moveing #define-s, struct-s, and typedef-s here
 
-/*whether a variable is in ALL_CAPS or not is not a reliable indicator of if it is a macro; what it means
- *is that it is a global value that may be called (and sometimes modified) by functions safely.
- *a macro function in ALL_CAPS is a true macro, and less complicated than one that is lowercase,
- *which is a subroutine. all this is complicated by the fact that even this convoluted formatting
- *is currently inconsistant, and the terms "subroutine" and "macro function" are interchangeable
- *by definition and I have yet to establish a true boundry.
+/* whether a variable is in ALL_CAPS or not is not a reliable indicator of if it is a macro; what it means
+ * is that it is a global value that may be called (and sometimes modified) by functions safely.
+ * a macro function in ALL_CAPS is a true macro, and less complicated than one that is lowercase,
+ * which is a subroutine. all this is complicated by the fact that even this convoluted formatting
+ * is currently inconsistant, and the terms "subroutine" and "macro function" are interchangeable
+ * by definition and I have yet to establish a true boundry.
  */
 
 #define BUFFER_MAX 512
 
 #define __MYVERS__ "000.001.000"
-#define REV_MAIN "001.000"
+#define REV_MAIN "002.000"
 #define REV_JS "000.002"
 #define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
+#define FOREVER for (;;)
+
 div_t div_tmp;
 
-/*
- *the library at <math.h> must provide:
- *M_E  M_LN2  M_LN10  M_LOG2E  M_LOG10E
- *M_PI  M_PI_2  M_PI_4  M_2_PI  M_1_PI
- *M_SQRT_2  M_SQRT1_2
+/* the library at <math.h> must provide:
+ * M_E  M_LN2  M_LN10  M_LOG2E  M_LOG10E
+ * M_PI  M_PI_2  M_PI_4  M_2_PI  M_1_PI
+ * M_SQRT_2  M_SQRT1_2
  */
+
 #define COS_PI_8 0.9238795325112867561282
 #define COS_PI_16 0.9807852804032304491262
 #define COS_PI_32 0.9951847266721968862448
@@ -44,7 +46,6 @@ long JSAXISBUFF_ADDRESS;
 signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
-
 
 typedef int (*eventfunc)(int,int); //you know you're getting serious when you're using function pointers
 typedef signed char tern;
@@ -75,7 +76,6 @@ typedef char mydate_str[24];
 #define xLEFT(N) (LEFT * N)
 #define xRIGHT(N) (RIGHT * N)
 
-
 //VIEWRNG shall be an odd number
 #define VIEWRNG 5
 #define VIEWRNGmax ((VIEWRNG - 1) / 2)
@@ -91,7 +91,6 @@ void noop () {}
 #define X_HCF_X exit(1);
 
 typedef float matrix[4][4];
-matrix MATRIX_UTILITY_REGISTER;
 
 #define toggle(setting) setting = !setting;
 
@@ -427,8 +426,11 @@ typedef struct torusmap
   {
   unsigned char dots[360][360];
   unsigned char sealevel;
-  startcoord start[8]; //0 = city, 1 = village, 2 = forest, 3 = mountains, 4 = mines, 5 = caves, 6 = seaside, 7 = underwater
+  startcoord start[8];
   } torusmap;
+
+enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
+	st_caves,st_seaside,st_underwater};
 
 #define MAX(A,B) (A > B ? A : B)
 #define MIN(A,B) (A < B ? A : B)
@@ -450,11 +452,12 @@ typedef struct torusmap
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
-#define EYECOORD(M) { (M.pos.x + (M.stat.horiz ? frfl(M.hitbox.eyes) : 0)),M.pos.y,(M.pos.z + (M.stat.horiz ? frfl(M.hitbox.z)/2 : frfl(M.hitbox.eyes)))}
+#define BASECOORD(M) vecadd({M.pos.x,M.pos.y,M.pos.z},M.stat.horiz ? {0,0,0} : matmult(matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
+#define EYECOORD(M) vecadd({M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult(matgen_xeular_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{M.dembones.hitbox.x - (M.dembones.off.x + M.dembones.off.y),0,0}) : matmult(matgen_master_deg(M.pos.z,M.pos.y,M.pos.x),{0,0,M.dembones.hitbox.z - M.dembones.off.y}))
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
-/*won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
+/* won't know if these are flipped along a '\' diagonal until I have a proof of concept build,
  * have not found a clear definition on what layer of the matrix needs to be column major for opengl
  * since I have to rewrite glm, may have dug too deep.
  */
@@ -484,15 +487,25 @@ typedef struct torusmap
 #define matgen_master_deg(A,E,R,X,Y,Z) matgen_master_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
 #define matset_master_deg(M,A,E,R,X,Y,Z) matset_master_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
 
-#define matgen_ultraeuler_rad(A,E,R,X,Y,Z,B,C,D) matgen_raw(((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X))*B,(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),((sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)))*C,sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E)*D,0,0,0)
-#define matset_ultraeuler_rad(M,A,E,R,X,Y,Z,B,C,D) matset_raw(M,((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X))*B,(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),((sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)))*C,sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E)*D,0,0,0)
-#define matgen_ultraeuler_deg(A,E,R,X,Y,Z,B,C,D) matgen_ultraeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
-#define matset_ultraeuler_deg(M,A,E,R,X,Y,Z,B,C,D) matset_ultraeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matgen_super_zeuler_rad(A,E,R,X,Y,Z,B,C,D) matgen_raw(((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X))*B,(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),((sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)))*C,sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E)*D,0,0,0)
+#define matset_super_zeuler_rad(M,A,E,R,X,Y,Z,B,C,D) matset_raw(M,((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X))*B,(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),((sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)))*C,sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E)*D,0,0,0)
+#define matgen_super_zeuler_deg(A,E,R,X,Y,Z,B,C,D) matgen_super_zeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matset_super_zeuler_deg(M,A,E,R,X,Y,Z,B,C,D) matset_super_zeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
 
 #define matgen_zeuler_rad(A,E,R,X,Y,Z) matgen_raw((cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X),(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),(sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)),sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E),0,0,0)
 #define matset_zeuler_rad(M,A,E,R,X,Y,Z) matset_raw(M,(cos(A)*cos(E)*cos(R))+(zin(A)*Z*sin(R)*X),(cos(A)*cos(E)*zin(R)*X)+(zin(A)*Z*cos(R)),cos(A)*cos(E)*Y,(sin(A)*Z*cos(E)*cos(R))+(cos(A)*sin(R)*X),(sin(A)*Z*cos(E)*zin(R)*X)+(cos(A)*cos(R)),sin(A)*Z*sin(E)*Y,zin(E)*Y,zin(E)*Y*zin(R)*X,cos(E),0,0,0)
-#define matgen_zeuler_deg(A,E,R,X,Y,Z) matgen_xeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
-#define matset_zeuler_deg(M,A,E,R,X,Y,Z) matset_xeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
+#define matgen_zeuler_deg(A,E,R,X,Y,Z) matgen_zeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
+#define matset_zeuler_deg(M,A,E,R,X,Y,Z) matset_zeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
+
+#define matgen_super_xeuler_rad(R,E,A,X,Y,Z,B,C,D) matgen_raw(cos(E)*B,sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,((cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z))*C,(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),((sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)))*D,0,0,0)
+#define matset_super_xeuler_rad(M,R,E,A,X,Y,Z,B,C,D) matset_raw(M,cos(E)*B,sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,((cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z))*C,(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),((sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)))*D,0,0,0)
+#define matgen_super_xeuler_deg(R,E,A,X,Y,Z,B,C,D) matgen_super_xeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+#define matset_super_xeuler_deg(M,R,E,A,X,Y,Z,B,C,D) matset_super_xeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z,B,C,D)
+
+#define matgen_xeuler_rad(R,E,A,X,Y,Z) matgen_raw(cos(E),sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,(cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z),(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),(sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)),0,0,0)
+#define matset_xeuler_rad(M,R,E,A,X,Y,Z) matset_raw(M,cos(E),sin(E)*Y*sin(A)*Z,sin(E)*Y*cos(A),zin(R)*X*zin(E)*Y,(cos(R)*cos(A))+(zin(R)*X*cos(E)*sin(A)*Z),(cos(R)*zin(A)*Z)+(zin(R)*X*cos(E)*cos(A)),cos(R)*zin(E)*Y,(sin(R)*X*cos(A))+(cos(R)*cos(E)*sin(A)*Z),(sin(R)*X*zin(A)*Z)+(cos(R)*cos(E)*cos(A)),0,0,0)
+#define matgen_xeuler_deg(R,E,A,X,Y,Z) matgen_xeuler_rad(RAD(A),RAD(E),RAD(R),X,Y,Z)
+#define matset_xeuler_deg(M,R,E,A,X,Y,Z) matset_xeuler_rad(M,RAD(A),RAD(E),RAD(R),X,Y,Z)
 
 #define matgen_sphere_rad(A,E,L,Z,Y) matgen_raw(cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E),cos(A)*cos(E)*L,0,0)
 #define matset_sphere_rad(M,A,E,L,Z,Y) matset_raw(M,cos(A)*cos(E),zin(A)*Z,cos(A)*sin(E)*Y,sin(A)*Z*cos(E),cos(A),sin(A)*Z*sin(E)*Y,zin(E)*Y,0,cos(E),cos(A)*cos(E)*L,0,0)
@@ -514,56 +527,29 @@ typedef struct torusmap
 #define matgen_z_deg(A,Z) matgen_z_rad(RAD(A),Z)
 #define matset_z_deg(M,A,Z) matset_z_rad(M,RAD(A),Z)
 
-#define matgen_xref_rad(R,X,B,C,D) matgen_raw(B,0,0,0,cos(R)*C,zin(R)*X,0,sin(R)*X,cos(R)*D,0,0,0)
-#define matset_xref_rad(M,R,X,B,C,D) matset_raw(M,B,0,0,0,cos(R)*C,zin(R)*X,0,sin(R)*X,cos(R)*D,0,0,0)
-#define matgen_xref_deg(R,X,B,C,D) matgen_xref_rad(RAD(R),X,B,C,D)
-#define matset_xref_deg(M,R,X,B,C,D) matset_xref_rad(M,RAD(R),X,B,C,D)
-
-#define matgen_yref_rad(E,Y,B,C,D) matgen_raw(cos(E)*B,0,sin(E)*Y,0,C,0,zin(E)*Y,0,cos(E)*D,0,0,0)
-#define matset_yref_rad(M,E,Y,B,C,D) matset_raw(M,cos(E)*B,0,sin(E)*Y,0,C,0,zin(E)*Y,0,cos(E)*D,0,0,0)
-#define matgen_yref_deg(E,Y,B,C,D) matgen_yref_rad(RAD(E),Y,B,C,D)
-#define matset_yref_deg(M,E,Y,B,C,D) matset_yref_rad(M,RAD(E),Y,B,C,D)
-
-#define matgen_zref_rad(A,Z,B,C,D) matgen_raw(cos(A)*B,zin(A)*Z,0,sin(A)*Z,cos(A)*C,0,0,0,D,0,0,0)
-#define matset_zref_rad(M,A,Z,B,C,D) matset_raw(M,cos(A)*B,zin(A)*Z,0,sin(A)*Z,cos(A)*C,0,0,0,D,0,0,0)
-#define matgen_zref_deg(A,Z,B,C,D) matgen_zref_rad(RAD(A),Z,B,C,D)
-#define matset_zref_deg(M,A,Z,B,C,D) matset_zref_rad(M,RAD(A),Z,B,C,D)
-
-#define matgen_xp_rad(R,X,L) matgen_raw(1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),L,0,0)
-#define matset_xp_rad(M,R,X,L) matset_raw(M,1,0,0,0,cos(R),zin(R)*X,0,sin(R)*X,cos(R),L,0,0)
-#define matgen_xp_deg(R,X,L) matgen_xp_rad(RAD(R),X,L)
-#define matset_xp_deg(M,R,X,L) matset_xp_rad(M,RAD(R),X,L)
-
-#define matgen_yp_rad(E,Y,W) matgen_raw(cos(E),0,sin(E)*Y,0,1,0,zin(E)*Y,0,cos(E),0,W,0)
-#define matset_yp_rad(M,E,Y,W) matset_raw(M,cos(E),0,sin(E)*Y,0,1,0,zin(E)*Y,0,cos(E),0,W,0)
-#define matgen_yp_deg(E,Y,W) matgen_yp_rad(RAD(E),Y,W)
-#define matset_yp_deg(M,E,Y,W) matset_yp_rad(M,RAD(E),Y,W)
-
-#define matgen_zp_rad(A,Z,H) matgen_raw(cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,H)
-#define matset_zp_rad(M,A,Z,H) matset_raw(M,cos(A),zin(A)*Z,0,sin(A)*Z,cos(A),0,0,0,1,0,0,H)
-#define matgen_zp_deg(A,Z,H) matgen_zp_rad(RAD(A),Z,H)
-#define matset_zp_deg(M,A,Z,H) matset_zp_rad(M,RAD(A),Z,H)
-
 #define matgen_perspect(X,Y,N,F) {{cot(X),0,0,0},{0,cot(Y),0,0},{0,0,(N+F)/(N-F),-1},{0,0,(2*N*F)/(N-F),0}}
 #define matset_perspect(M,X,Y,N,F) {  M[0][0] = cot(X); M[0][1] = 0; M[0][2] = 0; M[0][3] = 0; M[1][0] = 0; M[1][1] = cot(Y); M[1][2] = 0; M[1][3] = 0; M[2][0] = 0; M[2][1] = 0; M[2][2] = (N+F)/(N-F); M[2][3] = -1; M[3][0] = 0; M[3][1] = 0; M[3][2] = (2*N*F)/(N-F); M[3][3] = 0;  }
 
-#define mat4vec4(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z,(M[0][3] + M[1][3] + M[2][3] + M[3][3]) * V.w}
-#define mat4vec3(M,V) {(M[0][0] + M[1][0] + M[2][0] + M[3][0]) * V.x,(M[0][1] + M[1][1] + M[2][1] + M[3][1]) * V.y,(M[0][2] + M[1][2] + M[2][2] + M[3][2]) * V.z}
-
-mainh__matmult_4 (fir,sec)
-	matrix fir;
-	matrix sec;
+vector3 matmult(rot,vec)
+	matrix rot;
+	vector3 vec;
 	{
-	matrix result;
-	for (unsigned char xcoord = 0;xcoord < 4;xcoord++)
-		{
-		for (unsigned char ycoord = 0;ycoord < 4;ycoord++)
-			{
-			result[xcoord][ycoord] = (fir[xcoord][0] * sec[0][ycoord]) + (fir[xcoord][1] * sec[1][ycoord]) + (fir[xcoord][2] * sec[2][ycoord]) + (fir[xcoord][3] * sec[3][ycoord]);
-			}
-		}
-	matpush(MATRIX_UTILITY_REGISTER,result);
-	return 1;
+	vector3 output;
+	output.x = (rot[0][0] * vec.x)+(rot[0][1] * vec.y)+(rot[0][2] * vec.z);
+	output.y = (rot[1][0] * vec.x)+(rot[1][1] * vec.y)+(rot[1][2] * vec.z);
+	output.z = (rot[2][0] * vec.x)+(rot[2][1] * vec.y)+(rot[2][2] * vec.z);
+	return output;
+	}
+
+vector3 vecadd(vecbase,vecoff)
+	vector3 vecbase;
+	vector3 vecoff;
+	{
+	vector3 output;
+	output.x = vecbase.x + vecoff.x;
+	output.y = vecbase.y + vecoff.y;
+	output.z = vecbase.z + vecoff.z;
+	return output;
 	}
 
 div_t radf_to_deg(input)

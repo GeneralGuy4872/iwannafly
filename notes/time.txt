@@ -1,0 +1,17 @@
+---dawn
+morning
+---
+forenoon
+---noon
+aftrnoon
+---
+evening
+---dusk
+
+night
+
+---midnight
+
+am
+
+---dawn
