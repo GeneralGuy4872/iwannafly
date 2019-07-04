@@ -361,8 +361,8 @@ typedef struct event_props
 
 typedef struct mainh_event
   {
-  struct event *prev;
-  struct event *next;
+  struct mainh_event *prev;
+  struct mainh_event *next;
   ushortvector3 coords;
   bytevector3 size;
   event_props attrib; //shape 0 = disk of x, shape 1 = sphere of x, shape 2 = cylinder xz, shape 3 = cuboid
