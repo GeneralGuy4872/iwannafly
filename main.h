@@ -189,6 +189,14 @@ typedef struct minivector
   quard w : 2;
   } minivector;
 
+typedef struct minicolor
+  {
+  quard r : 2;
+  quard g : 2;
+  quard b : 2;
+  quard a : 2;
+  } minicolor;
+
 typedef struct bytevector4
   {
   unsigned int x : 8;
@@ -393,26 +401,8 @@ typedef struct lowcolor
   unsigned int b : 2;
   } lowcolor;
 
-#define rgbi(R,G,B,I,A) {I ? (R ? 0xFF : 0x55) : (R ? 0xAA : 0x00),I ? (G ? 0xFF : 0x55) : (G ? 0xAA : 0x00),I ? (B ? 0xFF : 0x55) : (B ? 0xAA : 0x00),A != 0 ? (A == 1 ? 0x7F : 0xFF) : 0}
-#define vga(R,G,B,A) {R != 0 ? (R == 1 ? 0x7F : 0xFF) : 0,G != 0 ? (G == 1 ? 0x7F : 0xFF) : 0,B != 0 ? (B == 1 ? 0x7F : 0xFF) : 0,A != 0 ? (A == 1 ? 0x7F : 0xFF) : 0}
-
-typedef struct rgbi_param
-	{
-	bool r : 1;
-	bool g : 1;
-	bool b : 1;
-	bool i : 1;
-	tern a : 2;
-	bool uv : 1;
-	} rgbi_param;
-
-typedef struct vga_param
-	{
-	tern r : 2;
-	tern g : 2;
-	tern b : 2;
-	tern a : 2;
-	} vga_param;
+#define two_to_eight(N) (N == 0 ? 0x00 : (N == 1 ? 0x55 : (N == 2 ? 0xAA : 0xFF)))
+#define colorinf(R,G,B,A) {two_to_eight(R),two_to_eight(G),two_to_eight(B),two_to_eight(A)}
 
 typedef struct startcoord
   {
