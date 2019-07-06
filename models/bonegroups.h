@@ -362,12 +362,12 @@ struct bone *avewing(root,prev,fr_len,side,color)
   tern side;
   rgbi_param color;
   {
-  float len = frfl(fr_len)
+  float len = frfl(fr_len);
   struct bone limb[3];
     {
     prev->next = &limb[0];
     limb[0] = (bone){root,prev,&limb[1],{0,0,FR_ONE},{0,0,len},matgen_x_deg(135,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
-    len = len * S_RATIO
+    len = len * S_RATIO;
     limb[1] = (bone){root,&limb[0],&limb[2],{0,0,FR_ONE},{0,0,len},matgen_x_deg(108,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     limb[2] = (bone){root,&limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_x_deg(-150,side),matgen_ident,rgbi(color.r,color.g,color.b,color.i,color.a),color.uv,TRUE,NULL};
     }
