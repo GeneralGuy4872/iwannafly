@@ -282,7 +282,7 @@ typedef spell *spellbook[4]; //entitys can have up to 4 pointers to spells
 
 typedef signed short mesurements[16];
 enum mesure_index {mes_skull,mes_neck,mes_shld,mes_back,mes_humr,mes_femr,
-  mes_pelv,mes_cxyx,mes_tail,mes_wing,mes_q,mes_dig,mes_fan_r1,mes_fan_r2,
+  mes_pelv,mes_cxyx,mes_tail,mes_wing,mes_q,mes_dig,mes_fan_len,mes_fan_rad,
   mes_fan_ang};
 
 typedef struct my_date_time
@@ -402,13 +402,13 @@ typedef struct lowcolor
   } lowcolor;
 
 #define two_to_eight(N) (N == 0 ? 0x00 : (N == 1 ? 0x55 : (N == 2 ? 0xAA : 0xFF)))
-#define colorinf(R,G,B,A) {two_to_eight(R),two_to_eight(G),two_to_eight(B),two_to_eight(A)}
+#define color6(R,G,B,A) {two_to_eight(R),two_to_eight(G),two_to_eight(B),two_to_eight(A)}
 
 typedef struct startcoord
   {
   unsigned char x;
   unsigned char y;
-  unsigned int yaw;
+  unsigned char yaw;
   } startcoord;
 //values are taken (n % 180) * 2
 
@@ -416,6 +416,10 @@ typedef struct torusmap
   {
   unsigned char dots[360][360];
   unsigned char sealevel;
+  /* unsigned char water[360][360];
+   * signed char wind_x[360][360];
+   * signed char wind_y[360][360];
+   */
   startcoord start[8];
   } torusmap;
 
@@ -643,9 +647,11 @@ typedef struct bone
 
 typedef struct skeleton
   {
-  bone root;
+  bone *root;
   vectorZ hitbox;
   vector2 off;
+  minicolor fg;
+  minicolor bg;
   } skeleton;
 
 typedef struct thing
