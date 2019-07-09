@@ -47,7 +47,7 @@ signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
 
-typedef int (*eventfunc)(int,int); //you know you're getting serious when you're using function pointers
+typedef int (*eventfunc)(int,int,int,const char[8]); //you know you're getting serious when you're using function pointers
 typedef signed char tern;
 typedef unsigned char quard;
 typedef char mydate_str[24];
@@ -371,12 +371,13 @@ typedef struct mainh_event
   {
   struct mainh_event *prev;
   struct mainh_event *next;
-  ushortvector3 coords;
+  shortvector3 coords; //fraction
   bytevector3 size;
   event_props attrib; //shape 0 = disk of x, shape 1 = sphere of x, shape 2 = cylinder xz, shape 3 = cuboid
-  unsigned short durat; //0 means until triggered, otherwise in seconds
+  unsigned short durat; //0 means until triggered, otherwise in _seconds_
   struct eventfunc *ontrigger; //the function that the event triggers
-  int params[2]; //intended as arguments to switches in ontrigger; actual args are globals with fixed names, like CAMERA->gold
+  int params[3]; //intended as arguments to switches in ontrigger; actual args are globals with fixed names, like CAMERA->points.
+  const char textfile[8]; //the unique filename of the file containing the text for ontrigger. is opened, read, and closed in tight context.
   } mainh_event;
 
 typedef struct truecolor
