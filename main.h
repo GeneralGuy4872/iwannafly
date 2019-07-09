@@ -138,7 +138,7 @@ typedef struct ushortvector4
   unsigned short z;
   unsigned short w;
   } ushortvector4;
-
+//they're comfy and easy to...wait...
 typedef struct ushortvector3
   {
   unsigned short x;
@@ -691,11 +691,10 @@ typedef struct entity
 		 * bool chaos deferred
 		 */
 	plotparam alignment; //x = lawful/chaotic, y = good/evil
-	unsigned char health;
+	unsigned short health;
 	float Ff;
 	unsigned short m;
 	unsigned short density;
-	//they're comfy and easy to...wait...
 	struct vector3 *Drag; //x = ground, y = water, z = air
 	struct vector3 *Fa; //x = ground, y = water, z = air
 	struct skeleton *dembones;
