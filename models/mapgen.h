@@ -64,3 +64,44 @@ float groundcheck(argument)
 	
 	return hightfloat(ground)
 	}
+
+float groundmake(xraw,yraw)
+	float xraw
+	float yraw
+	{
+	
+	double xpos = xraw / 60
+	short xcoord = floor(xpos) % 360
+	float xrem = xpos - xcoord
+	double ypos = yraw / 60
+	short ycoord = floor(ypos) % 360
+	float yrem = ypos - ycoord
+	float ground
+	
+	if ((xrem == 0) && (yrem == 0))
+		{
+		ground = MAP.dots[xcoord][ycoord]
+		}
+	else if (xrem == 0)
+		{
+		ground = ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2)
+		}
+	else if (yrem == 0)
+		{
+		ground = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2)
+		}
+	else if ((xrem + yrem) == 60)
+		{
+		ground = ((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2)
+		}
+	else if ((xrem + yrem) > 60)
+		{
+		ground = (((xrem * MAP.dots[xcoord][(ycoord + 1)%360]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) + ((yrem * MAP.dots[(xcoord + 1)%360][ycoord]) + ((1 - yrem) * MAP.dots[(xcoord + 1)%360][(ycoord + 1)%360]) / 2) / 2)
+		}
+	else
+		{
+		ground = (((xrem * MAP.dots[xcoord][ycoord]) + ((1 - xrem) * MAP.dots[(xcoord + 1)%360][ycoord]) / 2) + ((yrem * MAP.dots[xcoord][ycoord]) + ((1 - yrem) * MAP.dots[xcoord][(ycoord + 1)%360]) / 2) / 2)
+		}
+	
+	return hightfloat(ground)
+}
