@@ -380,6 +380,8 @@ typedef struct mainh_event
   const char textfile[8]; //the unique filename of the file containing the text for ontrigger. is opened, read, and closed in tight context.
   } mainh_event;
 
+#include "event_funcs.h"
+
 typedef struct truecolor
   {
   unsigned int r : 8;
