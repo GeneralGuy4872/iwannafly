@@ -358,9 +358,9 @@ typedef struct shape
 
 typedef struct event_props
   {
-  unsigned short x : 9;
-  unsigned short y : 9;
-  unsigned short z : 9;
+  unsigned short rol : 9;
+  unsigned short pit : 9;
+  unsigned short yaw : 9;
   bool r : 1;
   bool g : 1;
   bool b : 1;
