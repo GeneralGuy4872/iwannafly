@@ -10,6 +10,8 @@
 	- 0 total
 - last segfault build : NULL
 	- 0 total
+- last kpanic build : NULL
+	- 0 total
 - last failed build : 8 July 2019
 
 Iwannafly
