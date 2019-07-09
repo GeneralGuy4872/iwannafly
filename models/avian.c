@@ -90,6 +90,6 @@ polymorph_avian(target,geomet)
 	minicolor fg;
 	minicolor bg;
 	{
-	entity* tmp = {parent,NULL,{xcoord,ycoord,zcoord,MAP.dots[xcoord][ycoord] * 5},{0,0,0},{0,0,0},{0,0,0},{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet,fg,bg),{NULL,NULL,NULL,NULL}};
+	entity* tmp = {parent,NULL,{xcoord,ycoord,zcoord,groundmake(xcoord,ycoord)},{0,0,0},{0,0,0},{0,0,0},{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet,fg,bg),{NULL,NULL,NULL,NULL}};
 	ent_add(tmp);
 	}
