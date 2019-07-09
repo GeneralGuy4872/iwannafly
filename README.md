@@ -69,6 +69,8 @@ The heavy use of macro functions througout the project's code base stems from tw
 
 While Xt+Xaw is considered an archaic library, I consider it the best choice for my application; It does what I need it to, It doesn't do stuff I don't need it to, and it is smaller and faster than anything that came after it, making it the ultimate lightweight graphics library (if you can manage to wrap your brain around it's API). Additionaly, it's avalibility in a system's package manager is practically guarunteed (being a build dependency for many old apps, such as the xtools and nethack), making porting across \*nix-es that much easier. It's age also makes drastic changes to the api highly improbable, decreacsing the risk of code rot due to upstream changes.
 
+Opposite of usual, as currently laid out, the games memory footprint *should* nominally shrink as quests are compleated and the ascossiated event nodes are deallocated. now that I've said this, the opposite will likely be the case.
+
 Note: Motorola Notation is used in game and in documentation, meaning that $n is a hexadecimal number and @n is an octal number (binary numbers would be %, but are not used). latitude and longitude are recorded as d\* m'. the symbol for currency shall be <CODE>\xA4</CODE>, which *must* display � in a unicode local, and displays ¤ (generic currency symbol) in most others.
 
 LISCENSE?
