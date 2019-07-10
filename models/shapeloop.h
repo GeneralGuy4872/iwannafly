@@ -150,6 +150,33 @@ shapeloop(subject,color,ultra)
         mode = 0
         break
         }
+      case 10 :
+        {
+        glBegin(GL_LINE_LOOP)
+          glvertex3f(subject.vertlist[0].x,subject.vertlist[0].y,subject.vertlist[0].z)
+          while (iter && (n < subject.inum))
+            {
+            glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+            n++
+            iter--
+            }
+        glEnd()
+        mode = 0
+        break
+        }
+      case 12 :
+        {
+        glBegin(GL_QUAD_STRIP)
+          while (iter && (n < subject.inum))
+            {
+            glvertex3f(subject.vertlist[subject.bytecode[n]].x,subject.vertlist[subject.bytecode[n]].y,subject.vertlist[subject.bytecode[n]].z)
+            n++
+            iter--
+            }
+        glEnd()
+        mode = 0
+        break
+        }
       default :
         {
         while (iter && (n < subject.inum))

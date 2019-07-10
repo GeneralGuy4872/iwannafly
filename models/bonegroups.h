@@ -26,6 +26,10 @@ void deletent(xyzzy)
 		{
 		if (current->geom != NULL)
 			{
+			if (current->geom->vertlist != NULL)
+				{
+				free(current->geom->vertlist);
+				}
 			free(current->geom);
 			}
 		free(current);

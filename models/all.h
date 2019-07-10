@@ -1,6 +1,7 @@
 #include "models.h"
 #include "shapes.h"
 #include "bonegroups.h"
+#include "mapgen.h"
 
 /* skeleton *sculpt_foo(mesurements geomet,minicolor fg,minicolor bg) provided in each included file creates the model for an entity
  * (int) polymorph_foo(entity *bar,mesurements geomet,minicolor fg,minicolor bg) changes an existing entity to the default values of foo, keeping velocity, rotation, and position

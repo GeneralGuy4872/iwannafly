@@ -11,7 +11,7 @@
 #define BUFFER_MAX 512
 
 #define __MYVERS__ "000.001.000"
-#define REV_MAIN "002.000"
+#define REV_MAIN "002.001"
 #define REV_JS "000.002"
 #define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
@@ -245,11 +245,11 @@ typedef struct halfbytes
   unsigned char lo : 4;
   } halfbytes;
 
-typedef struct plotparam
+typedef struct halfvector
   {
   signed char x : 4;
   signed char y : 4;
-  } plotparam;
+  } halfvector;
 
 typedef struct magic_type
   {
@@ -351,9 +351,9 @@ typedef struct viewform
 
 typedef struct shape
   {
+  vector3 (*vertlist)[];
   unsigned char (*bytecode)[];
   unsigned char inum;
-  vector3 vertlist[];
   } shape;
 
 typedef struct event_props
@@ -420,11 +420,13 @@ typedef struct torusmap
   unsigned char dots[360][360];
   unsigned char sealevel;
   /* unsigned char water[360][360];
-   * signed char wind_x[360][360];
-   * signed char wind_y[360][360];
+   * unsigned char wind[360][360]; //each sector has wind in direction of halfvector
    */
   startcoord start[8];
   } torusmap;
+
+#define char_to_hv(N) (halfvector){(N | 0xF0) >> 4 , N | 0x0F}
+#define char_to_hb(N) (halfbytes){(N | 0xF0) >> 4 , N | 0x0F}
 
 enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 	st_caves,st_seaside,st_underwater};
@@ -449,8 +451,8 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
-#define BASECOORD(M) vecadd({M.pos.x,M.pos.y,M.pos.z},M.stat.horiz ? {0,0,0} : matmult(matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
-#define EYECOORD(M) vecadd({M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult(matgen_xeular_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{M.dembones.hitbox.x - (M.dembones.off.x + M.dembones.off.y),0,0}) : matmult(matgen_master_deg(M.pos.z,M.pos.y,M.pos.x),{0,0,M.dembones.hitbox.z - M.dembones.off.y}))
+#define BASECOORD(M) M.stat.horiz ? {M.pos.x,M.pos.y,M.pos.z} : vecadd({M.pos.x,M.pos.y,M.pos.z},matmult(matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
+#define EYECOORD(M) vecadd({M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult(matgen_xeular_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{M.dembones.hitbox.x - (M.dembones.off.x + M.dembones.off.y),0,0}) : matmult(matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.hitbox.z - M.dembones.off.y}))
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
@@ -693,7 +695,7 @@ typedef struct entity
 		 * bool law - deferred
 		 * bool chaos deferred
 		 */
-	plotparam alignment; //x = lawful/chaotic, y = good/evil
+	halfvector alignment; //x = lawful/chaotic, y = good/evil
 	unsigned short health;
 	float Ff;
 	unsigned short m;

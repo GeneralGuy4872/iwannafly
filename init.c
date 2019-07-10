@@ -120,7 +120,7 @@ init__setup ()
         }
       }
     }
-    fclose(ini_file); free(ini_data); free(ini_key); free(ini_key_hash);
+    fclose(ini_file); free(ini_data); free(ini_key);
 
   FILE *dim_file;
   dim_file = fopen(dimpath,"r");
@@ -138,122 +138,110 @@ init__setup ()
     case 0 :
       {
       polymorph_avian(PLAYER);
-      forcebten ? CAMERA.base = 0 : CAMERA.base = 1;
+      CAMERA->format.base = !forcebten;
       file_cat("/usr/share/iwannafly/avianquest");
       break;
       }/*
     case 1 :
       {
       polymorph_human(PLAYER);
-      CAMERA.base = 0;
-      PLAYER.stat.yinv = yinv;
+      CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/knightquest");
       break;
       }
     case 2 :
       {
       polymorph_merfolk(PLAYER);
-      CAMERA.base = 0;
-      PLAYER.stat.yinv = yinv;
+      CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/merquest");
       break;
       }
     case 3 :
       {
-      polymorph_insectoid(PLAYER)
-      forcebten ? CAMERA.base = 0 : CAMERA.base = 1
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/hivequest")
-      break
+      polymorph_insectoid(PLAYER);
+      CAMERA->format.base = !forcebten;
+      file_cat("/usr/share/iwannafly/hivequest");
+      break;
       }
     case 4 :
       {
-      polymorph_felid(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/felidquest")
-      break
+      polymorph_felid(PLAYER);
+      CAMERA->format.base = 0;
+      file_cat("/usr/share/iwannafly/felidquest");
+      break;
       }
     case 5 :
       {
-      polymorph_draconic(PLAYER)
-      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/o_dr_quest")
-      break
+      polymorph_draconic(PLAYER);
+      CAMERA->format.base = -!forcebten;
+      file_cat("/usr/share/iwannafly/o_dr_quest");
+      break;
       }
     case 6 :
       {
-      polymorph_elf(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/elfquest")
-      break
+      polymorph_elf(PLAYER);
+      CAMERA->format.base = -!forcebten;
+      file_cat("/usr/share/iwannafly/elfquest");
+      break;
       }
     case 7 :
       {
-      polymorph_dwarf(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/dwarfquest")
-      break
+      polymorph_dwarf(PLAYER);
+      CAMERA->format.base = 0;
+      file_cat("/usr/share/iwannafly/dwarfquest");
+      break;
       }
     case 8 :
       {
-      polymorph_wizard(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/roguequest")
-      break
+      polymorph_wizard(PLAYER);
+      CAMERA->format.base = 0;
+      file_cat("/usr/share/iwannafly/roguequest");
+      break;
       }
     case 9 :
       {
-      polymorph_drow(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/drowquest")
-      break
+      polymorph_drow(PLAYER);
+      CAMERA->format.base = -!forcebten;
+      file_cat("/usr/share/iwannafly/drowquest");
+      break;
       }
     case 10 :
       {
-      polymorph_gnome(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/gnomequest")
-      break
+      polymorph_gnome(PLAYER);
+      CAMERA->format.base = -!forcebten;
+      file_cat("/usr/share/iwannafly/gnomequest");
+      break;
       }
     case 11 :
       {
-      polymorph_draconic(PLAYER)
-      smallsettings.forcebten ? CAMERA.base = 0 : CAMERA.base = -1
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/c_dr_quest")
-      break
+      polymorph_draconic(PLAYER);
+      CAMERA->format.base = -!forcebten;
+      file_cat("/usr/share/iwannafly/c_dr_quest");
+      break;
       }
     case 12 :
       {
-      polymorph_seaelf(PLAYER)
-      CAMERA.base = 0
-      PLAYER.stat.yinv = yinv
-      file_cat("/usr/share/iwannafly/seaelfquest")
-      break
+      polymorph_seaelf(PLAYER);
+      CAMERA->format.base = -!forcebten;
+      file_cat("/usr/share/iwannafly/seaelfquest");
+      break;
       }*/
     default :
       {
       polymorph_avian(PLAYER);
-      CAMERA.base = 0;
+      CAMERA->format.base = 0;
       printf("you are error.\n");
       break;
       }
     }
 
   FILE *heightmap_file = fopen(mappath,"rb");
-  fread(MAP.dots,sizeof(char),sizeof(MAP.dots),heightmap_file);
+  fread(MAP->dots,sizeof(char),sizeof(MAP->dots),heightmap_file);
   fclose(heightmap_file);
   free(mappath);
-  MAP.sealevel = sealevel;
+  MAP->sealevel = sealevel;
 
-  free(sealevel);
+  free(&sealevel);
 
   if (dologs)
     {

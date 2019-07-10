@@ -84,10 +84,11 @@ onstep_player
 
 	vector3 abs_movebuff = matmult(PLAYER.stat.horiz ? matgen_xeular_deg(PLAYER.rot.z,PLAYER.rot.y,PLAYER.rot.x,1,1,1) : matgen_master_deg(PLAYER.rot.z,PLAYER.rot.y,PLAYER.rot.x,1,1,1),{MOVEBUFFER.X,MOVEBUFFER.Y,MOVEBUFFER_Z})
 
-	PLAYER.Velo.x = PHYSICS(player,Velo.x,abs_movebuff.x);
-	PLAYER.Velo.y = PHYSICS(player,Velo.y,abs_movebuff.y);
-	PLAYER.Velo.z = PHYSICS(player,Velo.z,abs_movebuff.z);
-	PLAYER.Velo.z = GRAVITY(player,Velo.z);
+	PLAYER.Velo.x = CLAMP(PHYSICS(player,Velo.x,abs_movebuff.x),-340.3,340.3);
+	PLAYER.Velo.y = CLAMP(PHYSICS(player,Velo.y,abs_movebuff.y),-340.3,340.3);
+	PLAYER.Velo.z = CLAMP(PHYSICS(player,Velo.z,abs_movebuff.z),-340.3,340.3);
+	PLAYER.Velo.z = CLAMP(GRAVITY(player,Velo.z),-340.3,340.3);
+	//players may not break the sound barrier
 
 	PLAYER.pos.x = fmod(PLAYER.pos.x + PLAYER.Velo.x,21600); //arcminutes
 	PLAYER.pos.y = fmod(PLAYER.pos.y + PLAYER.Velo.y,21600); //arcminutes
@@ -138,8 +139,6 @@ onstep_paused ()
 	onstep_camera();
 	ready = TRUE;
 	}
-
-#include "./models/mapgen.h"
 
 /*MAIN*/
 mainloop ()

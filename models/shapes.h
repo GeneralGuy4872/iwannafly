@@ -3,62 +3,177 @@
  * unroll the arrays so that each entry is on a seperate row while editing, but put them back where you found them when done
  */
 
-#define v_line(X,Y,Z) {{0,0,0},{X,Y,Z}}
-const unsigned char i_line[] = {9,1, 1};
+void * v_line(xpos,ypos,zpos)
+	float xpos;
+	float ypos;
+	float zpos;
+	{
+	vector3 (*output)[2];
+	output = malloc(2 * sizeof(vector3));
+	(*output)[0] = (vector3){0,0,0};
+	(*output)[1] = (vector3){xpos,ypos,zpos};
+	return output;
+	}
+
+unsigned char i_line[] = {9,1, 1};
 #define num_line 3
 
-#define shape_line(X,Y,Z) (shape){&i_line,num_line,v_line(X,Y,Z)}
+#define shape_line(X,Y,Z) (shape){v_line(X,Y,Z),&i_line,num_line}
 
-#define v_triangle(H,W) {{0,0,0},{0,-W,-H},{0,W,-H}}
-const unsigned char i_wire_triangle[] = {8,3, 0,1,2};
-const unsigned char i_poly_triangle[] = {3,3, 0,1,2};
+#define frfl_shape_line(X,Y,Z) shape_line(frfl(X),frfl(Y),frfl(Z))
+
+//---<HR>---
+
+void * v_triangle(wid,hit)
+	float wid;
+	float hit;
+	{
+	vector3 (*output)[3];
+	output = malloc(3 * sizeof(vector3));
+	(*output)[0] = (vector3){0,0,0};
+	(*output)[1] = (vector3){0,-wid,-hit};
+	(*output)[2] = (vector3){0,wid,-hit};
+	return output;
+	}
+
+unsigned char i_wire_triangle[] = {8,3, 0,1,2};
+unsigned char i_poly_triangle[] = {3,3, 0,1,2};
 #define num_triangle 5
 
-#define shape_wire_triangle(H,W) (shape){&i_wire_triangle,num_triangle,v_triangle(H,W)}
-#define shape_poly_triangle(H,W) (shape){&i_poly_triangle,num_triangle,v_triangle(H,W)}
+#define shape_wire_triangle(W,H) (shape){v_triangle(W,H),&i_wire_triangle,num_triangle}
+#define shape_poly_triangle(W,H) (shape){v_triangle(W,H),&i_poly_triangle,num_triangle}
 
-#define v_octo(R) {{0,0,R},{R,0,0},{0,R,0},{-R,0,0},{0,-R,0},{0,0,-R}}
-#define v_bicone(L,R) {{0,0,R},{0,0,0},{0,R,0},{L,0,0},{0,-R,0},{0,0,-R}}
-const unsigned char i_wire_octo[] = {8,12, 0,1,2,5,3,2,0,3,4,5,1,4};
+#define frfl_shape_wire_triangle(W,H) shape_wire_triangle(frfl(W),frfl(H))
+#define frfl_shape_poly_triangle(W,H) shape_poly_triangle(frfl(W),frfl(H))
+
+//---<HR>---
+
+void * v_octo(rad)
+	float rad;
+	{
+	vector3 (*output)[6];
+	output = malloc(6 * sizeof(vector3));
+	(*output)[0] = (vector3){0,0,rad};
+	(*output)[1] = (vector3){rad,0,0};
+	(*output)[2] = (vector3){0,rad,0};
+	(*output)[3] = (vector3){-rad,0,0};
+	(*output)[4] = (vector3){0,-rad,0};
+	(*output)[5] = (vector3){0,0,-rad};
+	return output;
+	}
+
+void * v_bicone(len,rad)
+	float len;
+	float rad;
+	{
+	vector3 (*output)[6];
+	output = malloc(6 * sizeof(vector3));
+	(*output)[0] = (vector3){0,0,0};
+	(*output)[1] = (vector3){len/2,rad,0};
+	(*output)[2] = (vector3){len/2,0,rad};
+	(*output)[3] = (vector3){len/2,-rad,0};
+	(*output)[4] = (vector3){len/2,0,-rad};
+	(*output)[5] = (vector3){len,0,0};
+	return output;
+	}
+
+unsigned char i_wire_octo[] = {8,12, 0,1,2,5,3,2,0,3,4,5,1,4};
 #define num_wire_octo 14
-const unsigned char i_poly_octo[] = {7,6, 0,1,2,3,4,1, 7,6, 5,1,2,3,4,1};
-#define num_poly_octo 14
-const unsigned char i_wire_bicone[] = {8,12, 0,1,2,5,3,2,0,3,4,5,1,4};
-#define num_wire_bicone 14
-const unsigned char i_poly_bicone[] = {7,6, 0,1,2,3,4,1, 7,6, 5,1,2,3,4,1};
-#define num_poly_bicone 14
+unsigned char i_poly_octo[] = {7,6, 0,1,2,3,4,1, 7,6, 5,1,2,3,4,1};
+#define num_poly_octo 16
 
-#define shape_wire_octo(R) (shape){&i_wire_octo,num_wire_octo,v_octo(R)}
-#define shape_poly_octo(R) (shape){&i_poly_octo,num_poly_octo,v_octo(R)}
-#define shape_wire_bicone(L,R) (shape){&i_wire_bicone,num_wire_bicone,v_bicone(L,R)}
-#define shape_poly_bicone(L,R) (shape){&i_poly_bicone,num_poly_bicone,v_bicone(L,R)}
+#define shape_wire_octo(R) (shape){v_octo(R),&i_wire_octo,num_wire_octo}
+#define shape_poly_octo(R) (shape){v_octo(R),&i_poly_octo,num_poly_octo}
+#define shape_wire_bicone(L,R) (shape){v_bicone(L,R),&i_wire_octo,num_wire_octo}
+#define shape_poly_bicone(L,R) (shape){v_bicone(L,R),&i_poly_octo,num_poly_octo}
 
-#define v_cube(X,Y,Z) {{X/2,Y/2,Z},{X/2,-Y/2,Z},{-X/2,-Y/2,Z},{-X/2,Y/2,Z},{X/2,Y/2,0},{X/2,-Y/2,0},{-X/2,-Y/2,0},{-X/2,Y/2,0}}
-const unsigned char i_wire_cube[] = {8,16, 0,1,4,5,1,2,5,6,2,3,6,7,3,0,7,4};
+#define frfl_shape_wire_octo(R) shape_wire_octo(frfl(R))
+#define frfl_shape_poly_octo(R) shape_poly_octo(frfl(R))
+#define frfl_shape_wire_bicone(L,R) shape_wire_bicone(frfl(L),frfl(R))
+#define frfl_shape_poly_bicone(L,R) shape_poly_bicone(frfl(L),frfl(R))
+
+//---<HR>---
+
+void * v_cube(dep,wid,hit)
+	float dep;
+	float wid;
+	float hit;
+	{
+	vector3 (*output)[8];
+	output = malloc(8 * sizeof(vector3));
+	(*output)[0] = (vector3){dep/2,wid/2,hit};
+	(*output)[1] = (vector3){dep/2,-wid/2,hit};
+	(*output)[2] = (vector3){-dep/2,-wid/2,hit};
+	(*output)[3] = (vector3){-dep/2,wid/2,hit};
+	(*output)[4] = (vector3){dep/2,wid/2,0};
+	(*output)[5] = (vector3){dep/2,-wid/2,0};
+	(*output)[6] = (vector3){-dep/2,-wid/2,0};
+	(*output)[7] = (vector3){-dep/2,wid/2,0};
+	return output;
+	}
+
+unsigned char i_wire_cube[] = {8,16, 0,1,4,5,1,2,5,6,2,3,6,7,3,0,7,4};
 #define num_wire_cube 18
-const unsigned char i_poly_cube[] = {4,24, 0,1,2,3, 0,1,5,4, 1,2,6,5, 2,3,7,6, 3,0,4,7, 7,6,5,4};
-#define num_poly_cube 26
+unsigned char i_poly_cube[] = {4,8, 0,1,2,3, 7,6,5,4, 12,10, 0,1,5,4,2,6,3,7,0,1};
+#define num_poly_cube 22
 
-#define shape_wire_cube(X,Y,Z) (shape){&i_wire_cube,num_wire_cube,v_cube(X,Y,Z)}
-#define shape_poly_cube(X,Y,Z) (shape){&i_poly_cube,num_poly_cube,v_cube(X,Y,Z)}
+#define shape_wire_cube(X,Y,Z) (shape){v_cube(X,Y,Z),&i_wire_cube,num_wire_cube}
+#define shape_poly_cube(X,Y,Z) (shape){v_cube(X,Y,Z),&i_poly_cube,num_poly_cube}
 
-#define v_pyra(R,H) {{0,0,H},{R,0,0},{0,R,0},{-R,0,0},{0,-R,0}}
-const unsigned char i_wire_pyra[] = {9,4, 1,2,3,4, 8,4, 1,2,3,4};
+#define frfl_shape_wire_cube(X,Y,Z) shape_wire_cube(frfl(X),frfl(Y),frfl(Z))
+#define frfl_shape_poly_cube(X,Y,Z) shape_poly_cube(frfl(X),frfl(Y),frfl(Z))
+
+//---<HR>---
+
+void * v_pyra(rad,hit)
+	float rad;
+	float hit;
+	{
+	vector3 (*output)[5];
+	output = malloc(5 * sizeof(vector3));
+	(*output)[0] = (vector3){0,0,hit};
+	(*output)[1] = (vector3){rad,0,0};
+	(*output)[2] = (vector3){0,rad,0};
+	(*output)[3] = (vector3){-rad,0,0};
+	(*output)[4] = (vector3){0,-rad,0};
+	}
+
+unsigned char i_wire_pyra[] = {9,4, 1,2,3,4, 8,4, 1,2,3,4};
 #define num_wire_pyra 12
-const unsigned char i_poly_pyra[] = {4,4, 1,2,3,4, 7,6, 0,1,2,3,4,1};
+unsigned char i_poly_pyra[] = {4,4, 1,2,3,4, 7,6, 0,1,2,3,4,1};
 #define num_poly_pyra 13
 
-#define shape_wire_pyra(R,H) (shape){&i_wire_pyra,num_wire_pyra,v_pyra(X,Y,Z)}
-#define shape_poly_pyra(R,H) (shape){&i_poly_pyra,num_poly_pyra,v_pyra(X,Y,Z)}
+#define shape_wire_pyra(R,H) (shape){v_pyra(R,H),&i_wire_pyra,num_wire_pyra}
+#define shape_poly_pyra(R,H) (shape){v_pyra(R,H),&i_poly_pyra,num_poly_pyra}
 
-#define v_xfan(L,R,D) {{0,0,0},{L * bos(PI_N(D)),R * zin(PI_N(D)),0},{L * bos(PI_2_N(D)),R * zin(PI_2_N(D)),0},{-L,0,0},{L * bos(PI_2_N(D)),R * sin(PI_2_N(D)),0},{L * bos(PI_N(D)),R * sin(PI_N(D)),0}}
-#define v_zfan(L,R,D) {{0,0,0},{0,R * zin(PI_N(D)),L * bos(PI_N(D))},{0,R * zin(PI_2_N(D)),L * bos(PI_2_N(D))},{0,0,-L},{0,R * sin(PI_2_N(D)),L * bos(PI_2_N(D))},{0,R * sin(PI_N(D)),L * bos(PI_N(D))}}
-const unsigned char i_wire_fan[] = {9,5, 1,2,3,4,5};
-#define num_wire_fan 7
-const unsigned char i_poly_fan[] = {7,5, 1,2,3,4,5};
+#define frfl_shape_wire_pyra(R,H) shape_wire_pyra(frfl(R),frfl(H))
+#define frfl_shape_poly_pyra(R,H) shape_poly_pyra(frfl(R),frfl(H))
+
+//---<HR>---
+
+void * v_xfan(len,rad,ang)
+	float len;
+	float rad;
+	float ang;
+	{
+	vector3 (*output)[6];
+	output = malloc(6 * sizeof(vector3));
+	(*output)[0] = (vector3){0,0,0};
+	(*output)[1] = (vector3){-len * cos(PI_N(ang)),rad * zin(PI_N(ang)),0};
+	(*output)[2] = (vector3){-len * cos(PI_2_N(ang)),rad * zin(PI_2_N(ang)),0};
+	(*output)[3] = (vector3){-len,0,0};
+	(*output)[4] = (vector3){-len * cos(PI_2_N(ang)),rad * sin(PI_2_N(ang)),0};
+	(*output)[5] = (vector3){-len * cos(PI_N(ang)),rad * sin(PI_N(ang)),0};
+	return output;
+	}
+
+unsigned char i_wire_fan[] = {10,5, 1,2,3,4,5, 9,3, 2,3,4};
+#define num_wire_fan 12
+unsigned char i_poly_fan[] = {7,5, 1,2,3,4,5};
 #define num_poly_fan 7
 
-#define shape_wire_xfan(L,R,D) (shape){&i_wire_fan,num_wire_fan,v_xfan(L,R,D)}
-#define shape_poly_xfan(L,R,D) (shape){&i_poly_fan,num_poly_fan,v_xfan(L,R,D)}
-#define shape_wire_zfan(L,R,D) (shape){&i_wire_fan,num_wire_fan,v_zfan(L,R,D)}
-#define shape_poly_zfan(L,R,D) (shape){&i_poly_fan,num_poly_fan,v_zfan(L,R,D)}
+#define shape_wire_xfan(L,R,A) (shape){v_xfan(L,R,A),&i_wire_fan,num_wire_fan}
+#define shape_poly_xfan(L,R,A) (shape){v_xfan(L,R,A),&i_poly_fan,num_poly_fan}
+
+#define frfl_shape_wire_xfan(L,R,A) shape_wire_xfan(frfl(L),frfl(R),frfl(A))
+#define frfl_shape_poly_xfan(L,R,A) shape_poly_xfan(frfl(L),frfl(R),frfl(A))
