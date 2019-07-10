@@ -37,7 +37,7 @@ div_t div_tmp;
 #define ONE_1_9 1.11111111111111111111111
 
 #define FPS 30 //frames per second (hz)
-static const float MSEC_FRAME = ((1.0 / FPS) * 1000); //milliseconds per frame (msec)
+static const float uSEC_FRAME = ((1.0 / FPS) * CLOCKS_PER_SEC);
 
 #define PI_N(N) (M_PI / N)
 #define PI_2_N(N) (M_PI_2 / N)
@@ -85,6 +85,7 @@ typedef char mydate_str[24];
 #define hightfloat(N) (( (float) N - 15) * 5)
 
 const char WEEKDAYS[8][4] = {" SUN"," MON","TUES"," WED","THUR"," FRI"," SAT","OVER"};
+const char AM_PM[2][2] = {"am","pm"};
 
 void noop () {}
 #define SWYM sleep(0);
@@ -287,34 +288,35 @@ enum mesure_index {mes_skull,mes_neck,mes_shld,mes_back,mes_humr,mes_femr,
 
 typedef struct my_date_time
   {
-  unsigned int year : 3;
   unsigned int month : 4;
   unsigned int day : 5;
   unsigned int weekday : 3;
+  bool am_pm : 1;
   unsigned int hour : 5;
   unsigned int minute : 6;
-  unsigned int second : 6;
   } my_date_time;
 
 tick_tock (counter)
   my_date_time counter;
   {
-  div_tmp = div(counter.second + 1,60); //add, mod, and carry out
-  counter.second = div_tmp.rem;
-  div_tmp = div(counter.minute + div_tmp.quot,60); //carry in, mod, carry out
+  div_tmp = div(counter.minute + 1,60);
   counter.minute = div_tmp.rem;
   div_tmp = div(counter.hour + div_tmp.quot,24);
   counter.hour = div_tmp.rem;
+  counter.am_pm = (div_tmp.rem / 12) % 2;
   counter.weekday = (counter.weekday + div_tmp.quot)%7; //carry in and mod, no carry out
   div_tmp = div(counter.day + div_tmp.quot,30);
   counter.day = div_tmp.rem;
-  div_tmp = div(counter.month + div_tmp.quot,12);
-  counter.month = div_tmp.rem;
-  counter.year = (counter.year + div_tmp.quot)%7;
+  counter.month = (counter.month + div_tmp.quot) % 12;
   }
-#define sprinttimedate(N,O) sprintf(O,"%i:%i:%i %s %i/%i/%i",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
-#define fprinttimedate(N,O) fprintf(O,"%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
-#define printtimedate(N) printf("%i:%i:%i %s %i/%i/%i\n",N.hour,N.minute,N.second,WEEKDAYS[N.weekday],N.day,N.month,N.year)
+
+#define sprinttimedate24(N,O) sprintf(O,"%i:%i %s %i/%i",N.hour,N.minute,WEEKDAYS[N.weekday],N.day + 1,N.month + 1)
+#define fprinttimedate24(N,O) fprintf(O,"%i:%i %s %i/%i\n",N.hour,N.minute,WEEKDAYS[N.weekday],N.day + 1,N.month + 1)
+#define printtimedate24(N) printf("%i:%i %s %i/%i\n",N.hour,N.minute,WEEKDAYS[N.weekday],N.day + 1,N.month + 1)
+
+#define sprinttimedate12(N,O) sprintf(O,"%i:%i%s %s %i/%i",N.hour == 12 ? 12 : N.hour % 12,N.minute,AM_PM[N.am_pm],WEEKDAYS[N.weekday],N.day + 1,N.month + 1)
+#define fprinttimedate12(N,O) fprintf(O,"%i:%i%s %s %i/%i\n",N.hour == 12 ? 12 : N.hour % 12,N.minute,AM_PM[N.am_pm],WEEKDAYS[N.weekday],N.day + 1,N.month + 1)
+#define printtimedate12(N) printf("%i:%i%s %s %i/%i\n",N.hour == 12 ? 12 : N.hour % 12,N.minute,AM_PM[N.am_pm],WEEKDAYS[N.weekday],N.day + 1,N.month + 1)
 
 typedef struct statreg
   {
@@ -451,8 +453,8 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define nextline(F) fscanf(F,"%*[^\n]s");
 
-#define BASECOORD(M) M.stat.horiz ? {M.pos.x,M.pos.y,M.pos.z} : vecadd({M.pos.x,M.pos.y,M.pos.z},matmult(matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
-#define EYECOORD(M) vecadd({M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult(matgen_xeular_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{M.dembones.hitbox.x - (M.dembones.off.x + M.dembones.off.y),0,0}) : matmult(matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.hitbox.z - M.dembones.off.y}))
+#define BASECOORD(M) M.stat.horiz ? (vector3){M.pos.x,M.pos.y,M.pos.z} : vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
+#define EYECOORD(M) vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y})))
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
@@ -560,6 +562,7 @@ div_t radf_to_deg(input)
   if (output.quot > -180) output.quot = output.quot + 360;
   return output;
   }
+
 #define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
 #define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 #define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
@@ -627,7 +630,7 @@ fetchJSAXIS ()
   (*JSAXISFLAG)--;
   }
   
-struct charbuffer4 CAMBUFFER;
+struct charvector4 CAMBUFFER;
 
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
@@ -746,5 +749,31 @@ worldtype WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
 #define PLAYER WORLD.ent
 #define CAMERA WORLD.cam
 bool run = 0;
+
+#ifdef __gl_h_
+void __mainhTranslatef(vec)
+	vector3 vec;
+	{
+	glTranslatef(vec.x,vec.y,vec.z);
+	}
+#define mainhTranslatef(V) __mainhTranslatef((vector3)V)
+
+void raw_mainhMultMatrixf(mat)
+	matrix mat;
+	{
+	glMultMatrixf((const float *)mat);
+	}
+#define mainhMultMatrixf(M) raw_mainhMultMatrixf((matrix)M)
+
+void mainhLoadMatrixf(mat)
+	matrix mat;
+	{
+	glLoadMatrixf((const float *)mat);
+	}
+
+
+#else
+#error opengl is required
+#endif
 
 #include "models/all.h"

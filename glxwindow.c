@@ -9,26 +9,29 @@
 #include <GL/glx.h>
 
 #include "glxwindow.h"
+#include "models/shapeloop.h"
 
+void
 glx__SetCamera()
 	{    
 	glMatrixMode(GL_MODELVIEW);
-	glTraslate(EYECOORDS(PLAYER));
-	glMultMatrix(PLAYER.ori);
-	glMultMatrix(matgen_sphere(CAMERA->coord.x,CAMERA->coord.y,NEG(CAMERA->coord.z),1,1));
+	mainhTranslatef(EYECOORD((*PLAYER)));
+	mainhMultMatrixf(matgen_z_deg(PLAYER->rot.z,1));
+	mainhMultMatrixf(matgen_sphere_deg(CAMERA->coord.az,CAMERA->coord.alt,NEG(CAMERA->coord.z),1,1));
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(camera.coord.fov,1,.25,100);
+	gluPerspective(RAD(CAMERA->coord.fov),1,.25,100);
 	}
 
+void
 glx__DrawLoop()
 	{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	struct entity nextent = PLAYER;
-	struct bone nextbone = PLAYER.dembones->root;
+	struct entity *nextent = PLAYER;
+	struct bone *nextbone = PLAYER->dembones->root;
 	FOREVER
 		{
 		FOREVER
@@ -36,24 +39,24 @@ glx__DrawLoop()
 			if (nextbone->up == NULL)
 				{
 				glLoadIdentity();
-				if (nextent.stat.horiz)
+				if (nextent->stat.horiz)
 					{
-					glMultMatrix(matgen_y_deg(90,1));
-					glMultMatrix(matgen_zeuler_deg(player.rot.z,player.rot.y,player.rot.x,1,1,1));
+					mainhMultMatrixf(matgen_y_deg(90,1));
+					mainhMultMatrixf(matgen_zeuler_deg(PLAYER->rot.z,PLAYER->rot.y,PLAYER->rot.x,1,1,1));
 					}
 				else
 					{
-					glMultMatrix(matgen_master_deg(player.rot.x,player.rot.y,player.rot.z,1,1,1));
+					mainhMultMatrixf(matgen_master_deg(PLAYER->rot.z,PLAYER->rot.y,PLAYER->rot.x,1,1,1));
 					}
-				gltranslate(nextent->pos.x,nextent->pos.y,( nextent->pos.z + (frfl(nextent->hitbox.z) * frfl(nextent->hitbox.offset)) ));
+				glTranslatef(nextent->pos.x,nextent->pos.y,nextent->pos.z + (nextent->stat.horiz ? 0 : nextent->dembones->off.x));
 				}
 			else
 				{
-				glLoadMatrixf(nextbone->up->curr);
-				gltranslate(nextbone->up->len.x * frfl(nextbone->off.x),nextbone->up->len.y * frfl(nextbone.off.y),nextbone->up->len.z * frfl(nextbone->off.z));
+				mainhLoadMatrixf(nextbone->up->curr);
+				glTranslatef(nextbone->up->len.x * frfl(nextbone->off.x),nextbone->up->len.y * frfl(nextbone->off.y),nextbone->up->len.z * frfl(nextbone->off.z));
 				}
-			glMultMatrixf(nextbone.base);
-			glGetfloatv(GL_MODELVIEW_MATRIX,nextbone.curr);
+			raw_mainhMultMatrixf(nextbone->base);
+			glGetFloatv(GL_MODELVIEW_MATRIX,nextbone->curr);
 			boneloop(nextbone);
 			if (nextbone->next != NULL)
 				{

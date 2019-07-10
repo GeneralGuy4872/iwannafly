@@ -12,7 +12,7 @@ struct skeleton *sculpt_avian(geomet,fg,bg)
   skeleton *tmp = malloc(sizeof(struct skeleton));
   //{*up,*prev,*next,(char){off.x,off.y,off.z},{len.x,len.y,len.z},matrix base,matrix curr,truecolor color,bool ultraviolet,bool drawline,shape *geom}
     struct bone *pelvis = malloc(sizeof(struct bone));
-    *pelvis = (bone){NULL,NULL,NULL,{0,0,0},{0,frfl(geomet[mes_pelv])/2,frfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,color6(bg.r,bg.g,bg.b,bg.a),FALSE,FALSE,malloc(sizeof(struct shape))};
+    *pelvis = (bone){NULL,NULL,NULL,{0,0,0},{0,frfl(geomet[mes_pelv]),frfl(geomet[mes_cxyx])},matgen_ident,matgen_ident,color6(bg.r,bg.g,bg.b,bg.a),FALSE,FALSE,malloc(sizeof(struct shape))};
     *(pelvis->geom) = frfl_shape_poly_triangle(geomet[mes_cxyx],geomet[mes_pelv]);
   struct bone *index_spine = spine(pelvis,pelvis,geomet[mes_back],16,bg,FALSE);
   struct bone *neck = spine(index_spine,index_spine,geomet[mes_neck],7,bg.r,bg,FALSE);

@@ -72,7 +72,7 @@
 #define ROLL(X,Y,Z) (X.stat.ground ? 0 : PHYSICS(X,Y,Z))
 //end dragons
 
-onstep_player
+onstep_player ()
 	{
 	PLAYER.Torq.x = ROLL(player,Torq.x,MOVEBUFFER_rol);
 	PLAYER.Torq.z = PHYSICS(player,Torq.z,MOVEBUFFER.yaw);
