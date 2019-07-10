@@ -636,8 +636,8 @@ struct charvector4 CAMBUFFER;
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
-#define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%s",__FILE__,__LINE__);
-#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%s",__FILE__,__LINE__); X_HCF_X
+#define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%d",__FILE__,__LINE__);
+#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%d",__FILE__,__LINE__); X_HCF_X
 
 typedef struct bone
   {

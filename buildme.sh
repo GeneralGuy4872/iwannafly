@@ -1,2 +1,2 @@
 #!/bin/sh
-cc main.c -lX11 -lXaw -lXt -lm -lGL -lGLU
+cc main.c -g -lX11 -lXaw -lXt -lm -lGL -lGLU
