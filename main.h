@@ -11,7 +11,7 @@
 #define BUFFER_MAX 512
 
 #define __MYVERS__ "000.001.000"
-#define REV_MAIN "002.001"
+#define REV_MAIN "003.000"
 #define REV_JS "000.002"
 #define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
@@ -636,8 +636,8 @@ struct charvector4 CAMBUFFER;
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
-#define SOFT_ERROR_MACRO fprintf(stderr,"Soft Error, file:%s line:%d",__FILE__,__LINE__);
-#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%d",__FILE__,__LINE__); X_HCF_X
+#define SOFT_ERROR_MACRO fprintf(stderr,"SOFT ERROR, file:%s line:%d\n",__FILE__,__LINE__);
+#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%d\n",__FILE__,__LINE__); X_HCF_X
 
 typedef struct bone
   {

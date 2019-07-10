@@ -8,11 +8,10 @@
 **build stats:**
 - last working build : NULL
 	- 0 total
-- last segfault build : NULL
-	- 0 total
+
+- last segfault build : 10 July 2019
 - last kpanic build : NULL
-	- 0 total
-- last failed build : 10 (early) July 2019
+- last failed build : 10 July 2019
 
 Iwannafly
 =========
