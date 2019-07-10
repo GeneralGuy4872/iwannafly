@@ -38,6 +38,7 @@ div_t div_tmp;
 
 #define FPS 30 //frames per second (hz)
 static const float uSEC_FRAME = ((1.0 / FPS) * CLOCKS_PER_SEC);
+static const float uSEC_STEP = 100;
 
 #define PI_N(N) (M_PI / N)
 #define PI_2_N(N) (M_PI_2 / N)
@@ -447,7 +448,7 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define zin(N) NEG(sin(N))
 #define bos(N) NEG(cos(N))
 #define SANE(N) (N == 0 ? 1 : N)
-#define SGN(N) ( isfinite(N) ? ( N == 0 ? 0 : ( N < 0 ? -1 : 1 )) : QUANTUM )
+#define SGN(N) (N == 0 ? 0 : (N < 0 ? -1 : (N > 0 ? 1 : -2)))
 #define TOSGN(N) ( N < 0 ? -1 : 0 )
 #define NEG(N) (-1 * (N))
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
@@ -770,8 +771,6 @@ void mainhLoadMatrixf(mat)
 	{
 	glLoadMatrixf((const float *)mat);
 	}
-
-
 #else
 #error opengl is required
 #endif

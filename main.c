@@ -64,62 +64,62 @@
 //formerly by definition
 
 //HERE BE DRAGONS
-#define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m)
+#define SPEED(X,Y,Z) (X.Y + ((Z * ACCL(X))/ X.m))
 #define ACCL(X) SANE(X.stat.wet ? (X.stat.wings ? (X.Fa->y / 4) : X.Fa->y) : (X.stat.ground ? X.Fa->x : X.Fa->z ))
 #define DRAG(X) SANE(X.stat.wet ? (X.stat.ground ? (2 * X.Drag->y) : X.Drag->y) : (X.stat.ground ? X.Drag->x : X.Drag->z))
-#define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN((X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z)),SPEED(X,Y,Z))) / DRAG(X)))
-#define GRAVITY(X,Y) (X.Y - (X.stat.ground ? 0 : (X.stat.wet ? (grav * (water_dense - X.density))) : (grav * (air_dense - X.density))) )) / DRAG(X)) //eh, close enough for now.
+#define PHYSICS(X,Y,Z) ((SPEED(X,Y,Z) - ABSMIN( (X.Ff * X.stat.ground * SGN(SPEED(X,Y,Z))) , SPEED(X,Y,Z) )) / DRAG(X))
+#define GRAVITY(X,Y) ( (X.Y - (X.stat.ground ? 0 : (X.stat.wet ? (grav * (water_dense - X.density)) : (grav * (air_dense - X.density)) ))) / DRAG(X) ) //eh, close enough for now.
 #define ROLL(X,Y,Z) (X.stat.ground ? 0 : PHYSICS(X,Y,Z))
 //end dragons
 
 onstep_player ()
 	{
-	PLAYER.Torq.x = ROLL(player,Torq.x,MOVEBUFFER_rol);
-	PLAYER.Torq.z = PHYSICS(player,Torq.z,MOVEBUFFER.yaw);
-	PLAYER.Torq.y = PHYSICS(player,Torq.y,MOVEBUFFER.pit);
+	PLAYER->Torq.x = ROLL((*PLAYER),Torq.x,MOVEBUFFER_rol);
+	PLAYER->Torq.z = PHYSICS((*PLAYER),Torq.z,MOVEBUFFER.yaw);
+	PLAYER->Torq.y = PHYSICS((*PLAYER),Torq.y,MOVEBUFFER.pit);
 
-	PLAYER.rot.x = CLAMP((player.rot.x + PLAYER.Torq.x),-90,90); //degrees
-	PLAYER.rot.y = CLAMP((player.rot.y + PLAYER.Torq.y),-90,90); //degrees
-	PLAYER.rot.z = fmod(player.rot.z + PLAYER.Torq.z,360); //degrees
+	PLAYER->rot.x = CLAMP((PLAYER->rot.x + PLAYER->Torq.x),-90,90); //degrees
+	PLAYER->rot.y = CLAMP((PLAYER->rot.y + PLAYER->Torq.y),-90,90); //degrees
+	PLAYER->rot.z = fmod(PLAYER->rot.z + PLAYER->Torq.z,360); //degrees
 
-	vector3 abs_movebuff = matmult(PLAYER.stat.horiz ? matgen_xeular_deg(PLAYER.rot.z,PLAYER.rot.y,PLAYER.rot.x,1,1,1) : matgen_master_deg(PLAYER.rot.z,PLAYER.rot.y,PLAYER.rot.x,1,1,1),{MOVEBUFFER.X,MOVEBUFFER.Y,MOVEBUFFER_Z})
+	vector3 abs_movebuff = matmult((PLAYER->stat.horiz ? (matrix)matgen_xeuler_deg(PLAYER->rot.z,PLAYER->rot.y,PLAYER->rot.x,1,1,1) : (matrix)matgen_master_deg(PLAYER->rot.z,PLAYER->rot.y,PLAYER->rot.x,1,1,1)),(vector3){MOVEBUFFER.x,MOVEBUFFER.y,MOVEBUFFER_z});
 
-	PLAYER.Velo.x = CLAMP(PHYSICS(player,Velo.x,abs_movebuff.x),-340.3,340.3);
-	PLAYER.Velo.y = CLAMP(PHYSICS(player,Velo.y,abs_movebuff.y),-340.3,340.3);
-	PLAYER.Velo.z = CLAMP(PHYSICS(player,Velo.z,abs_movebuff.z),-340.3,340.3);
-	PLAYER.Velo.z = CLAMP(GRAVITY(player,Velo.z),-340.3,340.3);
+	PLAYER->Velo.x = CLAMP(PHYSICS((*PLAYER),Velo.x,abs_movebuff.x),-340.3,340.3);
+	PLAYER->Velo.y = CLAMP(PHYSICS((*PLAYER),Velo.y,abs_movebuff.y),-340.3,340.3);
+	PLAYER->Velo.z = CLAMP(PHYSICS((*PLAYER),Velo.z,abs_movebuff.z),-340.3,340.3);
+	PLAYER->Velo.z = CLAMP(GRAVITY((*PLAYER),Velo.z),-340.3,340.3);
 	//players may not break the sound barrier
 
-	PLAYER.pos.x = fmod(PLAYER.pos.x + PLAYER.Velo.x,21600); //arcminutes
-	PLAYER.pos.y = fmod(PLAYER.pos.y + PLAYER.Velo.y,21600); //arcminutes
-	PLAYER.pos.w = groundcheck(PLAYER);
-	PLAYER.pos.z = CLAMP((PLAYER.pos.z + PLAYER.Velo.z),PLAYER.pos.w,10000); //meters, groundlevel;arbitrary ceiling
+	PLAYER->pos.x = fmod(PLAYER->pos.x + PLAYER->Velo.x,21600); //arcminutes
+	PLAYER->pos.y = fmod(PLAYER->pos.y + PLAYER->Velo.y,21600); //arcminutes
+	PLAYER->pos.w = groundcheck(PLAYER);
+	PLAYER->pos.z = CLAMP((PLAYER->pos.z + PLAYER->Velo.z),PLAYER->pos.w,10000); //meters, groundlevel;arbitrary ceiling
 
-	if (PLAYER.pos.w >= PLAYER.pos.z)
+	if (PLAYER->pos.w >= PLAYER->pos.z)
 		{
-		PLAYER.stat.ground = TRUE;
+		PLAYER->stat.ground = TRUE;
 		}
 	else
 		{
-		PLAYER.stat.ground = FALSE;
+		PLAYER->stat.ground = FALSE;
 		}
 	
-	if ((MAP.sealevel * 5) >= PLAYER.pos.w + (PLAYER.stat.ground * frfl(PLAYER.hitbox.z))) )
+	if ((MAP->sealevel * 5) >= PLAYER->pos.w + (PLAYER->stat.ground * frfl(PLAYER->dembones->hitbox.z))) //bool * fraction
 		{
-		PLAYER.stat.wet = TRUE;
+		PLAYER->stat.wet = TRUE;
 		}
 	else
 		{
-		PLAYER.stat.wet = FALSE;
+		PLAYER->stat.wet = FALSE;
 		}
 	}
 
-onstep_camera
+onstep_camera ()
 	{
-	CAMERA.coord.az = (CAMERA.coord.az + CAMBUFFER.x)%180; //degrees/2
-	CAMERA.coord.alt = (CAMERA.coord.alt + CAMBUFFER.y)%180; //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
-	CAMERA.coord.z = CLAMP((CAMERA.coord.z + CAMBUFFER.z),-120,120); //meters, 2 arcminutes either direction
-	CAMERA.coord.fov = CLAMP((CAMERA.coord.fov + CAMBUFFER.w),5,255); //degrees (solid degrees?)
+	CAMERA->coord.az = (CAMERA->coord.az + CAMBUFFER.x)%180; //degrees/2
+	CAMERA->coord.alt = (CAMERA->coord.alt + CAMBUFFER.y)%180; //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMERA->coord.z = CLAMP((CAMERA->coord.z + CAMBUFFER.z),-120,120); //meters, 2 arcminutes either direction
+	CAMERA->coord.fov = CLAMP((CAMERA->coord.fov + CAMBUFFER.w),5,255); //degrees (solid degrees?)
 	}
 
 
@@ -130,14 +130,12 @@ onstep_master ()
 	glx__eventswitch(dsply,glxwin);
 	onstep_player();
 	onstep_camera();
-	ready = TRUE;
 	}
 
 onstep_paused ()
 	{
 	glx__eventswitch(dsply,glxwin);
 	onstep_camera();
-	ready = TRUE;
 	}
 
 /*MAIN*/
@@ -147,38 +145,25 @@ mainloop ()
 	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m- %s -\033[m\n  main program revision: %s\n   joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
 	while (run)
 		{
-		if (nextframe)
+		if (!paused)
 			{
-			if (ready)
+			if (nextframe)
 				{
-				glx__drawLoop(WORLD);
+				refresh_land();
+				onstep_master();
+				glx__DrawLoop();
 				nextframe = FALSE;
 				ready = FALSE;
 				}
-			else
+			if (nextstep)
 				{
-				if (paused)
-					{
-					onstep_paused();
-					}
-				else
-					{
-					if (stepcount < MSEC_FRAME)
-						{
-						onstep_master();
-						stepcount++;
-						}
-					else
-						{
-						refresh_land();
-						onstep_master();
-						stepcount = 0;
-						}
-					}
+				onstep_master();
 				}
 			}
-		else
-			{}
+		else if (nextstep)
+			{
+			onstep_paused();
+			}
 		}
 	printf("runlevel lowered, exiting...\n");
 	exit(0);
@@ -192,12 +177,12 @@ main()
 		{
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
-		jsloop()
+		jsloop();
 		}
 	else
 		{
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
-		mainloop()
+		mainloop();
 		}
 	}
