@@ -12,7 +12,7 @@
 	- 0 total
 - last kpanic build : NULL
 	- 0 total
-- last failed build : 8 July 2019
+- last failed build : 10 (barely) July 2019
 
 Iwannafly
 =========
