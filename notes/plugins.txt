@@ -1,11 +1,15 @@
-.ini            : settings file
+.c    : C source
+.h    : C header
+.bas  : script to emit file(s)
+
+.ini            : settings file (might be changed to a .foorc file)
 .tsv|.csv|.dsv  : player mesurements
 .log            : output log
 .save           : save file
 
 Far Future plugin interface:
 
-a perl script uses an .rc file to generate a makefile that uses awk to parse:
+a perl script uses an rc file to generate a makefile that uses awk to parse:
 
 .tsv|.csv|.dsv  : array, fraction, vector, matrix, etc
 .ini            : simple macros, single (non-nested) struct, role switch case
