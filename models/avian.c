@@ -46,8 +46,8 @@ struct skeleton *sculpt_avian(geomet,fg,bg)
   struct bone *rtoe3 = talonphalanges(rleg,rtoe2,3,(vector3){0,0,0},1,bg,FALSE);
   struct bone *rtoe4 = talonphalanges(rleg,rtoe3,3,(vector3){0,0,xRIGHT(30)},COS_PI_8,bg,FALSE);
   struct bone *rtoe1 = talonphalanges(rleg,rtoe4,2,(vector3){0,0,180},M_SQRT1_2,bg,FALSE);
-  struct bone *lwing = avewing(((bone*)index_spine->prev)->prev,rtoe1,geomet[mes_wing],LEFT,fg,TRUE);
-  struct bone *rwing = avewing(((bone*)index_spine->prev)->prev,lwing,geomet[mes_wing],RIGHT,fg,TRUE);
+  struct bone *lwing = avewing(index_spine->prev,rtoe1,geomet[mes_wing],LEFT,fg,TRUE);
+  struct bone *rwing = avewing(index_spine->prev,lwing,geomet[mes_wing],RIGHT,fg,TRUE);
     struct bone *index_tail = malloc(sizeof(struct bone));
     *index_tail = (bone){pelvis,rwing,NULL,{0,0,0},{frfl(geomet[mes_fan_len]),frfl(geomet[mes_fan_rad]),0},matgen_ident,matgen_ident,color6(fg.r,fg.g,fg.b,fg.a),TRUE,FALSE,malloc(sizeof(struct shape))};
     *(index_tail->geom) = frfl_shape_poly_xfan(geomet[mes_fan_len],geomet[mes_fan_rad],geomet[mes_fan_ang]);

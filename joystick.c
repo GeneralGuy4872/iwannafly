@@ -20,7 +20,7 @@ jsloop ()
 	joystick = (open ("/dev/input/js0",O_RDONLY | O_NONBLOCK));
 	js_event event1;
 	signed short values[8];
-	FOREVER
+	while (!(*RUNLEVEL))
 		{
 		for (int n=0;n<SHRT_MAX;n++)
 			{
@@ -45,4 +45,5 @@ jsloop ()
 		(*JSAXISBUFF)[7] = values[7];
 		*JSAXISFLAG = 0;
 		}
+	exit(0);
 	}

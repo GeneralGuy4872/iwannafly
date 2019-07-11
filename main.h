@@ -47,6 +47,8 @@ long JSAXISBUFF_ADDRESS;
 signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
+long RUNLEVEL_ADDRESS;
+unsigned char *RUNLEVEL;
 
 typedef int (*eventfunc)(int,int,int,const char[8]); //you know you're getting serious when you're using function pointers
 typedef signed char tern;
@@ -410,14 +412,6 @@ typedef struct lowcolor
 #define two_to_eight(N) (N == 0 ? 0x00 : (N == 1 ? 0x55 : (N == 2 ? 0xAA : 0xFF)))
 #define color6(R,G,B,A) {two_to_eight(R),two_to_eight(G),two_to_eight(B),two_to_eight(A)}
 
-typedef struct startcoord
-  {
-  unsigned char x;
-  unsigned char y;
-  unsigned char yaw;
-  } startcoord;
-//values are taken (n % 180) * 2
-
 typedef struct torusmap
   {
   unsigned char dots[360][360];
@@ -425,7 +419,7 @@ typedef struct torusmap
   /* unsigned char water[360][360];
    * unsigned char wind[360][360]; //each sector has wind in direction of halfvector
    */
-  startcoord start[8];
+  vector2 start[8];
   } torusmap;
 
 #define char_to_hv(N) (halfvector){(N | 0xF0) >> 4 , N | 0x0F}
@@ -636,8 +630,8 @@ struct charvector4 CAMBUFFER;
 #define _$_ "\xA4"
 //bypass localization for now by specifying currency symbol is whatever this generates.
 
-#define SOFT_ERROR_MACRO fprintf(stderr,"SOFT ERROR, file:%s line:%d\n",__FILE__,__LINE__);
-#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%d\n",__FILE__,__LINE__); X_HCF_X
+#define SOFT_ERROR_MACRO fprintf(stderr,"SOFT ERROR, file:%s line:%d\n",__FILE__,__LINE__); printf("\a");
+#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%d\n",__FILE__,__LINE__); printf("\a"); X_HCF_X
 
 typedef struct bone
   {
@@ -743,13 +737,11 @@ typedef struct worldtype
 	} worldtype;
 
 torusmap planet1;
-entity player1;
 cameratype camera1;
-worldtype WORLD = {&planet1,&player1,&player1,NULL,NULL,NULL,NULL,&camera1};
+worldtype WORLD = {&planet1,NULL,NULL,NULL,NULL,NULL,NULL,&camera1};
 #define MAP WORLD.map
 #define PLAYER WORLD.ent
 #define CAMERA WORLD.cam
-bool run = 0;
 
 #ifdef __gl_h_
 void __mainhTranslatef(vec)

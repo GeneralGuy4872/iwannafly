@@ -2,6 +2,7 @@
 **/*.o
 **/*.out
 **/*.elf
+./conf.ini
 #exclude files generated while testing
 **/*.save
 **/*.log

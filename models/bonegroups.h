@@ -413,7 +413,8 @@ struct bone *avewing(root,prev,fr_len,side,color,uvcolor)
     (*limb)[0] = (bone){root,prev,limb[1],{0,0,FR_ONE},{0,0,len},matgen_x_deg(135,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     len = len * S_RATIO;
     (*limb)[1] = (bone){root,limb[0],limb[2],{0,0,FR_ONE},{0,0,len},matgen_x_deg(108,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    (*limb)[2] = (bone){root,limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_x_deg(-150,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
+    side = side * -1;
+    (*limb)[2] = (bone){root,limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_x_deg(150,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     }
   return limb[2];
   }

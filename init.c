@@ -17,21 +17,21 @@ FILE *logfile;
 init__setup ()
   {
   FILE *ini_file;
-  for (unsigned char n = 1;n>0;n++)
+  for (unsigned char n;;n++)
     {
     switch (n)
       {
-      case 1 :
+      case 0 :
         {
         ini_file = fopen("~/.iwannafly/conf.ini","r");
         break;
         }
-      case 2 :
+      case 1 :
         {
         ini_file = fopen("/etc/iwannafly/conf.ini","r");
         break;
         }
-      case 3 :
+      case 2 :
         {
         ini_file = fopen("./conf.ini","r");
         break;
@@ -43,9 +43,7 @@ init__setup ()
         }
       }
     if (ini_file != NULL)
-      {
-      n = FALSE;
-      }
+      break;
     }
 
   char ini_buffer[BUFFER_MAX];
@@ -120,7 +118,7 @@ init__setup ()
         }
       }
     }
-    fclose(ini_file); free(ini_data); free(ini_key);
+    fclose(ini_file);
 
   FILE *dim_file;
   dim_file = fopen(dimpath,"r");
@@ -137,98 +135,105 @@ init__setup ()
     {
     case 0 :
       {
-      polymorph_avian(PLAYER);
+      summon_avian(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = !forcebten;
       file_cat("/usr/share/iwannafly/avianquest");
       break;
       }/*
     case 1 :
       {
-      polymorph_human(PLAYER);
+      summon_human(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/knightquest");
       break;
       }
     case 2 :
       {
-      polymorph_merfolk(PLAYER);
+      summon_merfolk(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/merquest");
       break;
       }
     case 3 :
       {
-      polymorph_insectoid(PLAYER);
+      summon_insectoid(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = !forcebten;
       file_cat("/usr/share/iwannafly/hivequest");
       break;
       }
     case 4 :
       {
-      polymorph_felid(PLAYER);
+      summon_felid(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/felidquest");
       break;
       }
     case 5 :
       {
-      polymorph_draconic(PLAYER);
+      summon_draconic(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = -!forcebten;
       file_cat("/usr/share/iwannafly/o_dr_quest");
       break;
       }
     case 6 :
       {
-      polymorph_elf(PLAYER);
+      summon_elf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = -!forcebten;
       file_cat("/usr/share/iwannafly/elfquest");
       break;
       }
     case 7 :
       {
-      polymorph_dwarf(PLAYER);
+      summon_dwarf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/dwarfquest");
       break;
       }
     case 8 :
       {
-      polymorph_wizard(PLAYER);
+      summon_rogue(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = 0;
       file_cat("/usr/share/iwannafly/roguequest");
       break;
       }
     case 9 :
       {
-      polymorph_drow(PLAYER);
+      summon_drow(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = -!forcebten;
       file_cat("/usr/share/iwannafly/drowquest");
       break;
       }
     case 10 :
       {
-      polymorph_gnome(PLAYER);
+      summon_gnome(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = -!forcebten;
       file_cat("/usr/share/iwannafly/gnomequest");
       break;
       }
     case 11 :
       {
-      polymorph_draconic(PLAYER);
+      summon_draconic(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = -!forcebten;
       file_cat("/usr/share/iwannafly/c_dr_quest");
       break;
       }
     case 12 :
       {
-      polymorph_seaelf(PLAYER);
+      summon_seaelf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = -!forcebten;
       file_cat("/usr/share/iwannafly/seaelfquest");
+      break;
+      }
+    case 13 :
+      {
+      summon_wizard(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      CAMERA->format.base = 0;
+      file_cat("/usr/share/iwannafly/wizardquest");
       break;
       }*/
     default :
       {
-      polymorph_avian(PLAYER);
+      summon_avian(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
       CAMERA->format.base = 0;
       printf("you are error.\n");
       break;
@@ -236,53 +241,15 @@ init__setup ()
     }
 
   FILE *heightmap_file = fopen(mappath,"rb");
-  fread(MAP->dots,sizeof(char),sizeof(MAP->dots),heightmap_file);
-  fclose(heightmap_file);
-  free(mappath);
-  MAP->sealevel = sealevel;
-
-  free(&sealevel);
-
-  if (dologs)
+  if (heightmap_file != NULL)
     {
-    for (unsigned char n = 1;n>0;n++)
-      {
-      switch (n)
-        {
-        case 1 :
-          {
-          logfile = fopen(logpath,"a");
-          break;
-          }
-        case 2 :
-          {
-          logfile = fopen("/var/log/iwannafly.log","a");
-          break;
-          }
-        case 3 :
-          {
-          logfile = fopen("~/.iwannafly.log","a");
-          break;
-          }
-        case 4 :
-          {
-          logfile = fopen("./iwannafly.log","a");
-          break;
-          }
-        default :
-          {
-          SOFT_ERROR_MACRO;
-          fclose(logfile);
-          dologs = FALSE;
-          n = 0;
-          break;
-          }
-        }
-      if (logfile != NULL)
-        {
-        n = 0;
-        }
-      }
+    fread(MAP->dots,sizeof(char),sizeof(MAP->dots),heightmap_file);
     }
-  run = 1;
+  else
+    {
+    HARD_ERROR_MACRO
+    }
+  fclose(heightmap_file);
+
+  MAP->sealevel = sealevel;
   }
