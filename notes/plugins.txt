@@ -1,6 +1,6 @@
 .c    : C source
 .h    : C header
-.bas  : script to emit file(s) (commodore syntax)
+.bas  : BASIC script to emit file(s)
 
 .ini   : settings file (might be changed to a .foorc file)
 .dat   : player mesurements
