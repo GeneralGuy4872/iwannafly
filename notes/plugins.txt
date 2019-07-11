@@ -1,24 +1,24 @@
-.ini  : settings file (may be changed to a .foorc file if parser can be improved)
-.tsv  : player mesurements
-.log  : output log
-.save : save file
+.ini|.*rc       : settings file
+.tsv|.csv|.dsv  : player mesurements
+.log            : output log
+.save           : save file
 
 Far Future plugin interface:
 
 a perl script uses an .rc file to generate a makefile that uses awk to parse:
 
-.tsv  : array, fraction, vector, matrix, etc
-.ini  : simple macros, single (non-nested) struct, role switch case
-.rc   : multiple (non-nested) struct, single (FINITEly nested) struct, entire role switch table
-.json : single (infinately nested) struct
-.xml  : multiple (infinately nested) structs
+.tsv|.csv|.dsv  : array, fraction, vector, matrix, etc
+.ini            : simple macros, single (non-nested) struct, role switch case
+.rc             : multiple (non-nested) struct, single (FINITEly nested) struct, entire role switch table
+.json           : single (infinately nested) struct
+.xml|.sgml      : multiple (infinately nested) structs
 
 to C and generates a new init.c file. file syntax is assumed from extention.
 
 another perl script generates a makefile that combines the resultant code with:
 
 .bin|.hex|.dat|.raw : raw binary data (dynamically loaded)
-.txt|<no ext>       : large blocks of text (displayed using cat)
+.txt                : blocks of text (for events, must be an eight-dot-three name due to fixed length names)
 .c                  : event function, skeleton and entity generator functions, misc code
 .h                  : shape macros, misc code
 
