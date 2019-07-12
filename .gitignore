@@ -2,12 +2,11 @@
 **/*.o
 **/*.out
 **/*.elf
+**/*.coff
 conf.ini
 #exclude files generated while testing
 **/*.save
 **/*.log
-#exclude sed scripts used to edit code en-masse. I know regex-fu
-**/*.sed
 #exclude temporary files
 **/*.tmp
 **/*.swp

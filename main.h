@@ -31,7 +31,6 @@ div_t div_tmp;
 #define SQRT_5 2.236067977499789696409
 #define G_RATIO 1.618033988749894848205
 #define S_RATIO 2.414213562373095048802
-#define MY_TAU 6.283185307179586476925
 #define LOG_3_PI 1.041978045992185865114
 #define LOG_3_E 0.9102392266268373936142
 #define ONE_1_9 1.11111111111111111111111
@@ -446,7 +445,8 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define TOSGN(N) ( N < 0 ? -1 : 0 )
 #define NEG(N) (-1 * (N))
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
-#define nextline(F) fscanf(F,"%*[^\n]s");
+#define fnextline(F) fscanf(F,"%*[^\n]s");
+#define nextline(F) scanf("%*[^\n]s");
 
 #define BASECOORD(M) M.stat.horiz ? (vector3){M.pos.x,M.pos.y,M.pos.z} : vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
 #define EYECOORD(M) vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y})))
