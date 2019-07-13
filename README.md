@@ -1,8 +1,8 @@
 **prealpha stats:**
 - 🗹 outline
 - 🗹 implementation
-- 🗹 *syntax fixing*
-- ➤ debugging
+- 🗹 syntax fixing
+- ➤ *debugging*
 - ⌛ alpha release
 
 **build stats:**
