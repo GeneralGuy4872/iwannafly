@@ -175,5 +175,5 @@ unsigned char i_poly_fan[] = {7,5, 1,2,3,4,5};
 #define shape_wire_fan(L,R,A) (shape){v_fan(L,R,A),&i_wire_fan,num_wire_fan}
 #define shape_poly_fan(L,R,A) (shape){v_fan(L,R,A),&i_poly_fan,num_poly_fan}
 
-#define frfl_shape_wire_xfan(L,R,A) shape_wire_xfan(frfl(L),frfl(R),frfl(A))
-#define frfl_shape_poly_xfan(L,R,A) shape_poly_xfan(frfl(L),frfl(R),frfl(A))
+#define frfl_shape_wire_fan(L,R,A) shape_wire_fan(frfl(L),frfl(R),frfl(A))
+#define frfl_shape_poly_fan(L,R,A) shape_poly_fan(frfl(L),frfl(R),frfl(A))

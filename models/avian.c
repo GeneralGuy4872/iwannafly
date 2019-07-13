@@ -50,7 +50,7 @@ struct skeleton *sculpt_avian(geomet,fg,bg)
   struct bone *rwing = avewing(index_spine->prev,lwing,geomet[mes_wing],RIGHT,fg,TRUE);
     struct bone *index_tail = malloc(sizeof(struct bone));
     *index_tail = (bone){pelvis,rwing,NULL,{0,0,0},{frfl(geomet[mes_fan_len]),frfl(geomet[mes_fan_rad]),0},matgen_y_deg(45,1),matgen_ident,color6(fg.r,fg.g,fg.b,fg.a),TRUE,FALSE,malloc(sizeof(struct shape))};
-    *(index_tail->geom) = frfl_shape_poly_xfan(geomet[mes_fan_len],geomet[mes_fan_rad],geomet[mes_fan_ang]);
+    *(index_tail->geom) = frfl_shape_poly_fan(geomet[mes_fan_len],geomet[mes_fan_rad],geomet[mes_fan_ang]);
     doublelink(index_tail);
   tmp->root = pelvis;
   tmp->hitbox.x = MAX(frfl(geomet[mes_shld]),frfl(geomet[mes_pelv])) * 2;
