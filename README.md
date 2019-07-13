@@ -9,7 +9,7 @@
 - last working build : NULL
 	- 0 total
 
-- last segfault build : 09:48:02 Sat Jul 13 2019 CDT
+- last segfault build : 15:40:10 Sat Jul 13 2019 CDT
 - last kpanic build : NULL
 - last failed build : 13 July 2019 CDT
 

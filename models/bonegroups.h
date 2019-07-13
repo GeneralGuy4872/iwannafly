@@ -100,10 +100,10 @@ struct bone* spine(root,previous,nmax,fr_len,color,uvcolor)
   for (unsigned char n = 0;n < nmax;n++)
     {
     (*verta)[n] = (bone){root,previous,NULL,{0,0,n!=0 * FR_ONE},{0,0,len/nmax},matgen_ident,matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    previous->next = verta[n];
-    previous = verta[n];
+    previous->next = (&(*verta)[n]);
+    previous = (&(*verta)[n]);
     }
-  return verta[nmax-1];
+  return (&(*verta)[nmax-1]);
   }
   
 struct bone* tail(root,previous,nmax,fr_len,fr_rot,color,uvcolor)
@@ -122,10 +122,10 @@ struct bone* tail(root,previous,nmax,fr_len,fr_rot,color,uvcolor)
   for (unsigned char n = 0;n < nmax;n++)
     {
     (*verta)[n] = (bone){root,previous,NULL,{0,0,-FR_ONE},{-len/nmax,0,0},matgen_y_deg(rot,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    previous->next = verta[n];
-    previous = verta[n];
+    previous->next = (&(*verta)[n]);
+    previous = (&(*verta)[n]);
     }
-  return verta[nmax-1];
+  return (&(*verta)[nmax-1]);
   }
 
 struct bone* handphalanges(root,previous,nmax,fr_rot,color,uvcolor)
@@ -143,13 +143,13 @@ struct bone* handphalanges(root,previous,nmax,fr_rot,color,uvcolor)
     {
     float len = len/G_RATIO;
     (*phalng)[n] = (bone){root,previous,NULL,{FR_ONE,0,0},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    previous->next = phalng[n];
-    previous = phalng[n];
+    previous->next = (&(*phalng)[n]);
+    previous = (&(*phalng)[n]);
     rot.x = 0;
     rot.y = 0;
     rot.z = 0;
     }
-  return phalng[nmax-1];
+  return (&(*phalng)[nmax-1]);
   }
 
 struct bone* finger(root,previous,nmax,fr_rot,factor,color,uvcolor)
@@ -164,7 +164,7 @@ struct bone* finger(root,previous,nmax,fr_rot,factor,color,uvcolor)
   vector3 rot = {frfl(fr_rot.x),frfl(fr_rot.y),frfl(fr_rot.z)};
   struct bone *carple = malloc(sizeof(struct bone));
   *carple = (bone){root,previous,NULL,{FR_ONE,0,0},{(root->len.x / M_E) * factor,0,0},matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-  doublelink(carple);
+  previous->next = carple;
   rot.x = NEG(rot.x);
   rot.y = NEG(rot.y);
   rot.z = NEG(rot.z);
@@ -186,14 +186,14 @@ struct bone* thumbphalanges(root,previous,nmax,fr_rot,color,uvcolor)
   for (unsigned char n = 0;n < nmax;n++)
     {
     (*phalng)[n] = (bone){root,previous,NULL,{FR_ONE,0,0},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    previous->next = phalng[n];
-    previous = phalng[n];
+    previous->next = (&(*phalng)[n]);
+    previous = (&(*phalng)[n]);
     rot.x = 0;
     rot.y = 0;
     rot.z = 0;
     len = len/((n==0) + 1);
     }
-  return phalng[nmax-1];
+  return (&(*phalng)[nmax-1]);
   }
 
 struct bone* footphalanges(root,previous,nmax,fr_rot,color,uvcolor)
@@ -211,12 +211,12 @@ struct bone* footphalanges(root,previous,nmax,fr_rot,color,uvcolor)
   for (unsigned char n = 0;n < nmax;n++)
     {
     (*phalng)[n] = (bone){root,previous,NULL,{0,0,FR_ONE},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    previous->next = phalng[n];
-    previous = phalng[n];
+    previous->next = (&(*phalng)[n]);
+    previous = (&(*phalng)[n]);
     rot = (vector3){0,0,0};
     len = len * M_SQRT1_2;
     }
-  return phalng[nmax-1];
+  return (&(*phalng)[nmax-1]);
   }
 
 struct bone* toe(root,previous,nmax,fr_rot,factor,color,uvcolor)
@@ -231,7 +231,7 @@ struct bone* toe(root,previous,nmax,fr_rot,factor,color,uvcolor)
   struct vector3 rot = {frfl(fr_rot.x),frfl(fr_rot.y),frfl(fr_rot.z)};
   struct bone *carple = malloc(sizeof(struct bone));
   *carple = (bone){root,previous,NULL,{FR_ONE,0,0},{(root->len.z / M_PI) * factor,0,0},matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-  doublelink(carple);
+  previous->next = carple;
   rot.x = NEG(rot.x);
   rot.y = NEG(rot.y);
   rot.z = NEG(rot.z);
@@ -255,11 +255,11 @@ struct bone *talonphalanges(root,previous,nmax,fr_rot,factor,color,uvcolor)
     {
     len = len/G_RATIO;
     (*phalng)[n] = (bone){root,previous,NULL,{n!=0 * FR_ONE,0,n==0 * FR_ONE},{len,0,0},matgen_master_deg(rot.x,rot.y,rot.z,1,1,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    previous->next = phalng[n];
-    previous = phalng[n];
+    previous->next = (&(*phalng)[n]);
+    previous = (&(*phalng)[n]);
     rot = (vector3){0,0,0};
     }
-  return phalng[nmax-1];
+  return (&(*phalng)[nmax-1]);
   }
 
 struct bone *arm(root,previous,fr_len,side,color,uvcolor)
@@ -274,12 +274,12 @@ struct bone *arm(root,previous,fr_len,side,color,uvcolor)
   struct bone (*limb)[2];
   limb = malloc(2 * sizeof(bone));
     {
-    previous->next = limb[0];
+    previous->next = (&(*limb)[0]);
     (*limb)[0] = (bone){root,previous,limb[1],{FR_ONE,0,0},{len,0,0},matgen_ident,matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     len = len/G_RATIO;
     (*limb)[1] = (bone){root,limb[0],NULL,{FR_ONE,0,0},{len,0,0},matgen_x_deg(90,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     }
-  return limb[1];
+  return (&(*limb)[1]);
   }
 
 struct bone *leg(root,previous,fr_len,fr_Q,side,color,uvcolor)
@@ -296,13 +296,13 @@ struct bone *leg(root,previous,fr_len,fr_Q,side,color,uvcolor)
   struct bone (*limb)[2];
   limb = malloc(2 * sizeof(bone));
     {
-    previous->next = limb[0];
+    previous->next = (&(*limb)[0]);
     (*limb)[0] = (bone){root,previous,limb[1],{0,side * FR_ONE/2,FR_ONE},{0,0,-1*len},matgen_x_deg(Q,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     len = len * LOG_3_E;
     Q = Q * -1;
     (*limb)[1] = (bone){root,limb[0],NULL,{0,0,FR_ONE},{0,0,-1*len},matgen_x_deg(Q,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     }
-  return limb[1];
+  return (&(*limb)[1]);
   }
 
 float cosine_leg (fr_len,fr_Q)
@@ -332,7 +332,7 @@ struct bone *digiti(root,previous,fr_len,fr_Q,side,color,uvcolor)
   limb = malloc(3 * sizeof(bone));
     {
     len = len * -1;
-    previous->next = limb[0];
+    previous->next = (&(*limb)[0]);
     (*limb)[0] = (bone){root,previous,limb[1],{0,side * FR_ONE/2,FR_ONE},{0,0,len},matgen_master_deg(Q.x,Q.y,0,side,side,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     Q = (vector2){Q.x * -1,Q.y * 2 * -1};
     len = len * M_SQRT1_2;
@@ -341,7 +341,7 @@ struct bone *digiti(root,previous,fr_len,fr_Q,side,color,uvcolor)
     len = len * LOG_3_E;
     (*limb)[2] = (bone){root,limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_master_deg(Q.x,Q.y,0,side,side,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     }
-  return limb[2];
+  return (&(*limb)[2]);
   }
 
 float cosine_digiti (fr_len,fr_Q)
@@ -370,12 +370,12 @@ struct bone *avewing(root,previous,fr_len,side,color,uvcolor)
   struct bone (*limb)[3];
   limb = malloc(3 * sizeof(bone));
     {
-    previous->next = limb[0];
+    previous->next = (&(*limb)[0]);
     (*limb)[0] = (bone){root,previous,limb[1],{0,0,FR_ONE},{0,0,len},matgen_x_deg(135,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     len = len * S_RATIO;
     (*limb)[1] = (bone){root,limb[0],limb[2],{0,0,FR_ONE},{0,0,len},matgen_x_deg(108,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     side = side * -1;
     (*limb)[2] = (bone){root,limb[1],NULL,{0,0,FR_ONE},{0,0,len},matgen_x_deg(150,side),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     }
-  return limb[2];
+  return (&(*limb)[2]);
   }
