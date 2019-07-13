@@ -446,7 +446,7 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define NEG(N) (-1 * (N))
 #define bitlength(N) ( (unsigned int) (floor(log2(N) - 1)) )
 #define fnextline(F) fscanf(F,"%*[^\n]s");
-#define nextline(F) scanf("%*[^\n]s");
+#define nextline scanf("%*[^\n]s");
 
 #define BASECOORD(M) M.stat.horiz ? (vector3){M.pos.x,M.pos.y,M.pos.z} : vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
 #define EYECOORD(M) vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y})))
@@ -566,7 +566,7 @@ div_t radf_to_deg(input)
 #define fprintbase(O,N) (CAMERA.base == 0 ? fprintf(O,"=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
 #define printbase(N) (CAMERA.base == 0 ? printf("=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
 
-#define HASH5(A,B,C) ( ((A == ';') || (B == ';') || (C == ';') ? (short) 0x8000 : (short) 0x0000) | ((0x001f & (short) A) << 10) | ((0x001f & (short) B) << 5) | (0x001f & (short) C) )
+#define HASH5(A,B,C) ( (( (A <= ' ') || (A == '#') || (A == ';') || (A == '[') ) ? (short) 0xFFFFFFFF : (short) 0x00000000) | ((0x0000001f & (short) A) << 10) | ((0x0000001f & (short) B) << 5) | (0x0000001f & (short) C) )
 #define STR_INT(A,B,C,D) (unsigned int) ( ((A | 0x000000FF) << 24) | ((B | 0x000000FF) << 16) | ((C | 0x000000FF) << 8) | (D | 0x000000FF) )
 
 file_cat (path)

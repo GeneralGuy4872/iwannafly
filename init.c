@@ -23,7 +23,7 @@ init__setup ()
       {
       case 0 :
         {
-        ini_file = fopen("~/.iwannafly/conf.ini","r");
+        ini_file = fopen("~/.iwannaflyini","r");
         break;
         }
       case 1 :
@@ -48,18 +48,18 @@ init__setup ()
 
   char ini_buffer[BUFFER_MAX];
   char dimpath[BUFFER_MAX];
-  char angpath[BUFFER_MAX];
   char *ini_key;
   char *ini_data;
-  while (fscanf(ini_file,"\n",ini_buffer))
+  while (fgets(ini_buffer,BUFFER_MAX,ini_file) != NULL)
     {
+    printf("got value:\n%s",ini_buffer);
     ini_key = strtok(ini_buffer,"=");
     if (ini_key != NULL)
       {
       ini_data = strtok(NULL,"\n");
       if (ini_data != NULL)
         {
-        short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2]);
+        volatile short ini_key_hash = HASH5(ini_key[0],ini_key[1],ini_key[2]); //optimizer issues
         if (ini_key_hash > 0)
           {
           switch (ini_key_hash)
@@ -91,6 +91,7 @@ init__setup ()
               }
             default :
               {
+              puts("invalid key in config file");
               break;
               }
             }
@@ -98,17 +99,25 @@ init__setup ()
         }
       }
     }
-    fclose(ini_file);
+  fclose(ini_file);
 
+  int temp_mesure;
   FILE *dim_file;
   dim_file = fopen(dimpath,"r");
   if (dim_file != NULL)
     {
-    for (unsigned char n = 0;n<20;n++)
+    printf("%s loaded",dimpath);
+    for (unsigned char n = 0;n<16;n++)
       {
-      fscanf(dim_file,"%hd",TAILOR[n]);
+      fscanf(dim_file,"%i",&temp_mesure);
+      printf("%i",temp_mesure);
+      TAILOR[n] = temp_mesure;
       }
     fclose(dim_file); 
+    }
+  else
+    {
+    HARD_ERROR_MACRO
     }
 
   switch (base_role)
@@ -207,10 +216,11 @@ init__setup ()
       }
     }
 
-  FILE *heightmap_file = fopen(mappath,"rb");
+  FILE *heightmap_file = fopen(mappath,"r");
   if (heightmap_file != NULL)
     {
-    fread(MAP->dots,sizeof(char),sizeof(MAP->dots),heightmap_file);
+    printf("%s loaded",mappath);
+    fread(MAP->dots,sizeof(char),360*360,heightmap_file);
     }
   else
     {
