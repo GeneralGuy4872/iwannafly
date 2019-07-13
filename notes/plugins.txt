@@ -1,6 +1,5 @@
 .c    : C source
 .h    : C header
-.bas  : bwBASIC script to emit file(s)
 
 .ini   : settings file (might be changed to a .foorc file)
 .dat   : player mesurements
