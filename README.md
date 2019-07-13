@@ -1,17 +1,17 @@
 **prealpha stats:**
 - 🗹 outline
 - 🗹 implementation
-- 🗹 *syntax fixing*
-- ➤ debugging
+- 🗹 syntax fixing
+- ➤ *debugging*
 - ⌛ alpha release
 
 **build stats:**
 - last working build : NULL
 	- 0 total
 
-- last segfault build : 11 July 2019
+- last segfault build : 13 July 2019 CDT
 - last kpanic build : NULL
-- last failed build : 11 July 2019
+- last failed build : 13 July 2019 CDT
 
 Iwannafly
 =========
