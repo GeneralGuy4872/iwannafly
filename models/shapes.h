@@ -151,7 +151,7 @@ unsigned char i_poly_pyra[] = {4,4, 1,2,3,4, 7,6, 0,1,2,3,4,1};
 
 //---<HR>---
 
-void * v_xfan(len,rad,ang)
+void * v_fan(len,rad,ang)
 	float len;
 	float rad;
 	float ang;
@@ -159,11 +159,11 @@ void * v_xfan(len,rad,ang)
 	vector3 (*output)[6];
 	output = malloc(6 * sizeof(vector3));
 	(*output)[0] = (vector3){0,0,0};
-	(*output)[1] = (vector3){-len * cos(PI_N(ang)),rad * zin(PI_N(ang)),0};
-	(*output)[2] = (vector3){-len * cos(PI_2_N(ang)),rad * zin(PI_2_N(ang)),0};
-	(*output)[3] = (vector3){-len,0,0};
-	(*output)[4] = (vector3){-len * cos(PI_2_N(ang)),rad * sin(PI_2_N(ang)),0};
-	(*output)[5] = (vector3){-len * cos(PI_N(ang)),rad * sin(PI_N(ang)),0};
+	(*output)[1] = (vector3){0,rad * zin(PI_N(ang)),-len * cos(PI_N(ang))};
+	(*output)[2] = (vector3){0,rad * zin(PI_2_N(ang)),-len * cos(PI_2_N(ang))};
+	(*output)[3] = (vector3){0,0,-len};
+	(*output)[4] = (vector3){0,rad * sin(PI_2_N(ang)),-len * cos(PI_2_N(ang))};
+	(*output)[5] = (vector3){0,rad * sin(PI_N(ang)),-len * cos(PI_N(ang))};
 	return output;
 	}
 
@@ -172,8 +172,8 @@ unsigned char i_wire_fan[] = {10,5, 1,2,3,4,5, 9,3, 2,3,4};
 unsigned char i_poly_fan[] = {7,5, 1,2,3,4,5};
 #define num_poly_fan 7
 
-#define shape_wire_xfan(L,R,A) (shape){v_xfan(L,R,A),&i_wire_fan,num_wire_fan}
-#define shape_poly_xfan(L,R,A) (shape){v_xfan(L,R,A),&i_poly_fan,num_poly_fan}
+#define shape_wire_fan(L,R,A) (shape){v_fan(L,R,A),&i_wire_fan,num_wire_fan}
+#define shape_poly_fan(L,R,A) (shape){v_fan(L,R,A),&i_poly_fan,num_poly_fan}
 
 #define frfl_shape_wire_xfan(L,R,A) shape_wire_xfan(frfl(L),frfl(R),frfl(A))
 #define frfl_shape_poly_xfan(L,R,A) shape_poly_xfan(frfl(L),frfl(R),frfl(A))

@@ -106,61 +106,23 @@ struct bone* spine(root,prev,nmax,fr_len,color,uvcolor)
     }
   return verta[nmax-1];
   }
-
-struct bone* offspine(root,prev,nmax,fr_len,color,uvcolor)
+  
+struct bone* tail(root,prev,nmax,fr_len,fr_rot,color,uvcolor)
   struct bone *prev;
   struct bone *root;
   unsigned char nmax;
   unsigned short fr_len;
+  unsigned short fr_rot;
   minicolor color;
   bool uvcolor;
   {
   float len = frfl(fr_len);
+  float rot = frfl(fr_rot);
   struct bone (*verta)[nmax];
   verta = malloc(nmax * sizeof(bone));
   for (unsigned char n = 0;n < nmax;n++)
     {
-    (*verta)[n] = (bone){root,prev,NULL,{0,0,FR_ONE},{0,0,len/nmax},matgen_ident,matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    prev->next = verta[n];
-    prev = verta[n];
-    }
-  return verta[nmax-1];
-  }
-  
-struct bone* xtail(root,prev,nmax,fr_len,color,uvcolor)
-  struct bone *prev;
-  struct bone *root;
-  unsigned char nmax;
-  unsigned short fr_len;
-  minicolor color;
-  bool uvcolor;
-  {
-  float len = frfl(fr_len);
-  struct bone (*verta)[nmax];
-  verta = malloc(nmax * sizeof(bone));
-  for (unsigned char n = 0;n < nmax;n++)
-    {
-    (*verta)[n] = (bone){root,prev,NULL,{-FR_ONE,0,0},{-len/nmax,0,0},matgen_ident,matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
-    prev->next = verta[n];
-    prev = verta[n];
-    }
-  return verta[nmax-1];
-  }
-  
-struct bone* ztail(root,prev,nmax,fr_len,color,uvcolor)
-  struct bone *prev;
-  struct bone *root;
-  unsigned char nmax;
-  unsigned short fr_len;
-  minicolor color;
-  bool uvcolor;
-  {
-  float len = flfr(fr_len);
-  struct bone (*verta)[nmax];
-  verta = malloc(nmax * sizeof(bone));
-  for (unsigned char n = 0;n < nmax;n++)
-    {
-    (*verta)[n] = (bone){root,prev,NULL,{0,0,-FR_ONE},{-len/nmax,0,0},matgen_ident,matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
+    (*verta)[n] = (bone){root,prev,NULL,{0,0,-FR_ONE},{-len/nmax,0,0},matgen_y_deg(rot,1),matgen_ident,color6(color.r,color.g,color.b,color.a),uvcolor,TRUE,NULL};
     prev->next = verta[n];
     prev = verta[n];
     }

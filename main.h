@@ -693,7 +693,15 @@ typedef struct entity
 		 * bool law - deferred
 		 * bool chaos deferred
 		 */
-	halfvector alignment; //x = lawful/chaotic, y = good/evil
+	charvector2 alignment;
+		/* x = lawful/chaotic
+		 * y = good/evil
+		 * $90<=n<=$FE : evil/chaotic
+		 * $20<=n<=$7F : good/lawful
+		 * $00<=n<=$1F : neutral
+		 * $80<=n<=$8F : ^
+		 *   n == $FF  : mindless
+		 */
 	unsigned short health;
 	float Ff;
 	unsigned short m;

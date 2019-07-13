@@ -49,7 +49,7 @@ struct skeleton *sculpt_avian(geomet,fg,bg)
   struct bone *lwing = avewing(index_spine->prev,rtoe1,geomet[mes_wing],LEFT,fg,TRUE);
   struct bone *rwing = avewing(index_spine->prev,lwing,geomet[mes_wing],RIGHT,fg,TRUE);
     struct bone *index_tail = malloc(sizeof(struct bone));
-    *index_tail = (bone){pelvis,rwing,NULL,{0,0,0},{frfl(geomet[mes_fan_len]),frfl(geomet[mes_fan_rad]),0},matgen_ident,matgen_ident,color6(fg.r,fg.g,fg.b,fg.a),TRUE,FALSE,malloc(sizeof(struct shape))};
+    *index_tail = (bone){pelvis,rwing,NULL,{0,0,0},{frfl(geomet[mes_fan_len]),frfl(geomet[mes_fan_rad]),0},matgen_y_deg(45,1),matgen_ident,color6(fg.r,fg.g,fg.b,fg.a),TRUE,FALSE,malloc(sizeof(struct shape))};
     *(index_tail->geom) = frfl_shape_poly_xfan(geomet[mes_fan_len],geomet[mes_fan_rad],geomet[mes_fan_ang]);
     doublelink(index_tail);
   tmp->root = pelvis;
@@ -90,7 +90,7 @@ entity* summon_avian(xcoord,ycoord,zcoord,geomet,fg,bg)
 	minicolor bg;
 	{
 	entity *tmp = malloc(sizeof(bone));
-	*tmp = (entity){NULL,NULL,{xcoord,ycoord,zcoord,groundmake(xcoord,ycoord)},{0,0,0},{0,0,0},{0,0,0},{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{6,-4},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet,fg,bg),{NULL,NULL,NULL,NULL}};
+	*tmp = (entity){NULL,NULL,{xcoord,ycoord,zcoord,groundmake(xcoord,ycoord)},{0,0,0},{0,0,0},{0,0,0},{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{0xE0,0x60},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet,fg,bg),{NULL,NULL,NULL,NULL}};
 	ent_add(tmp);
 	return tmp;
 	}
