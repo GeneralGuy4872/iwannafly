@@ -9,9 +9,9 @@
 - last working build : NULL
 	- 0 total
 
-- last segfault build : 13 July 2019 CDT
+- last segfault build : /date
 - last kpanic build : NULL
-- last failed build : 13 July 2019 CDT
+- last failed build : /fdate
 
 Iwannafly
 =========
