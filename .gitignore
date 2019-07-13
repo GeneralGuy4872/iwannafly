@@ -4,6 +4,8 @@
 **/*.elf
 **/*.coff
 conf.ini
+old_conf.ini
+date
 #exclude files generated while testing
 **/*.save
 **/*.log
