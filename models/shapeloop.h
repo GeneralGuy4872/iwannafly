@@ -3,6 +3,10 @@ shapeloop(subject,color,ultra)
   truecolor color;
   bool ultra;
   {
+  static unsigned char* bytes;
+  bytes = subject.bytecode;
+  static vector3* verts;
+  verts = subject.vertlist;
   unsigned char n = 0; //for loops are not applicable here
   unsigned char mode = 0;
   unsigned char iter = 0;
@@ -13,9 +17,9 @@ shapeloop(subject,color,ultra)
       {
       case 0 :
         {
-        mode = (*subject.bytecode)[n];
+        mode = bytes[n];
         n++;
-        iter = (*subject.bytecode)[n];
+        iter = bytes[n];
         n++;
         break;
         }
@@ -24,7 +28,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_POINTS);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -37,7 +41,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINES);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -50,7 +54,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_TRIANGLES);
           while (iter && (n < subject.inum));
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -64,7 +68,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_QUADS);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -78,7 +82,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_POLYGON);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -91,7 +95,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINE_STRIP);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -104,7 +108,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_TRIANGLE_FAN);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -118,7 +122,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINE_LOOP);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -131,8 +135,8 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINES);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[0].x,(*subject.vertlist)[0].y,(*subject.vertlist)[0].z);
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[0].x,*verts[0].y,*verts[0].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -143,10 +147,10 @@ shapeloop(subject,color,ultra)
       case 10 :
         {
         glBegin(GL_LINE_LOOP);
-          glVertex3f((*subject.vertlist)[0].x,(*subject.vertlist)[0].y,(*subject.vertlist)[0].z);
+          glVertex3f(*verts[0].x,*verts[0].y,*verts[0].z);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -159,7 +163,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_QUAD_STRIP);
           while (iter && (n < subject.inum))
             {
-            glVertex3f((*subject.vertlist)[(*subject.bytecode)[n]].x,(*subject.vertlist)[(*subject.bytecode)[n]].y,(*subject.vertlist)[(*subject.bytecode)[n]].z);
+            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
             n++;
             iter--;
             }
@@ -169,11 +173,6 @@ shapeloop(subject,color,ultra)
         }
       default :
         {
-        while (iter && (n < subject.inum));
-          {
-          n++;
-          iter--;
-          }
         SOFT_ERROR_MACRO;
         mode = 0;
         break;

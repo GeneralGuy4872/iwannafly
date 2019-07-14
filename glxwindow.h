@@ -11,28 +11,18 @@ Window glxwin;
 XSetWindowAttributes swa;
 XWindowAttributes GotWinAtt;
 GLXContext glxctx;
-
-void
-glx__setup()
-	{
-	Display *dsply = XOpenDisplay(NULL);
-	Window desktop = DefaultRootWindow(dsply);
-	XVisualInfo *VisInf = glXChooseVisual(dsply, 0, attrib);
-	Window glxwin = XCreateWindow(dsply,desktop,0,0,MAINWINSIZE,MAINWINSIZE,0,VisInf->depth,InputOutput,VisInf->visual,CWColormap | CWEventMask,&swa);
-	swa.colormap = XCreateColormap(dsply,glxwin,VisInf->visual,AllocNone);
-	swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask; //start here and finnagle around with it if unexpected results
-	GLXContext glxctx = glXCreateContext(dsply,VisInf,NULL,TRUE);
-	}
+XVisualInfo *xvi;
+Colormap cmap;
 
 static unsigned int
-glx__keysymswitch(monitor,winder,event)
+glx__keysymswitch(monitor,windw,event)
 	Display *monitor;
-	Window winder;
-	XEvent *event;
+	Window windw;
+	XEvent event;
 	{
-	if (event->type == KeyPress)
+	if (event.type == KeyPress)
 		{
-		int sym_keypressd = XLookupKeysym(&event->xkey, 0);
+		int sym_keypressd = XLookupKeysym(&(event.xkey), 0);
 		switch (sym_keypressd)
 			{
 			case XK_plus :
@@ -108,23 +98,32 @@ glx__keysymswitch(monitor,winder,event)
 	}
 
 static void
-glx__eventswitch(monitor,winder)
+glx__eventswitch(monitor,windw)
 	Display *monitor;
-	Window winder;
+	Window windw;
 	{
 	if (XPending(monitor))
 		{
 		XEvent event;
 		XNextEvent(monitor,&event);
-		glx__keysymswitch(monitor,winder,event);
+		glx__keysymswitch(monitor,windw,event);
 		}
 	}
 
 void
 glx__startup()
 	{
-	glx__setup();
+		dsply = XOpenDisplay(NULL);
+		if (dsply == NULL) {HARD_ERROR_MACRO}
+		desktop = DefaultRootWindow(dsply);
+		XVisualInfo *xvi = glXChooseVisual(dsply, 0, attrib);
+		if (xvi == NULL) {HARD_ERROR_MACRO}
+		cmap = XCreateColormap(dsply,desktop,xvi->visual,AllocNone);
+		swa.colormap = cmap;
+		swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask; //start here and finnagle around with it if unexpected results
+		glxwin = XCreateWindow(dsply,desktop,0,0,MAINWINSIZE,MAINWINSIZE,0,xvi->depth,InputOutput,xvi->visual,CWColormap | CWEventMask,&swa);
 	XMapWindow(dsply,glxwin);
+		glxctx = glXCreateContext(dsply,xvi,NULL,TRUE);
 	glXMakeCurrent(dsply,glxwin,glxctx);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);

@@ -9,13 +9,19 @@
 - last working build : NULL
 	- 0 total
 
-- last segfault build : 15:40:10 Sat Jul 13 2019 CDT
+- last segfault build : 18:42:25 Sat Jul 13 2019 CDT
 - last kpanic build : NULL
-- last failed build : 13 July 2019 CDT
+- last failed build : 18:34:25 Sat Jul 13 2019
 
 Iwannafly
 =========
 *open world game and game engine written in C useing minimal propagating dependencies*
+
+Screenshots
+---------
+
+Terminal intro working: https://files.catbox.moe/zgv4wv.jpeg
+Titlebar working: https://files.catbox.moe/nx5elu.jpeg
 
 Requirements
 ------------

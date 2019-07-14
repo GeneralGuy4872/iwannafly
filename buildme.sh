@@ -10,7 +10,7 @@ date "+%H:%M:%S %a %b %d %Y %Z" >> date.tmp;
 else
 printf "14s/.*/" > date.tmp;
 printf -- "- last failed build : " >> date.tmp;
-date "+%H:%M:%S %a %b %d %Y" >> date.tmp;
+date "+%H:%M:%S %a %b %d %Y %Z" >> date.tmp;
 fi
 tr '\n' '/' <date.tmp >date
 printf "g" >> date

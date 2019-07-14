@@ -355,8 +355,8 @@ typedef struct viewform
 
 typedef struct shape
   {
-  vector3 (*vertlist)[];
-  unsigned char (*bytecode)[];
+  vector3 vertlist[16];
+  unsigned char bytecode[32];
   unsigned char inum;
   } shape;
 

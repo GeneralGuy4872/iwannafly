@@ -143,6 +143,7 @@ mainloop ()
 	{
 	init__setup();
 	glx__startup();
+	CAMERA->coord.fov = 55;
 	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m- %s -\033[m\n  main program revision: %s\n   joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
 	while (!(*RUNLEVEL))
 		{
@@ -150,15 +151,23 @@ mainloop ()
 			{
 			if (nextframe)
 				{
+				puts("loop!");
 				refresh_land();
 				onstep_master();
 				glx__DrawLoop();
 				nextframe = FALSE;
 				ready = FALSE;
 				}
-			if (nextstep)
+			else if (nextstep)
 				{
+				puts("TOCK");
 				onstep_master();
+				nextstep = FALSE;
+				}
+			else
+				{
+				puts("tick");
+				frametimeloop();
 				}
 			}
 		else if (nextstep)

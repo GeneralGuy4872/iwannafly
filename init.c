@@ -52,7 +52,6 @@ init__setup ()
   char *ini_data;
   while (fgets(ini_buffer,BUFFER_MAX,ini_file) != NULL)
     {
-    printf("got value:\n%s",ini_buffer);
     ini_key = strtok(ini_buffer,"=");
     if (ini_key != NULL)
       {
@@ -106,11 +105,9 @@ init__setup ()
   dim_file = fopen(dimpath,"r");
   if (dim_file != NULL)
     {
-    printf("%s loaded",dimpath);
     for (unsigned char n = 0;n<16;n++)
       {
       fscanf(dim_file,"%i",&temp_mesure);
-      printf("%i",temp_mesure);
       TAILOR[n] = temp_mesure;
       }
     fclose(dim_file); 
@@ -219,7 +216,6 @@ init__setup ()
   FILE *heightmap_file = fopen(mappath,"r");
   if (heightmap_file != NULL)
     {
-    printf("%s loaded",mappath);
     fread(MAP->dots,sizeof(char),360*360,heightmap_file);
     }
   else
