@@ -3,10 +3,16 @@ shapeloop(subject,color,ultra)
   truecolor color;
   bool ultra;
   {
-  static unsigned char* bytes;
-  bytes = subject.bytecode;
-  static vector3* verts;
-  verts = subject.vertlist;
+  unsigned char bytes[32];
+  for (unsigned char n=0;n<subject.inum;n++)
+    {
+    bytes[n] = (*subject.bytecode)[n];
+    }
+  vector3 verts[16];
+  for (unsigned char n=0;n<subject.vnum;n++)
+    {
+    bytes[n] = (*subject.bytecode)[n];
+    }
   unsigned char n = 0; //for loops are not applicable here
   unsigned char mode = 0;
   unsigned char iter = 0;
@@ -28,7 +34,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_POINTS);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -41,7 +47,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINES);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -54,7 +60,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_TRIANGLES);
           while (iter && (n < subject.inum));
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -68,7 +74,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_QUADS);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -82,7 +88,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_POLYGON);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -95,7 +101,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINE_STRIP);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -108,7 +114,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_TRIANGLE_FAN);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -122,7 +128,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINE_LOOP);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -135,8 +141,8 @@ shapeloop(subject,color,ultra)
         glBegin(GL_LINES);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[0].x,*verts[0].y,*verts[0].z);
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[0].x,verts[0].y,verts[0].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -147,10 +153,10 @@ shapeloop(subject,color,ultra)
       case 10 :
         {
         glBegin(GL_LINE_LOOP);
-          glVertex3f(*verts[0].x,*verts[0].y,*verts[0].z);
+          glVertex3f(verts[0].x,verts[0].y,verts[0].z);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -163,7 +169,7 @@ shapeloop(subject,color,ultra)
         glBegin(GL_QUAD_STRIP);
           while (iter && (n < subject.inum))
             {
-            glVertex3f(*verts[(int)*bytes[n]].x,*verts[(int)*bytes[n]].y,*verts[(int)*bytes[n]].z);
+            glVertex3f(verts[(int)bytes[n]].x,verts[(int)bytes[n]].y,verts[(int)bytes[n]].z);
             n++;
             iter--;
             }
@@ -178,7 +184,9 @@ shapeloop(subject,color,ultra)
         break;
         }
       }
+    puts("fetched");
     }
+  puts("bone done");
   }
 
 boneloop(subject)
@@ -188,5 +196,8 @@ boneloop(subject)
     {
     shapeloop(shape_line(subject.len.x,subject.len.y,subject.len.z),subject.color,subject.ultraviolet);
     }
-  shapeloop(subject.geom,subject.color,subject.ultraviolet);
+  if (subject.geom != NULL)
+    {
+    shapeloop(*(subject.geom),subject.color,subject.ultraviolet);
+    }
   }

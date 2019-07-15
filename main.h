@@ -355,9 +355,10 @@ typedef struct viewform
 
 typedef struct shape
   {
-  vector3 vertlist[16];
-  unsigned char bytecode[32];
+  vector3 (*vertlist)[];
+  unsigned char (*bytecode)[];
   unsigned char inum;
+  unsigned char vnum;
   } shape;
 
 typedef struct event_props

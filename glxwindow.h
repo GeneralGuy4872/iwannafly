@@ -121,7 +121,7 @@ glx__startup()
 		cmap = XCreateColormap(dsply,desktop,xvi->visual,AllocNone);
 		swa.colormap = cmap;
 		swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask; //start here and finnagle around with it if unexpected results
-		glxwin = XCreateWindow(dsply,desktop,0,0,MAINWINSIZE,MAINWINSIZE,0,xvi->depth,InputOutput,xvi->visual,CWColormap | CWEventMask,&swa);
+		glxwin = XCreateWindow(dsply,desktop,0,0,MAINWINSIZE,((3 * MAINWINSIZE)/5),0,xvi->depth,InputOutput,xvi->visual,CWColormap | CWEventMask,&swa);
 	XMapWindow(dsply,glxwin);
 		glxctx = glXCreateContext(dsply,xvi,NULL,TRUE);
 	glXMakeCurrent(dsply,glxwin,glxctx);
