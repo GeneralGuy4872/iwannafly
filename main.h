@@ -752,6 +752,9 @@ worldtype WORLD = {&planet1,NULL,NULL,NULL,NULL,NULL,NULL,&camera1};
 #define PLAYER WORLD.ent
 #define CAMERA WORLD.cam
 
+#define mainh__arralloc(A,N,S) for (int n = 0;n<N;n++) {A[n] = malloc(S);}
+#define mainh__arrfree(A,N) for (int n = N;n>0;n--) {free(A[n-1]);}
+
 #ifdef __gl_h_
 void __mainhTranslatef(vec)
 	vector3 vec;
