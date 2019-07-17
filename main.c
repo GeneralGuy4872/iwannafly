@@ -145,7 +145,7 @@ mainloop ()
 	glx__startup();
 	CAMERA->coord.fov = 55;
 	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m - %s -\033[m\n      main program revision: %s\n  joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
-	while (!(*RUNLEVEL))
+	while (!RUN)
 		{
 		if (!paused)
 			{
@@ -178,22 +178,20 @@ mainloop ()
 	}
 
 main()
-	{
+	??<
 	JSAXISBUFF_ADDRESS = (long) mmap(NULL,sizeof(short) * 8,PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 	JSAXISFLAG_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
-	RUNLEVEL_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
+	MAIN_PID = getpid()
 	if (fork() == 0)
-		{
+		??<
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
-		RUNLEVEL = RUNLEVEL_ADDRESS;
 		jsloop();
-		}
+		??>
 	else
-		{
+		??<
 		JSAXISBUFF = JSAXISBUFF_ADDRESS;
 		JSAXISFLAG = JSAXISFLAG_ADDRESS;
-		RUNLEVEL = RUNLEVEL_ADDRESS;
 		mainloop();
-		}
-	}
+		??>
+	??>

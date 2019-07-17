@@ -20,7 +20,7 @@ jsloop ()
 	joystick = (open ("/dev/input/js0",O_RDONLY | O_NONBLOCK));
 	js_event event1;
 	signed short values[8];
-	while (!(*RUNLEVEL))
+	while (mainh__fork__reap)
 		{
 		for (int n=0;n<SHRT_MAX;n++)
 			{

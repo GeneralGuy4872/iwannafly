@@ -3,7 +3,7 @@ cp conf.ini old_conf.ini
 cp defaults.ini conf.ini
 touch date.tmp
 touch date
-if cc main.c -g -lX11 -lXaw -lXt -lm -lGL -lGLU; then
+if cc main.c -g -lX11 -lXaw -lXt -lm -lGL -lGLU -trigraphs; then
 printf "12s/.*/" > date.tmp;
 printf -- "- last segfault build : " >> date.tmp;
 date "+%H:%M:%S %a %b %d %Y %Z" >> date.tmp;
