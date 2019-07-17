@@ -61,18 +61,22 @@ glx__DrawLoop()
 			if (nextbone->next != NULL)
 				{
 				nextbone = nextbone->next;
+				printf("nextbone %p\n",nextbone);
 				}
 			else
+				{
+				puts("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"); //80 column horizontal rule
 				break;
+				}
 			}
 		if (nextent->next != NULL)
 			{
 			nextent = nextent->next;
+			printf("nextent %p\n",nextent);
 			}
 		else
-			break;
+			glx__SetCamera();
+			glXSwapBuffers(dsply,glxwin);
+			return;
 		}
-  
-  glx__SetCamera();
-  glXSwapBuffers(dsply,glxwin);
-  }
+	}

@@ -160,13 +160,11 @@ mainloop ()
 				}
 			else if (nextstep)
 				{
-				puts("TOCK");
 				onstep_master();
 				nextstep = FALSE;
 				}
 			else
 				{
-				puts("tick");
 				frametimeloop();
 				}
 			}
