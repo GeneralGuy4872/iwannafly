@@ -27,8 +27,6 @@ void
 glx__DrawLoop()
 	{
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	struct entity *nextent = PLAYER;
 	struct bone *nextbone = PLAYER->dembones->root;
@@ -65,7 +63,7 @@ glx__DrawLoop()
 				}
 			else
 				{
-				puts("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"); //80 column horizontal rule
+				puts("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"); //80 column horizontal rule
 				break;
 				}
 			}
@@ -75,8 +73,6 @@ glx__DrawLoop()
 			printf("nextent %p\n",nextent);
 			}
 		else
-			glx__SetCamera();
-			glXSwapBuffers(dsply,glxwin);
 			return;
 		}
 	}

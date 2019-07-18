@@ -66,9 +66,21 @@ typedef char mydate_str[24];
 #define FALSE ((bool) 0)
 #endif /*__bool_true_false_are_defined*/
 
-#define UNTRUE FALSE 
-#define CORRECT TRUE
-//I keep using the wrong values with inverted bools
+#ifdef __STDC_ISO_10646__
+#define _$_ "\uA4"
+#define _DEG_ "\uB0"
+#define _BOMB_ "\360\237\222\243"
+#else
+#define _$_ "\xA4"
+#define _DEG_ "\xB0"
+#define _BOMB_ "/!\\"
+#endif
+#ifdef UNICODE
+#error software cannot be compiled on Windows, try again in a sane POSIX enviroment\n
+#endif
+#ifdef _UNICODE
+#error software cannot be compiled on Windows, try again on a sane POSIX enviroment\n
+#endif
 
 #define TRISTATE ((tern) -1)
 #define QUANTUM ((tern) -2)
@@ -559,8 +571,8 @@ div_t radf_to_deg(input)
   return output;
   }
 
-#define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
-#define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
+#define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i"%s"%2i'",div_tmp.quot,_DEG_,div_tmp.rem)
+#define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i"%s"%2i'\n",div_tmp.quot,_DEG_,div_tmp.rem)
 #define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
 
 #define sprintbase(O,N) (CAMERA.base == 0 ? sprintf(O,"=%7d",CAMERA.N) : (CAMERA.base > 0 ? sprintf(O,"@%7o",CAMERA.N) : sprintf(O,"$%7x",CAMERA.N)))
@@ -628,11 +640,8 @@ fetchJSAXIS ()
   
 struct charvector4 CAMBUFFER;
 
-#define _$_ "\xA4"
-//bypass localization for now by specifying currency symbol is whatever this generates.
-
-#define SOFT_ERROR_MACRO fprintf(stderr,"SOFT ERROR, file:%s line:%d\n",__FILE__,__LINE__); printf("\a");
-#define HARD_ERROR_MACRO fprintf(stderr,"HARD ERROR, file:%s line:%d\n",__FILE__,__LINE__); printf("\a"); X_HCF_X
+#define SOFT_ERROR_MACRO fprintf(stderr,"%sSOFT ERROR, file:%s line:%d\n",_BOMB_,__FILE__,__LINE__); printf("\a");
+#define HARD_ERROR_MACRO fprintf(stderr,"%sHARD ERROR, file:%s line:%d\n",_BOMB_,__FILE__,__LINE__); printf("\a"); X_HCF_X
 
 typedef struct bone
   {

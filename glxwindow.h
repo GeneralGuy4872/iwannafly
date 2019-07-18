@@ -127,5 +127,6 @@ glx__startup()
 	glXMakeCurrent(dsply,glxwin,glxctx);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
 	XStoreName(dsply, glxwin, VITALSTAT(REV_MAIN));
 	}
