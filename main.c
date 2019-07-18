@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
+
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -178,20 +179,20 @@ mainloop ()
 	}
 
 main()
-	??<
+	{
 	JSAXISBUFF_ADDRESS = (long) mmap(NULL,sizeof(short) * 8,PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 	JSAXISFLAG_ADDRESS = (long) mmap(NULL,sizeof(bool),PROT_READ | PROT_WRITE,MAP_SHARED | MAP_ANON,-1,0);
 	MAIN_PID = getpid();
 	if (fork() == 0)
-		??<
-		JSAXISBUFF = JSAXISBUFF_ADDRESS;
-		JSAXISFLAG = JSAXISFLAG_ADDRESS;
+		{
+		JSAXISBUFF =(void *)JSAXISBUFF_ADDRESS;
+		JSAXISFLAG =(void *)JSAXISFLAG_ADDRESS;
 		jsloop();
-		??>
+		}
 	else
-		??<
-		JSAXISBUFF = JSAXISBUFF_ADDRESS;
-		JSAXISFLAG = JSAXISFLAG_ADDRESS;
+		{
+		JSAXISBUFF =(void *)JSAXISBUFF_ADDRESS;
+		JSAXISFLAG =(void *)JSAXISFLAG_ADDRESS;
 		mainloop();
-		??>
-	??>
+		}
+	}
