@@ -76,7 +76,7 @@ Opposite of usual, as currently laid out, the games memory footprint *should* no
 
 While I have moved away from <CODE>goto</CODE>s, one side-effect is that I now use too many <CODE>switch</CODE> statements. Also be aware that macros are used heavily.
 
-Note: Motorola Notation is used in game and in documentation, meaning that $n is a hexadecimal number and @n is an octal number (binary numbers would be %, but are not used). latitude and longitude are recorded as d\* m'. the symbol for currency shall be <CODE>\xA4</CODE>, which displays � in a unicode local, or displays ¤ (generic currency symbol) in most others.
+Note: Motorola Notation is used in game and in documentation, meaning that $n is a hexadecimal number and @n is an octal number (binary numbers would be %, but are not used). latitude and longitude are recorded as d° m'. the symbol for currency shall be ¤.
 
 LISCENSE?
 ---------
