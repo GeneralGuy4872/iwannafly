@@ -45,5 +45,6 @@ jsloop ()
 		(*JSAXISBUFF)[7] = values[7];
 		*JSAXISFLAG = 0;
 		}
-	exit(0);
+	puts("Joystick handler lost it's parent, exiting...");
+	raise(SIGHUP);
 	}

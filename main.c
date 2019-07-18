@@ -146,7 +146,7 @@ mainloop ()
 	glx__startup();
 	CAMERA->coord.fov = 55;
 	CAMERA->coord.z = -2;
-	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m - %s -\033[m\n      main program revision: %s\n  joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
+	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m - %s -\033[m\n      main program revision: %s\n  joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n\nexecute wait after exiting to ensure orphaned forks are terminated",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
 	while (!RUN)
 		{
 		if (!paused)

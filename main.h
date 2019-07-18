@@ -12,7 +12,7 @@
 
 #define __MYVERS__ "000.001.000"
 #define REV_MAIN "003.000"
-#define REV_JS "000.002"
+#define REV_JS "001.004"
 #define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
 #define FOREVER for (;;)
@@ -46,7 +46,7 @@ long JSAXISBUFF_ADDRESS;
 signed short (*JSAXISBUFF)[8];
 long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
-int MAIN_PID;
+volatile int MAIN_PID;
 unsigned char RUN;
 
 typedef int (*eventfunc)(int,int,int,const char[8]); //you know you're getting serious when you're using function pointers
@@ -76,10 +76,10 @@ typedef char mydate_str[24];
 #define _BOMB_ "/!\\"
 #endif
 #ifdef UNICODE
-#error software cannot be compiled on Windows, try again in a sane POSIX enviroment\n
+#error Could not verify sane POSIX enviroment (is possibly Windows?)\n
 #endif
 #ifdef _UNICODE
-#error software cannot be compiled on Windows, try again on a sane POSIX enviroment\n
+#error Could not verify sane POSIX enviroment (is possibly Windows?)\n
 #endif
 
 #define TRISTATE ((tern) -1)
