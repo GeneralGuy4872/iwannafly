@@ -786,7 +786,7 @@ signed short mainh__bonus (num)
 	{
 	signed short accum;
 	tern tmp;
-	for (unsigned char n = 0;n<num,n++)
+	for (unsigned char n = 0;n<num;n++)
 		{
 		tmp = (rand() % 3) - 1;
 		accum += tmp;
