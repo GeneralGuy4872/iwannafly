@@ -1,10 +1,11 @@
 .c    : C source
 .h    : C header
+.out  : executable object
 
-.ini   : settings file (might be changed to a .foorc file)
-.dat   : player mesurements
-.log   : output log
-.save  : save file
+.ini  : settings file (might be changed to a .foorc file)
+.dat  : player mesurements
+.log  : output log
+.tmp  : save file
 
 Far Future plugin interface:
 
@@ -19,11 +20,14 @@ to C and generates a new init.c file. file syntax is assumed from extention.
 
 another perl script generates a makefile that combines the resultant code with:
 
-.bin|.hex|.raw  : raw binary data (dynamically loaded)
-.txt            : blocks of text (for events, must be an eight-dot-three name)
-.c              : event function, skeleton and entity generator functions, misc code
-.h              : shape macros, misc code
+.r8   : heightmap
+.txt  : blocks of text (for events, must be an eight-dot-three name)
+.hex  : non-text char array (r8 is a synonym)
+.bin  : binary data
+.c    : event function, skeleton and entity generator functions, misc code
+.h    : shape macros, misc code
+.o    : object file (discouraged)
 
-and the patched vanilla source to produce the modded game.
+and the vanilla source to produce the modded game.
 
-a different perl script takes a set of mesurements foo.?sv and a model bar.c and compiles a program to display it.
+a different perl script takes a set of mesurements foo.? and a model bar.c and compiles a program to display it.
