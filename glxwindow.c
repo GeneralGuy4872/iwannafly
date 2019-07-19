@@ -16,17 +16,28 @@ glx__SetCamera()
 	{    
 	glMatrixMode(GL_MODELVIEW);
 	mainhTranslatef(EYECOORD((*PLAYER)));
-	mainhMultMatrixf(matgen_z_deg(PLAYER->rot.z,1));
-	mainhMultMatrixf(matgen_sphere_deg(CAMERA->coord.az,CAMERA->coord.alt,NEG(CAMERA->coord.z),1,1));
+	glRotatef(PLAYER->rot.z,0.0,0.0,1.0);
+	glTranslatef(0.0,0.0,NEG(CAMERA->coord.z));
+	glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
+	glRotatef(CAMERA->coord.alt,0.0,1.0,0.0);
+	glMatrixMode(GL_PROJECTION);
+	gluPerspective(RAD(CAMERA->coord.fov),1,.25,100);
+	}
+
+void
+glx__SetOrtho()
+	{
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(RAD(CAMERA->coord.fov),1,.25,100);
+	glOrtho(-500,500,-300,300,-1000,1000);
 	}
 
 void
 glx__DrawLoop()
 	{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	struct entity *nextent = PLAYER;
 	struct bone *nextbone = PLAYER->dembones->root;

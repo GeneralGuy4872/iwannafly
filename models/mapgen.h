@@ -4,7 +4,6 @@
 
 refresh_land()
 	{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	for (signed short n = PLAYER->pos.x + VIEWRNGmin;n < (PLAYER->pos.x + VIEWRNGlim);n++)

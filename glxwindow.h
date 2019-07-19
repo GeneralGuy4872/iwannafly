@@ -128,5 +128,7 @@ glx__startup()
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
+	//some_func_setwrap_x(-360*60,360*60);
+	//some_func_setwrap_y(-360*60,360*60);
 	XStoreName(dsply, glxwin, VITALSTAT(REV_MAIN));
 	}

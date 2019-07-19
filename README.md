@@ -9,9 +9,9 @@
 - last working build : NULL
 	- 0 total
 
-- last faulty build : 12:27:36 Fri Jul 19 2019 CDT
+- last faulty build : 15:34:23 Fri Jul 19 2019 CDT
 - last kpanic build : NULL
-- last failed build : 12:26:21 Fri Jul 19 2019 CDT
+- last failed build : 15:31:32 Fri Jul 19 2019 CDT
 
 Iwannafly
 =========
@@ -21,7 +21,10 @@ Screenshots
 ---------
 
 Terminal intro working: https://files.catbox.moe/zgv4wv.jpeg
+
 Titlebar working: https://files.catbox.moe/nx5elu.jpeg
+
+First coherent rendered object: https://files.catbox.moe/dzdncx.png (buggy ground mesh in the wrong projection space, but still milestone progress!)
 
 Requirements
 ------------
