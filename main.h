@@ -766,6 +766,36 @@ worldtype WORLD = {&planet1,NULL,NULL,NULL,NULL,NULL,NULL,&camera1};
 
 #define mainh__fork__reap (getppid() == MAIN_PID) //needs more cowbell
 
+unsigned int mainh__roll (num,side,low)
+	unsigned char num;
+	unsigned char side;
+	bool low;
+	{
+	unsigned int accum;
+	unsigned int tmp;
+	for (unsigned char n = 0;n<num;n++)
+		{
+		tmp = (rand() % side) + low;
+		accum += tmp;
+		}
+	return accum;
+	}
+
+signed short mainh__bonus (num)
+	unsigned char num;
+	{
+	signed short accum;
+	tern tmp;
+	for (unsigned char n = 0;n<num,n++)
+		{
+		tmp = (rand() % 3) - 1;
+		accum += tmp;
+		}
+	return accum;
+	}
+
+#define mainh__flip (rand() % 2)
+
 #ifdef __gl_h_
 void __mainhTranslatef(vec)
 	vector3 vec;
