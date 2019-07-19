@@ -1,33 +1,50 @@
-.c    : C source
-.h    : C header
-.out  : executable object
+.c  : C source
+.h  : C header
 
-.ini  : settings file (might be changed to a .foorc file)
-.dat  : player mesurements
-.log  : output log
-.tmp  : save file
+.ini   : settings file (might be changed to a .*rc file)
+.dat   : player mesurements
+.log   : output log
+.tmp   : temporary file
+.save  : save file
 
 Far Future plugin interface:
 
-a perl script uses an rc file to generate a makefile that uses awk to parse:
+a perl script uses an rc file to parse:
 
 .tsv|.csv|.tab|.dat  : array, fraction, vector, matrix, etc   (dat = single column data)
-.ini                 : simple macros, single (non-nested) struct, role switch case
-.json                : single (infinately nested) struct
-.xml                 : multiple (infinately nested) structs
+.ini                 : single (non-nested) struct, role switch case
+.json                : single (infinately nested) struct, role switch case
+.xml                 : multiple (infinately nested) structs, role switch case
 
-to C and generates a new init.c file. file syntax is assumed from extention.
+to C files using a small set of API commands:
 
-another perl script generates a makefile that combines the resultant code with:
+(initial syntax outline)
+
+COMMAND= param:"string" param:/path/to/file.ext param:7 bool !bool tern !tern -tern ...
+COMMAND_FF=/path/to/file.ext
+MACRO=/path/to/file.ini /path/to/file.ini ...
+#comment
+;comment
+...
+
+ - a path starts with [~/.] and must not contain spaces. file system may be case sensitive, extension recognition is not
+ - Decimal is assumed. Non-decimal numbers must be non-negative and whole. decimal numbers should omit leading zeros for performance reasons
+ - Non-decimal numbers may be in motorola notation: $ is hex, @ is octal, % is binary; or in common notation: 0x is hex, 0o is octal, 0b is binary
+ - linked file syntax is assumed from both context and extension; if context and extension are contradictory, an error is generated
+ - most fields will accept a literal string by passing an argument in single quotes. escaping the first quote with a prime passes the quotes as well.)
+ - another file may be inserted at any point outside of a field using <path/to/file>
+
+another perl script generates a makefile, combining the vanilla source, the generated files, and other specified files:
 
 .r8   : heightmap
 .txt  : blocks of text (for events, must be an eight-dot-three name)
 .hex  : non-text char array (r8 is a synonym)
-.bin  : binary data
 .c    : event function, skeleton and entity generator functions, misc code
 .h    : shape macros, misc code
-.o    : object file (discouraged)
 
-and the vanilla source to produce the modded game.
+generates a sed script to add #include lines and generate a default config file, and then compile the modded game.
+
+(rc syntax tbd)
 
 a different perl script takes a set of mesurements foo.? and a model bar.c and compiles a program to display it.
+a helper program can generate mesurement files (ascii .dat format) for models.

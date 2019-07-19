@@ -1,8 +1,9 @@
 #exclude files generated when compiling
 **/*.o
 **/*.out
+**/*.obj
 **/*.elf
-**/*.coff
+**/*.bin
 conf.ini
 old_conf.ini
 date
