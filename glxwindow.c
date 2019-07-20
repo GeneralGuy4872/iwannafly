@@ -13,26 +13,18 @@
 
 void
 glx__SetCamera()
-	{    
+	{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	mainhTranslatef(EYECOORD((*PLAYER)));
 	glRotatef(PLAYER->rot.z,0.0,0.0,1.0);
 	glTranslatef(0.0,0.0,NEG(CAMERA->coord.z));
 	glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
 	glRotatef(CAMERA->coord.alt,0.0,1.0,0.0);
 	glMatrixMode(GL_PROJECTION);
-	gluPerspective(RAD(CAMERA->coord.fov),1,.25,100);
-	}
-
-void
-glx__SetOrtho()
-	{
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
 	glOrtho(-500,500,-300,300,-1000,1000);
+	mainhFOV(RAD(CAMERA->coord.fov));
 	}
 
 void
@@ -70,11 +62,9 @@ glx__DrawLoop()
 			if (nextbone->next != NULL)
 				{
 				nextbone = nextbone->next;
-				printf("nextbone %p\n",nextbone);
 				}
 			else
 				{
-				puts("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"); //80 column horizontal rule
 				break;
 				}
 			}

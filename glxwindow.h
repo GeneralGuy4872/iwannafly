@@ -14,7 +14,7 @@ GLXContext glxctx;
 XVisualInfo *xvi;
 Colormap cmap;
 
-static unsigned int
+static signed short
 glx__keysymswitch(monitor,windw,event)
 	Display *monitor;
 	Window windw;
@@ -25,67 +25,99 @@ glx__keysymswitch(monitor,windw,event)
 		int sym_keypressd = XLookupKeysym(&(event.xkey), 0);
 		switch (sym_keypressd)
 			{
+			case XK_KP_Add : noop();
 			case XK_plus :
 				{
 				CAMBUFFER.w++;
-				return STR_INT(0,'+',0,0);
+				puts("FOV +");
+				return STR_INT(0,'+',0);
 				break;
 				}
+			case XK_KP_Subtract : noop(); 
 			case XK_minus :
 				{
 				CAMBUFFER.w--;
-				return STR_INT(0,'-',0,0);
+				puts("FOV -");
+				return STR_INT(0,'-',0);
 				break;
 				}
+			case XK_KP_7 : noop();
+			case XK_KP_Home : noop();
 			case XK_Home :
 				{
 				PLAYER->Torq.z = fmod((PLAYER->Torq.z + (CAMERA->coord.az * 2)),360);
-				return STR_INT(0,'\r',0,0);
+				return STR_INT(0,'\r',0);
 				break;
 				}
+			case XK_KP_4 : noop();
+			case XK_KP_Left : noop();
 			case XK_Left :
 				{
 				CAMBUFFER.x++;
-				return STR_INT(0,0x1b,'[','D');
+				puts("Pan <-");
+				return STR_INT(0,0x9b,'D');
 				break;
 				}
+			case XK_KP_6 : noop();
+			case XK_KP_Right : noop();
 			case XK_Right :
 				{
 				CAMBUFFER.x--;
-				return STR_INT(0,0x1b,'[','C');
+				puts("Pan ->");
+				return STR_INT(0,0x9b,'C');
 				break;
 				}
+			case XK_KP_8 : noop();
+			case XK_KP_Up : noop();
 			case XK_Up :
 				{
 				CAMBUFFER.y++;
-				return STR_INT(0,0x1b,'[','A');
+				puts("Pan ^");
+				return STR_INT(0,0x9b,'A');
 				break;
 				}
+			case XK_KP_2 : noop();
+			case XK_KP_Down : noop();
 			case XK_Down :
 				{
 				CAMBUFFER.y--;
-				return STR_INT(0,0x1b,'[','B');
+				puts("Pan v");
+				return STR_INT(0,0x9b,'B');
 				break;
 				}
+			case XK_KP_9 : noop();
+			case XK_KP_Page_Up : noop();
 			case XK_Page_Up :
 				{
 				CAMBUFFER.z++;
-				return STR_INT(0,0x1b,'[','F');
+				puts("Zoom +");
+				return STR_INT(0,0x9b,'S');
 				break;
 				}
+			case XK_KP_3 : noop();
+			case XK_KP_Page_Down : noop();
 			case XK_Page_Down :
 				{
 				CAMBUFFER.z--;
-				return STR_INT(0,0x1b,'[','E');
+				puts("Zoom -");
+				return STR_INT(0,0x9b,'T');
 				break;
 				}
+			case XK_KP_1 : noop();
+			case XK_KP_End : noop();
 			case XK_End :
 				{
 				CAMERA->coord.az=0;
 				CAMERA->coord.alt=0;
 				CAMERA->coord.z=0;
 				CAMERA->coord.fov=50;
-				return STR_INT(0,0x19,0,0);
+				return STR_INT(0,0x19,0);
+				break;
+				}
+			case XK_F1 :
+				{
+				RUN++;
+				return STR_INT(1,1,0);
 				break;
 				}
 			default :
@@ -96,6 +128,18 @@ glx__keysymswitch(monitor,windw,event)
 			}
 		}
 	}
+/* esc = 0   @33   0
+ * ctrl = 0   $9F   0
+ * alt = 0   $9D   0
+ * shift = 0   $F   0
+ * f# = #   0   0
+ * caps = never caught
+ *
+ * data format (signed short):
+ * special indicator (1 bit)
+ * ISO-8859 character or control code (8 bits)
+ * ASCII character modifier (7 bits, usually absent)
+ */
 
 static void
 glx__eventswitch(monitor,windw)

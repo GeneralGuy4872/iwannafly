@@ -44,7 +44,15 @@ another perl script generates a makefile, combining the vanilla source, the gene
 
 generates a sed script to add #include lines and generate a default config file, and then compile the modded game.
 
-(rc syntax tbd)
+EVENT=/path/to/file.c
+EVNT_TXT=/path/to/file.txt
+EVNT_HOOK= call:"foo" text:"bar" include:/path/to/file.c
+SKEL=/path/to/file.c
+SPELL=/path/to/file.c
+SHAPE=/path/to/file.c
+HEADER=/path/to/file.h
+DEFAULTS= dims:/path/to/file.dat map:/path/to/file.r8 field:value field:value ...
 
 a different perl script takes a set of mesurements foo.? and a model bar.c and compiles a program to display it.
 a helper program can generate mesurement files (ascii .dat format) for models.
+a helper program will generate a custom conf.ini (or .*rc) file

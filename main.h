@@ -48,11 +48,15 @@ long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
 volatile int MAIN_PID;
 unsigned char RUN;
+unsigned long long KILLS;
+unsigned long long QUESTS;
 
 typedef int (*eventfunc)(int,int,int,const char[8]); //you know you're getting serious when you're using function pointers
 typedef signed char tern;
 typedef unsigned char quard;
 typedef char mydate_str[24];
+//typedef unsigned short Rune;
+//typedef char *terminal[25][80];
 
 #ifdef __bool_true_false_are_defined
 #ifndef TRUE
@@ -62,6 +66,7 @@ typedef char mydate_str[24];
 #define FALSE (false)
 #endif /*!(FALSE)*/
 #else /*!(__bool_true_false_are_defined)*/
+typedef char bool
 #define TRUE ((bool) 1)
 #define FALSE ((bool) 0)
 #endif /*__bool_true_false_are_defined*/
@@ -75,12 +80,7 @@ typedef char mydate_str[24];
 #define _DEG_ "\xB0"
 #define _BOMB_ "/!\\"
 #endif
-#ifdef UNICODE
-#error Could not verify sane POSIX enviroment (is possibly Windows?)\n
-#endif
-#ifdef _UNICODE
-#error Could not verify sane POSIX enviroment (is possibly Windows?)\n
-#endif
+//note: unicode handling is done either 8-bit clean with printf (how they tell you NOT to), or by ncursesw.
 
 #define TRISTATE ((tern) -1)
 #define QUANTUM ((tern) -2)
@@ -277,6 +277,28 @@ typedef struct magic_type
   bool dark : 1;
   bool energy : 1;
   } magic_type;
+
+typedef struct sixstats
+  {
+  unsigned char stren : 5;
+  unsigned char dex : 5;
+  unsigned char con : 5;
+  unsigned char intl : 5;
+  unsigned char wis : 5;
+  unsigned char cha : 5;
+  char : 0;
+  } sixstats;
+
+typedef struct rpg_stats
+  {
+  struct sixstats six;
+  struct magic_type typ;
+  unsigned char lvl;
+  bytevector4 atk; //x = unarmed hand, y = unarmed foot, z = tail, w = wing; 254 maximum, 255 inflicts a flat 1 point of scratch damage.
+  charvector3 def; //x = physical, y = psychic, z = magic; most negative number = invulnerable to that mode of attack
+  bytevector3 rec; //percent of incoming damage that is reflected to the attacker. values greater than 100 have no increased effect.
+  //damage is calculated by taking the adverage of (the adverage of the relevant stats) and the modifyer.
+  } rpg_stats;
 
 typedef struct spell
   {
@@ -579,8 +601,8 @@ div_t radf_to_deg(input)
 #define fprintbase(O,N) (CAMERA.base == 0 ? fprintf(O,"=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
 #define printbase(N) (CAMERA.base == 0 ? printf("=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
 
-#define HASH5(A,B,C) ( (( (A <= ' ') || (A == '#') || (A == ';') || (A == '[') ) ? (short) 0xFFFFFFFF : (short) 0x00000000) | ((0x0000001f & (short) A) << 10) | ((0x0000001f & (short) B) << 5) | (0x0000001f & (short) C) )
-#define STR_INT(A,B,C,D) (unsigned int) ( ((A | 0x000000FF) << 24) | ((B | 0x000000FF) << 16) | ((C | 0x000000FF) << 8) | (D | 0x000000FF) )
+#define HASH5(A,B,C) ( (( (A <= ' ') || (A == '#') || (A == ';') || (A == '[') ) ? (unsigned short) 0xFFFF : (unsigned short) 0x0000) | ((0x001f & (unsigned short) A) << 10) | ((0x001f & (unsigned short) B) << 5) | (0x001f & (unsigned short) C) )
+#define STR_INT(O,I,A) (signed short) ( (O ? (unsigned short) 0x8000 : (unsigned short) 0x0000) | (((unsigned short) I & (unsigned short) 0x00FF) << 7) | ((unsigned short) A & (unsigned short) 0x007F) )
 
 file_cat (path)
   const char *path;
@@ -703,14 +725,12 @@ typedef struct entity
 		 * bool law - deferred
 		 * bool chaos deferred
 		 */
-	charvector2 alignment;
+	bytevector2 alignment;
 		/* x = lawful/chaotic
 		 * y = good/evil
-		 * $90<=n<=$FE : evil/chaotic
-		 * $20<=n<=$7F : good/lawful
-		 * $00<=n<=$1F : neutral
-		 * $80<=n<=$8F : ^
-		 *   n == $FF  : mindless
+		 * $00<=n<=$6F : good/lawful
+		 * $70<=n<=$9F : neutral
+		 * $A0<=n<=$FF : evil/chaotic
 		 */
 	unsigned short health;
 	float Ff;
@@ -719,6 +739,7 @@ typedef struct entity
 	struct vector3 *Drag; //x = ground, y = water, z = air
 	struct vector3 *Fa; //x = ground, y = water, z = air
 	struct skeleton *dembones;
+	struct rpg_stats *rpg;
 	spellbook spells;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	} entity;
@@ -816,6 +837,8 @@ void mainhLoadMatrixf(mat)
 	{
 	glLoadMatrixf((const float *)mat);
 	}
+
+#define mainhFOV(F) gluPerspective(F * (3/5),(5/3),0.025,1000)
 #else
 #error opengl is required
 #endif

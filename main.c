@@ -28,7 +28,14 @@
 //#include <errno.h>
 
 #include <GL/gl.h>
-#include <GL/glu.h> //know what this does now
+#include <GL/glu.h>
+
+#ifdef __STDC_ISO_10646__
+#include <ncursesw/ncurses.h>
+#else
+#include <ncurses.h>
+#endif
+#include <menu.h>
 
 #include "main.h"
 #include "init.c"
@@ -39,7 +46,13 @@
 #include "glxwindow.c"
 //#include "textout.c"
 
-//---<HR>---
+//#ifdef __STDC_ISO_10646__
+//#include "wideroguelike.c"
+//#else
+//#include "asciiroguelike.c"
+//#endif
+
+/***<HR>***/
 
 /* all exact mesurements should folow SI units or SI acceptable units (i.e. degrees),
  * since real mesurements are used, conclusions can be made about the
@@ -118,13 +131,17 @@ onstep_player ()
 onstep_camera ()
 	{
 	CAMERA->coord.az = (CAMERA->coord.az + CAMBUFFER.x)%180; //degrees/2
+	CAMBUFFER.x = 0;
 	CAMERA->coord.alt = (CAMERA->coord.alt + CAMBUFFER.y)%180; //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMBUFFER.y = 0;
 	CAMERA->coord.z = CLAMP((CAMERA->coord.z + CAMBUFFER.z),-120,120); //meters, 2 arcminutes either direction
+	CAMBUFFER.z = 0;
 	CAMERA->coord.fov = CLAMP((CAMERA->coord.fov + CAMBUFFER.w),5,255); //degrees (solid degrees?)
+	CAMBUFFER.w = 0;
 	}
 
 
-//---<HR>---
+/***<HR>***/
 
 onstep_master ()
 	{
@@ -139,7 +156,8 @@ onstep_paused ()
 	onstep_camera();
 	}
 
-/*MAIN*/
+/***MAIN***/
+
 mainloop ()
 	{
 	init__setup();
@@ -147,21 +165,18 @@ mainloop ()
 	CAMERA->coord.fov = 55;
 	CAMERA->coord.z = -2;
 	glClearColor(0.0,0.9,0.9,1.0);
-	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m - %s -\033[m\n      main program revision: %s\n  joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n\nexecute wait after exiting to ensure orphaned forks are terminated",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
+	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m - %s -\033[m\n      main program revision: %s\n  joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n\nexecute wait after exiting to ensure orphaned forks are terminated\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
 	while (!RUN)
 		{
 		if (!paused)
 			{
 			if (nextframe)
 				{
-				puts("loop!");
-				glx__SetOrtho();
+				glx__SetCamera();
 				refresh_land();
 				glFinish();
 				onstep_master();
 				glx__DrawLoop();
-				glFinish();
-				glx__SetCamera();
 				glFinish();
 				glXSwapBuffers(dsply,glxwin);
 				nextframe = FALSE;

@@ -193,21 +193,10 @@ boneloop(subject)
   if (subject->drawline)
     {
     shapeloop(shape_line(subject->len.x,subject->len.y,subject->len.z),subject->color,subject->ultraviolet);
-    puts("LINE!");
     }
-  else
-    {
-    puts("NO line");
-    }
-  puts("line done");
+  noop();
   if (subject->geom != NULL)
     {
     shapeloop(subject->geom,subject->color,subject->ultraviolet);
-    puts("SHAPE!");
     }
-  else
-    {
-    puts("NO shape");
-    }
-  puts("shape done");
   }

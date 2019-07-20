@@ -90,7 +90,7 @@ entity* summon_avian(xcoord,ycoord,zcoord,geomet,fg,bg)
 	minicolor bg;
 	{
 	entity *tmp = malloc(sizeof(bone));
-	*tmp = (entity){NULL,NULL,{xcoord,ycoord,zcoord,groundmake(xcoord,ycoord)},{0,0,0},{0,0,0},{0,0,0},{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{0xE0,0x60},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet,fg,bg),{NULL,NULL,NULL,NULL}};
+	*tmp = (entity){NULL,NULL,{xcoord,ycoord,zcoord,groundmake(xcoord,ycoord)},{0,0,0},{0,0,0},{0,0,0},{FALSE,FALSE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE},{TRUE,TRUE,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE},{0xE0,0x60},255,AVE_FRIC,AVE_MASS,AVE_DENSE,&AVE_DRAG,&AVE_SPD,sculpt_avian(geomet,fg,bg),NULL,{NULL,NULL,NULL,NULL}};
 	ent_add(tmp);
 	return tmp;
 	}
