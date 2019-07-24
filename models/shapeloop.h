@@ -16,7 +16,7 @@ shapeloop(subject,color,ultra)
   unsigned char n = 0; //for loops are not applicable here
   unsigned char mode = 0;
   unsigned char iter = 0;
-  glColor4b((CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0x7F : color.r,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0 : color.g,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0xFF : color.b,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0xFF : color.a);
+  glColor4b((CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0x7F : color.r,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0 : color.g,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0xFF : color.b,color.a);
   while (n < subject->inum)
     {
     switch (mode)
@@ -179,7 +179,7 @@ shapeloop(subject,color,ultra)
         }
       default :
         {
-        SOFT_ERROR_MACRO;
+        FLOW_ERROR_MACRO;
         mode = 0;
         break;
         }

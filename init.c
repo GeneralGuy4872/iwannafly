@@ -121,94 +121,93 @@ init__setup ()
     {
     case 0 :
       {
-      summon_avian(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_avian(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = !forcebten;
-      file_cat("/usr/share/iwannafly/avianquest");
+      file_cat("/usr/share/iwannafly/avianquest.txt");
       break;
       }/*
     case 1 :
       {
-      summon_human(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_human(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      file_cat("/usr/share/iwannafly/knightquest");
+      file_cat("/usr/share/iwannafly/knightquest.txt");
       break;
       }
     case 2 :
       {
-      summon_elf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_elf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = -!forcebten;
-      file_cat("/usr/share/iwannafly/elfquest");
+      file_cat("/usr/share/iwannafly/elfquest.txt");
       break;
       }
     case 3 :
       {
-      summon_dwarf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_dwarf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      file_cat("/usr/share/iwannafly/dwarfquest");
+      file_cat("/usr/share/iwannafly/dwarfquest.txt");
       break;
       }
     case 4 :
       {
-      summon_gnome(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_gnome(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = -!forcebten;
-      file_cat("/usr/share/iwannafly/gnomequest");
+      file_cat("/usr/share/iwannafly/gnomequest.txt");
       break;
       }
     case 5 :
       {
-      summon_wizard(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_wizard(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      file_cat("/usr/share/iwannafly/wizardquest");
+      file_cat("/usr/share/iwannafly/wizardquest.txt");
       break;
       }
     case 6 :
       {
-      summon_cleric(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_cleric(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      file_cat("/usr/share/iwannafly/clericquest");
+      file_cat("/usr/share/iwannafly/clericquest.txt");
       break;
       }
     case 7 :
       {
-      summon_rogue(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_rogue(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      file_cat("/usr/share/iwannafly/roguequest");
+      file_cat("/usr/share/iwannafly/roguequest.txt");
       break;
       }
     case 8 :
       {
-      summon_drow(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_drow(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = -!forcebten;
-      file_cat("/usr/share/iwannafly/drowquest");
+      file_cat("/usr/share/iwannafly/drowquest.txt");
       break;
       }
     case 9 :
       {
-      summon_draconic(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_draconic(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = -!forcebten;
-      file_cat("/usr/share/iwannafly/draconquest");
+      file_cat("/usr/share/iwannafly/draconquest.txt");
       break;
       }
     case 10 :
       {
-      summon_merfolk(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_merfolk(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      file_cat("/usr/share/iwannafly/merquest");
+      file_cat("/usr/share/iwannafly/merquest.txt");
       break;
       }
     case 11 :
       {
-      summon_seaelf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_seaelf(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = -!forcebten;
-      file_cat("/usr/share/iwannafly/seaelfquest");
+      file_cat("/usr/share/iwannafly/seaelfquest.txt");
       break;
       }*/
     default :
       {
-      summon_avian(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(3,3,3,3),(truecolor)color6(2,2,2,2));
+      summon_avian(0.0,0.0,groundmake(0.0,0.0),TAILOR,(truecolor)color6(-1,-1,-1,-1),(truecolor)color6(2,2,2,-1));
       CAMERA->format.base = 0;
-      SOFT_ERROR_MACRO
-      printf("you are error.\n");
+      BORKEDCONF
       break;
       }
     }

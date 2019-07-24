@@ -14,19 +14,19 @@
 void
 glx__SetCamera()
 	{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_MODELVIEW);
+	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+	glScalef(1.0,-1.0,1.0);
+	gluPerspective(RAD(CAMERA->coord.fov),MWASPECT,0.1,FARAWAY);
+	glMatrixMode(GL_MODELVIEW);
+	glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z)); //on my head be this
 	mainhTranslatef(EYECOORD((*PLAYER)));
-	glRotatef(PLAYER->rot.z,0.0,0.0,1.0);
-	glTranslatef(0.0,0.0,NEG(CAMERA->coord.z));
+	glTranslatef(0.0,0.0,CAMERA->coord.z);
 	glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
 	glRotatef(CAMERA->coord.alt,0.0,1.0,0.0);
-	glMatrixMode(GL_PROJECTION);
-	glOrtho(-500,500,-300,300,-1000,1000);
-	mainhFOV(RAD(CAMERA->coord.fov));
 	}
-
+	
 void
 glx__DrawLoop()
 	{
@@ -37,19 +37,20 @@ glx__DrawLoop()
 		{
 		FOREVER
 			{
+			glPushMatrix();
 			if (nextbone->up == NULL)
 				{
-				glLoadIdentity();
 				if (nextent->stat.horiz)
 					{
+					glTranslatef(nextent->pos.x,nextent->pos.y,nextent->pos.z);
 					mainhMultMatrixf(matgen_y_deg(90,1));
-					mainhMultMatrixf(matgen_zeuler_deg(PLAYER->rot.z,PLAYER->rot.y,PLAYER->rot.x,1,1,1));
+					mainhMultMatrixf(matgen_zeuler_deg(nextent->rot.z,nextent->rot.y,nextent->rot.x,1,1,1));
 					}
 				else
 					{
-					mainhMultMatrixf(matgen_master_deg(PLAYER->rot.z,PLAYER->rot.y,PLAYER->rot.x,1,1,1));
+					glTranslatef(nextent->pos.x,nextent->pos.y,nextent->pos.z + nextent->dembones->off.x);
+					mainhMultMatrixf(matgen_master_deg(nextent->rot.z,nextent->rot.y,nextent->rot.x,1,1,1));
 					}
-				glTranslatef(nextent->pos.x,nextent->pos.y,nextent->pos.z + (nextent->stat.horiz ? 0 : nextent->dembones->off.x));
 				}
 			else
 				{
@@ -71,9 +72,12 @@ glx__DrawLoop()
 		if (nextent->next != NULL)
 			{
 			nextent = nextent->next;
-			printf("nextent %p\n",nextent);
+			glPopMatrix();
 			}
 		else
+			{
+			glPopMatrix();
 			return;
+			}
 		}
 	}

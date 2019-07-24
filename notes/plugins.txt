@@ -8,6 +8,9 @@
 .save  : save file
 
 Far Future plugin interface:
+( perl is a placeholder and might refer to perl, awk, scheme, or lisp, depending on future implementation
+( sed, however, is unlikely to refer to any program other than sed itself.
+( rc files refer to the settings dotfiles that are generally similar to INI files, not plan9 scripts that are generally similar to shell scripts
 
 a perl script uses an rc file to parse:
 

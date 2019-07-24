@@ -160,15 +160,15 @@ onstep_paused ()
 
 mainloop ()
 	{
+	printf("\n\n \033[1;95m~~ Iwannafly ~~\033[m\n\033[97m  version: %s\n\n \033[96m - %s -\033[m\n\033[97m      main program revision: %s\n  joystick handler revision: %s\n\n\033[37mCompiled on %s\033[23m\n\nexecute wait after exiting to ensure orphaned forks are terminated\n\n\033m",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
 	init__setup();
 	glx__startup();
 	CAMERA->coord.fov = 55;
 	CAMERA->coord.z = -2;
 	glClearColor(0.0,0.9,0.9,1.0);
-	printf(" \033[1;97m~~ Iwannafly ~~\033[m\n  version: %s\n\n \033[97m - %s -\033[m\n      main program revision: %s\n  joystick handler revision: %s\n\n\033[3mCompiled on %s\033[m\n\nexecute wait after exiting to ensure orphaned forks are terminated\n",__MYVERS__,"Prealpha",REV_MAIN,REV_JS,__DATE__);
 	while (!RUN)
 		{
-		if (!paused)
+		if (!PAUSE)
 			{
 			if (nextframe)
 				{
@@ -195,6 +195,10 @@ mainloop ()
 		else if (nextstep)
 			{
 			onstep_paused();
+			}
+		else
+			{
+			frametimeloop();
 			}
 		}
 	printf("runlevel lowered, exiting...\n");

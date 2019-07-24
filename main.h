@@ -9,9 +9,10 @@
  */
 
 #define BUFFER_MAX 512
+#define FARAWAY 5000
 
 #define __MYVERS__ "000.001.000"
-#define REV_MAIN "003.000"
+#define REV_MAIN "003.007"
 #define REV_JS "001.004"
 #define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
 
@@ -48,8 +49,9 @@ long JSAXISFLAG_ADDRESS;
 signed char *JSAXISFLAG;
 volatile int MAIN_PID;
 unsigned char RUN;
-unsigned long long KILLS;
-unsigned long long QUESTS;
+unsigned long KILLS;
+unsigned long QUESTS;
+bool PAUSE = 0;
 
 typedef int (*eventfunc)(int,int,int,const char[8]); //you know you're getting serious when you're using function pointers
 typedef signed char tern;
@@ -278,27 +280,94 @@ typedef struct magic_type
   bool energy : 1;
   } magic_type;
 
-typedef struct sixstats
+typedef struct eightstats /*9d6 each*/
   {
-  unsigned char stren : 5;
-  unsigned char dex : 5;
-  unsigned char con : 5;
-  unsigned char intl : 5;
-  unsigned char wis : 5;
-  unsigned char cha : 5;
-  char : 0;
-  } sixstats;
+  unsigned char stren : 6;
+  unsigned char dex : 6;
+  unsigned char tough : 6;
+  unsigned char fort : 6;
+  unsigned char intl : 6;
+  unsigned char wis : 6;
+  unsigned char bluff : 6;
+  unsigned char cast : 6;
+  } eightstats;
+
+typedef struct race_stats
+  {
+  struct magic_type typ;
+  bytevector4 atk; /*x = unarmed hand, y = unarmed foot, z = tail, w = wing; 254 maximum, 255 inflicts a flat 1 point of scratch damage.*/
+  charvector2 def; /*x = physical, y = magic; most negative number = invulnerable to that mode of attack*/
+  bytevector2 rec; /*percent of incoming damage that is reflected to the attacker. values greater than 100 have no increased effect.*/
+  /*damage is calculated by taking the adverage of (the adverage of the relevant stats) and the modifyer, then multiplying (or dividing) by the typetable entry(s).*/
+  } race_stats;
 
 typedef struct rpg_stats
   {
-  struct sixstats six;
-  struct magic_type typ;
+  struct eightstats eight;
+  struct race_stats *racests;
   unsigned char lvl;
-  bytevector4 atk; //x = unarmed hand, y = unarmed foot, z = tail, w = wing; 254 maximum, 255 inflicts a flat 1 point of scratch damage.
-  charvector3 def; //x = physical, y = psychic, z = magic; most negative number = invulnerable to that mode of attack
-  bytevector3 rec; //percent of incoming damage that is reflected to the attacker. values greater than 100 have no increased effect.
-  //damage is calculated by taking the adverage of (the adverage of the relevant stats) and the modifyer.
+  unsigned short maxhp;
+  unsigned short maxmp;
+  unsigned char timer;
   } rpg_stats;
+
+typedef struct weapon
+  {
+  bool fireproof : 1;
+  bool waterproof : 1;
+  bool elecproof : 1;
+  bool iceproof : 1;
+  bool warded : 1;
+  bool shielded : 1;
+  bool cursed : 1;
+  bool pointy : 1;
+  bool unbreak : 1;
+  unsigned char itemid : 7; //weapons are ASCII printables
+  signed char bonus : 8;
+  unsigned char value : 8;
+  unsigned char durability : 8;
+  } weapontyp;
+
+typedef struct item
+  {
+  bool fireproof : 1;
+  bool waterproof : 1;
+  bool elecproof : 1;
+  bool iceproof : 1;
+  bool warded : 1;
+  bool shielded : 1;
+  bool cursed : 1;
+  bool require : 1;
+  unsigned char itemid : 8; //required items are C0 controls, misc items are non-ascii
+  unsigned char metadata : 8;
+  } itemtyp;
+
+typedef struct potion
+  {
+  bool fireproof : 1;
+  bool waterproof : 1;
+  bool elecproof : 1;
+  bool iceproof : 1;
+  bool warded : 1;
+  bool shielded : 1;
+  bool cursed : 1;
+  signed char itemid : 1; //potions are -1
+  unsigned short health : 16;
+  } potiontyp;
+//potion names are auto-generated
+
+typedef void* bag_type[4][10][10];
+/* [0] and [1] contain weapontyp (which can also be armor), [2] contains potiontyp, and [3] contains itemtyp.
+ * if something is put in the wrong section, program goes boom (SIGSEGV).
+ * if another species of items comes into being, then more z pages will have to be added.
+ */
+
+typedef char* itemSTABS[256];
+/* if the iterger promoted value is negative,
+ * return the string "potion" instead of
+ * returning garbage by casting it unsigned,
+ * since only potions have a signed ID.
+ */
 
 typedef struct spell
   {
@@ -483,8 +552,8 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define fnextline(F) fscanf(F,"%*[^\n]s");
 #define nextline scanf("%*[^\n]s");
 
-#define BASECOORD(M) M.stat.horiz ? (vector3){M.pos.x,M.pos.y,M.pos.z} : vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x})
-#define EYECOORD(M) vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y})))
+#define BASECOORD(M) (M.stat.horiz ? (vector3){M.pos.x,M.pos.y,M.pos.z} : vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x}))
+#define EYECOORD(M) (M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y}))
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
@@ -583,6 +652,13 @@ vector3 vecadd(vecbase,vecoff)
 	return output;
 	}
 
+vector3 invec(input)
+	vector3 input;
+	{
+	vector3 output = {NEG(input.x),NEG(input.y),NEG(input.z)};
+	return output;
+	}
+
 div_t radf_to_deg(input)
   float input;
   {
@@ -593,16 +669,23 @@ div_t radf_to_deg(input)
   return output;
   }
 
-#define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i"%s"%2i'",div_tmp.quot,_DEG_,div_tmp.rem)
+#define sprintdeg(N,O) div_tmp = radf_to_deg(N); sprintf(O,"%4i*%2i'",div_tmp.quot,div_tmp.rem)
 #define fprintdef(N,O) div_tmp = radf_to_deg(N); fprintf(O,"%4i"%s"%2i'\n",div_tmp.quot,_DEG_,div_tmp.rem)
-#define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i*%2i'\n",div_tmp.quot,div_tmp.rem)
+#define printdeg(N) div_tmp = radf_to_deg(N); printf("%4i"%s"%2i'\n",div_tmp.quot,_DEG_,div_tmp.rem)
 
-#define sprintbase(O,N) (CAMERA.base == 0 ? sprintf(O,"=%7d",CAMERA.N) : (CAMERA.base > 0 ? sprintf(O,"@%7o",CAMERA.N) : sprintf(O,"$%7x",CAMERA.N)))
-#define fprintbase(O,N) (CAMERA.base == 0 ? fprintf(O,"=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
-#define printbase(N) (CAMERA.base == 0 ? printf("=%7d\n",CAMERA.N) : (CAMERA.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
+#define sprintbase(O,N) (CAMERA.base == 0 ? sprintf(O," %7d",CAMERA.N) : (CAMERA.base > 0 ? sprintf(O,"@%7o",CAMERA.N) : sprintf(O,"$%7x",CAMERA.N)))
+#define fprintbase(O,N) (CAMERA.base == 0 ? fprintf(O," %7d\n",CAMERA.N) : (CAMERA.base > 0 ? fprintf(O,"@%7o\n",CAMERA.N) : fprintf(O,"$%7x\n",CAMERA.N)))
+#define printbase(N) (CAMERA.base == 0 ? printf(" %7d\n",CAMERA.N) : (CAMERA.base > 0 ? printf("@%7o\n",CAMERA.N) : printf("$%7x\n",CAMERA.N)))
 
 #define HASH5(A,B,C) ( (( (A <= ' ') || (A == '#') || (A == ';') || (A == '[') ) ? (unsigned short) 0xFFFF : (unsigned short) 0x0000) | ((0x001f & (unsigned short) A) << 10) | ((0x001f & (unsigned short) B) << 5) | (0x001f & (unsigned short) C) )
 #define STR_INT(O,I,A) (signed short) ( (O ? (unsigned short) 0x8000 : (unsigned short) 0x0000) | (((unsigned short) I & (unsigned short) 0x00FF) << 7) | ((unsigned short) A & (unsigned short) 0x007F) )
+
+#define SOFT_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;5;95;49mSOFT ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a");
+#define HARD_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;4;91;49mHARD ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
+#define FLOW_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;103;41mFALLTHROUGH\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
+#define MATH_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[3;43;41mINVALID VALUE\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a"); sleep(1); printf("\a"); X_HCF_X
+#define BORKEDCONF printf("You are error.\n\nYou are not a typewriter, and possibly on fire. You are from Cinnabar Island, and were taught meditating by a guru. You retried before failing, but eventually discovered that it was not the computer's fault.\n\nI'm sorry, Dave, but I can't give better exposition without a proper config file.\nfix it.\n");
+#define MISSING_FILE(F) fprintf(stderr,"\033[30;107m%s\033[1;93;49mCannot open file:\033[0;92m %s\n\033[m",_BOMB_,F); printf("\a");
 
 file_cat (path)
   const char *path;
@@ -611,6 +694,7 @@ file_cat (path)
   int lines;
   if (tmp == NULL)
     {
+    MISSING_FILE(path)
     return -1;
     }
   char tmpbuffer[BUFFER_MAX];
@@ -661,9 +745,6 @@ fetchJSAXIS ()
   }
   
 struct charvector4 CAMBUFFER;
-
-#define SOFT_ERROR_MACRO fprintf(stderr,"%sSOFT ERROR, file:%s line:%d\n",_BOMB_,__FILE__,__LINE__); printf("\a");
-#define HARD_ERROR_MACRO fprintf(stderr,"%sHARD ERROR, file:%s line:%d\n",_BOMB_,__FILE__,__LINE__); printf("\a"); X_HCF_X
 
 typedef struct bone
   {
@@ -733,6 +814,7 @@ typedef struct entity
 		 * $A0<=n<=$FF : evil/chaotic
 		 */
 	unsigned short health;
+	unsigned short mana;
 	float Ff;
 	unsigned short m;
 	unsigned short density;
@@ -741,6 +823,7 @@ typedef struct entity
 	struct skeleton *dembones;
 	struct rpg_stats *rpg;
 	spellbook spells;
+        bag_type *bag;
 	//aside from half-floats or fixed-points, niether of which I have, this is as small as it gets...
 	} entity;
 
@@ -838,7 +921,9 @@ void mainhLoadMatrixf(mat)
 	glLoadMatrixf((const float *)mat);
 	}
 
-#define mainhFOV(F) gluPerspective(F * (3/5),(5/3),0.025,1000)
+#define mainhFrustum(X,R,N,F) glFrustum(-X,X,-(1/R),(1/R),N,F)
+#define mainhOrtho(X,Y,Z) glOrtho(-X,X,-Y,Y,-Z,Z)
+
 #else
 #error opengl is required
 #endif

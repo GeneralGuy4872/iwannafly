@@ -2,10 +2,9 @@
 
 //preliminary outline from glancing over toutorials.
 //need to nano -v headers and read docs/manpages to double-check stuff
-#define MAINWINSIZE 505
 
 Display *dsply;
-int attrib[] = {GLX_RGBA,GLX_DEPTH_SIZE,24,GLX_DOUBLEBUFFER,None};
+int attrib[64] = {GLX_RGBA,GLX_DEPTH_SIZE,24,GLX_DOUBLEBUFFER,None};
 Window desktop;
 Window glxwin;
 XSetWindowAttributes swa;
@@ -13,6 +12,14 @@ XWindowAttributes GotWinAtt;
 GLXContext glxctx;
 XVisualInfo *xvi;
 Colormap cmap;
+ushortvector2 MWSIZE = {505,303};
+#define MWASPECT ((float)MWSIZE.x/MWSIZE.y)
+
+static void
+glx__resize()
+	{
+	glViewport(0,0,MWSIZE.x,MWSIZE.y);
+	}
 
 static signed short
 glx__keysymswitch(monitor,windw,event)
@@ -29,7 +36,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_plus :
 				{
 				CAMBUFFER.w++;
-				puts("FOV +");
+				puts("Zoom In");
 				return STR_INT(0,'+',0);
 				break;
 				}
@@ -37,7 +44,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_minus :
 				{
 				CAMBUFFER.w--;
-				puts("FOV -");
+				puts("Zoom Out");
 				return STR_INT(0,'-',0);
 				break;
 				}
@@ -54,7 +61,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Left :
 				{
 				CAMBUFFER.x++;
-				puts("Pan <-");
+				puts("Orbit <-");
 				return STR_INT(0,0x9b,'D');
 				break;
 				}
@@ -63,7 +70,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Right :
 				{
 				CAMBUFFER.x--;
-				puts("Pan ->");
+				puts("Orbit ->");
 				return STR_INT(0,0x9b,'C');
 				break;
 				}
@@ -72,7 +79,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Up :
 				{
 				CAMBUFFER.y++;
-				puts("Pan ^");
+				puts("Orbit Up");
 				return STR_INT(0,0x9b,'A');
 				break;
 				}
@@ -81,7 +88,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Down :
 				{
 				CAMBUFFER.y--;
-				puts("Pan v");
+				puts("Orbit Down");
 				return STR_INT(0,0x9b,'B');
 				break;
 				}
@@ -90,7 +97,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Page_Up :
 				{
 				CAMBUFFER.z++;
-				puts("Zoom +");
+				puts("Closer");
 				return STR_INT(0,0x9b,'S');
 				break;
 				}
@@ -99,7 +106,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Page_Down :
 				{
 				CAMBUFFER.z--;
-				puts("Zoom -");
+				puts("Farther");
 				return STR_INT(0,0x9b,'T');
 				break;
 				}
@@ -114,10 +121,18 @@ glx__keysymswitch(monitor,windw,event)
 				return STR_INT(0,0x19,0);
 				break;
 				}
-			case XK_F1 :
+			case XK_Escape :
 				{
 				RUN++;
-				return STR_INT(1,1,0);
+				return STR_INT(0,033,0);
+				puts("Escape!!!");
+				break;
+				}
+			case XK_Pause :
+				{
+				toggle(PAUSE);
+				puts("!Pause");
+				return STR_INT(0,0x15,0);
 				break;
 				}
 			default :
@@ -126,6 +141,13 @@ glx__keysymswitch(monitor,windw,event)
 				break;
 				}
 			}
+		}
+	else if (event.type = ConfigureNotify)
+		{
+		MWSIZE.x = event.xconfigure.width;
+		MWSIZE.y = event.xconfigure.height;
+		glx__resize();
+		return STR_INT(0,1,0);
 		}
 	}
 /* esc = 0   @33   0
@@ -165,14 +187,15 @@ glx__startup()
 		cmap = XCreateColormap(dsply,desktop,xvi->visual,AllocNone);
 		swa.colormap = cmap;
 		swa.event_mask = ExposureMask | KeyPressMask | VisibilityChangeMask; //start here and finnagle around with it if unexpected results
-		glxwin = XCreateWindow(dsply,desktop,0,0,MAINWINSIZE,((3 * MAINWINSIZE)/5),0,xvi->depth,InputOutput,xvi->visual,CWColormap | CWEventMask,&swa);
+		glxwin = XCreateWindow(dsply,desktop,0,0,MWSIZE.x,MWSIZE.y,0,xvi->depth,InputOutput,xvi->visual,CWColormap | CWEventMask,&swa);
 	XMapWindow(dsply,glxwin);
 		glxctx = glXCreateContext(dsply,xvi,NULL,TRUE);
 	glXMakeCurrent(dsply,glxwin,glxctx);
-	glEnable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 	//some_func_setwrap_x(-360*60,360*60);
 	//some_func_setwrap_y(-360*60,360*60);
 	XStoreName(dsply, glxwin, VITALSTAT(REV_MAIN));
+	glDrawBuffer(GL_BACK_LEFT);
 	}
