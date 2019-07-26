@@ -1,26 +1,44 @@
-#define XCOORD(N) (((n + N) % 360) * 60)
-#define YCOORD(N) (((m + N) % 360) * 60)
-#define ZCOORD hightfloat(MAP->dots[n][m])
+#define ZCOORD hightfloat(MAP->dots[n%360][m%360])
 
 refresh_land()
 	{
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glPushMatrix();
+	signed char xloop = VIEWRNGmin;
 	for (signed short n = PLAYER->pos.x + VIEWRNGmin;n < (PLAYER->pos.x + VIEWRNGlim);n++)
 		{
+		signed char yloop = VIEWRNGmin;
 		for (signed short m = PLAYER->pos.y + VIEWRNGmin;m < (PLAYER->pos.y + VIEWRNGlim);m++)
 			{
+			glColor4b(0,0x7F,0,0xFF);
 			glBegin(GL_TRIANGLE_STRIP);
-				glVertex3f(XCOORD(0),YCOORD(0),ZCOORD);
-				glVertex3f(XCOORD(1),YCOORD(0),ZCOORD);
-				glVertex3f(XCOORD(1),YCOORD(1),ZCOORD);
-				glVertex3f(XCOORD(0),YCOORD(1),ZCOORD);
+				glVertex3f(xloop*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,(yloop+1)*60,ZCOORD);
+				glVertex3f(xloop*60,(yloop+1)*60,ZCOORD);
 			glEnd();
+			glColor4b(0,0xFF,0,0xFF);
+			glBegin(GL_LINES);
+				glVertex3f(xloop*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,yloop*60,ZCOORD);
+				glVertex3f(xloop*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,(yloop+1)*60,ZCOORD);
+				glVertex3f(xloop*60,yloop*60,ZCOORD);
+				glVertex3f(xloop*60,(yloop+1)*60,ZCOORD);
+			glEnd();
+			glColor4b(0,0,0,0xFF);
+			glBegin(GL_POINTS);
+				glVertex3f(xloop*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,(yloop+1)*60,ZCOORD);
+				glVertex3f(xloop*60,(yloop+1)*60,ZCOORD);
+			glEnd();
+			yloop++;
 			}
+		xloop++;
 		}
+	glPopMatrix();
 	}
-#undef XCOORD
-#undef YCOORD
 #undef ZCOORD
 	
 float groundcheck(argument)

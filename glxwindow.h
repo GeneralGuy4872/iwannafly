@@ -35,7 +35,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_KP_Add : noop();
 			case XK_plus :
 				{
-				CAMBUFFER.w++;
+				CAMBUFFER.w--;
 				puts("Zoom In");
 				return STR_INT(0,'+',0);
 				break;
@@ -43,7 +43,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_KP_Subtract : noop(); 
 			case XK_minus :
 				{
-				CAMBUFFER.w--;
+				CAMBUFFER.w++;
 				puts("Zoom Out");
 				return STR_INT(0,'-',0);
 				break;

@@ -13,7 +13,7 @@ shapeloop(subject,color,ultra)
     {
     bytes[n] = (*(subject->bytecode))[n];
     }
-  unsigned char n = 0; //for loops are not applicable here
+  unsigned char n = 0;
   unsigned char mode = 0;
   unsigned char iter = 0;
   glColor4b((CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0x7F : color.r,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0 : color.g,(CAMERA->format.uv && PLAYER->detects.uv && ultra) ? 0xFF : color.b,color.a);

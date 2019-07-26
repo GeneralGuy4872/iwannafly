@@ -14,7 +14,7 @@
 #define __MYVERS__ "000.001.000"
 #define REV_MAIN "003.007"
 #define REV_JS "001.004"
-#define VITALSTAT(S) "Iwannafly v"__MYVERS__", "S", Compiled on "__DATE__
+#define VITALSTAT(S) "Iwannafly v"__MYVERS__", r"S", Compiled on "__DATE__
 
 #define FOREVER for (;;)
 
@@ -35,6 +35,14 @@ div_t div_tmp;
 #define LOG_3_PI 1.041978045992185865114
 #define LOG_3_E 0.9102392266268373936142
 #define ONE_1_9 1.11111111111111111111111
+
+#define SOFT_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;5;95;49mSOFT ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a");
+#define HARD_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;4;91;49mHARD ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
+#define FLOW_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;103;41mFALLTHROUGH\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
+#define WHAT_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;46;41mSQUISHED BY ANVIL?\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
+#define MATH_ERROR_MACRO(F,X) fprintf(stderr,"\033[30;107m%s\033[3;43;41mINVALID VALUE\033[0;92;49m, file:%s line:%d exp:%s val:%f\n\033[m",_BOMB_,__FILE__,__LINE__,F,(float)X); printf("\a"); sleep(1); printf("\a"); sleep(1); printf("\a"); X_HCF_X
+#define BORKEDCONF printf("You are error.\n\nYou are not a typewriter, and possibly on fire. You are from Cinnabar Island, and were taught meditating by a guru. You retried before failing, but eventually discovered that it was not the computer's fault.\n\nI'm sorry, Dave, but I can't give better exposition without a proper config file.\nfix it.\n");
+#define MISSING_FILE(F) fprintf(stderr,"\033[30;107m%s\033[1;93;49mCannot open file:\033[0;92m %s\n\033[m",_BOMB_,F); printf("\a");
 
 #define FPS 30 //frames per second (hz)
 static const float uSEC_FRAME = ((1.0 / FPS) * CLOCKS_PER_SEC);
@@ -515,12 +523,170 @@ typedef struct lowcolor
 #define two_to_eight(N) (N == 0 ? 0x00 : (N == 1 ? 0x55 : (N == 2 ? 0xAA : 0xFF)))
 #define color6(R,G,B,A) {two_to_eight(R),two_to_eight(G),two_to_eight(B),two_to_eight(A)}
 
+truecolor cga_rgbi(red,green,blue,inten)
+	bool red;
+	bool green;
+	bool blue;
+	bool inten;
+	{
+	unsigned char hi;
+	unsigned char low;
+	truecolor output;
+	if (inten)
+		{
+		hi = 0xFF;
+		low = 0x55;
+		}
+	else
+		{
+		hi = 0xAA;
+		low = 0x00;
+		}
+	output.r = (red ? hi : low);
+	output.g = (green ? hi : low);
+	output.b = (blue ? hi : low);
+	output.a = 0xFF;
+	if ( (output.r == 0xAA) && (output.g == 0xAA) )
+		{
+		output.g = 0x55;
+		}
+	return output;
+	}
+
+truecolor cga_index(index)
+	unsigned char index;
+	{
+	truecolor output;
+	switch (index % 16)
+		{
+		case 0 :
+			{
+			output.r = 0x00;
+			output.g = 0x00;
+			output.b = 0x00;
+			break;
+			}
+		case 1 :
+			{
+			output.r = 0x00;
+			output.g = 0x00;
+			output.b = 0xAA;
+			break;
+			}
+		case 2 :
+			{
+			output.r = 0x00;
+			output.g = 0xAA;
+			output.b = 0x00;
+			break;
+			}
+		case 3 :
+			{
+			output.r = 0x00;
+			output.g = 0xAA;
+			output.b = 0xAA;
+			break;
+			}
+		case 4 :
+			{
+			output.r = 0xAA;
+			output.g = 0x00;
+			output.b = 0x00;
+			break;
+			}
+		case 5 :
+			{
+			output.r = 0xAA;
+			output.g = 0x00;
+			output.b = 0xAA;
+			break;
+			}
+		case 6 :
+			{
+			output.r = 0xAA;
+			output.g = 0x55;
+			output.b = 0x00;
+			break;
+			}
+		case 7 :
+			{
+			output.r = 0xAA;
+			output.g = 0xAA;
+			output.b = 0xAA;
+			break;
+			}
+		case 8 :
+			{
+			output.r = 0x55;
+			output.g = 0x55;
+			output.b = 0x55;
+			break;
+			}
+		case 9 :
+			{
+			output.r = 0x55;
+			output.g = 0x55;
+			output.b = 0xFF;
+			break;
+			}
+		case 10 :
+			{
+			output.r = 0x55;
+			output.g = 0xFF;
+			output.b = 0x55;
+			break;
+			}
+		case 11 :
+			{
+			output.r = 0x55;
+			output.g = 0xFF;
+			output.b = 0xFF;
+			break;
+			}
+		case 12 :
+			{
+			output.r = 0xFF;
+			output.g = 0x55;
+			output.b = 0x55;
+			break;
+			}
+		case 13 :
+			{
+			output.r = 0xFF;
+			output.g = 0x55;
+			output.b = 0xFF;
+			break;
+			}
+		case 14 :
+			{
+			output.r = 0xFF;
+			output.g = 0xFF;
+			output.b = 0x55;
+			break;
+			}
+		case 15 :
+			{
+			output.r = 0xFF;
+			output.g = 0xFF;
+			output.b = 0xFF;
+			break;
+			}
+		default :
+			{
+			MATH_ERROR_MACRO("n %% 16",(index % 16));
+			break;
+			}
+		}
+	output.a = (index | 0xF0) | 0x0F; //high nibble is the high nibble of the alpha, low nibble always being F
+	return output;
+	}
+
 typedef struct torusmap
   {
   unsigned char dots[360][360];
   unsigned char sealevel;
   /* unsigned char water[360][360];
-   * unsigned char wind[360][360]; //each sector has wind in direction of halfvector
+   * unsigned char wind[360][360]; //degrees / 2
    */
   vector2 start[8];
   } torusmap;
@@ -553,7 +719,7 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 #define nextline scanf("%*[^\n]s");
 
 #define BASECOORD(M) (M.stat.horiz ? (vector3){M.pos.x,M.pos.y,M.pos.z} : vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),{0,0,M.dembones.x}))
-#define EYECOORD(M) (M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y}))
+#define EYECOORD(M) (vecadd((vector3){M.pos.x,M.pos.y,M.pos.z},(M.stat.horiz ? matmult((matrix)matgen_xeuler_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){M.dembones->hitbox.x - (M.dembones->off.x + M.dembones->off.y),0,0}) : matmult((matrix)matgen_master_deg(M.rot.z,M.rot.y,M.rot.x,1,1,1),(vector3){0,0,M.dembones->hitbox.z - M.dembones->off.y}))))
 
 //HERE BE DRAGONS. use an editor with regular expresions here.
 
@@ -679,13 +845,6 @@ div_t radf_to_deg(input)
 
 #define HASH5(A,B,C) ( (( (A <= ' ') || (A == '#') || (A == ';') || (A == '[') ) ? (unsigned short) 0xFFFF : (unsigned short) 0x0000) | ((0x001f & (unsigned short) A) << 10) | ((0x001f & (unsigned short) B) << 5) | (0x001f & (unsigned short) C) )
 #define STR_INT(O,I,A) (signed short) ( (O ? (unsigned short) 0x8000 : (unsigned short) 0x0000) | (((unsigned short) I & (unsigned short) 0x00FF) << 7) | ((unsigned short) A & (unsigned short) 0x007F) )
-
-#define SOFT_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;5;95;49mSOFT ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a");
-#define HARD_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;4;91;49mHARD ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
-#define FLOW_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;103;41mFALLTHROUGH\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
-#define MATH_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[3;43;41mINVALID VALUE\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a"); sleep(1); printf("\a"); X_HCF_X
-#define BORKEDCONF printf("You are error.\n\nYou are not a typewriter, and possibly on fire. You are from Cinnabar Island, and were taught meditating by a guru. You retried before failing, but eventually discovered that it was not the computer's fault.\n\nI'm sorry, Dave, but I can't give better exposition without a proper config file.\nfix it.\n");
-#define MISSING_FILE(F) fprintf(stderr,"\033[30;107m%s\033[1;93;49mCannot open file:\033[0;92m %s\n\033[m",_BOMB_,F); printf("\a");
 
 file_cat (path)
   const char *path;

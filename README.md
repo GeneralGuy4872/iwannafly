@@ -9,8 +9,8 @@
 - last working build : NULL
 	- 0 total
 
-- last faulty build : 22:20:49 Tue Jul 23 2019 CDT
-- last failed build : 22:05:42 Tue Jul 23 2019 CDT
+- last faulty build : 12:06:08 Fri Jul 26 2019 CDT
+- last failed build : 11:26:53 Fri Jul 26 2019 CDT
 
 Iwannafly
 =========
@@ -46,6 +46,18 @@ System:
 - A 3d graphics card; shader support shouldn't be required
 - Ludicrous amounts of ram (current estimates upwards of a GiB)
 - Xbox 360-style controler, located at <CODE>/dev/input/js0</CODE>
+
+- Complete keyboard (specifically, the keys: 
+  - <CODE>Pause</CODE>
+  - <CODE>Home</CODE>
+  - <CODE>End</CODE>
+  - <CODE>Page Up</CODE>
+  - <CODE>Page Down</CODE>
+  - <CODE>Escape</CODE>
+  - the arrow keys
+  - function keys 1-4
+  - the numpad
+exist and are not intercepted by another program or the system)
 
 - Unix-like Operating System
 - active X Session

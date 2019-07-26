@@ -14,13 +14,15 @@
 void
 glx__SetCamera()
 	{
-	glClear(GL_COLOR_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glScalef(1.0,-1.0,1.0);
 	gluPerspective(RAD(CAMERA->coord.fov),MWASPECT,0.1,FARAWAY);
 	glMatrixMode(GL_MODELVIEW);
-	glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z)); //on my head be this
+	glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z));
 	mainhTranslatef(EYECOORD((*PLAYER)));
 	glTranslatef(0.0,0.0,CAMERA->coord.z);
 	glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
