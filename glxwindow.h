@@ -1,8 +1,5 @@
 //you arrived here from glxwindow.c
 
-//preliminary outline from glancing over toutorials.
-//need to nano -v headers and read docs/manpages to double-check stuff
-
 Display *dsply;
 int attrib[64] = {GLX_RGBA,GLX_DEPTH_SIZE,24,GLX_DOUBLEBUFFER,None};
 Window desktop;
@@ -53,6 +50,7 @@ glx__keysymswitch(monitor,windw,event)
 			case XK_Home :
 				{
 				PLAYER->Torq.z = fmod((PLAYER->Torq.z + (CAMERA->coord.az * 2)),360);
+				puts("Align");
 				return STR_INT(0,'\r',0);
 				break;
 				}
@@ -118,6 +116,7 @@ glx__keysymswitch(monitor,windw,event)
 				CAMERA->coord.alt=0;
 				CAMERA->coord.z=0;
 				CAMERA->coord.fov=50;
+				puts("Reset Cam");
 				return STR_INT(0,0x19,0);
 				break;
 				}
@@ -197,5 +196,4 @@ glx__startup()
 	//some_func_setwrap_x(-360*60,360*60);
 	//some_func_setwrap_y(-360*60,360*60);
 	XStoreName(dsply, glxwin, VITALSTAT(REV_MAIN));
-	glDrawBuffer(GL_BACK_LEFT);
 	}

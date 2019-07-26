@@ -10,23 +10,25 @@ refresh_land()
 		signed char yloop = VIEWRNGmin;
 		for (signed short m = PLAYER->pos.y + VIEWRNGmin;m < (PLAYER->pos.y + VIEWRNGlim);m++)
 			{
-			glColor4b(0,0x7F,0,0xFF);
+			glColor4ub(0,0xFF,0,0xFF);
 			glBegin(GL_TRIANGLE_STRIP);
 				glVertex3f(xloop*60,yloop*60,ZCOORD);
 				glVertex3f((xloop+1)*60,yloop*60,ZCOORD);
 				glVertex3f((xloop+1)*60,(yloop+1)*60,ZCOORD);
 				glVertex3f(xloop*60,(yloop+1)*60,ZCOORD);
 			glEnd();
-			glColor4b(0,0xFF,0,0xFF);
-			glBegin(GL_LINES);
+			glColor4ub(0,0x7F,0,0xFF);
+			glBegin(GL_LINE_LOOP);
 				glVertex3f(xloop*60,yloop*60,ZCOORD);
 				glVertex3f((xloop+1)*60,yloop*60,ZCOORD);
-				glVertex3f(xloop*60,yloop*60,ZCOORD);
 				glVertex3f((xloop+1)*60,(yloop+1)*60,ZCOORD);
-				glVertex3f(xloop*60,yloop*60,ZCOORD);
 				glVertex3f(xloop*60,(yloop+1)*60,ZCOORD);
 			glEnd();
-			glColor4b(0,0,0,0xFF);
+			glBegin(GL_LINES);
+				glVertex3f(xloop*60,yloop*60,ZCOORD);
+				glVertex3f((xloop+1)*60,(yloop+1)*60,ZCOORD);
+			glEnd();
+			glColor4ub(0,0,0,0xFF);
 			glBegin(GL_POINTS);
 				glVertex3f(xloop*60,yloop*60,ZCOORD);
 				glVertex3f((xloop+1)*60,yloop*60,ZCOORD);

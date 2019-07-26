@@ -165,7 +165,7 @@ mainloop ()
 	glx__startup();
 	CAMERA->coord.fov = 55;
 	CAMERA->coord.z = -2;
-	glClearColor(0.0,0.9,0.9,1.0);
+	glClearColor(0.1,0.5,1.0,1.0);
 	while (!RUN)
 		{
 		if (!PAUSE)
@@ -174,7 +174,6 @@ mainloop ()
 				{
 				glx__SetCamera();
 				refresh_land();
-				glFinish();
 				onstep_master();
 				glx__DrawLoop();
 				glFinish();

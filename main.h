@@ -38,7 +38,7 @@ div_t div_tmp;
 
 #define SOFT_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;5;95;49mSOFT ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a");
 #define HARD_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;4;91;49mHARD ERROR\033[0;92m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
-#define FLOW_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;103;41mFALLTHROUGH\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
+#define FALL_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;103;41mFALLTHROUGH\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a\a\a\a\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
 #define WHAT_ERROR_MACRO fprintf(stderr,"\033[30;107m%s\033[1;6;46;41mSQUISHED BY ANVIL?\033[0;92;49m, file:%s line:%d\n\033[m",_BOMB_,__FILE__,__LINE__); printf("\a"); sleep(1); printf("\a"); sleep(1); printf("\a\a\a\a\a"); X_HCF_X
 #define MATH_ERROR_MACRO(F,X) fprintf(stderr,"\033[30;107m%s\033[3;43;41mINVALID VALUE\033[0;92;49m, file:%s line:%d exp:%s val:%f\n\033[m",_BOMB_,__FILE__,__LINE__,F,(float)X); printf("\a"); sleep(1); printf("\a"); sleep(1); printf("\a"); X_HCF_X
 #define BORKEDCONF printf("You are error.\n\nYou are not a typewriter, and possibly on fire. You are from Cinnabar Island, and were taught meditating by a guru. You retried before failing, but eventually discovered that it was not the computer's fault.\n\nI'm sorry, Dave, but I can't give better exposition without a proper config file.\nfix it.\n");
@@ -795,6 +795,10 @@ enum start_index {st_city,st_village,st_forest,st_mountains,st_mines,
 
 #define matgen_perspect(X,Y,N,F) {{cot(X),0,0,0},{0,cot(Y),0,0},{0,0,(N+F)/(N-F),-1},{0,0,(2*N*F)/(N-F),0}}
 #define matset_perspect(M,X,Y,N,F) {  M[0][0] = cot(X); M[0][1] = 0; M[0][2] = 0; M[0][3] = 0; M[1][0] = 0; M[1][1] = cot(Y); M[1][2] = 0; M[1][3] = 0; M[2][0] = 0; M[2][1] = 0; M[2][2] = (N+F)/(N-F); M[2][3] = -1; M[3][0] = 0; M[3][1] = 0; M[3][2] = (2*N*F)/(N-F); M[3][3] = 0;  }
+
+#define argsgen_sphere_xoff(A,E,R) (cos(A) * cos(E) * R),(sin(A) * cos(E) * R),(zin(E) * R)
+#define argsgen_master_zoff(A,P,R) (cos(A) * sin(P) * R),(sin(A) * sin(P) * R),(cos(P) * R)
+#define argsgen_xeular_xoff(A,P,R) (sin(P) * R),(zin(A) * cos(P) * R),(cos(A) * cos(P) * R)
 
 vector3 matmult(rot,vec)
 	matrix rot;

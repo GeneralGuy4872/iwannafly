@@ -19,14 +19,14 @@ glx__SetCamera()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glScalef(1.0,-1.0,1.0);
 	gluPerspective(RAD(CAMERA->coord.fov),MWASPECT,0.1,FARAWAY);
+	glScalef(1.0,-1.0,1.0);
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z));
 	mainhTranslatef(EYECOORD((*PLAYER)));
-	glTranslatef(0.0,0.0,CAMERA->coord.z);
 	glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
 	glRotatef(CAMERA->coord.alt,0.0,1.0,0.0);
+	glTranslatef(0.0,0.0,CAMERA->coord.z);
 	}
 	
 void
@@ -35,11 +35,11 @@ glx__DrawLoop()
 	glMatrixMode(GL_MODELVIEW);
 	struct entity *nextent = PLAYER;
 	struct bone *nextbone = PLAYER->dembones->root;
+	glPushMatrix();
 	FOREVER
 		{
 		FOREVER
 			{
-			glPushMatrix();
 			if (nextbone->up == NULL)
 				{
 				if (nextent->stat.horiz)
@@ -74,7 +74,6 @@ glx__DrawLoop()
 		if (nextent->next != NULL)
 			{
 			nextent = nextent->next;
-			glPopMatrix();
 			}
 		else
 			{
