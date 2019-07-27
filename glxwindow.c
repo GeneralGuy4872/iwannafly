@@ -19,13 +19,12 @@ glx__SetCamera()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(RAD(CAMERA->coord.fov),MWASPECT,0.1,FARAWAY);
-	glScalef(1.0,-1.0,1.0);
+	gluPerspective((CAMERA->coord.fov * 2) / MWASPECT,MWASPECT,0.1,FARAWAY);
 	glMatrixMode(GL_MODELVIEW);
 	glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z));
 	mainhTranslatef(EYECOORD((*PLAYER)));
-	glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
-	glRotatef(CAMERA->coord.alt,0.0,1.0,0.0);
+	glRotatef(CAMERA->coord.az * 2,0.0,1.0,0.0);
+	glRotatef(CAMERA->coord.alt * 2,1.0,0.0,0.0);
 	glTranslatef(0.0,0.0,CAMERA->coord.z);
 	}
 	

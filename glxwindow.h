@@ -15,6 +15,7 @@ ushortvector2 MWSIZE = {505,303};
 static void
 glx__resize()
 	{
+	printf("resizing to %i x %i\n",MWSIZE.x,MWSIZE.y);
 	glViewport(0,0,MWSIZE.x,MWSIZE.y);
 	}
 
@@ -141,7 +142,7 @@ glx__keysymswitch(monitor,windw,event)
 				}
 			}
 		}
-	else if (event.type = ConfigureNotify)
+	else if (event.type == ConfigureNotify)  //tfw = instead of ==
 		{
 		MWSIZE.x = event.xconfigure.width;
 		MWSIZE.y = event.xconfigure.height;
@@ -190,6 +191,7 @@ glx__startup()
 	XMapWindow(dsply,glxwin);
 		glxctx = glXCreateContext(dsply,xvi,NULL,TRUE);
 	glXMakeCurrent(dsply,glxwin,glxctx);
+	glViewport(0,0,505,303);
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
