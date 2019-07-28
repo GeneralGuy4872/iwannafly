@@ -19,13 +19,18 @@ glx__SetCamera()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective((CAMERA->coord.fov * 2) / MWASPECT,MWASPECT,0.1,FARAWAY);
+	gluPerspective((CAMERA->coord.fov + 5) / MWASPECT,MWASPECT,0.1,FARAWAY);
+	gluLookAt(1,0,0,0,0,0,0,0,1);
+	glScalef(1,-1,-1);
 	glMatrixMode(GL_MODELVIEW);
-	glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z));
-	mainhTranslatef(EYECOORD((*PLAYER)));
-	glRotatef(CAMERA->coord.az * 2,0.0,1.0,0.0);
-	glRotatef(CAMERA->coord.alt * 2,1.0,0.0,0.0);
+	//glTranslatef(-(PLAYER->pos.x),-(PLAYER->pos.y),-(PLAYER->pos.z));
+	//mainhTranslatef(EYECOORD((*PLAYER)));
+	glTranslatef(0.0,0.0,-(PLAYER->dembones->off.y));
+	//glRotatef(CAMERA->coord.az,0.0,0.0,1.0);
+	//glRotatef(CAMERA->coord.alt,0.0,1.0,0.0);
+	mainhMultMatrixf(matgen_master_deg(0,CAMERA->coord.alt,CAMERA->coord.az,1,1,1));
 	glTranslatef(0.0,0.0,CAMERA->coord.z);
+	glFinish();
 	}
 	
 void
@@ -43,13 +48,13 @@ glx__DrawLoop()
 				{
 				if (nextent->stat.horiz)
 					{
-					glTranslatef(nextent->pos.x,nextent->pos.y,nextent->pos.z);
+					glTranslatef(-(nextent->pos.x),-(nextent->pos.y),-(nextent->pos.z));
 					mainhMultMatrixf(matgen_y_deg(90,1));
 					mainhMultMatrixf(matgen_zeuler_deg(nextent->rot.z,nextent->rot.y,nextent->rot.x,1,1,1));
 					}
 				else
 					{
-					glTranslatef(nextent->pos.x,nextent->pos.y,nextent->pos.z + nextent->dembones->off.x);
+					glTranslatef(-(nextent->pos.x),-(nextent->pos.y),-(nextent->pos.z + nextent->dembones->off.x));
 					mainhMultMatrixf(matgen_master_deg(nextent->rot.z,nextent->rot.y,nextent->rot.x,1,1,1));
 					}
 				}

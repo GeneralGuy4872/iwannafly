@@ -61,6 +61,7 @@ glx__keysymswitch(monitor,windw,event)
 				{
 				CAMBUFFER.x++;
 				puts("Orbit <-");
+				printf("%i\n",CAMERA->coord.az);
 				return STR_INT(0,0x9b,'D');
 				break;
 				}
@@ -70,6 +71,7 @@ glx__keysymswitch(monitor,windw,event)
 				{
 				CAMBUFFER.x--;
 				puts("Orbit ->");
+				printf("%i\n",CAMERA->coord.az);
 				return STR_INT(0,0x9b,'C');
 				break;
 				}
@@ -79,6 +81,7 @@ glx__keysymswitch(monitor,windw,event)
 				{
 				CAMBUFFER.y++;
 				puts("Orbit Up");
+				printf("%i\n",CAMERA->coord.alt);
 				return STR_INT(0,0x9b,'A');
 				break;
 				}
@@ -88,6 +91,7 @@ glx__keysymswitch(monitor,windw,event)
 				{
 				CAMBUFFER.y--;
 				puts("Orbit Down");
+				printf("%i\n",CAMERA->coord.alt);
 				return STR_INT(0,0x9b,'B');
 				break;
 				}

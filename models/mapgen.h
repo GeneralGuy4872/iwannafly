@@ -39,6 +39,7 @@ refresh_land()
 			}
 		xloop++;
 		}
+	glFinish();
 	glPopMatrix();
 	}
 #undef ZCOORD

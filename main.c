@@ -130,13 +130,13 @@ onstep_player ()
 
 onstep_camera ()
 	{
-	CAMERA->coord.az = (CAMERA->coord.az + CAMBUFFER.x)%180; //degrees/2
+	CAMERA->coord.az = (CAMERA->coord.az + CAMBUFFER.x)%360; //degrees
 	CAMBUFFER.x = 0;
-	CAMERA->coord.alt = (CAMERA->coord.alt + CAMBUFFER.y)%180; //degrees/2; no roll axis, so not clamped to 180 to allow for inverting the view
+	CAMERA->coord.alt = (CAMERA->coord.alt + CAMBUFFER.y)%360; //degrees; no roll axis, so not clamped to 180 to allow for inverting the view
 	CAMBUFFER.y = 0;
 	CAMERA->coord.z = CLAMP((CAMERA->coord.z + CAMBUFFER.z),-120,120); //meters, 2 arcminutes either direction
 	CAMBUFFER.z = 0;
-	CAMERA->coord.fov = CLAMP((CAMERA->coord.fov + CAMBUFFER.w),5,255); //degrees (solid degrees?)
+	CAMERA->coord.fov = CAMERA->coord.fov + CAMBUFFER.w; //degrees (solid degrees?)
 	CAMBUFFER.w = 0;
 	}
 
@@ -176,7 +176,6 @@ mainloop ()
 				refresh_land();
 				onstep_master();
 				glx__DrawLoop();
-				glFinish();
 				glXSwapBuffers(dsply,glxwin);
 				nextframe = FALSE;
 				ready = FALSE;

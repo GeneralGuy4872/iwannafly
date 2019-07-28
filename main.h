@@ -77,8 +77,8 @@ typedef char mydate_str[24];
 #endif /*!(FALSE)*/
 #else /*!(__bool_true_false_are_defined)*/
 typedef char bool
-#define TRUE ((bool) 1)
-#define FALSE ((bool) 0)
+#define TRUE ((bool) 1==1)
+#define FALSE !TRUE
 #endif /*__bool_true_false_are_defined*/
 
 #ifdef __STDC_ISO_10646__
@@ -136,8 +136,8 @@ typedef struct vector3
 
 typedef struct camera_ang
   {
-  unsigned char az;
-  unsigned char alt;
+  signed short az;
+  signed short alt;
   signed char z;
   unsigned char fov;
   } camera_ang;
@@ -276,33 +276,67 @@ typedef struct halfvector
   signed char y : 4;
   } halfvector;
 
+typedef struct diplo_type
+  {
+  bool good : 1;
+  bool evil : 1;
+  bool law : 1;
+  bool chaos : 1;
+  unsigned char race : 4;
+  } diplo_type;
+  /* good !||  evil = neutral
+   * good  &&  evil = pragmatic
+   *  law !|| chaos = neutral
+   *  law  && chaos = always hostile mindless npc
+   * 
+   * n < -15 = chaotic/evil
+   * n >  15 = lawful/good
+   * -16 < n < 16 = neutral
+   */
+
+typedef struct conlang_type
+  {
+  unsigned char id : 5;
+  bool r : 1;
+  bool w : 1;
+  bool x : 1;
+  } conlang_type;
+  /* r = can read
+   * w = can write
+   * x = can cast (posix compliant spells only)
+   */
+
+typedef conlang_type lexicon[4]
+
 typedef struct magic_type
   {
   bool fire : 1;
   bool air : 1;
   bool water : 1;
   bool earth : 1;
-  bool chaos : 1;
+  bool entro : 1;
   bool light : 1;
   bool dark : 1;
   bool energy : 1;
   } magic_type;
 
-typedef struct eightstats /*9d6 each*/
+typedef struct eightstats /*5d6 each*/
   {
-  unsigned char stren : 6;
-  unsigned char dex : 6;
-  unsigned char tough : 6;
-  unsigned char fort : 6;
-  unsigned char intl : 6;
-  unsigned char wis : 6;
-  unsigned char bluff : 6;
-  unsigned char cast : 6;
+  unsigned char stren : 5;
+  unsigned char dex : 5;
+  unsigned char tough : 5;
+  unsigned char fort : 5;
+  unsigned char intl : 5;
+  unsigned char wis : 5;
+  unsigned char bluff : 5;
+  unsigned char cast : 5;
   } eightstats;
 
 typedef struct race_stats
   {
   struct magic_type typ;
+  conlang_type lang_1;
+  conlang_type lang_2;
   bytevector4 atk; /*x = unarmed hand, y = unarmed foot, z = tail, w = wing; 254 maximum, 255 inflicts a flat 1 point of scratch damage.*/
   charvector2 def; /*x = physical, y = magic; most negative number = invulnerable to that mode of attack*/
   bytevector2 rec; /*percent of incoming damage that is reflected to the attacker. values greater than 100 have no increased effect.*/
@@ -311,8 +345,10 @@ typedef struct race_stats
 
 typedef struct rpg_stats
   {
-  struct eightstats eight;
+  struct eightstats init;
   struct race_stats *racests;
+  lexicon *learnedlang;
+  diplo_type align;
   unsigned char lvl;
   unsigned short maxhp;
   unsigned short maxmp;
@@ -969,12 +1005,13 @@ typedef struct entity
 		 * bool law - deferred
 		 * bool chaos deferred
 		 */
-	bytevector2 alignment;
+	charvector2 alignment;
 		/* x = lawful/chaotic
 		 * y = good/evil
-		 * $00<=n<=$6F : good/lawful
-		 * $70<=n<=$9F : neutral
-		 * $A0<=n<=$FF : evil/chaotic
+		 *   n < -25      = chaotic/evil
+		 *        25 < n  = good/lawful
+		 * -25 <= n <= 25 = neutral
+		 * clamped to -125 <= n <= 125
 		 */
 	unsigned short health;
 	unsigned short mana;
